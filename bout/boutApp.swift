@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct boutApp: App {
+    @StateObject var authentication = Authentication()
     var body: some Scene {
         WindowGroup {
-            ContentView().preferredColorScheme(.dark)
+            MainView().environmentObject(authentication).preferredColorScheme(.dark)
         }
     }
 }
