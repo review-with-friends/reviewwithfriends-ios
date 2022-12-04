@@ -12,9 +12,16 @@ struct GetCodeView: View {
     @Binding var phase: LoginPhase
     @Binding var phone: String
     
+    @State var pending = false
+    
     @EnvironmentObject var errorDisplay: ErrorDisplay
     
     func requestCode() async {
+        if self.pending == true {
+            return
+        }
+        
+        self.pending = true
         errorDisplay.closeError()
 
         let result: Result<(), RequestError> = await getCode(phone: "1".appending(phone))
@@ -22,8 +29,10 @@ struct GetCodeView: View {
         switch result {
         case .success():
             self.phase = .SubmitCode
+            self.pending = false
         case .failure(let err):
             errorDisplay.showError(message: err.description)
+            self.pending = false
         }
     }
     
@@ -46,7 +55,7 @@ struct GetCodeView: View {
                     .padding()
             }.foregroundColor(phone.count < 10 ? .secondary : .primary)
                 .cornerRadius(16.0)
-                .disabled(phone.count < 10 ? true : false)
+                .disabled(phone.count < 10 && self.pending ? true : false)
                 .animation(.easeInOut(duration: 0.25), value: self.phone.count)
             
             
@@ -80,7 +89,7 @@ func getCode(phone: String) async -> Result<(), RequestError> {
     if status == 200 {
         return .success(())
     } else if status <= 499 && status >= 400 {
-        return .failure(.BadRequest(message: content))
+        return .failure(.BadRequestError(message: content))
     } else {
         return .failure(.InternalServerError(message: content))
     }

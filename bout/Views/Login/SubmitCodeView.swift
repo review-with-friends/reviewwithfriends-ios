@@ -24,7 +24,10 @@ struct SubmitCodeView: View {
     @EnvironmentObject var auth: Authentication
     
     func submitCode() async {
+        errorDisplay.closeError()
+        
         let signInResult = await SignIn(phone: "1".appending(phone), code: self.code)
+        
         switch signInResult {
         case .success(let token):
             let getMeResult = await auth.getMe(incomingToken: token)
@@ -111,7 +114,7 @@ func SignIn(phone: String, code: String) async ->  Result<String, RequestError> 
     if status == 200 {
         return .success(content)
     } else if status <= 499 && status >= 400 {
-        return .failure(.BadRequest(message: content))
+        return .failure(.BadRequestError(message: content))
     } else {
         return .failure(.InternalServerError(message: content))
     }

@@ -28,6 +28,15 @@ class Authentication: ObservableObject {
         self.token = token
     }
     
+    static func initPreview() -> Authentication
+    {
+        let auth = Authentication()
+        auth.user = User(id: "123", name: "newuser123", displayName: "newuser123", created: Date.now, picId: "default")
+        auth.authenticated = true
+        auth.token = "wow much token"
+        return auth
+    }
+    
     static func getCachedToken() -> String {
         let value = AppStorage.init(wrappedValue: NO_TOKEN, AUTH_TOKEN_KEY)
         return value.wrappedValue
@@ -70,15 +79,18 @@ class Authentication: ObservableObject {
                 decoder.dateDecodingStrategy = .millisecondsSince1970
                 self.user = try decoder.decode(User.self, from: data)
                 return .success(())
-            } catch let error {
-                print(error)
+            } catch {
                 return .failure(.DeserializationError(message: "failed to deserialize response"))
             }
         } else if status <= 499 && status >= 400 {
-            return .failure(.BadRequest(message: content))
+            return .failure(.BadRequestError(message: content))
         } else {
             return .failure(.InternalServerError(message: content))
         }
+    }
+    
+    func getMe() async -> Result<(), RequestError> {
+        return await self.getMe(incomingToken: self.token)
     }
     
     func logout() {

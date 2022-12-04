@@ -8,17 +8,19 @@
 import Foundation
 
 enum RequestError: Error, CustomStringConvertible {
-    case BadRequest(message: String)
+    case BadRequestError(message: String)
     case InternalServerError(message: String)
     case NetworkingError(message: String)
     case DeserializationError(message: String)
+    case URLMalformedError(message: String)
     
     var description: String {
         switch self {
-        case .BadRequest(let message): return message
+        case .BadRequestError(let message): return message
         case .InternalServerError(let message): return message
         case .NetworkingError(let message): return message
         case .DeserializationError(let message): return message
+        case .URLMalformedError(let message): return message
         }
     }
 }

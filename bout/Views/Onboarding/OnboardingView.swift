@@ -16,7 +16,8 @@ enum OnboardingPhase {
 
 struct OnboardingView: View {
     @State var phone: String = ""
-    @State var phase: OnboardingPhase = .SetNames
+    @State var phase: OnboardingPhase = .SetProfilePic
+    
     @StateObject var errorDisplay: ErrorDisplay = ErrorDisplay()
     
     var body: some View {
@@ -38,9 +39,9 @@ struct OnboardingView: View {
                 .padding()
             switch phase {
             case .SetNames:
-                SetNamesView(phase: $phase, phone: $phone)
+                SetNamesView(phase: $phase)
             case .SetProfilePic:
-                SetNamesView(phase: $phase, phone: $phone)
+                SetProfilePicView(phase: $phase)
             case .GetStarted:
                 GetStartedView(phase: $phase, phone: $phone)
             }
@@ -58,6 +59,6 @@ struct GetStartedView: View {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView().preferredColorScheme(.dark)
+        OnboardingView().preferredColorScheme(.dark).environmentObject(Authentication.initPreview())
     }
 }
