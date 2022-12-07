@@ -37,3 +37,26 @@ func getProfilePic(token: String, userId: String) async -> Result<UIImage, Reque
         return .failure(error)
     }
 }
+
+func addProfilePic(token: String, data: Data) async -> Result<(), RequestError> {
+    var url: URL
+    if let url_temp = URL(string: PIC_V1_ENDPOINT + "/profile_pic") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    request.httpBody = data
+    
+    let result = await bout.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(_):
+        return .success(())
+    case .failure(let error):
+        return .failure(error)
+    }
+}

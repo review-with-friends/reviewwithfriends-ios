@@ -12,7 +12,7 @@ struct boutApp: App {
     @StateObject var authentication = Authentication()
     var body: some Scene {
         WindowGroup {
-            MainView().environmentObject(authentication).preferredColorScheme(.dark)
+            IntializerView().environmentObject(authentication).preferredColorScheme(.dark)
         }
     }
 }

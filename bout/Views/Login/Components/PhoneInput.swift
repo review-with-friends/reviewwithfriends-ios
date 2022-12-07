@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct PhoneInputView: View {
+struct PhoneInput: View {
     @Binding var phone: String
     
     var body: some View {
@@ -36,9 +36,6 @@ struct PhoneInputView: View {
                 
             }.padding().frame(alignment: .center).background(.tertiary).cornerRadius(16.0)
             Text("if its not obvious, we'll text you a verification code").font(.caption).foregroundColor(.secondary)
-            Text("dont worry, we won't sell or give your phone number to anyone").font(.caption).foregroundColor(.secondary)
-            Text("we just dont want bots in our shit").font(.caption).foregroundColor(.secondary)
-            Text("- love colton").font(.caption.italic()).foregroundColor(.secondary)
         }.padding()
     }
 }

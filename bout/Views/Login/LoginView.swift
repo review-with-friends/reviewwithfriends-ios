@@ -9,13 +9,14 @@ import Foundation
 import SwiftUI
 
 enum LoginPhase {
+    case Welcome
     case GetCode
     case SubmitCode
 }
 
 struct LoginView: View {
     @State var phone: String = ""
-    @State var phase: LoginPhase = .GetCode
+    @State var phase: LoginPhase = .Welcome
     @StateObject var errorDisplay: ErrorDisplay = ErrorDisplay()
     
     var body: some View {
@@ -32,21 +33,16 @@ struct LoginView: View {
                     }.foregroundColor(.secondary).padding(.trailing).padding(.bottom)
                 }.background(.red).animation(.easeInOut(duration: 0.75), value: errorDisplay.displayError)
             }
-            Text("Bout")
-                .font(.largeTitle.bold())
-                .padding()
+            Text("Bout").font(.system(size: 128.0).bold())
+            Text("Who cares what strangers think?").font(.caption).foregroundColor(.secondary)
             switch phase {
+            case .Welcome:
+                WelcomeView(phase: $phase)
             case .GetCode:
                 GetCodeView(phase: $phase, phone: $phone)
             case .SubmitCode:
                 SubmitCodeView(phase: $phase, phone: $phone)
             }
         }.environmentObject(errorDisplay)
-    }
-}
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingView().preferredColorScheme(.dark)
     }
 }

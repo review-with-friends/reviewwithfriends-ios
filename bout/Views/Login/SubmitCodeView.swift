@@ -122,6 +122,6 @@ func SignIn(phone: String, code: String) async ->  Result<String, RequestError> 
 
 struct SubmitCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        SubmitCodeView(phase: .constant(LoginPhase.SubmitCode), phone: .constant("7014910059")).preferredColorScheme(.dark)
+        SubmitCodeView(phase: .constant(LoginPhase.GetCode), phone: .constant("7014910059")).preferredColorScheme(.dark)
     }
 }

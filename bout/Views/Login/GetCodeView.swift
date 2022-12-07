@@ -43,7 +43,7 @@ struct GetCodeView: View {
                 .font(.title)
                 .padding()
             
-            PhoneInputView(phone: $phone)
+            PhoneInput(phone: $phone)
             
             Button(action: {
                 Task {

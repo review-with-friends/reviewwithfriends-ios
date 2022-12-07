@@ -8,25 +8,23 @@
 import Foundation
 import SwiftUI
 
-struct ProfilePicView<Content: View, Placeholder: View>: View {
-    
+struct ProfilePicLoader<Content: View, Placeholder: View>: View {
     @State var uiImage: UIImage?
     
     let getImage: (_: String, _: String) async -> Result<UIImage, RequestError>
-    let content: (Image) -> Content
+    let content: (UIImage) -> Content
     let placeholder: () -> Placeholder
     
     let token: String
     let userId: String
     
     init(
-        getImage: @escaping (_: String, _: String) async -> Result<UIImage, RequestError>,
         token: String,
         userId: String,
-        @ViewBuilder content: @escaping (Image) -> Content,
+        @ViewBuilder content: @escaping (UIImage) -> Content,
         @ViewBuilder placeholder: @escaping () -> Placeholder
     ){
-        self.getImage = getImage
+        self.getImage = bout.getProfilePic
         self.content = content
         self.placeholder = placeholder
         self.token = token
@@ -35,7 +33,7 @@ struct ProfilePicView<Content: View, Placeholder: View>: View {
     
     var body: some View {
         if let uiImage = uiImage {
-            content(Image(uiImage: uiImage))
+            content(uiImage)
         }else {
             placeholder()
                 .task {

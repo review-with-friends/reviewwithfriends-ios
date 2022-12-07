@@ -9,15 +9,18 @@ import SwiftUI
 
 let NO_TOKEN = "<NOTOKEN>"
 let AUTH_TOKEN_KEY = "AuthenticationToken"
+let ONBOARDING_KEY = "Onboarding"
 
 @MainActor
 class Authentication: ObservableObject {
     @Published var authenticated: Bool
     @Published var token: String
     @Published var user: User?
+    @Published var onboarded: Bool
     
     init(){
         let token = Authentication.getCachedToken()
+        self.onboarded = Authentication.getCachedOnboarding()
         
         if (token == NO_TOKEN){
             self.authenticated = false
@@ -48,6 +51,25 @@ class Authentication: ObservableObject {
         value.update()
         self.token = incomingToken
         self.authenticated = true
+    }
+    
+    static func getCachedOnboarding() -> Bool {
+        let value = AppStorage.init(wrappedValue: false, ONBOARDING_KEY)
+        return value.wrappedValue
+    }
+    
+    func setCachedOnboarding() {
+        var value = AppStorage.init(wrappedValue: false, ONBOARDING_KEY)
+        value.wrappedValue = true
+        value.update()
+        self.onboarded = true
+    }
+    
+    func resetCachedOnboarding() {
+        var value = AppStorage.init(wrappedValue: false, ONBOARDING_KEY)
+        value.wrappedValue = false
+        value.update()
+        self.onboarded = false
     }
     
     func getMe(incomingToken: String) async -> Result<(), RequestError> {
