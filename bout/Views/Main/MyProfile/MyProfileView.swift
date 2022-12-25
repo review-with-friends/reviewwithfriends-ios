@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct ProfileView: View {
+struct MyProfileView: View {
     var body: some View {
         Text("Profile View Bitch")
     }

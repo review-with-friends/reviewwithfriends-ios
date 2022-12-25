@@ -22,8 +22,13 @@ struct TabButton<Content: View, Indicator: View>: View {
                 Button(action: {
                     self.selection = tag
                 }){
-                    content()
-                }.foregroundColor(tag == selection ? .primary : .secondary)
+                    VStack {
+                        content()
+                        if self.selection == tag {
+                            //activeIndicator()
+                        }
+                    }.padding()
+                }.foregroundColor(tag == selection ? .primary : .secondary).frame(width: 64.0, height: 64.0)
                 if alerts != nil && alerts != 0 {
                     ZStack {
                         Circle().foregroundColor(.red).frame(width: 16, height: 16)
@@ -32,10 +37,7 @@ struct TabButton<Content: View, Indicator: View>: View {
                         }
                     }.offset(x: 12, y: -12)
                 }
-            }
-            if self.selection == tag {
-                activeIndicator()
-            }
-        }.animation(.easeInOut(duration: 0.33), value: selection)
+            }.background(.quaternary)
+        }.animation(.easeInOut(duration: 0.33), value: selection).background().cornerRadius(16.0)
     }
 }

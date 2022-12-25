@@ -8,36 +8,32 @@
 import Foundation
 import SwiftUI
 
-struct ProfilePicLoader<Content: View, Placeholder: View>: View {
+struct ProfilePicLoader: View {
     @State var uiImage: UIImage?
     
-    let getImage: (_: String, _: String) async -> Result<UIImage, RequestError>
-    let content: (UIImage) -> Content
-    let placeholder: () -> Placeholder
-    
+    let profilePicSize: ProfilePicSize
     let token: String
     let userId: String
+    
+    @EnvironmentObject var userCache: UserCache
     
     init(
         token: String,
         userId: String,
-        @ViewBuilder content: @escaping (UIImage) -> Content,
-        @ViewBuilder placeholder: @escaping () -> Placeholder
+        picSize: ProfilePicSize
     ){
-        self.getImage = bout.getProfilePic
-        self.content = content
-        self.placeholder = placeholder
         self.token = token
         self.userId = userId
+        self.profilePicSize = picSize
     }
     
     var body: some View {
         if let uiImage = uiImage {
-            content(uiImage)
-        }else {
-            placeholder()
+            ProfilePic(image: uiImage, profilePicSize: self.profilePicSize)
+        } else {
+            ProfilePic(image: UIImage(named: "default")!, profilePicSize: self.profilePicSize)
                 .task {
-                    let result = await getImage(self.token, self.userId)
+                    let result = await userCache.getProfilePic(token: self.token, userId: self.userId)
                     
                     switch result {
                     case .success(let image):

@@ -42,3 +42,36 @@ func setNames(token: String, name: String, displayName: String) async -> Result<
     }
 }
 
+func getUserById(token: String, userId: String) async -> Result<User, RequestError> {
+    var url: URL
+    if let url_temp = URL(string: USER_V1_ENDPOINT + "/by_id") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "id", value: userId)])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await bout.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode(User.self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            print(error)
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+

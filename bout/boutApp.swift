@@ -10,9 +10,11 @@ import SwiftUI
 @main
 struct boutApp: App {
     @StateObject var authentication = Authentication()
+    @StateObject var userCache = UserCache()
+    
     var body: some Scene {
         WindowGroup {
-            IntializerView().environmentObject(authentication).preferredColorScheme(.dark)
+            IntializerView().environmentObject(authentication).environmentObject(userCache).preferredColorScheme(.dark)
         }
     }
 }

@@ -15,6 +15,7 @@ struct ProfilePic: View {
     var body: some View {
         Image(uiImage: image)
             .resizable()
+            .scaledToFill()
             .frame(width: profilePicSize.rawValue, height: profilePicSize.rawValue)
             .clipShape(Circle()).padding(.bottom, -6)
     }
@@ -23,7 +24,7 @@ struct ProfilePic: View {
 
 enum ProfilePicSize: CGFloat {
     case small = 28.0
-    case medium = 128.0
+    case medium = 48.0
     case large = 256.0
 }
 

@@ -29,11 +29,7 @@ struct GetStartedView: View {
             }
             Spacer()
             VStack{
-                ProfilePicLoader(token: auth.token, userId: auth.user?.id ?? "") { image in
-                    ProfilePic(image: image, profilePicSize: .large)
-                } placeholder: {
-                    ProfilePic(image: UIImage(named: "default")!, profilePicSize: .large)
-                }.padding()
+                ProfilePicLoader(token: auth.token, userId: auth.user?.id ?? "", picSize: .large).padding()
                 Text(auth.user?.displayName ?? "").font(.title2.bold())
                 Text("@" + (auth.user?.name ?? "")).foregroundColor(.secondary)
             }.padding()

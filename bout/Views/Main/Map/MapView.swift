@@ -10,70 +10,37 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-struct MapView: View{
-
-    @State var tracking : MapUserTrackingMode = .follow
-
-    @State var manager = CLLocationManager()
-
-    @StateObject var managerDelegate = locationDelegate()
-
-    var body: some View {
-        VStack{
-            Map(coordinateRegion: $managerDelegate.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $tracking, annotationItems: managerDelegate.pins) { pin in
-                MapMarker(coordinate: pin.location.coordinate)
-
-            }.edgesIgnoringSafeArea(.all)
-        }.onAppear{
-            manager.delegate = managerDelegate
-        }
+struct MapView: UIViewRepresentable {
+    public var mapDelegate =  MapDelegate()
+    
+    private var showingFriends = false
+    
+    @EnvironmentObject var overlayManager: OverlayManager
+    
+    func makeUIView(context: Context) -> MKMapView {
+        mapDelegate.setupLocationManager()
+        mapDelegate.setupMapView()
+        mapDelegate.overlayManager = overlayManager
+        
+        return mapDelegate.mapView
+    }
+    
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        // update the map view here, if needed
     }
 }
 
-class locationDelegate: NSObject,ObservableObject,CLLocationManagerDelegate{
-    @Published var pins : [Pin] = []
+class ReviewAnnotation: NSObject, MKAnnotation {
 
-    // From here and down is new
-    @Published var location: CLLocation?
+    var coordinate: CLLocationCoordinate2D
 
-    @State var hasSetRegion = false
+    var title: String?
 
-    @Published var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 38.898150, longitude: -77.034340),
-        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-    )
-
-    // Checking authorization status...
-
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-
-        if manager.authorizationStatus == .authorizedWhenInUse{
-            print("Authorized")
-            manager.startUpdatingLocation()
-        } else {
-            print("not authorized")
-            manager.requestWhenInUseAuthorization()
+    var subtitle: String?
+    
+    init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil) {
+            self.coordinate = coordinate
+            self.title = title
+            self.subtitle = subtitle
         }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // pins.append(Pin(location:locations.last!))
-
-        // From here and down is new
-        if let location = locations.last {
-
-            self.location = location
-
-            if hasSetRegion == false{
-                region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
-                hasSetRegion = true
-            }
-        }
-    }
-}
-
-// Map pins for update
-struct Pin : Identifiable {
-    var id = UUID().uuidString
-    var location : CLLocation
 }

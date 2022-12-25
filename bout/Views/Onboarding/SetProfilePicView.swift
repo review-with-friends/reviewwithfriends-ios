@@ -69,11 +69,7 @@ struct SetProfilePicView: View {
                     .frame(width: 256, height: 256)
                     .clipShape(Circle())
             } else {
-                ProfilePicLoader(token: auth.token, userId: auth.user?.id ?? "") { image in
-                    ProfilePic(image: image, profilePicSize: .large)
-                } placeholder: {
-                    ProfilePic(image: UIImage(named: "default")!, profilePicSize: .large)
-                }
+                ProfilePicLoader(token: auth.token, userId: auth.user?.id ?? "", picSize: .large)
             }
             
             PhotosPicker(
