@@ -19,16 +19,16 @@ struct ReviewListItem: View {
     var body: some View {
         VStack {
             VStack {
-                ReviewListItemHeader(user: user, review: fullReview.review, showLocation: showLocation)
+                ReviewListItemHeader(user: user, review: fullReview.review, showLocation: showLocation).padding(.bottom, 4)
                 if let picId = self.fullReview.review.picId {
                     ReviewPicLoader(picId: picId).overlay {
                         ReviewPicOverlay(likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
                     }
                 }
                 ReviewListItemText(fullReview: self.fullReview)
-                    .padding(.top, 3.0)
-            }.padding()
-        }.background(.quaternary).cornerRadius(16)
+                    .padding(4.0)
+            }.padding(4.0)
+        }
     }
 }
 

@@ -47,8 +47,6 @@ func getReviewPic(picId: String) async -> Result<UIImage, RequestError> {
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
     
-    print(url)
-    
     let result = await spotster.requestWithRetry(request: request)
     
     switch result {

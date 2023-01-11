@@ -94,7 +94,7 @@ struct CreateReviewView: View {
             }) {
                 Text("Post")
             }
-        }.onAppear{print(reloadCallback.callback)}
+        }
     }
     
     func postReview() async {

@@ -33,22 +33,18 @@ struct LatestReviewsView: View {
     
     func onItemAppear(review: Review) async {
         guard let index = reviews.firstIndex(of: review) else {
-            print("no index")
             return
         }
         
         if reviews.count == 0 {
-            print("count == 0")
             return
         }
         
         if noMorePages {
-            print("no more pages")
             return
         }
         
         if index >= reviews.count - 1 {
-            print("load more")
             await loadReviews()
         }
     }
@@ -64,7 +60,6 @@ struct LatestReviewsView: View {
             if reviews.count == 0 {
                 self.noMorePages = true
             }
-            print(reviews.count)
             self.reviews += reviews
             self.nextPage += 1
         case .failure(let error):

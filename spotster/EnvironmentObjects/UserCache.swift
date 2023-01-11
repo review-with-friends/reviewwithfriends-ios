@@ -34,7 +34,6 @@ class UserCache: ObservableObject {
                     
                     return .success(user)
                 } catch (let error) {
-                    print(error)
                     return .failure(.DeserializationError(message: error.localizedDescription))
                 }
             }

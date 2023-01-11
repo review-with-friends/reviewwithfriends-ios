@@ -73,11 +73,6 @@ struct LocationReviewsView: View {
                     Text("Retry Loading")
                 }
             } else {
-                HStack {
-                    Text(uniqueLocation.locationName).font(.title)
-                    Spacer()
-                    ReviewStars(stars: self.getAverageStars())
-                }.padding(.bottom.union(.horizontal))
                 ScrollView {
                     if reviews.count >= 1 {
                         ForEach(reviews) { review in
@@ -93,13 +88,15 @@ struct LocationReviewsView: View {
                 }
             }
         }.toolbar {
-                Button("Write Review") {
-                    self.navigationManager.path.append(UniqueLocationCreateReview(locationName: uniqueLocation.locationName, latitude: uniqueLocation.latitude, longitude: uniqueLocation.longitude))
+            Button(action: {
+                self.navigationManager.path.append(UniqueLocationCreateReview(locationName: uniqueLocation.locationName, latitude: uniqueLocation.latitude, longitude: uniqueLocation.longitude))
+            }) {
+                Image(systemName:"plus.square")
                 }
             }.onAppear {
                 Task {
                     await loadReviews()
                 }
-            }.environmentObject(ChildViewReloadCallback(callback: loadReviews))
+            }.environmentObject(ChildViewReloadCallback(callback: loadReviews)).navigationTitle(uniqueLocation.locationName)
     }
 }

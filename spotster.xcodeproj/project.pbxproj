@@ -93,13 +93,17 @@
 		9CD42D8D296E08D600C2FBE9 /* FullFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8C296E08D600C2FBE9 /* FullFriends.swift */; };
 		9CD42D90296E2C9E00C2FBE9 /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8F296E2C9E00C2FBE9 /* FriendsList.swift */; };
 		9CD42D92296E2D7600C2FBE9 /* FriendsListDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D91296E2D7600C2FBE9 /* FriendsListDestination.swift */; };
-		9CD42D94296E2F3D00C2FBE9 /* OutgoingFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D93296E2F3D00C2FBE9 /* OutgoingFriendsList.swift */; };
 		9CD42D96296E2F4600C2FBE9 /* IncomingFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D95296E2F4600C2FBE9 /* IncomingFriendsList.swift */; };
 		9CD42D98296E2F4F00C2FBE9 /* IgnoredFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D97296E2F4F00C2FBE9 /* IgnoredFriendsList.swift */; };
 		9CD42D9C296E35D900C2FBE9 /* FriendsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D9B296E35D900C2FBE9 /* FriendsListItem.swift */; };
 		9CD42D9F296E384800C2FBE9 /* IncomingFriendsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D9E296E384800C2FBE9 /* IncomingFriendsListItem.swift */; };
 		9CD42DA1296E394F00C2FBE9 /* FriendRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DA0296E394F00C2FBE9 /* FriendRequests.swift */; };
 		9CD42DA3296F452200C2FBE9 /* FriendsListItemLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DA2296F452200C2FBE9 /* FriendsListItemLoader.swift */; };
+		9CD42DA6296F519B00C2FBE9 /* IgnoredFriendsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DA5296F519B00C2FBE9 /* IgnoredFriendsListItem.swift */; };
+		9CD42DA9296F583D00C2FBE9 /* OutgoingFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DA8296F583D00C2FBE9 /* OutgoingFriendsList.swift */; };
+		9CD42DAB296F584800C2FBE9 /* OutgoingFriendsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DAA296F584800C2FBE9 /* OutgoingFriendsListItem.swift */; };
+		9CD42DAE296F5AC100C2FBE9 /* SearchForFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DAD296F5AC100C2FBE9 /* SearchForFriendsList.swift */; };
+		9CD42DB0296F5B5700C2FBE9 /* SearchForFriendsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DAF296F5B5700C2FBE9 /* SearchForFriendsListItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,13 +214,17 @@
 		9CD42D8C296E08D600C2FBE9 /* FullFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFriends.swift; sourceTree = "<group>"; };
 		9CD42D8F296E2C9E00C2FBE9 /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
 		9CD42D91296E2D7600C2FBE9 /* FriendsListDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListDestination.swift; sourceTree = "<group>"; };
-		9CD42D93296E2F3D00C2FBE9 /* OutgoingFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingFriendsList.swift; sourceTree = "<group>"; };
 		9CD42D95296E2F4600C2FBE9 /* IncomingFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingFriendsList.swift; sourceTree = "<group>"; };
 		9CD42D97296E2F4F00C2FBE9 /* IgnoredFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoredFriendsList.swift; sourceTree = "<group>"; };
 		9CD42D9B296E35D900C2FBE9 /* FriendsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListItem.swift; sourceTree = "<group>"; };
 		9CD42D9E296E384800C2FBE9 /* IncomingFriendsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingFriendsListItem.swift; sourceTree = "<group>"; };
 		9CD42DA0296E394F00C2FBE9 /* FriendRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequests.swift; sourceTree = "<group>"; };
 		9CD42DA2296F452200C2FBE9 /* FriendsListItemLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListItemLoader.swift; sourceTree = "<group>"; };
+		9CD42DA5296F519B00C2FBE9 /* IgnoredFriendsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoredFriendsListItem.swift; sourceTree = "<group>"; };
+		9CD42DA8296F583D00C2FBE9 /* OutgoingFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingFriendsList.swift; sourceTree = "<group>"; };
+		9CD42DAA296F584800C2FBE9 /* OutgoingFriendsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingFriendsListItem.swift; sourceTree = "<group>"; };
+		9CD42DAD296F5AC100C2FBE9 /* SearchForFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForFriendsList.swift; sourceTree = "<group>"; };
+		9CD42DAF296F5B5700C2FBE9 /* SearchForFriendsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForFriendsListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -605,10 +613,11 @@
 		9CD42D8E296E2C9200C2FBE9 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
+				9CD42DAC296F5A9400C2FBE9 /* SearchForFriendsList */,
+				9CD42DA7296F582300C2FBE9 /* OutgoingFriendsList */,
+				9CD42DA4296F518300C2FBE9 /* IgnoredFriendsList */,
 				9CD42D9D296E383000C2FBE9 /* IncomingFriendsList */,
 				9CD42D99296E35B200C2FBE9 /* FriendsList */,
-				9CD42D93296E2F3D00C2FBE9 /* OutgoingFriendsList.swift */,
-				9CD42D97296E2F4F00C2FBE9 /* IgnoredFriendsList.swift */,
 				9CD42DA2296F452200C2FBE9 /* FriendsListItemLoader.swift */,
 			);
 			path = Friends;
@@ -630,6 +639,33 @@
 				9CD42D9E296E384800C2FBE9 /* IncomingFriendsListItem.swift */,
 			);
 			path = IncomingFriendsList;
+			sourceTree = "<group>";
+		};
+		9CD42DA4296F518300C2FBE9 /* IgnoredFriendsList */ = {
+			isa = PBXGroup;
+			children = (
+				9CD42D97296E2F4F00C2FBE9 /* IgnoredFriendsList.swift */,
+				9CD42DA5296F519B00C2FBE9 /* IgnoredFriendsListItem.swift */,
+			);
+			path = IgnoredFriendsList;
+			sourceTree = "<group>";
+		};
+		9CD42DA7296F582300C2FBE9 /* OutgoingFriendsList */ = {
+			isa = PBXGroup;
+			children = (
+				9CD42DA8296F583D00C2FBE9 /* OutgoingFriendsList.swift */,
+				9CD42DAA296F584800C2FBE9 /* OutgoingFriendsListItem.swift */,
+			);
+			path = OutgoingFriendsList;
+			sourceTree = "<group>";
+		};
+		9CD42DAC296F5A9400C2FBE9 /* SearchForFriendsList */ = {
+			isa = PBXGroup;
+			children = (
+				9CD42DAD296F5AC100C2FBE9 /* SearchForFriendsList.swift */,
+				9CD42DAF296F5B5700C2FBE9 /* SearchForFriendsListItem.swift */,
+			);
+			path = SearchForFriendsList;
 			sourceTree = "<group>";
 		};
 		9CEE0F73296CDE8700312635 /* Misc */ = {
@@ -775,13 +811,16 @@
 			files = (
 				9CD42D8B296E067800C2FBE9 /* DeleteAccountButton.swift in Sources */,
 				9C871CCC29561812007B72F7 /* ReviewReplies.swift in Sources */,
+				9CD42DB0296F5B5700C2FBE9 /* SearchForFriendsListItem.swift in Sources */,
 				9C871CD029561BA8007B72F7 /* UserCache.swift in Sources */,
 				9C8217AB293BC6D90011B7E0 /* UserRequests.swift in Sources */,
 				9C871CC22953EA75007B72F7 /* ReviewPicSkeleton.swift in Sources */,
 				9CD42DA3296F452200C2FBE9 /* FriendsListItemLoader.swift in Sources */,
 				9C68CC2C2952220F007FC567 /* ReviewStars.swift in Sources */,
+				9CD42DAE296F5AC100C2FBE9 /* SearchForFriendsList.swift in Sources */,
 				9C871CE5295CBACD007B72F7 /* FriendsOnlyToggle.swift in Sources */,
 				9C871D262968EDF0007B72F7 /* FriendsCache.swift in Sources */,
+				9CD42DAB296F584800C2FBE9 /* OutgoingFriendsListItem.swift in Sources */,
 				9C871CEC295E2BDB007B72F7 /* UnsplashOverlay.swift in Sources */,
 				9C871CCA295605DC007B72F7 /* LikeRequests.swift in Sources */,
 				9CD42D9F296E384800C2FBE9 /* IncomingFriendsListItem.swift in Sources */,
@@ -803,13 +842,13 @@
 				9C8217E52949258E0011B7E0 /* ReviewRequests.swift in Sources */,
 				9C871CE9295E1FB9007B72F7 /* UnsplashCredit.swift in Sources */,
 				9C40AA8C2935D298009134EA /* MainView.swift in Sources */,
-				9CD42D94296E2F3D00C2FBE9 /* OutgoingFriendsList.swift in Sources */,
 				9C871CD52957755B007B72F7 /* SlimDate.swift in Sources */,
 				9C871D2A2968F0F3007B72F7 /* Friend.swift in Sources */,
 				9C871D1C2967921C007B72F7 /* LatestReviewsView.swift in Sources */,
 				9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */,
 				9C8217C2293FE19E0011B7E0 /* Loading.swift in Sources */,
 				9C871CE1295BCFE9007B72F7 /* UserProfileView.swift in Sources */,
+				9CD42DA6296F519B00C2FBE9 /* IgnoredFriendsListItem.swift in Sources */,
 				9C871D162967465D007B72F7 /* ReplyRequests.swift in Sources */,
 				9CD42DA1296E394F00C2FBE9 /* FriendRequests.swift in Sources */,
 				9CD42D85296E052500C2FBE9 /* LogoutButton.swift in Sources */,
@@ -843,6 +882,7 @@
 				9C82179D2936BE110011B7E0 /* SubmitCodeView.swift in Sources */,
 				9C871CC82954FDE2007B72F7 /* Reply.swift in Sources */,
 				9C871CF429635A4B007B72F7 /* CreateReviewView.swift in Sources */,
+				9CD42DA9296F583D00C2FBE9 /* OutgoingFriendsList.swift in Sources */,
 				9C8217D329412AE30011B7E0 /* MapView.swift in Sources */,
 				9CD42D96296E2F4600C2FBE9 /* IncomingFriendsList.swift in Sources */,
 				9C40AA8E2935D2AB009134EA /* OnboardingView.swift in Sources */,

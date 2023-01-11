@@ -13,10 +13,12 @@ enum FriendsListItemType {
     case IgnoredItem
     case OutgoingItem
     case IncomingItem
+    case SearchItem
 }
 
 struct FriendsListItemLoader: View {
     let userId: String
+    let requestId: String
     let itemType: FriendsListItemType
     
     @State var user: User?
@@ -28,8 +30,7 @@ struct FriendsListItemLoader: View {
         self.loading = true
         
         let result = await spotster.getUserById(token: auth.token, userId: userId)
-        print("loading \(self.userId)")
-        
+
         switch result {
         case .success(let user):
             self.user = user
@@ -50,11 +51,13 @@ struct FriendsListItemLoader: View {
                     case .FriendItem:
                         FriendsListItem(user: user)
                     case .IgnoredItem:
-                        FriendsListItem(user: user)
+                        IgnoredFriendsListItem(user: user, requestId: self.requestId)
                     case .OutgoingItem:
-                        FriendsListItem(user: user)
+                        OutgoingFriendsListItem(user: user, requestId: self.requestId)
                     case .IncomingItem:
-                        IncomingFriendsListItem(user: user)
+                        IncomingFriendsListItem(user: user, requestId: self.requestId)
+                    case .SearchItem:
+                        SearchForFriendsListItem(user: user)
                     }
                     
                 } else {

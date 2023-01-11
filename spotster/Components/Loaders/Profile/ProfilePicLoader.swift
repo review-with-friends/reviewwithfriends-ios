@@ -26,7 +26,6 @@ struct ProfilePicLoader: View {
         
         switch userResult {
         case .success(let user):
-            print(user.picId)
             self.user = user
         case .failure(_):
             //self.setError(error: error.description)

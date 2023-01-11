@@ -1,5 +1,11 @@
 //
-//  FriendsListItem.swift
+//  IgnoredFriendsListItem.swift
+//  spotster
+//
+//  Created by Colton Lathrop on 1/11/23.
+//
+//
+//  IncomingFriendsListItem.swift
 //  spotster
 //
 //  Created by Colton Lathrop on 1/10/23.
@@ -8,8 +14,14 @@
 import Foundation
 import SwiftUI
 
-struct FriendsListItem: View {
+struct IgnoredFriendsListItem: View {
+    /// User who issued the given request
     let user: User
+    
+    /// RequestId for the given request
+    let requestId: String
+    
+    @State var pending = false
     
     @State var isConfirmationShowing = false
     
@@ -19,8 +31,14 @@ struct FriendsListItem: View {
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
     
-    func removeFriend() async {
-        let result = await spotster.removeFriend(token: auth.token, friendId: user.id)
+    func acceptFriend() async {
+        if self.pending {
+            return
+        }
+        
+        self.pending = true
+        
+        let result = await spotster.acceptFriend(token: auth.token, requestId: requestId)
         
         switch result {
         case .success():
@@ -29,6 +47,8 @@ struct FriendsListItem: View {
             self.errorMessage = error.description
             self.isShowingErrorMessage = true
         }
+        
+        self.pending = false
     }
     
     var body: some View  {
@@ -40,34 +60,26 @@ struct FriendsListItem: View {
             }
             Spacer()
             Button(action: {
-                isConfirmationShowing = true
+                Task {
+                    await self.acceptFriend()
+                }
             }){
                 HStack {
-                    Image(systemName: "x.circle").font(.system(size: 20))
-                    Text("Remove")
-                }.foregroundColor(.red)
-            }.alert("Are you sure you want to remove this friend?", isPresented: $isConfirmationShowing){
-                Button(role: .destructive) {
-                    Task {
-                        await self.removeFriend()
-                    }
-                } label: {
-                    Text("Remove")
-                }
-            } message: {
-                Text("You can add them back later.")
+                    Text("Unignored and Accept")
+                    Image(systemName: "checkmark.circle").font(.system(size: 20))
+                }.foregroundColor(.green)
             }
-        }.alert("Failed to remove friend", isPresented: $isShowingErrorMessage){
+        }.alert("Failed to accept friend request", isPresented: $isShowingErrorMessage){
         } message: {
             Text(self.errorMessage)
         }
     }
 }
 
-struct FriendsListItem_Preview: PreviewProvider {
+struct IgnoredFriendsListItem_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            FriendsListItem(user: generateUserPreviewData())
+            IgnoredFriendsListItem(user: generateUserPreviewData(), requestId: "peepeepoopoo")
         }.preferredColorScheme(.dark)
             .environmentObject(FriendsCache.generateDummyData())
             .environmentObject(UserCache())

@@ -60,6 +60,8 @@ struct MainView: View {
                         IncomingFriendsList()
                     case .Outgoing:
                         OutgoingFriendsList()
+                    case .Search:
+                        SearchForFriendsList()
                     }
                 }
         }.environmentObject(self.navigationManager)

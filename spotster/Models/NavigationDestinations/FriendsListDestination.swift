@@ -16,4 +16,5 @@ enum FriendsListType {
     case Incoming
     case Outgoing
     case Ignored
+    case Search
 }

@@ -64,10 +64,41 @@ func getUserById(token: String, userId: String) async -> Result<User, RequestErr
             let decoder =  JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             decoder.dateDecodingStrategy = .millisecondsSince1970
-            let reviews = try decoder.decode(User.self, from: data)
-            return .success(reviews)
+            let user = try decoder.decode(User.self, from: data)
+            return .success(user)
         } catch (let error) {
-            print(error)
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
+func searchUserByName(token: String, name: String) async -> Result<[User], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: USER_V1_ENDPOINT + "/search_by_name") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "name", value: name)])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await spotster.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let users = try decoder.decode([User].self, from: data)
+            return .success(users)
+        } catch (let error) {
             return .failure(.DeserializationError(message: error.localizedDescription))
         }
     case .failure(let error):

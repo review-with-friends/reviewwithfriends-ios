@@ -60,7 +60,6 @@ private func internalRequestWithRetry(request: URLRequest) async -> Result<Data,
             content = temp_content
         }
     } catch {
-        print("failed")
         return .failure(.NetworkingError(message: "failed due to networking issues"))
     }
     

@@ -18,6 +18,7 @@ struct ReviewListItemHeader: View {
     @State var deleteErrorMessage = ""
     
     @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
         HStack{
@@ -35,6 +36,7 @@ struct ReviewListItemHeader: View {
                     HStack {
                         Button(action: {
                             // take user to location view
+                            self.navigationManager.path.append(UniqueLocation(locationName: review.locationName, latitude: review.latitude, longitude: review.longitude))
                         }) {
                             Image(systemName:"mappin.and.ellipse").foregroundColor(.secondary).font(.caption)
                             Text(review.locationName).font(.caption).foregroundColor(.secondary).lineLimit(1)
@@ -53,11 +55,13 @@ struct ReviewListItemHeader_Preview: PreviewProvider {
             ReviewListItemHeader(user: generateUserPreviewData(), review: generateReviewPreviewData())
                 .preferredColorScheme(.dark)
                 .environmentObject(Authentication.initPreview())
+                .environmentObject(NavigationManager())
                 .environmentObject(UserCache())
             ReviewListItemHeader(user: generateUserPreviewData(), review: generateReviewPreviewData(), showLocation: true)
                 .preferredColorScheme(.dark)
                 .environmentObject(Authentication.initPreview())
                 .environmentObject(UserCache())
+                .environmentObject(NavigationManager())
         }
     }
 }

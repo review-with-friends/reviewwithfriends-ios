@@ -36,7 +36,6 @@ func getReviewsForLocation(token: String, location_name: String, latitude: Doubl
             let reviews = try decoder.decode([Review].self, from: data)
             return .success(reviews)
         } catch (let error) {
-            print(error)
             return .failure(.DeserializationError(message: error.localizedDescription))
         }
     case .failure(let error):
@@ -54,8 +53,6 @@ func getLatestReviews(token: String, page: Int) async -> Result<[Review], Reques
     
     url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
     
-    print(url)
-    
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
     request.setValue(token, forHTTPHeaderField: "Authorization")
@@ -71,7 +68,6 @@ func getLatestReviews(token: String, page: Int) async -> Result<[Review], Reques
             let reviews = try decoder.decode([Review].self, from: data)
             return .success(reviews)
         } catch (let error) {
-            print(error)
             return .failure(.DeserializationError(message: error.localizedDescription))
         }
     case .failure(let error):
@@ -104,7 +100,6 @@ func getFullReviewById(token: String, reviewId: String) async -> Result<FullRevi
             let fullReview = try decoder.decode(FullReview.self, from: data)
             return .success(fullReview)
         } catch (let error) {
-            print(error)
             return .failure(.DeserializationError(message: error.localizedDescription))
         }
     case .failure(let error):
@@ -165,7 +160,6 @@ func createReview(token: String, reviewRequest: CreateReviewRequest) async -> Re
             let review = try decoder.decode(Review.self, from: data)
             return .success(review)
         } catch (let error) {
-            print(error)
             return .failure(.DeserializationError(message: error.localizedDescription))
         }
     case .failure(let error):

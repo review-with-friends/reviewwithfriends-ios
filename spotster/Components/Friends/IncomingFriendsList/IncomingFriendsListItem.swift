@@ -9,9 +9,81 @@ import Foundation
 import SwiftUI
 
 struct IncomingFriendsListItem: View {
+    /// User who issued the given request
     let user: User
     
+    /// RequestId for the given request
+    let requestId: String
+    
+    @State var pending = false
+    
     @State var isConfirmationShowing = false
+    
+    @State var isShowingErrorMessage = false
+    @State var errorMessage = ""
+    
+    @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var friendsCache: FriendsCache
+    
+    func acceptFriend() async {
+        if self.pending {
+            return
+        }
+        
+        self.pending = true
+        
+        let result = await spotster.acceptFriend(token: auth.token, requestId: requestId)
+        
+        switch result {
+        case .success():
+            let _ = await friendsCache.refreshFriendsCache(token: auth.token)
+        case .failure(let error):
+            self.errorMessage = error.description
+            self.isShowingErrorMessage = true
+        }
+        
+        self.pending = false
+    }
+    
+    func rejectFriend() async {
+        if self.pending {
+            return
+        }
+        
+        self.pending = true
+        
+        let result = await spotster.rejectFriend(token: auth.token, requestId: requestId)
+        
+        switch result {
+        case .success():
+            let _ = await friendsCache.refreshFriendsCache(token: auth.token)
+        case .failure(let error):
+            self.errorMessage = error.description
+            self.isShowingErrorMessage = true
+        }
+        
+        self.pending = false
+    }
+    
+    func ignoreFriend() async {
+        if self.pending {
+            return
+        }
+        
+        self.pending = true
+        
+        let result = await spotster.ignoreFriend(token: auth.token, requestId: requestId)
+        
+        switch result {
+        case .success():
+            let _ = await friendsCache.refreshFriendsCache(token: auth.token)
+        case .failure(let error):
+            self.errorMessage = error.description
+            self.isShowingErrorMessage = true
+        }
+        
+        self.pending = false
+    }
     
     var body: some View  {
         HStack {
@@ -21,7 +93,11 @@ struct IncomingFriendsListItem: View {
                 Text("@" + user.name).font(.caption)
             }
             Spacer()
-            Button(action: {}){
+            Button(action: {
+                Task {
+                    await self.acceptFriend()
+                }
+            }){
                 HStack {
                     Text("Accept")
                     Image(systemName: "checkmark.circle").font(.system(size: 20))
@@ -37,14 +113,14 @@ struct IncomingFriendsListItem: View {
             }.alert("Are you sure you want to reject this friend request?", isPresented: $isConfirmationShowing){
                 Button(role: .destructive) {
                     Task {
-                        //await self.removeFriend()
+                        await self.rejectFriend()
                     }
                 } label: {
                     Text("Reject")
                 }
                 Button(role: .destructive) {
                     Task {
-                        //await self.removeFriend()
+                        await self.ignoreFriend()
                     }
                 } label: {
                     Text("Block Future Requests")
@@ -52,6 +128,9 @@ struct IncomingFriendsListItem: View {
             } message: {
                 Text("If you ignore the request, they won't be able to send another request.")
             }
+        }.alert("Request failed", isPresented: $isShowingErrorMessage){
+        } message: {
+            Text(self.errorMessage)
         }
     }
 }
@@ -59,7 +138,7 @@ struct IncomingFriendsListItem: View {
 struct IncomingFriendsListItem_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            IncomingFriendsListItem(user: generateUserPreviewData())
+            IncomingFriendsListItem(user: generateUserPreviewData(), requestId: "peepeepoopoo")
         }.preferredColorScheme(.dark)
             .environmentObject(FriendsCache.generateDummyData())
             .environmentObject(UserCache())

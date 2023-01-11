@@ -15,17 +15,9 @@ struct IncomingFriendsList: View {
         ScrollView {
             VStack {
                 ForEach(self.friendsCache.fullFriends.incomingRequests) { friend in
-                    FriendsListItemLoader(userId: friend.friendId, itemType: .IncomingItem)
+                    FriendsListItemLoader(userId: friend.userId, requestId: friend.id, itemType: .IncomingItem)
                 }
             }.padding(.horizontal)
-        }
-    }
-}
-
-struct IncomingFriendsList_Preview: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            IncomingFriendsList()
-        }.preferredColorScheme(.dark)
+        }.navigationTitle("Incoming Requests").padding(.top)
     }
 }

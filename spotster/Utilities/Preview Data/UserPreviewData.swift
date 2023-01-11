@@ -8,5 +8,5 @@
 import Foundation
 
 func generateUserPreviewData() -> User {
-    return User(id: "Test123", name: "colton", displayName: "Colton", created: Date(), picId: "default")
+    return User(id: "123", name: "colton", displayName: "Colton", created: Date(), picId: "default")
 }

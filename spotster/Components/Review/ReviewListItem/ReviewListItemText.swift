@@ -58,7 +58,7 @@ struct ReviewListItemText: View {
                         Text(makeLikeText()).font(.caption).foregroundColor(.secondary).padding(.top, 1)
                         Spacer()
                     }
-                }
+                }.background()
             }.buttonStyle(PlainButtonStyle())
         }
     }
