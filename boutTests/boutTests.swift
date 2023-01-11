@@ -1,14 +1,14 @@
 //
-//  boutTests.swift
-//  boutTests
+//  spotsterTests.swift
+//  spotsterTests
 //
 //  Created by Colton Lathrop on 11/28/22.
 //
 
 import XCTest
-@testable import bout
+@testable import spotster
 
-final class boutTests: XCTestCase {
+final class spotsterTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
