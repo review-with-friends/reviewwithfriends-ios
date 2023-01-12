@@ -59,7 +59,6 @@ struct FriendsListItemLoader: View {
                     case .SearchItem:
                         SearchForFriendsListItem(user: user)
                     }
-                    
                 } else {
                     Button(action: {
                         Task {

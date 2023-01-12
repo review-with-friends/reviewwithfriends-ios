@@ -22,6 +22,7 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
     }
     
     @Published var showingUserLocation = false
+    @Published var showUserReviews = false
     
     /// Setup the MapView for rendering.
     /// These settings can be updated at runtime by the delegate or anything that holds a reference to the delegate.
@@ -48,6 +49,12 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         if self.locationManager.authorizationStatus == .notDetermined {
             self.locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    func updateLocationState(){
+        if self.locationManager.authorizationStatus == .authorizedAlways || self.locationManager.authorizationStatus == .authorizedWhenInUse {
+            self.showingUserLocation = true
         }
     }
     
@@ -95,6 +102,20 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         }
         
         return annotationView
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        if self.showUserReviews {
+            let region = mapView.region
+
+            let minLat = region.center.latitude - (region.span.latitudeDelta / 2.0)
+            let maxLat = region.center.latitude + (region.span.latitudeDelta / 2.0)
+
+            let minLong = region.center.longitude - (region.span.longitudeDelta / 2.0)
+            let maxLong = region.center.longitude + (region.span.longitudeDelta / 2.0)
+            
+            print("minLat: \(minLat) maxX: \(maxLat)")
+        }
     }
     
     private func setupReviewAnnotationView(for annotation: ReviewAnnotation, on mapView: MKMapView) -> MKAnnotationView {

@@ -11,7 +11,7 @@ import MapKit
 
 struct MapScreenView: View {
     @State private var mapView: MapView
-    @State private var showPointsOfInterest = true
+    @State private var showFriendsReviews = false
     @State private var searchText = ""
     
     var navigationManager: NavigationManager
@@ -21,11 +21,24 @@ struct MapScreenView: View {
         self.navigationManager = navigationManager
     }
     
+    func applyFilter() {
+        if self.showFriendsReviews {
+            self.setMapFilter(.excludingAll)
+        } else {
+            self.setMapFilter(.includingAll)
+        }
+    }
+    
     func setMapFilter(_ filter: MKPointOfInterestFilter) {
         if let config = self.mapView.mapDelegate.mapView.preferredConfiguration as? MKStandardMapConfiguration {
             config.pointOfInterestFilter = filter
+        } else {}
+        
+        if filter == .excludingAll {
+            self.mapView.mapDelegate.showUserReviews = true
         } else {
-            
+            self.mapView.mapDelegate.showUserReviews = false
+            // clear annotations
         }
     }
     
@@ -37,12 +50,8 @@ struct MapScreenView: View {
                     Spacer()
                     VStack {
                         VStack{
-                            FriendsOnlyToggle(isOn: $showPointsOfInterest).onChange(of: showPointsOfInterest) { showPOI in
-                                if showPOI {
-                                    self.setMapFilter(.includingAll)
-                                } else {
-                                    self.setMapFilter(.excludingAll)
-                                }
+                            FriendsOnlyToggle(isOn: $showFriendsReviews).onChange(of: showFriendsReviews) { showFriends in
+                                self.applyFilter()
                             }
                             Rectangle().frame(height: 1)
                             LocateButton(mapDelegate: mapView.mapDelegate)
@@ -51,6 +60,9 @@ struct MapScreenView: View {
                 }.padding(.trailing)
                 Spacer()
             }
+        }.onAppear {
+            self.applyFilter()
+            self.mapView.mapDelegate.updateLocationState()
         }
     }
 }

@@ -33,20 +33,19 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9C96946D29357CB900AAEC25"
-               BuildableName = "spotsterTests.xctest"
-               BlueprintName = "spotsterTests"
+               BlueprintIdentifier = "9C96947729357CB900AAEC25"
+               BuildableName = "spotsterUITests.xctest"
+               BlueprintName = "spotsterUITests"
                ReferencedContainer = "container:spotster.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9C96947729357CB900AAEC25"
-               BuildableName = "spotsterUITests.xctest"
-               BlueprintName = "spotsterUITests"
+               BlueprintIdentifier = "9C96946D29357CB900AAEC25"
+               BuildableName = "spotsterTests.xctest"
+               BlueprintName = "spotsterTests"
                ReferencedContainer = "container:spotster.xcodeproj">
             </BuildableReference>
          </TestableReference>

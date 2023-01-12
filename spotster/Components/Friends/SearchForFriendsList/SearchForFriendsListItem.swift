@@ -11,9 +11,27 @@ import SwiftUI
 struct SearchForFriendsListItem: View {
     let user: User
     
-    @State var pending = false
+    @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var friendsCache: FriendsCache
+    @EnvironmentObject var navigationManager: NavigationManager
     
-    @State var isConfirmationShowing = false
+    var body: some View  {
+        HStack {
+            ProfilePicLoader(userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
+            VStack {
+                Text(user.displayName)
+                Text("@" + user.name).font(.caption)
+            }
+            Spacer()
+            UserActions(user: user)
+        }
+    }
+}
+
+struct UserActions: View {
+    let user: User
+    
+    @State var pending = false
     
     @State var isShowingErrorMessage = false
     @State var errorMessage = ""
@@ -75,14 +93,8 @@ struct SearchForFriendsListItem: View {
         self.pending = false
     }
     
-    var body: some View  {
-        HStack {
-            ProfilePicLoader(userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
-            VStack {
-                Text(user.displayName)
-                Text("@" + user.name).font(.caption)
-            }
-            Spacer()
+    var body: some View {
+        VStack {
             if self.isMe() {
                 Text("You!").foregroundColor(.secondary)
             }
@@ -111,7 +123,7 @@ struct SearchForFriendsListItem: View {
                     self.navigationManager.path.append(FriendsListDestination(view: .Ignored))
                 }){
                     HStack {
-                        Text("Unignored and Accept")
+                        Text("Unignore and Accept")
                         Image(systemName: "checkmark.circle").font(.system(size: 20))
                     }.foregroundColor(.green)
                 }
