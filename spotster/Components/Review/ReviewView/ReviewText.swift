@@ -43,14 +43,15 @@ struct ReviewText: View {
         VStack {
             HStack {
                 Button(action: {
-                    // take me to the likes view
+                    self.navigationManager.path.append(fullReview.likes)
                 }) {
-                    Text(makeLikeText()).font(.caption).foregroundColor(.secondary).padding(.top, 1)
+                    Text(makeLikeText()).foregroundColor(.secondary).padding(.top, 1)
                 }.buttonStyle(PlainButtonStyle())
                 Spacer()
             }.padding(.bottom, 1)
             HStack {
                 Text(self.fullReview.review.text)
+                Spacer()
             }
         }
     }

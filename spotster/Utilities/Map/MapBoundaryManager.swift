@@ -14,6 +14,8 @@ class MapBoundaryManager {
     
     var boundaries: [MapBoundary] = []
     
+    var lastLoad = Date.now
+    
     /// Reset the manager if neccessary
     func resetManager() {
         self.boundaries = []
@@ -41,16 +43,18 @@ class MapBoundaryManager {
     
     /// Collapses the existing boundaries into larger boundaries to optimize boundary calculations.
     func optimizeExistingBoundaries(boundary: MapBoundary) {
-        var indexesToRemove: [Int] = []
+        var boundariesToRemove: [MapBoundary] = []
         
-        for (ind, existingBoundary) in self.boundaries.enumerated() {
+        for existingBoundary in self.boundaries {
             if boundary.entirelyContains(boundary: existingBoundary) {
-                indexesToRemove.append(ind)
+                boundariesToRemove.append(existingBoundary)
             }
         }
         
-        for indx in indexesToRemove {
-            self.boundaries.remove(at: indx)
+        for boundaryToRemove in boundariesToRemove {
+            if let index = self.boundaries.firstIndex(of: boundaryToRemove) {
+                self.boundaries.remove(at: index)
+            }
         }
     }
     

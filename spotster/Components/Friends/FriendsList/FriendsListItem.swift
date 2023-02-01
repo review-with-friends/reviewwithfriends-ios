@@ -31,6 +31,16 @@ struct FriendsListItem: View {
         }
     }
     
+    func shouldShowRemove() -> Bool {
+        if let loggedInUser = auth.user {
+            if user.id == loggedInUser.id {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
     var body: some View  {
         HStack {
             ProfilePicLoader(userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
@@ -39,23 +49,25 @@ struct FriendsListItem: View {
                 Text("@" + user.name).font(.caption)
             }
             Spacer()
-            Button(action: {
-                isConfirmationShowing = true
-            }){
-                HStack {
-                    Image(systemName: "x.circle").font(.system(size: 20))
-                    Text("Remove")
-                }.foregroundColor(.red)
-            }.alert("Are you sure you want to remove this friend?", isPresented: $isConfirmationShowing){
-                Button(role: .destructive) {
-                    Task {
-                        await self.removeFriend()
+            if shouldShowRemove() {
+                Button(action: {
+                    isConfirmationShowing = true
+                }){
+                    HStack {
+                        Image(systemName: "x.circle").font(.system(size: 20))
+                        Text("Remove")
+                    }.foregroundColor(.red)
+                }.alert("Are you sure you want to remove this friend?", isPresented: $isConfirmationShowing){
+                    Button(role: .destructive) {
+                        Task {
+                            await self.removeFriend()
+                        }
+                    } label: {
+                        Text("Remove")
                     }
-                } label: {
-                    Text("Remove")
+                } message: {
+                    Text("You can add them back later.")
                 }
-            } message: {
-                Text("You can add them back later.")
             }
         }.alert("Failed to remove friend", isPresented: $isShowingErrorMessage){
         } message: {

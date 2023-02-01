@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ReviewLoader: View {
-    var review: Review
+    var review: ReviewDestination
     var showListItem: Bool
     var showLocation = true
     
@@ -21,14 +21,27 @@ struct ReviewLoader: View {
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var userCache: UserCache
+    @EnvironmentObject var navigationManager: NavigationManager
     
     func loadReviewAndUser() async -> Void {
         self.resetError()
         
         self.loading = true
         
-        await self.loadUser()
-        await self.loadFullReview()
+        if self.user == nil {
+            await self.loadUser()
+        }
+        
+        // Downstream navigation views can flag reviews as changed to force a reload.
+        // Only a single view will react to this, so we primarily intend the reaction to be on
+        if self.navigationManager.recentlyUpdatedReviews.contains(review.id) {
+            await self.loadFullReview()
+            self.navigationManager.recentlyUpdatedReviews.removeAll(where: { $0 == review.id })
+        }
+        
+        if self.fullReview == nil {
+            await self.loadFullReview()
+        }
         
         self.loading = false
     }
@@ -67,11 +80,13 @@ struct ReviewLoader: View {
     
     var body: some View {
         VStack {
-            if self.loading {
-                ReviewListItemSkeleton(loading: self.loading)
-            } else if self.failed {
+            if self.failed {
                 Text(self.error)
-                Button(action: {}){
+                Button(action: {
+                    Task {
+                        await self.loadReviewAndUser()
+                    }
+                }){
                     Text("Retry Loading")
                 }
             } else {
@@ -85,6 +100,10 @@ struct ReviewLoader: View {
                     }
                 }
             }
-        }.onFirstAppear(loadReviewAndUser)
+        }.onAppear {
+            Task {
+                await loadReviewAndUser()
+            }
+        }
     }
 }

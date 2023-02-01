@@ -65,7 +65,7 @@ struct ReviewReply: View {
                                     Button(action:{
                                         self.showDeleteConfirmation = true
                                     }){
-                                        Image(systemName: "ellipsis")
+                                        Image(systemName: "trash")
                                     }.padding(.top, 1).accentColor(.primary)
                                 }
                             }
@@ -100,7 +100,7 @@ struct ReviewReply: View {
                     Spacer()
                 }
             }.padding()
-        }.background(.quaternary).cornerRadius(8)
+        }
     }
 }
 

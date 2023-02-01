@@ -104,7 +104,7 @@ struct CreateReviewView: View {
         self.pending = true
         
         if self.review == nil {
-            let request = CreateReviewRequest(text: self.text, stars: self.stars, location_name: self.reviewLocation.locationName, latitude: self.reviewLocation.latitude, longitude: self.reviewLocation.longitude, is_custom: false)
+            let request = CreateReviewRequest(text: self.text, stars: self.stars, category: self.reviewLocation.category, location_name: self.reviewLocation.locationName, latitude: self.reviewLocation.latitude, longitude: self.reviewLocation.longitude, is_custom: false)
             
             let reviewResult = await spotster.createReview(token: auth.token, reviewRequest: request)
             
@@ -168,6 +168,6 @@ struct CreateReviewView: View {
 
 struct CreateReviewView_Preview: PreviewProvider {
     static var previews: some View {
-        CreateReviewView(reviewLocation: UniqueLocationCreateReview(locationName: "Taco Bell", latitude: -122.436734, longitude: 45.2384234)).preferredColorScheme(.dark)
+        CreateReviewView(reviewLocation: UniqueLocationCreateReview(locationName: "Taco Bell", category: "restaurant", latitude: -122.436734, longitude: 45.2384234)).preferredColorScheme(.dark)
     }
 }

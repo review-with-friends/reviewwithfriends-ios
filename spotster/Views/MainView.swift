@@ -10,12 +10,13 @@ import SwiftUI
 import MapKit
 
 struct MainView: View {
-    @StateObject private var navigationManager = NavigationManager()
+    @StateObject var navigationManager = NavigationManager()
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
+    @EnvironmentObject var notificatonManager: NotificationManager
     
-    @State var tab = 1
+    @State var tab = 0
     
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
@@ -23,9 +24,9 @@ struct MainView: View {
                 TabView (selection: $tab){
                     RecentActivityView()
                         .tabItem {
-                            Label("Recent", systemImage: "house.fill")
+                            Label("Feed", systemImage: "house.fill")
                         }.tag(0).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
-                    MapScreenView(navigationManager: navigationManager)
+                    MapScreenView(mapView: MapView(navigationManager: navigationManager))
                         .tabItem {
                             Label("Map", systemImage: "map")
                         }.tag(1).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
@@ -47,8 +48,14 @@ struct MainView: View {
                 .navigationDestination(for: UniqueUser.self) { uniqueUser in
                     UserProfileLoader(userId: uniqueUser.userId)
                 }
-                .navigationDestination(for: Review.self) { review in
+                .navigationDestination(for: ReviewDestination.self) { review in
                     ReviewLoader(review: review, showListItem: false)
+                }
+                .navigationDestination(for: [Like].self) { likes in
+                    LikesList(likes: likes)
+                }
+                .navigationDestination(for: NotificationDestination.self) { _ in
+                    NotificationList()
                 }
                 .navigationDestination(for: FriendsListDestination.self) { friendsList in
                     switch friendsList.view {
@@ -72,6 +79,7 @@ struct MainView: View {
                     do {
                         try await Task.sleep(for: Duration.milliseconds(4000))
                         let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
+                        await self.notificatonManager.getNotifications(token: self.auth.token)
                     } catch {}
                 }
             }
@@ -80,6 +88,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(FriendsCache())
+        MainView().preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(FriendsCache()).environmentObject(NotificationManager())
     }
 }

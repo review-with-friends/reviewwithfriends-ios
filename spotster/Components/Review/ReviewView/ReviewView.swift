@@ -21,8 +21,8 @@ struct ReviewView: View {
             ScrollView {
                 VStack {
                     ReviewHeader(user: user, review: fullReview.review)
-                    if let picId = self.fullReview.review.picId {
-                        ReviewPicLoader(picId: picId).overlay {
+                    if let pic = self.fullReview.pics.first {
+                        ReviewPicLoader(pic: pic).overlay {
                             ReviewPicOverlay(likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
                         }
                     }
@@ -36,7 +36,7 @@ struct ReviewView: View {
                     Task {
                         await self.reloadCallback()
                     }
-                }
+                }.navigationBarTitleDisplayMode(.inline)
         }
     }
 }

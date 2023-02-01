@@ -34,16 +34,19 @@ struct MapView: UIViewRepresentable {
 }
 
 class ReviewAnnotation: NSObject, MKAnnotation {
-
+    
     var coordinate: CLLocationCoordinate2D
-
+    
     var title: String?
-
+    
     var subtitle: String?
     
-    init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil) {
-            self.coordinate = coordinate
-            self.title = title
-            self.subtitle = subtitle
-        }
+    var picId: String?
+    
+    init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil, picId: String?) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
+        self.picId = picId
+    }
 }

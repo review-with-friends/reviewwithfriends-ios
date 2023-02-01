@@ -19,15 +19,23 @@ struct ReviewListItem: View {
     var body: some View {
         VStack {
             VStack {
-                ReviewListItemHeader(user: user, review: fullReview.review, showLocation: showLocation).padding(.bottom, 4)
-                if let picId = self.fullReview.review.picId {
-                    ReviewPicLoader(picId: picId).overlay {
-                        ReviewPicOverlay(likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
+                if let pic = self.fullReview.pics.first {
+                    ReviewPicLoader(pic: pic).overlay {
+                        ZStack {
+                            LinearGradient(gradient: Gradient(colors: [.black.opacity(0.75), .clear, .clear, .clear, .black.opacity(0.75)]), startPoint: .top, endPoint: .bottom)
+                            VStack {
+                                ReviewListItemHeader(user: user, review: fullReview.review, showLocation: showLocation).padding(.bottom, 4)
+                                Spacer()
+                            }.padding()
+                        }
+                        VStack {
+                            ReviewPicOverlay(likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
+                            ReviewListItemText(fullReview: self.fullReview)
+                                .padding(.bottom.union(.horizontal))
+                        }
                     }
                 }
-                ReviewListItemText(fullReview: self.fullReview)
-                    .padding(4.0)
-            }.padding(4.0)
+            }
         }
     }
 }

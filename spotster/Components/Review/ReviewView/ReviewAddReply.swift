@@ -39,6 +39,13 @@ struct ReviewAddReply: View {
         
         pending = true
         
+        if text.isEmpty {
+            showError = true
+            errorText = "write something"
+            pending = false
+            return
+        }
+        
         let result = await spotster.addReplyToReview(token: auth.token, reviewId: fullReview.review.id, text: text)
         
         switch result {
@@ -70,15 +77,16 @@ struct ReviewAddReply: View {
                             withAnimation {
                                 scrollProxy.scrollTo("replyInput", anchor: .center)
                             }
+                        }.toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Button("Post Reply") {
+                                    Task {
+                                        await self.postReply()
+                                    }
+                                }
+                            }
                         }
-                }.background(.quaternary).cornerRadius(8)
-                Button(action: {
-                    Task {
-                        await self.postReply()
-                    }
-                }){
-                    Text("Reply")
-                }
+                }.background(.black.opacity(0.001)).cornerRadius(8)
             }
             if showError {
                 Text(errorText).foregroundColor(.red)

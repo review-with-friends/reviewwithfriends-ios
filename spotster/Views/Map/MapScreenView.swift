@@ -10,16 +10,17 @@ import SwiftUI
 import MapKit
 
 struct MapScreenView: View {
-    @State private var mapView: MapView
+    //var navigationManager: NavigationManager
+    
+    @State var mapView: MapView
     @State private var showFriendsReviews = false
     @State private var searchText = ""
     
-    var navigationManager: NavigationManager
+    @State private var isVisible = false
     
-    init(navigationManager: NavigationManager) {
-        self.mapView = MapView(navigationManager: navigationManager)
-        self.navigationManager = navigationManager
-    }
+    @State private var task: Task<Void, Error>?
+    
+    @EnvironmentObject var auth: Authentication
     
     func applyFilter() {
         if self.showFriendsReviews {
@@ -36,9 +37,11 @@ struct MapScreenView: View {
         
         if filter == .excludingAll {
             self.mapView.mapDelegate.showUserReviews = true
+            self.mapView.mapDelegate.boundaryManager.resetManager()
+            self.mapView.mapDelegate.loadAnnotationsForCurrentView(mapView: self.mapView.mapDelegate.mapView)
         } else {
             self.mapView.mapDelegate.showUserReviews = false
-            // clear annotations
+            self.mapView.mapDelegate.mapView.removeAnnotations(self.mapView.mapDelegate.mapView.annotations)
         }
     }
     
@@ -61,9 +64,34 @@ struct MapScreenView: View {
                 Spacer()
             }
         }.onAppear {
+            self.isVisible = true
+            self.startBackgroundTask()
+            
             self.applyFilter()
             self.mapView.mapDelegate.updateLocationState()
+        }.onDisappear {
+            self.isVisible = false
+            self.stopBackgroundTask()
         }
+    }
+    
+    func startBackgroundTask() {
+        self.task = Task {
+                while self.isVisible {
+                    // Perform background task here
+                    let reviews = await self.mapView.mapDelegate.boundaryQueue.process(token: auth.token)
+
+                    for review in reviews {
+                        self.mapView.mapDelegate.mapView.addAnnotation(ReviewAnnotation(coordinate: CLLocationCoordinate2D(latitude: review.latitude, longitude: review.longitude), title: review.locationName, picId: review.picId))
+                    }
+
+                    try await Task.sleep(for: Duration.milliseconds(100)) // wait for 1 second before running the task again
+                }
+        }
+    }
+
+    func stopBackgroundTask() {
+        task?.cancel()
     }
 }
 

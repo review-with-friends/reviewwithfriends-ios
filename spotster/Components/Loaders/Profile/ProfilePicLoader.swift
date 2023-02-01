@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ProfilePicLoader: View {
     let userId: String
@@ -39,34 +40,20 @@ struct ProfilePicLoader: View {
                 ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
             } else {
                 if let user = self.user {
-                    AsyncImage(url: URL(string: "https://bout.sfo3.cdn.digitaloceanspaces.com/" + user.picId), transaction: Transaction(animation: .spring())) { phase in
-                        if let image = phase.image {
-                            ProfilePic(image: image, profilePicSize: self.profilePicSize).onTapGesture {
-                                if navigatable {
-                                    navigationManager.path.append(UniqueUser(userId: self.userId))
-                                }
-                            }
-                        } else if phase.error != nil {
-                            Button(action: {
-                                Task {
-                                    self.reloadHard = true
-                                    
-                                    do { try await Task.sleep(for: Duration.milliseconds(100)) }
-                                    catch {}
-                                    
-                                    self.reloadHard = false
-                                }
-                            }){
-                                ProfilePicSkeleton(loading: false, profilePicSize: self.profilePicSize, error: true)
-                            }.accentColor(.primary).onAppear {
-                                Task {
-                                    await self.loadUser(ignoreCachee: true)
-                                }
-                            }
-                        } else {
+                    WebImage(url: URL(string: "https://bout.sfo3.cdn.digitaloceanspaces.com/" + user.picId))
+                        .placeholder {
                             ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
                         }
-                    }
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: profilePicSize.rawValue, height: profilePicSize.rawValue)
+                        .clipShape(Circle()).padding(.bottom, -6)
+                        .transition(.fade(duration: 0.5)) // Fade Transition with duration
+                        .onTapGesture {
+                            if navigatable {
+                                navigationManager.path.append(UniqueUser(userId: self.userId))
+                            }
+                        }
                 } else {
                     ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
                 }
@@ -75,6 +62,19 @@ struct ProfilePicLoader: View {
             Task {
                 await self.loadUser(ignoreCachee: self.ignoreCache)
             }
+        }
+    }
+}
+
+enum ProfilePicSize: CGFloat {
+    case small = 28.0
+    case medium = 48.0
+    case large = 256.0
+}
+
+struct ProfilePicView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
         }
     }
 }

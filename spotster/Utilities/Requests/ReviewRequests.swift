@@ -43,6 +43,39 @@ func getReviewsForLocation(token: String, location_name: String, latitude: Doubl
     }
 }
 
+func getReviewsForUser(token: String, userId: String, page: Int) async -> Result<[Review], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/reviews_from_user") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "user_id", value: userId)])
+    url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await spotster.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode([Review].self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
 func getLatestReviews(token: String, page: Int) async -> Result<[Review], RequestError> {
     var url: URL
     if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/latest") {
@@ -170,8 +203,88 @@ func createReview(token: String, reviewRequest: CreateReviewRequest) async -> Re
 struct CreateReviewRequest: Codable {
     let text: String
     let stars: Int
+    let category: String
     let location_name: String
     let latitude: Double
     let longitude: Double
     let is_custom: Bool
+}
+
+func getReviewFromBoundary(token: String, boundary: MapBoundary, page: Int) async -> Result<[Review], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/reviews_from_bounds") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "latitude_north", value: "\(boundary.maxY)")])
+    url.append(queryItems:  [URLQueryItem(name: "latitude_south", value: "\(boundary.minY)")])
+    url.append(queryItems:  [URLQueryItem(name: "longitude_west", value: "\(boundary.minX)")])
+    url.append(queryItems:  [URLQueryItem(name: "longitude_east", value: "\(boundary.maxX)")])
+    
+    url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await spotster.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode([Review].self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
+func getReviewFromBoundaryWithExclusion(token: String, boundary: MapBoundary, excludedBoundary: MapBoundary, page: Int) async -> Result<[Review], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/reviews_from_bounds_exclusions") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "latitude_north", value: "\(boundary.maxY)")])
+    url.append(queryItems:  [URLQueryItem(name: "latitude_south", value: "\(boundary.minY)")])
+    url.append(queryItems:  [URLQueryItem(name: "longitude_west", value: "\(boundary.minX)")])
+    url.append(queryItems:  [URLQueryItem(name: "longitude_east", value: "\(boundary.maxX)")])
+    
+    url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
+    
+    url.append(queryItems:  [URLQueryItem(name: "latitude_north_e", value: "\(excludedBoundary.maxY)")])
+    url.append(queryItems:  [URLQueryItem(name: "latitude_south_e", value: "\(excludedBoundary.minY)")])
+    url.append(queryItems:  [URLQueryItem(name: "longitude_west_e", value: "\(excludedBoundary.minX)")])
+    url.append(queryItems:  [URLQueryItem(name: "longitude_east_e", value: "\(excludedBoundary.maxX)")])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await spotster.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode([Review].self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
 }

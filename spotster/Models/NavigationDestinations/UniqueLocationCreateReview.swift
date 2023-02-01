@@ -9,6 +9,7 @@ import Foundation
 
 struct UniqueLocationCreateReview: Hashable, Codable {
     var locationName: String
+    var category: String
     var latitude: Double
     var longitude: Double
 }

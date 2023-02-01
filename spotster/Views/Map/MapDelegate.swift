@@ -9,12 +9,16 @@ import Foundation
 import SwiftUI
 import MapKit
 import CoreLocation
+import SDWebImageMapKit
 
 class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, ObservableObject {
     public var mapView = MKMapView()
     public var locationManager: CLLocationManager
     public var navigationManager: NavigationManager
     public var movedToUserLocation = false
+    
+    var boundaryManager = MapBoundaryManager()
+    public var boundaryQueue = MapBoundaryQueue()
     
     init(navigationManager: NavigationManager) {
         self.navigationManager = navigationManager
@@ -68,14 +72,30 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         guard !annotation.isKind(of: MKUserLocation.self) else {
             return // Don't navigation to user location annotation
         }
+        
+        // Deselect the selected annotation as it's annoying :D
+        mapView.deselectAnnotation(annotation, animated: false)
+        
         if let titleOpt = annotation.title {
             if let title = titleOpt {
-                let uniqueLocation = UniqueLocation(locationName: title, latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+                let category = extractCategoryFromAnnotation(annotation: annotation)
+                let uniqueLocation = UniqueLocation(locationName: title, category: category, latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
                 navigationManager.path.append(uniqueLocation)
             }
         }
     }
     
+    func extractCategoryFromAnnotation(annotation: MKAnnotation) -> String {
+        if let annotation = annotation as? MKMapFeatureAnnotation {
+            if let category = annotation.pointOfInterestCategory {
+                return category.getString()
+            }
+        }
+        return ""
+    }
+    
+    /// Moves center to the user location changing. Won't move if we've already done it once.
+    /// This is mostly called when the map first loads with Location Access.
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation){
         if !movedToUserLocation {
             self.moveMapViewToUserLocation(userLocation: userLocation, zoom: 2000)
@@ -88,8 +108,8 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         movedToUserLocation = true
     }
     
+    /// Handles an Annotation being added to create  a view.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         guard !annotation.isKind(of: MKUserLocation.self) else {
             // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
             return nil
@@ -104,39 +124,33 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         return annotationView
     }
     
-    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+    /// Controls how we render the Annotation from the given ReviewAnnotation.
+    private func setupReviewAnnotationView(for annotation: ReviewAnnotation, on mapView: MKMapView) -> MKAnnotationView {        
+        let view = ReviewAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        if let picId = annotation.picId {
+            view.photo = "https://bout.sfo3.cdn.digitaloceanspaces.com/" + picId
+        }
+        view.canShowCallout = true
+        view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        view.displayPriority = .defaultHigh
+        return view
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         if self.showUserReviews {
-            let region = mapView.region
-
-            let minLat = region.center.latitude - (region.span.latitudeDelta / 2.0)
-            let maxLat = region.center.latitude + (region.span.latitudeDelta / 2.0)
-
-            let minLong = region.center.longitude - (region.span.longitudeDelta / 2.0)
-            let maxLong = region.center.longitude + (region.span.longitudeDelta / 2.0)
-            
-            print("minLat: \(minLat) maxX: \(maxLat)")
+            self.loadAnnotationsForCurrentView(mapView: mapView)
         }
     }
     
-    private func setupReviewAnnotationView(for annotation: ReviewAnnotation, on mapView: MKMapView) -> MKAnnotationView {
-        let reuseIdentifier = NSStringFromClass(ReviewAnnotation.self)
-        let flagAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier, for: annotation)
+    func loadAnnotationsForCurrentView(mapView: MKMapView) {
+        let mapBoundary = mapView.region.mapBoundary
         
-        flagAnnotationView.canShowCallout = true
+        let (load, exclusionBoundary) = self.boundaryManager.isBoundaryLoadNeccessary(boundary: mapBoundary)
         
-        // Provide the annotation view's image.
-        let image = UIImage(systemName:"mappin.circle.fill")!
-        flagAnnotationView.image = image
-        
-        // Provide the left image icon for the annotation.
-        flagAnnotationView.leftCalloutAccessoryView = UIImageView(image: UIImage(systemName:"house.fill"))
-        
-        // Offset the flag annotation so that the flag pole rests on the map coordinate.
-        let offset = CGPoint(x: image.size.width / 2, y: -(image.size.height / 2) )
-        flagAnnotationView.centerOffset = offset
-        flagAnnotationView.displayPriority = .defaultHigh
-        
-        return flagAnnotationView
+        if load {
+            self.boundaryManager.lastLoad = Date.now
+            self.boundaryQueue.enqueue(mapBoundary: mapBoundary, boundaryExclusion: exclusionBoundary)
+        }
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -151,5 +165,57 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         
         manager.startUpdatingLocation()
     }
+}
+
+class ReviewAnnotationView: MKAnnotationView {
+    static let reuseId = "quickEventUser"
+    var photo: String?
+    override var annotation: MKAnnotation? {
+        didSet {
+            if let ann = annotation as? ReviewAnnotationView {
+                self.photo = ann.photo
+            }
+        }
+    }
     
+    override var isHidden: Bool {
+        didSet {
+            if isHidden {
+                for subview in subviews {
+                    subview.removeFromSuperview()
+                }
+            }
+        }
+    }
+
+    let imageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        imageView.layer.cornerRadius = 25.0
+        imageView.layer.borderWidth = 3.0
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+
+        frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        addSubview(imageView)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func prepareForDisplay() {
+        super.prepareForDisplay()
+        if let photoURL = photo {
+            let url = URL(string: photoURL)
+            imageView.sd_setImage(with: url)
+        } else {
+            imageView.image = nil
+        }
+    }
 }

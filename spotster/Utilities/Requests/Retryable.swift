@@ -25,16 +25,18 @@ func requestWithRetry(request: URLRequest) async -> Result<Data, RequestError> {
             case .InternalServerError:
                 do {
                     try await Task.sleep(for: Duration.milliseconds(500 * attempt))
+                    continue
                 } catch {
                     return result
                 }
             case .NetworkingError:
                 do {
+                    print("failed, retrying")
                     try await Task.sleep(for: Duration.milliseconds(500 * attempt))
+                    continue
                 } catch {
                     return result
                 }
-                continue
             case .URLMalformedError:
                 return result
             }
@@ -59,8 +61,9 @@ private func internalRequestWithRetry(request: URLRequest) async -> Result<Data,
         if let temp_content = String(data: data, encoding: .utf8) {
             content = temp_content
         }
-    } catch {
-        return .failure(.NetworkingError(message: "failed due to networking issues"))
+    } catch (let error) {
+        print("networking error")
+        return .failure(.NetworkingError(message: error.localizedDescription))
     }
     
     let status = response.statusCode

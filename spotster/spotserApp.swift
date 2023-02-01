@@ -14,7 +14,12 @@ struct spotserApp: App {
     
     var body: some Scene {
         WindowGroup {
-            IntializerView().environmentObject(authentication).environmentObject(userCache).environmentObject(FriendsCache()).preferredColorScheme(.dark)
+            IntializerView()
+                .environmentObject(authentication)
+                .environmentObject(userCache)
+                .environmentObject(FriendsCache())
+                .environmentObject(NotificationManager())
+                .preferredColorScheme(.dark)
         }
     }
 }

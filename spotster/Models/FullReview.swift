@@ -11,4 +11,5 @@ struct FullReview: Codable, Hashable, Equatable {
     var review: Review
     var likes: [Like]
     var replies: [Reply]
+    var pics: [Pic]
 }

@@ -17,32 +17,33 @@ struct ReviewListItemText: View {
     
     func makeReplyText() -> String {
         if self.fullReview.replies.count == 1 {
-            return String(fullReview.replies.count) + " reply"
+            return String(fullReview.replies.count) + " Reply"
         }
         
         if self.fullReview.replies.count == 0 {
-            return "no replies"
+            return "No Replies"
         }
         
-        return String(fullReview.replies.count) + " replies"
+        return String(fullReview.replies.count) + " Replies"
     }
     
     func makeLikeText() -> String {
         if self.fullReview.likes.count == 1 {
-            return String(fullReview.likes.count) + " like"
+            return String(fullReview.likes.count) + " Like"
         }
         
         if self.fullReview.likes.count == 0 {
-            return "no likes"
+            return "No Likes"
         }
         
-        return String(fullReview.likes.count) + " likes"
+        return String(fullReview.likes.count) + " Likes"
     }
     
     var body: some View {
         VStack {
             Button(action:{
-                navigationManager.path.append(fullReview.review)
+                let reviewDestination = ReviewDestination(id: fullReview.review.id, userId: fullReview.review.userId)
+                navigationManager.path.append(reviewDestination)
             }){
                 VStack {
                     HStack {
@@ -58,7 +59,7 @@ struct ReviewListItemText: View {
                         Text(makeLikeText()).font(.caption).foregroundColor(.secondary).padding(.top, 1)
                         Spacer()
                     }
-                }.background()
+                }.background(.black.opacity(0.01))
             }.buttonStyle(PlainButtonStyle())
         }
     }

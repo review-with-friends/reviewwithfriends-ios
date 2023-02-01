@@ -7,5 +7,10 @@
 		<key>UIColorName</key>
 		<string>LaunchScreenBackground</string>
 	</dict>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>googlechromes</string>
+        <string>comgooglemaps</string>
+    </array>
 </dict>
 </plist>

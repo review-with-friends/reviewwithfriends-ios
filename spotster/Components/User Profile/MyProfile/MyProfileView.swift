@@ -28,14 +28,37 @@ struct MyProfileView: View {
     }
     
     var body: some View {
-        VStack {
-            VStack {
-                ProfilePicLoader(userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true).padding()
-                Text(user.displayName).font(.title)
-                Text("@" + user.name).font(.caption)
-            }
-            
             List {
+                Section {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            ProfilePicLoader(userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true).padding()
+                            Spacer()
+                        }
+                        HStack {
+                            Spacer()
+                            Text(user.displayName).font(.title)
+                            Spacer()
+                        }
+                        HStack {
+                            Spacer()
+                            Text("@" + user.name).font(.caption)
+                            Spacer()
+                        }
+                    }
+                }
+                Section {
+                    Button(action:{
+                        self.navigatonManager.path.append(UniqueUser(userId: user.id))
+                    }){
+                        HStack {
+                            Text("View Profile")
+                            Spacer()
+                            Image(systemName: "chevron.right").foregroundColor(.secondary)
+                        }
+                    }
+                }
                 Section {
                     Button(action:{
                         self.navigatonManager.path.append(FriendsListDestination(view: .Incoming))
@@ -90,8 +113,7 @@ struct MyProfileView: View {
                     LogoutButton()
                     DeleteAccountButton()
                 }
-            }.accentColor(.primary).scaledToFill()
-        }.onAppear {
+            }.accentColor(.primary).onAppear {
             Task {
                 await self.friendsCache.refreshFriendsCache(token: self.auth.token)
             }

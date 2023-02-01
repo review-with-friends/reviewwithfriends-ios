@@ -5,13 +5,6 @@
 //  Created by Colton Lathrop on 1/5/23.
 //
 
-//
-//  LocationOverlayView.swift
-//  spotster
-//
-//  Created by Colton Lathrop on 12/13/22.
-//
-
 import Foundation
 import SwiftUI
 
@@ -30,6 +23,7 @@ struct LatestReviewsView: View {
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var navigationManager: NavigationManager
+    @EnvironmentObject var notificationManager: NotificationManager
     
     func onItemAppear(review: Review) async {
         guard let index = reviews.firstIndex(of: review) else {
@@ -49,6 +43,14 @@ struct LatestReviewsView: View {
         }
     }
     
+    func removeExisting(incomingReviews: [Review]) -> [Review] {
+        var incomingReviews = incomingReviews
+        for review in self.reviews {
+            incomingReviews.removeAll(where: {$0.id == review.id})
+        }
+        return incomingReviews
+    }
+    
     func loadReviews() async {
         self.loading = true
         self.resetError()
@@ -56,10 +58,11 @@ struct LatestReviewsView: View {
         let reviews_res = await spotster.getLatestReviews(token: auth.token, page: nextPage)
         
         switch reviews_res {
-        case .success(let reviews):
+        case .success(var reviews):
             if reviews.count == 0 {
                 self.noMorePages = true
             }
+            reviews = removeExisting(incomingReviews: reviews)
             self.reviews += reviews
             self.nextPage += 1
         case .failure(let error):
@@ -70,9 +73,12 @@ struct LatestReviewsView: View {
     }
     
     func hardLoadReviews() async {
+        self.navigationManager.recentlyUpdatedReviews.append(contentsOf:self.reviews.prefix(5).map({$0.id}))
+        
         self.nextPage = 0
         self.reviews = []
         self.noMorePages = false
+        
         await self.loadReviews()
     }
     
@@ -98,9 +104,14 @@ struct LatestReviewsView: View {
     
     var body: some View {
         ScrollView {
+            HStack {
+                Spacer()
+                NotificationNavButton()
+            }.padding()
             LazyVStack {
                 ForEach(reviews) { review in
-                    ReviewLoader(review: review, showListItem: true, showLocation: true)
+                    let reviewDestination = ReviewDestination(id: review.id, userId: review.userId)
+                    ReviewLoader(review: reviewDestination, showListItem: true, showLocation: true)
                         .padding(.bottom.union(.horizontal))
                         .onAppear {
                             Task {
@@ -124,6 +135,7 @@ struct LatestReviewsView: View {
         }.refreshable {
             Task {
                 await self.hardLoadReviews()
+                await self.notificationManager.getNotifications(token: self.auth.token)
             }
         }
         .onFirstAppear {

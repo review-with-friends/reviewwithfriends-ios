@@ -10,13 +10,9 @@ import SwiftUI
 
 struct ReviewListItemSkeleton: View {
     var loading: Bool
+    
     var body: some View {
-        Rectangle().foregroundColor(.secondary).opacity(0.2).cornerRadius(16)
-            .frame(height: 500).overlay {
-                if loading {
-                    ProgressView()
-                }
-            }
+        ProgressView()
     }
 }
 

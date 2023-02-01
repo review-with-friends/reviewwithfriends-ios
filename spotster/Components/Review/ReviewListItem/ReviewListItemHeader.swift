@@ -27,7 +27,6 @@ struct ReviewListItemHeader: View {
             }
             VStack {
                 HStack {
-                    Text(user.displayName).lineLimit(1)
                     SlimDate(date: self.review.created)
                     Spacer()
                     ReviewStars(stars: self.review.stars)
@@ -35,11 +34,10 @@ struct ReviewListItemHeader: View {
                 if showLocation {
                     HStack {
                         Button(action: {
-                            // take user to location view
-                            self.navigationManager.path.append(UniqueLocation(locationName: review.locationName, latitude: review.latitude, longitude: review.longitude))
+                            self.navigationManager.path.append(UniqueLocation(locationName: review.locationName, category: review.category, latitude: review.latitude, longitude: review.longitude))
                         }) {
-                            Image(systemName:"mappin.and.ellipse").foregroundColor(.secondary).font(.caption)
-                            Text(review.locationName).font(.caption).foregroundColor(.secondary).lineLimit(1)
+                            Image(systemName:"mappin.and.ellipse").foregroundColor(.primary).font(.caption)
+                            Text(review.locationName).font(.caption).foregroundColor(.primary).lineLimit(1)
                         }
                         Spacer()
                     }

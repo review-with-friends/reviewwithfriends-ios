@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MapBoundary {
+struct MapBoundary: Hashable, Codable, Equatable {
     /// Minimum Latitude for the given MapBoundary
     let minX: Double
     

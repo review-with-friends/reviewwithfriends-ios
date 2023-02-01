@@ -36,7 +36,7 @@ struct ReviewHeader: View {
                 if showLocation {
                     HStack {
                         Button(action: {
-                            // take user to location view
+                            self.navigationManager.path.append(UniqueLocation(locationName: review.locationName, category: review.category, latitude: review.latitude, longitude: review.longitude))
                         }) {
                             Image(systemName:"mappin.and.ellipse").foregroundColor(.secondary).font(.caption)
                             Text(review.locationName).font(.caption).foregroundColor(.secondary).lineLimit(1)
