@@ -105,6 +105,7 @@ struct LatestReviewsView: View {
     var body: some View {
         ScrollView {
             HStack {
+                Text("Spotster").font(.title).fontWeight(.bold)
                 Spacer()
                 NotificationNavButton()
             }.padding()

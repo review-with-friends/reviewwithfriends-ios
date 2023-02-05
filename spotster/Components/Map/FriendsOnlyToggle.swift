@@ -18,9 +18,9 @@ struct FriendsOnlyToggle: View {
             }){
                 VStack{
                     if isOn {
-                        Image(systemName:"person.fill")
+                        Image(systemName:"person.2.fill")
                     } else {
-                        Image(systemName:"person")
+                        Image(systemName:"person.2")
                     }
                 }.padding(.horizontal, 8)
                     .padding(.top, 12)

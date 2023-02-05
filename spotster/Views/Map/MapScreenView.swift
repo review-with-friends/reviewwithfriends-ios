@@ -49,6 +49,7 @@ struct MapScreenView: View {
         ZStack {
             mapView.ignoresSafeArea(.all)
             VStack{
+                Spacer()
                 HStack {
                     Spacer()
                     VStack {
@@ -61,7 +62,6 @@ struct MapScreenView: View {
                         }.background(.thinMaterial).frame(alignment: .center).cornerRadius(8).shadow(radius: 4).foregroundColor(.secondary)
                     }.frame(width: 44, height: 144)
                 }.padding(.trailing)
-                Spacer()
             }
         }.onAppear {
             self.isVisible = true
@@ -82,7 +82,7 @@ struct MapScreenView: View {
                     let reviews = await self.mapView.mapDelegate.boundaryQueue.process(token: auth.token)
 
                     for review in reviews {
-                        self.mapView.mapDelegate.mapView.addAnnotation(ReviewAnnotation(coordinate: CLLocationCoordinate2D(latitude: review.latitude, longitude: review.longitude), title: review.locationName, picId: review.picId))
+                        self.mapView.mapDelegate.mapView.addAnnotation(ReviewAnnotation(coordinate: CLLocationCoordinate2D(latitude: review.latitude, longitude: review.longitude), title: review.locationName, picId: review.picId, category: review.category))
                     }
 
                     try await Task.sleep(for: Duration.milliseconds(100)) // wait for 1 second before running the task again

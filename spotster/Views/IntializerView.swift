@@ -57,6 +57,10 @@ struct IntializerView: View {
         }
     }
     
+    init() {
+        spotster.setAppIcon()
+    }
+    
     var body: some View {
         VStack {
             if isLoading {

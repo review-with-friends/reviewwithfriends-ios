@@ -102,4 +102,269 @@ extension MKPointOfInterestCategory {
             return ""
         }
     }
+    
+    /// Gets the system image name for the given category.
+    func getSystemImageString() -> String? {
+        switch self {
+        case MKPointOfInterestCategory.airport:
+            return "airplane"
+        case MKPointOfInterestCategory.amusementPark:
+            return "party.popper.fill"
+        case MKPointOfInterestCategory.aquarium:
+            return "fish.fill"
+        case MKPointOfInterestCategory.atm:
+            return "dollarsign"
+        case MKPointOfInterestCategory.bakery:
+            return "birthday.cake.fill"
+        case MKPointOfInterestCategory.bank:
+            return "building.columns.fill"
+        case MKPointOfInterestCategory.beach:
+            return "beach.umbrella.fill"
+        case MKPointOfInterestCategory.brewery:
+            return "wineglass.fill"
+        case MKPointOfInterestCategory.cafe:
+            return "cup.and.saucer.fill"
+        case MKPointOfInterestCategory.campground:
+            return "tent.2.fill"
+        case MKPointOfInterestCategory.carRental:
+            return "car.rear.fill"
+        case MKPointOfInterestCategory.evCharger:
+            return "bolt.car.fill"
+        case MKPointOfInterestCategory.fireStation:
+            return "flame.fill"
+        case MKPointOfInterestCategory.fitnessCenter:
+            return "dumbbell.fill"
+        case MKPointOfInterestCategory.foodMarket:
+            return "carrot.fill"
+        case MKPointOfInterestCategory.gasStation:
+            return "fuelpump.fill"
+        case MKPointOfInterestCategory.hospital:
+            return "cross.case.fill"
+        case MKPointOfInterestCategory.hotel:
+            return "suitcase.rolling.fill"
+        case MKPointOfInterestCategory.laundry:
+            return "tshirt.fill"
+        case MKPointOfInterestCategory.marina:
+            return "sailboat.fill"
+        case MKPointOfInterestCategory.movieTheater:
+            return "popcorn.fill"
+        case MKPointOfInterestCategory.museum:
+            return "building.columns.fill"
+        case MKPointOfInterestCategory.nationalPark:
+            return "mountain.2.fill"
+        case MKPointOfInterestCategory.nightlife:
+            return "party.popper.fill"
+        case MKPointOfInterestCategory.park:
+            return "tree.fill"
+        case MKPointOfInterestCategory.parking:
+            return "car.2.fill"
+        case MKPointOfInterestCategory.pharmacy:
+            return "pills.fill"
+        case MKPointOfInterestCategory.police:
+            return "12.circle.fill"
+        case MKPointOfInterestCategory.postOffice:
+            return "envelope.fill"
+        case MKPointOfInterestCategory.publicTransport:
+            return "train.side.rear.car"
+        case MKPointOfInterestCategory.restaurant:
+            return "fork.knife.circle.fill"
+        case MKPointOfInterestCategory.restroom:
+            return "toilet.fill"
+        case MKPointOfInterestCategory.school:
+            return "graduationcap.fill"
+        case MKPointOfInterestCategory.stadium:
+            return "sportscourt.fill"
+        case MKPointOfInterestCategory.store:
+            return "cart.fill"
+        case MKPointOfInterestCategory.theater:
+            return "theatermasks.fill"
+        case MKPointOfInterestCategory.university:
+            return "graduationcap.fill"
+        case MKPointOfInterestCategory.winery:
+            return "wineglass.fill"
+        case MKPointOfInterestCategory.zoo:
+            return "pawprint.fill"
+        default:
+            // Ideally switches are exhaustive and this isn't needed!
+            // But MapKit implemented this a struct, not an enum.
+            // Thus we can't rely on an exhaustive switch....
+            return nil
+        }
+    }
+    
+    static func getCategory(category: String) -> MKPointOfInterestCategory? {
+        switch category {
+        case "airport":
+            return MKPointOfInterestCategory.airport
+        case "amusementPark":
+            return MKPointOfInterestCategory.amusementPark
+        case "aquarium":
+            return MKPointOfInterestCategory.aquarium
+        case "atm":
+            return MKPointOfInterestCategory.atm
+        case "bakery":
+            return MKPointOfInterestCategory.bakery
+        case "bank":
+            return MKPointOfInterestCategory.bank
+        case "beach":
+            return MKPointOfInterestCategory.beach
+        case "brewery":
+            return MKPointOfInterestCategory.brewery
+        case "cafe":
+            return MKPointOfInterestCategory.cafe
+        case "campground":
+            return MKPointOfInterestCategory.campground
+        case "carRental":
+            return MKPointOfInterestCategory.carRental
+        case "evCharger":
+            return MKPointOfInterestCategory.evCharger
+        case "fireStation":
+            return MKPointOfInterestCategory.fireStation
+        case "fitnessCenter":
+            return MKPointOfInterestCategory.fitnessCenter
+        case "foodMarket":
+            return MKPointOfInterestCategory.foodMarket
+        case "gasStation":
+            return MKPointOfInterestCategory.gasStation
+        case "hospital":
+            return MKPointOfInterestCategory.hospital
+        case "hotel":
+            return MKPointOfInterestCategory.hotel
+        case "laundry":
+            return MKPointOfInterestCategory.laundry
+        case "marina":
+            return MKPointOfInterestCategory.marina
+        case "movieTheater":
+            return MKPointOfInterestCategory.movieTheater
+        case "museum":
+            return MKPointOfInterestCategory.museum
+        case "nationalPark":
+            return MKPointOfInterestCategory.nationalPark
+        case "nightlife":
+            return MKPointOfInterestCategory.nightlife
+        case "park":
+            return MKPointOfInterestCategory.park
+        case "parking":
+            return MKPointOfInterestCategory.parking
+        case "pharmacy":
+            return MKPointOfInterestCategory.pharmacy
+        case "police":
+            return MKPointOfInterestCategory.police
+        case "postOffice":
+            return MKPointOfInterestCategory.postOffice
+        case "publicTransport":
+            return MKPointOfInterestCategory.publicTransport
+        case "restaurant":
+            return MKPointOfInterestCategory.restaurant
+        case "restroom":
+            return MKPointOfInterestCategory.restroom
+        case "school":
+            return MKPointOfInterestCategory.school
+        case "stadium":
+            return MKPointOfInterestCategory.stadium
+        case "store":
+            return MKPointOfInterestCategory.store
+        case "theater":
+            return MKPointOfInterestCategory.theater
+        case "university":
+            return MKPointOfInterestCategory.university
+        case "winery":
+            return MKPointOfInterestCategory.winery
+        case "zoo":
+            return MKPointOfInterestCategory.zoo
+        default:
+            // Ideally switches are exhaustive and this isn't needed!
+            // But MapKit implemented this a struct, not an enum.
+            // Thus we can't rely on an exhaustive switch....
+            return nil
+        }
+    }
+    
+    static func getCategoryColor(category: String) -> UIColor {
+        switch category {
+        case "airport":
+            return UIColor.systemBlue
+        case "amusementPark":
+            return UIColor.systemPink
+        case "aquarium":
+            return UIColor.systemBlue
+        case "atm":
+            return UIColor.systemBlue
+        case "bakery":
+            return UIColor.systemOrange
+        case "bank":
+            return UIColor.systemGray
+        case "beach":
+            return UIColor.systemGreen
+        case "brewery":
+            return UIColor.systemYellow
+        case "cafe":
+            return UIColor.systemOrange
+        case "campground":
+            return UIColor.systemGreen
+        case "carRental":
+            return UIColor.systemGray
+        case "evCharger":
+            return UIColor.systemGreen
+        case "fireStation":
+            return UIColor.systemRed
+        case "fitnessCenter":
+            return UIColor.systemBlue
+        case "foodMarket":
+            return UIColor.systemOrange
+        case "gasStation":
+            return UIColor.systemBlue
+        case "hospital":
+            return UIColor.systemRed
+        case "hotel":
+            return UIColor.systemPurple
+        case "laundry":
+            return UIColor.systemOrange
+        case "marina":
+            return UIColor.systemBlue
+        case "movieTheater":
+            return UIColor.systemPink
+        case "museum":
+            return UIColor.systemBrown
+        case "nationalPark":
+            return UIColor.systemGreen
+        case "nightlife":
+            return UIColor.systemOrange
+        case "park":
+            return UIColor.systemGreen
+        case "parking":
+            return UIColor.systemBlue
+        case "pharmacy":
+            return UIColor.systemRed
+        case "police":
+            return UIColor.systemRed
+        case "postOffice":
+            return UIColor.systemGray
+        case "publicTransport":
+            return UIColor.systemBlue
+        case "restaurant":
+            return UIColor.systemOrange
+        case "restroom":
+            return UIColor.systemPurple
+        case "school":
+            return UIColor.systemBrown
+        case "stadium":
+            return UIColor.systemBlue
+        case "store":
+            return UIColor.systemOrange
+        case "theater":
+            return UIColor.systemPink
+        case "university":
+            return UIColor.systemBrown
+        case "winery":
+            return UIColor.systemRed
+        case "zoo":
+            return UIColor.systemGreen
+        default:
+            // Ideally switches are exhaustive and this isn't needed!
+            // But MapKit implemented this a struct, not an enum.
+            // Thus we can't rely on an exhaustive switch....
+            return UIColor.systemOrange
+        }
+    }
 }

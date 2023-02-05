@@ -108,7 +108,7 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         movedToUserLocation = true
     }
     
-    /// Handles an Annotation being added to create  a view.
+    /// Handles an Annotation being added to create a view.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard !annotation.isKind(of: MKUserLocation.self) else {
             // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
@@ -129,6 +129,10 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         let view = ReviewAnnotationView(annotation: annotation, reuseIdentifier: nil)
         if let picId = annotation.picId {
             view.photo = "https://bout.sfo3.cdn.digitaloceanspaces.com/" + picId
+        }
+        
+        if let category = annotation.category {
+            view.category = category
         }
         view.canShowCallout = true
         view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
@@ -168,15 +172,8 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
 }
 
 class ReviewAnnotationView: MKAnnotationView {
-    static let reuseId = "quickEventUser"
     var photo: String?
-    override var annotation: MKAnnotation? {
-        didSet {
-            if let ann = annotation as? ReviewAnnotationView {
-                self.photo = ann.photo
-            }
-        }
-    }
+    var category: String?
     
     override var isHidden: Bool {
         didSet {
@@ -191,8 +188,6 @@ class ReviewAnnotationView: MKAnnotationView {
     let imageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         imageView.layer.cornerRadius = 25.0
-        imageView.layer.borderWidth = 3.0
-        imageView.layer.borderColor = UIColor.white.cgColor
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -216,6 +211,25 @@ class ReviewAnnotationView: MKAnnotationView {
             imageView.sd_setImage(with: url)
         } else {
             imageView.image = nil
+        }
+        
+        if let category = self.category {
+            if let systemImage = MKPointOfInterestCategory.getCategory(category: category)?.getSystemImageString() {
+                let iconBg = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+                iconBg.layer.cornerRadius = 10
+                iconBg.clipsToBounds = true
+                iconBg.backgroundColor = MKPointOfInterestCategory.getCategoryColor(category: category)
+                iconBg.center = CGPoint(x: 42, y: 8)
+                
+                let icon = UIImageView(image: UIImage(systemName: systemImage))
+                icon.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
+                icon.contentMode = .scaleAspectFit
+                icon.tintColor = .black
+                icon.center = iconBg.convert(iconBg.center, from: icon);
+                
+                iconBg.addSubview(icon)
+                addSubview(iconBg)
+            }
         }
     }
 }
