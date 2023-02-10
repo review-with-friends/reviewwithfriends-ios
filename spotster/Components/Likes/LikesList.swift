@@ -9,13 +9,15 @@ import Foundation
 import SwiftUI
 
 struct LikesList: View {
+    @Binding var path: NavigationPath
+    
     var likes: [Like]
     
     var body: some View {
         ScrollView {
             VStack {
                 ForEach(self.likes) { like in
-                    LikesListItem(userId: like.userId, date: like.created)
+                    LikesListItem(path: self.$path, userId: like.userId, date: like.created)
                 }
             }.padding(.horizontal)
         }.navigationTitle("Likes").padding(.top)

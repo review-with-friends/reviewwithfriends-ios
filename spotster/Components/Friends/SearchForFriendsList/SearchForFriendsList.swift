@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct SearchForFriendsList: View {
+    @Binding var path: NavigationPath
     
     @State var results: [User] = []
     @State var searchText = ""
@@ -63,7 +64,7 @@ struct SearchForFriendsList: View {
             ScrollView {
                 VStack {
                     ForEach(self.results) { user in
-                        FriendsListItemLoader(userId: user.id, requestId: "", itemType: .SearchItem)
+                        FriendsListItemLoader(path: self.$path, userId: user.id, requestId: "", itemType: .SearchItem)
                     }
                 }.padding(.horizontal)
             }.scrollDismissesKeyboard(.immediately)

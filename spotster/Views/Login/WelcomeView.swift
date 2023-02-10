@@ -10,7 +10,7 @@ import SwiftUI
 import SafariServices
 
 struct WelcomeView: View {
-    @EnvironmentObject var navigationManager: NavigationManager
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack {
@@ -30,7 +30,7 @@ struct WelcomeView: View {
             }.padding()
             
             Button(action: {
-                navigationManager.path.append(GetCode())
+                self.path.append(GetCode())
             }) {
                 Text("Get Started").font(.largeTitle).fontWeight(.bold)
             }
@@ -40,6 +40,6 @@ struct WelcomeView: View {
 
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView().preferredColorScheme(.dark).environmentObject(NavigationManager())
+        WelcomeView(path: .constant(NavigationPath())).preferredColorScheme(.dark)
     }
 }

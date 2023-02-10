@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI
 
 struct MyProfileView: View {
+    @Binding var path: NavigationPath
+    
     var user: User
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigatonManager: NavigationManager
     @EnvironmentObject var friendsCache: FriendsCache
     
     func getIncomingCount() -> Int {
@@ -33,7 +34,7 @@ struct MyProfileView: View {
                     VStack {
                         HStack {
                             Spacer()
-                            ProfilePicLoader(userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true).padding()
+                            ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true).padding()
                             Spacer()
                         }
                         HStack {
@@ -50,7 +51,7 @@ struct MyProfileView: View {
                 }
                 Section {
                     Button(action:{
-                        self.navigatonManager.path.append(UniqueUser(userId: user.id))
+                        self.path.append(UniqueUser(userId: user.id))
                     }){
                         HStack {
                             Text("View Profile")
@@ -61,7 +62,7 @@ struct MyProfileView: View {
                 }
                 Section {
                     Button(action:{
-                        self.navigatonManager.path.append(FriendsListDestination(view: .Incoming))
+                        self.path.append(FriendsListDestination(view: .Incoming))
                     }){
                         HStack {
                             Text("Incoming Friend Requests").badge(self.getIncomingCount())
@@ -70,7 +71,7 @@ struct MyProfileView: View {
                         }
                     }
                     Button(action:{
-                        self.navigatonManager.path.append(FriendsListDestination(view: .Outgoing))
+                        self.path.append(FriendsListDestination(view: .Outgoing))
                     }){
                         HStack {
                             Text("Outgoing Friend Requests").badge(self.getOutgoingCount())
@@ -79,7 +80,7 @@ struct MyProfileView: View {
                         }
                     }
                     Button(action:{
-                        self.navigatonManager.path.append(FriendsListDestination(view: .Ignored))
+                        self.path.append(FriendsListDestination(view: .Ignored))
                     }){
                         HStack {
                             Text("Ignored Friend Requests")
@@ -90,7 +91,7 @@ struct MyProfileView: View {
                 }
                 Section {
                     Button(action:{
-                        self.navigatonManager.path.append(FriendsListDestination(view: .Search))
+                        self.path.append(FriendsListDestination(view: .Search))
                     }){
                         HStack {
                             Text("Search for Friends")
@@ -99,7 +100,7 @@ struct MyProfileView: View {
                         }
                     }
                     Button(action:{
-                        self.navigatonManager.path.append(FriendsListDestination(view: .Friends))
+                        self.path.append(FriendsListDestination(view: .Friends))
                     }){
                         HStack {
                             Text("Friends").badge(self.getFriendsCount())
@@ -124,11 +125,10 @@ struct MyProfileView: View {
 struct MyProfileView_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            MyProfileView(user: generateUserPreviewData())
+            MyProfileView(path: .constant(NavigationPath()), user: generateUserPreviewData())
                 .preferredColorScheme(.dark)
                 .environmentObject(Authentication.initPreview())
                 .environmentObject(UserCache())
-                .environmentObject(NavigationManager())
                 .environmentObject(FriendsCache.generateDummyData())
         }
     }

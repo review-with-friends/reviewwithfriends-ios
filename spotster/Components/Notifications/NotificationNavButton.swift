@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 struct NotificationNavButton: View {
-    @EnvironmentObject var navigationManager: NavigationManager
+    @Binding var path: NavigationPath
+    
     @EnvironmentObject var notificationManager: NotificationManager
     
     func getNotificationCount() -> String {
@@ -24,10 +25,10 @@ struct NotificationNavButton: View {
         ZStack {
             VStack {
                 Button(action: {
-                    self.navigationManager.path.append(NotificationDestination())
+                    self.path.append(NotificationDestination())
                 }) {
                     ZStack {
-                        Image(systemName: "heart").font(.title).padding(.horizontal)
+                        Image(systemName: "heart").font(.title)
                         if self.notificationManager.newNotifications > 0 {
                             VStack {
                                 Circle().foregroundColor(.red).frame(width: 16).overlay {
@@ -45,9 +46,8 @@ struct NotificationNavButton: View {
 struct NotificationNavButton_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            NotificationNavButton()
+            NotificationNavButton(path: .constant(NavigationPath()))
         }.preferredColorScheme(.dark)
             .environmentObject(NotificationManager())
-            .environmentObject(NavigationManager())
     }
 }

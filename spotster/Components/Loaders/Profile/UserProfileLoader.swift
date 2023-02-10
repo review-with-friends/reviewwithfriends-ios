@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct UserProfileLoader: View {
+    @Binding var path: NavigationPath
     let userId: String
     
     @State var loading = true
@@ -61,7 +62,7 @@ struct UserProfileLoader: View {
                 }
             } else {
                 if let user = self.user {
-                    UserProfileView(user: user)
+                    UserProfileView(path: self.$path, user: user)
                 }
             }
         }.onFirstAppear(loadUserAndFriendRequests)

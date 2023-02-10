@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct GetCodeView: View {
+    @Binding var path: NavigationPath
+    
     @Binding var phone: String
     
     @State var pending = false
@@ -16,7 +18,7 @@ struct GetCodeView: View {
     @State var showError = false
     @State var errorText = ""
     
-    @EnvironmentObject var navigationManager: NavigationManager
+    @EnvironmentObject var auth: Authentication
     
     func requestCode() async {
         if self.pending == true {
@@ -30,11 +32,32 @@ struct GetCodeView: View {
         
         switch result {
         case .success():
-            self.navigationManager.path.append(SubmitCode())
+            self.path.append(SubmitCode())
             self.pending = false
         case .failure(let err):
             self.showError(error: err.description)
             self.pending = false
+        }
+    }
+    
+    func signInDemoUser() async {
+        self.hideError()
+        
+        let signInResult = await SignInDemo()
+        
+        switch signInResult {
+        case .success(let token):
+            let getMeResult = await auth.getMe(incomingToken: token)
+            switch getMeResult {
+            case .success():
+                auth.setCachedToken(incomingToken: token)
+            case .failure(let err):
+                self.showError(error: err.description)
+                break
+            }
+        case .failure(let err):
+            self.showError(error: err.description)
+            break
         }
     }
     
@@ -73,7 +96,13 @@ struct GetCodeView: View {
             
             
             Spacer()
-        }.frame(alignment: .center)
+        }.frame(alignment: .center).toolbar {
+            Button(action: {
+                Task { await self.signInDemoUser() }
+            }) {
+                Text("Login as Demo User")
+            }
+        }
     }
 }
 
@@ -110,8 +139,8 @@ func getCode(phone: String) async -> Result<(), RequestError> {
 
 struct GetCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        GetCodeView(phone: .constant("7014910059"))
-            .environmentObject(NavigationManager())
+        GetCodeView(path: .constant(NavigationPath()), phone: .constant("7014910059"))
+            .environmentObject(Authentication.initPreview())
             .preferredColorScheme(.dark)
     }
 }

@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ReviewHeader: View {
+    @Binding var path: NavigationPath
+    
     var user: User
     var review: Review
     var showLocation = true
@@ -18,13 +20,12 @@ struct ReviewHeader: View {
     @State var deleteErrorMessage = ""
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var reloadCallback: ChildViewReloadCallback
     
     var body: some View {
         HStack{
             VStack{
-                ProfilePicLoader(userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: false)
+                ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: false)
             }
             VStack {
                 HStack {
@@ -36,7 +37,7 @@ struct ReviewHeader: View {
                 if showLocation {
                     HStack {
                         Button(action: {
-                            self.navigationManager.path.append(UniqueLocation(locationName: review.locationName, category: review.category, latitude: review.latitude, longitude: review.longitude))
+                            self.path.append(UniqueLocation(locationName: review.locationName, category: review.category, latitude: review.latitude, longitude: review.longitude))
                         }) {
                             Image(systemName:"mappin.and.ellipse").foregroundColor(.secondary).font(.caption)
                             Text(review.locationName).font(.caption).foregroundColor(.secondary).lineLimit(1)
@@ -94,7 +95,7 @@ struct ReviewHeader: View {
         switch result {
         case .success(_):
             await self.reloadCallback.callIfExists()
-            self.navigationManager.path.removeLast()
+            self.path.removeLast()
         case .failure(let error):
             self.deleteErrorMessage = error.description
             self.showDeleteError = true
@@ -109,7 +110,7 @@ struct ReviewHeader_Preview: PreviewProvider {
     
     static var previews: some View {
         VStack{
-            ReviewHeader(user: generateUserPreviewData(), review: generateReviewPreviewData())
+            ReviewHeader(path: .constant(NavigationPath()), user: generateUserPreviewData(), review: generateReviewPreviewData())
                 .preferredColorScheme(.dark)
                 .environmentObject(Authentication.initPreview())
                 .environmentObject(UserCache())

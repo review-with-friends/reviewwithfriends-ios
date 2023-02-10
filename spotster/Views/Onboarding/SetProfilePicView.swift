@@ -11,6 +11,8 @@ import PhotosUI
 
 
 struct SetProfilePicView: View {
+    @Binding var path: NavigationPath
+    
     /// Selected image from the photo picker.
     @State var selectedItem: PhotosPickerItem?
     /// Image data from the selected image.
@@ -24,10 +26,9 @@ struct SetProfilePicView: View {
     @State var errorText = ""
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     
     func moveToNextScreen() {
-        self.navigationManager.path.append(ReviewNamesAndProfilePic())
+        self.path.append(ReviewNamesAndProfilePic())
     }
     
     func showError(error: String) {
@@ -52,7 +53,7 @@ struct SetProfilePicView: View {
                     .frame(width: 256, height: 256)
                     .clipShape(Circle()).padding()
             } else {
-                ProfilePicLoader(userId: auth.user?.id ?? "", profilePicSize: .large, navigatable: false, ignoreCache: true)
+                ProfilePicLoader(path: self.$path, userId: auth.user?.id ?? "", profilePicSize: .large, navigatable: false, ignoreCache: true)
             }
             if self.showError {
                 Text(self.errorText).foregroundColor(.red)
@@ -150,6 +151,6 @@ func getSizeFromRatio(size: CGSize, scale: CGFloat) -> CGSize {
 
 struct SetProfilePicView_Previews: PreviewProvider {
     static var previews: some View {
-        SetProfilePicView().preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+        SetProfilePicView(path: .constant(NavigationPath())).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
     }
 }

@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct IncomingFriendsListItem: View {
+    @Binding var path: NavigationPath
+    
     /// User who issued the given request
     let user: User
     
@@ -87,7 +89,7 @@ struct IncomingFriendsListItem: View {
     
     var body: some View  {
         HStack {
-            ProfilePicLoader(userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
+            ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
             VStack {
                 Text(user.displayName)
                 Text("@" + user.name).font(.caption)
@@ -138,11 +140,10 @@ struct IncomingFriendsListItem: View {
 struct IncomingFriendsListItem_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            IncomingFriendsListItem(user: generateUserPreviewData(), requestId: "peepeepoopoo")
+            IncomingFriendsListItem(path: .constant(NavigationPath()) ,user: generateUserPreviewData(), requestId: "peepeepoopoo")
         }.preferredColorScheme(.dark)
             .environmentObject(FriendsCache.generateDummyData())
             .environmentObject(UserCache())
-            .environmentObject(NavigationManager())
             .environmentObject(Authentication.initPreview())
     }
 }

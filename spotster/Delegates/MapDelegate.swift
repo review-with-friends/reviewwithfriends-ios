@@ -14,14 +14,14 @@ import SDWebImageMapKit
 class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, ObservableObject {
     public var mapView = MKMapView()
     public var locationManager: CLLocationManager
-    public var navigationManager: NavigationManager
+    public var path: NavigationPath
     public var movedToUserLocation = false
     
     var boundaryManager = MapBoundaryManager()
     public var boundaryQueue = MapBoundaryQueue()
     
-    init(navigationManager: NavigationManager) {
-        self.navigationManager = navigationManager
+    init(path: NavigationPath) {
+        self.path = path
         self.locationManager = CLLocationManager()
     }
     
@@ -80,7 +80,9 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
             if let title = titleOpt {
                 let category = extractCategoryFromAnnotation(annotation: annotation)
                 let uniqueLocation = UniqueLocation(locationName: title, category: category, latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
-                navigationManager.path.append(uniqueLocation)
+                DispatchQueue.main.async {
+                    self.path.append(uniqueLocation)
+                }
             }
         }
     }

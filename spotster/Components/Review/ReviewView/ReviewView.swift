@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ReviewView: View {
+    @Binding var path: NavigationPath
+    
     var reloadCallback: () async -> Void
     var user: User
     var fullReview: FullReview
@@ -20,16 +22,16 @@ struct ReviewView: View {
         ScrollViewReader { proxy in
             ScrollView {
                 VStack {
-                    ReviewHeader(user: user, review: fullReview.review)
+                    ReviewHeader(path: self.$path, user: user, review: fullReview.review)
                     if let pic = self.fullReview.pics.first {
-                        ReviewPicLoader(pic: pic).overlay {
-                            ReviewPicOverlay(likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
+                        ReviewPicLoader(path: self.$path, pic: pic).overlay {
+                            ReviewPicOverlay(path: self.$path, likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
                         }
                     }
-                    ReviewText(fullReview: self.fullReview)
+                    ReviewText(path: self.$path, fullReview: self.fullReview)
                         .padding(.top, 3.0)
                     ReviewAddReply(reloadCallback: reloadCallback, fullReview: fullReview, scrollProxy: proxy)
-                    ReviewReplies(reloadCallback: self.reloadCallback, fullReview: self.fullReview)
+                    ReviewReplies(path: self.$path, reloadCallback: self.reloadCallback, fullReview: self.fullReview)
                 }.padding()
             }.scrollDismissesKeyboard(.immediately)
                 .refreshable {
@@ -45,6 +47,6 @@ struct ReviewView_Previews: PreviewProvider {
     static func dummyCallback() async {}
     
     static var previews: some View {
-        ReviewView(reloadCallback: dummyCallback, user: generateUserPreviewData(), fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+        ReviewView(path: .constant(NavigationPath()), reloadCallback: dummyCallback, user: generateUserPreviewData(), fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
     }
 }

@@ -9,13 +9,15 @@ import Foundation
 import SwiftUI
 
 struct OutgoingFriendsList: View {
+    @Binding var path: NavigationPath
+    
     @EnvironmentObject var friendsCache: FriendsCache
     
     var body: some View {
         ScrollView {
             VStack {
                 ForEach(self.friendsCache.fullFriends.outgoingRequests) { friend in
-                    FriendsListItemLoader(userId: friend.friendId, requestId: friend.id, itemType: .OutgoingItem)
+                    FriendsListItemLoader(path: self.$path, userId: friend.friendId, requestId: friend.id, itemType: .OutgoingItem)
                 }
             }.padding(.horizontal)
         }.navigationTitle("Outgoing Requests").padding(.top)

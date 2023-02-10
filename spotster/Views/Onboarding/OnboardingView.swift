@@ -9,20 +9,20 @@ import Foundation
 import SwiftUI
 
 struct OnboardingView: View {
-    @StateObject var navigationManager = NavigationManager()
+    @State var path = NavigationPath()
     
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: self.$path) {
             VStack{
-                SetNamesView()
+                SetNamesView(path: self.$path)
             }
             .navigationDestination(for: SetProfilePic.self) { _ in
-                SetProfilePicView()
+                SetProfilePicView(path: self.$path)
             }
             .navigationDestination(for: ReviewNamesAndProfilePic.self) { _ in
-                GetStartedView()
+                GetStartedView(path: self.$path)
             }
-        }.environmentObject(self.navigationManager).accentColor(.primary)
+        }.accentColor(.primary)
     }
 }
 

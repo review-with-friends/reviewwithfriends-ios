@@ -17,6 +17,8 @@ enum FriendsListItemType {
 }
 
 struct FriendsListItemLoader: View {
+    @Binding var path: NavigationPath
+    
     let userId: String
     let requestId: String
     let itemType: FriendsListItemType
@@ -49,15 +51,15 @@ struct FriendsListItemLoader: View {
                 if let user = self.user {
                     switch self.itemType {
                     case .FriendItem:
-                        FriendsListItem(user: user)
+                        FriendsListItem(path: self.$path, user: user)
                     case .IgnoredItem:
-                        IgnoredFriendsListItem(user: user, requestId: self.requestId)
+                        IgnoredFriendsListItem(path: self.$path, user: user, requestId: self.requestId)
                     case .OutgoingItem:
-                        OutgoingFriendsListItem(user: user, requestId: self.requestId)
+                        OutgoingFriendsListItem(path: self.$path, user: user, requestId: self.requestId)
                     case .IncomingItem:
-                        IncomingFriendsListItem(user: user, requestId: self.requestId)
+                        IncomingFriendsListItem(path: self.$path, user: user, requestId: self.requestId)
                     case .SearchItem:
-                        SearchForFriendsListItem(user: user)
+                        SearchForFriendsListItem(path: self.$path, user: user)
                     }
                 } else {
                     Button(action: {

@@ -9,14 +9,15 @@ import Foundation
 import SwiftUI
 
 struct GetStartedView: View {
+    @Binding var path: NavigationPath
+    
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
         VStack {
             Spacer()
             VStack{
-                ProfilePicLoader(userId: auth.user?.id ?? "", profilePicSize: .large, navigatable: false, ignoreCache: true).padding()
+                ProfilePicLoader(path: self.$path, userId: auth.user?.id ?? "", profilePicSize: .large, navigatable: false, ignoreCache: true).padding()
                 Text(auth.user?.displayName ?? "").font(.title2.bold())
                 Text("@" + (auth.user?.name ?? "")).foregroundColor(.secondary)
             }.padding()
@@ -38,6 +39,6 @@ struct GetStartedView: View {
 
 struct GetStartedView_Previews: PreviewProvider {
     static var previews: some View {
-        GetStartedView().preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+        GetStartedView(path: .constant(NavigationPath())).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
     }
 }

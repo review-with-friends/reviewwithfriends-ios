@@ -9,20 +9,21 @@ import Foundation
 import SwiftUI
 
 struct NotificationListItem: View {
+    @Binding var path: NavigationPath
+    
     var notification: UserNotification
     var highlighted: Bool
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var userCache: UserCache
     
     var body: some View  {
         HStack {
             VStack {
-                ProfilePicLoader(userId: notification.userId, profilePicSize: .medium, navigatable: true, ignoreCache: false)
+                ProfilePicLoader(path: self.$path, userId: notification.userId, profilePicSize: .medium, navigatable: true, ignoreCache: false)
             }
             Button(action: {
-                self.navigationManager.path.append(ReviewDestination(id: notification.reviewId, userId: notification.reviewUserId))
+                self.path.append(ReviewDestination(id: notification.reviewId, userId: notification.reviewUserId))
             }) {
                 VStack {
                     HStack {
@@ -48,11 +49,10 @@ struct NotificationListItem: View {
 struct NotificationListItem_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            NotificationListItem(notification: UserNotification(id: "123", created: Date(), reviewUserId: "123", userId: "123", reviewId: "123", actionType: 1, reviewLocation: "test location"), highlighted: false)
-            NotificationListItem(notification: UserNotification(id: "123", created: Date(), reviewUserId: "123", userId: "123", reviewId: "123", actionType: 1, reviewLocation: "test location"), highlighted: true)
+            NotificationListItem(path: .constant(NavigationPath()), notification: UserNotification(id: "123", created: Date(), reviewUserId: "123", userId: "123", reviewId: "123", actionType: 1, reviewLocation: "test location"), highlighted: false)
+            NotificationListItem(path: .constant(NavigationPath()), notification: UserNotification(id: "123", created: Date(), reviewUserId: "123", userId: "123", reviewId: "123", actionType: 1, reviewLocation: "test location"), highlighted: true)
         }.preferredColorScheme(.dark)
             .environmentObject(UserCache())
-            .environmentObject(NavigationManager())
             .environmentObject(Authentication.initPreview())
     }
 }

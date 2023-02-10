@@ -208,6 +208,7 @@ struct CreateReviewRequest: Codable {
     let latitude: Double
     let longitude: Double
     let is_custom: Bool
+    let pic: String
 }
 
 func getReviewFromBoundary(token: String, boundary: MapBoundary, page: Int) async -> Result<[Review], RequestError> {
@@ -266,6 +267,39 @@ func getReviewFromBoundaryWithExclusion(token: String, boundary: MapBoundary, ex
     url.append(queryItems:  [URLQueryItem(name: "latitude_south_e", value: "\(excludedBoundary.minY)")])
     url.append(queryItems:  [URLQueryItem(name: "longitude_west_e", value: "\(excludedBoundary.minX)")])
     url.append(queryItems:  [URLQueryItem(name: "longitude_east_e", value: "\(excludedBoundary.maxX)")])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await spotster.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode([Review].self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
+func searchLatestReviews(token: String, searchTerm: String, page: Int) async -> Result<[Review], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/search_latest") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
+    url.append(queryItems:  [URLQueryItem(name: "search_term", value: searchTerm)])
     
     var request = URLRequest(url: url)
     request.httpMethod = "GET"

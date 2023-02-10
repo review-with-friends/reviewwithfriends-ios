@@ -10,6 +10,7 @@ import SwiftUI
 import PhotosUI
 
 struct CreateReviewView: View {
+    @Binding var path: NavigationPath
     var reviewLocation: UniqueLocationCreateReview
     
     /// Selected image from the photo picker.
@@ -32,7 +33,6 @@ struct CreateReviewView: View {
     @State var review: Review?
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var reloadCallback: ChildViewReloadCallback
     
     func showError(error: String) {
@@ -50,14 +50,20 @@ struct CreateReviewView: View {
             if self.showError {
                 Text(self.errorText).foregroundColor(.red)
             }
-            Text(reviewLocation.locationName).font(.title).lineLimit(1)
-                .padding()
             VStack {
-                HStack{
-                    Spacer()
-                    ReviewStarsSelector(stars: $stars).padding()
-                    Spacer()
-                }
+                    HStack{
+                        Spacer()
+                        ReviewStarsSelector(stars: $stars).padding()
+                        Spacer()
+                    }.padding()
+                Rectangle().frame(height: 1).padding().foregroundColor(.secondary).opacity(0.5)
+                    VStack {
+                        TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...).padding(.horizontal)
+                        if text.count > 400 {
+                            Text("too long").foregroundColor(.red)
+                        }
+                    }
+                Rectangle().frame(height: 1).padding().foregroundColor(.secondary).opacity(0.5)
                 PhotosPicker(
                     selection: $selectedItem,
                     matching: .images,
@@ -65,7 +71,13 @@ struct CreateReviewView: View {
                         if let image = self.selectedImage {
                             Image(uiImage: image).resizable().scaledToFit().cornerRadius(16)
                         } else {
-                            Image(systemName: "photo.fill").font(.system(size: 96)).foregroundColor(.secondary)
+                            ZStack {
+                                Rectangle().scaledToFit().cornerRadius(16).foregroundColor(.secondary).opacity(0.25)
+                                VStack {
+                                    Image(systemName: "photo.fill").font(.system(size: 96)).foregroundColor(.secondary).opacity(0.5)
+                                    Text("tap to add a pic").foregroundColor(.secondary).fontWeight(.semibold).opacity(0.5)
+                                }
+                            }
                         }
                     }.onChange(of: selectedItem) { newItem in
                         Task {
@@ -78,12 +90,6 @@ struct CreateReviewView: View {
                             }
                         }
                     }.foregroundColor(.primary)
-                Form {
-                    TextField("Max 400 characters.", text: $text, axis: .vertical).lineLimit(3...)
-                    if text.count > 400 {
-                        Text("too long").foregroundColor(.red)
-                    }
-                }
             }
             Spacer()
         }.accentColor(.primary).toolbar {
@@ -98,35 +104,31 @@ struct CreateReviewView: View {
     }
     
     func postReview() async {
+        var dataToBeUploaded: Data
+        
+        if let picData = self.selectedItemData {
+            dataToBeUploaded = picData
+        } else {
+            self.showError(error: "add a pic 🙄")
+            return
+        }
+        
         if self.pending == true {
             return
         }
+        
         self.pending = true
         
         if self.review == nil {
-            let request = CreateReviewRequest(text: self.text, stars: self.stars, category: self.reviewLocation.category, location_name: self.reviewLocation.locationName, latitude: self.reviewLocation.latitude, longitude: self.reviewLocation.longitude, is_custom: false)
+            let request = CreateReviewRequest(text: self.text, stars: self.stars, category: self.reviewLocation.category, location_name: self.reviewLocation.locationName, latitude: self.reviewLocation.latitude, longitude: self.reviewLocation.longitude, is_custom: false, pic: dataToBeUploaded.base64EncodedString())
             
             let reviewResult = await spotster.createReview(token: auth.token, reviewRequest: request)
             
             switch reviewResult {
-            case .success(let review):
-                self.review = review
+            case .success(_):
+                self.path.removeLast()
             case .failure(let err):
                 self.showError(error: err.description)
-            }
-        }
-        
-        if let review = self.review {
-            if let picData = self.selectedItemData {
-                let picResult = await spotster.addReviewPic(token: auth.token, reviewId: review.id, data: picData)
-                switch picResult {
-                case .success(_):
-                    navigationManager.path.removeLast()
-                case .failure(let err):
-                    self.showError(error: err.description)
-                }
-            } else {
-                navigationManager.path.removeLast()
             }
         }
         
@@ -168,6 +170,6 @@ struct CreateReviewView: View {
 
 struct CreateReviewView_Preview: PreviewProvider {
     static var previews: some View {
-        CreateReviewView(reviewLocation: UniqueLocationCreateReview(locationName: "Taco Bell", category: "restaurant", latitude: -122.436734, longitude: 45.2384234)).preferredColorScheme(.dark)
+        CreateReviewView(path: .constant(NavigationPath()), reviewLocation: UniqueLocationCreateReview(locationName: "Taco Bell", category: "restaurant", latitude: -122.436734, longitude: 45.2384234)).preferredColorScheme(.dark)
     }
 }

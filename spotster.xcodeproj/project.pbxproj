@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C26319029957C5E00A65CC3 /* SearchReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C26318F29957C5E00A65CC3 /* SearchReviewsView.swift */; };
+		9C2631952995AEE700A65CC3 /* PaginatedReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2631942995AEE700A65CC3 /* PaginatedReviewModel.swift */; };
+		9C2631972995B1BC00A65CC3 /* ReviewViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2631962995B1BC00A65CC3 /* ReviewViewData.swift */; };
+		9C2631992995B79000A65CC3 /* ReviewLoaderA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2631982995B79000A65CC3 /* ReviewLoaderA.swift */; };
 		9C27DFD3298AEAD20094AEDD /* MKExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C27DFD2298AEAD20094AEDD /* MKExtensions.swift */; };
 		9C28C980298DD210002296A1 /* DynamicAppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C97F298DD210002296A1 /* DynamicAppIcon.swift */; };
+		9C28C99129919868002296A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C99029919868002296A1 /* AppDelegate.swift */; };
+		9C28C9932991A0E9002296A1 /* ParseCustomSchemeUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9922991A0E9002296A1 /* ParseCustomSchemeUrl.swift */; };
+		9C28C9B229957A9F002296A1 /* SearchNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9B129957A9F002296A1 /* SearchNavButton.swift */; };
+		9C28C9B429957AF4002296A1 /* SearchDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9B329957AF4002296A1 /* SearchDestination.swift */; };
 		9C40AA8C2935D298009134EA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40AA8B2935D298009134EA /* MainView.swift */; };
 		9C40AA8E2935D2AB009134EA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40AA8D2935D2AB009134EA /* OnboardingView.swift */; };
 		9C40AA9029365B31009134EA /* IntializerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40AA8F29365B31009134EA /* IntializerView.swift */; };
@@ -38,7 +46,6 @@
 		9C8217C2293FE19E0011B7E0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217C1293FE19E0011B7E0 /* Loading.swift */; };
 		9C8217C6293FEC8B0011B7E0 /* GetMeErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217C5293FEC8B0011B7E0 /* GetMeErrorView.swift */; };
 		9C8217C9294022D30011B7E0 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217C8294022D30011B7E0 /* WelcomeView.swift */; };
-		9C8217CF29412AD50011B7E0 /* RecentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217CE29412AD50011B7E0 /* RecentActivityView.swift */; };
 		9C8217D329412AE30011B7E0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217D229412AE30011B7E0 /* MapView.swift */; };
 		9C8217DA2942C2990011B7E0 /* MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217D92942C2990011B7E0 /* MapDelegate.swift */; };
 		9C8217DC2947C5DF0011B7E0 /* LocateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217DB2947C5DF0011B7E0 /* LocateButton.swift */; };
@@ -137,8 +144,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C26318F29957C5E00A65CC3 /* SearchReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReviewsView.swift; sourceTree = "<group>"; };
+		9C2631942995AEE700A65CC3 /* PaginatedReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedReviewModel.swift; sourceTree = "<group>"; };
+		9C2631962995B1BC00A65CC3 /* ReviewViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewData.swift; sourceTree = "<group>"; };
+		9C2631982995B79000A65CC3 /* ReviewLoaderA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLoaderA.swift; sourceTree = "<group>"; };
 		9C27DFD2298AEAD20094AEDD /* MKExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKExtensions.swift; sourceTree = "<group>"; };
 		9C28C97F298DD210002296A1 /* DynamicAppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicAppIcon.swift; sourceTree = "<group>"; };
+		9C28C99029919868002296A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9C28C9922991A0E9002296A1 /* ParseCustomSchemeUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseCustomSchemeUrl.swift; sourceTree = "<group>"; };
+		9C28C9B129957A9F002296A1 /* SearchNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavButton.swift; sourceTree = "<group>"; };
+		9C28C9B329957AF4002296A1 /* SearchDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDestination.swift; sourceTree = "<group>"; };
 		9C40AA8B2935D298009134EA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9C40AA8D2935D2AB009134EA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		9C40AA8F29365B31009134EA /* IntializerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntializerView.swift; sourceTree = "<group>"; };
@@ -168,7 +183,6 @@
 		9C8217C1293FE19E0011B7E0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		9C8217C5293FEC8B0011B7E0 /* GetMeErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMeErrorView.swift; sourceTree = "<group>"; };
 		9C8217C8294022D30011B7E0 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		9C8217CE29412AD50011B7E0 /* RecentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentActivityView.swift; sourceTree = "<group>"; };
 		9C8217D229412AE30011B7E0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		9C8217D92942C2990011B7E0 /* MapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDelegate.swift; sourceTree = "<group>"; };
 		9C8217DB2947C5DF0011B7E0 /* LocateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocateButton.swift; sourceTree = "<group>"; };
@@ -277,6 +291,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C2631922995AE6500A65CC3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9C82179829369C800011B7E0 /* ErrorDisplay.swift */,
+				9C8217A629395A390011B7E0 /* User.swift */,
+				9C8217E62949293D0011B7E0 /* Review.swift */,
+				9C871CC32954F422007B72F7 /* Like.swift */,
+				9C871CC52954FDBA007B72F7 /* FullReview.swift */,
+				9C871CC72954FDE2007B72F7 /* Reply.swift */,
+				9C871D272968F04F007B72F7 /* FriendRequest.swift */,
+				9C871D292968F0F3007B72F7 /* Friend.swift */,
+				9CD42D8C296E08D600C2FBE9 /* FullFriends.swift */,
+				9CAEB39D29777852009A18A3 /* Pic.swift */,
+				9CAEB3AC298991BE009A18A3 /* UserNotification.swift */,
+				9C2631962995B1BC00A65CC3 /* ReviewViewData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		9C2631932995AE7200A65CC3 /* Observables */ = {
+			isa = PBXGroup;
+			children = (
+				9C2631942995AEE700A65CC3 /* PaginatedReviewModel.swift */,
+			);
+			path = Observables;
+			sourceTree = "<group>";
+		};
 		9C27DFD1298AEABE0094AEDD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,25 +331,35 @@
 			isa = PBXGroup;
 			children = (
 				9C28C97F298DD210002296A1 /* DynamicAppIcon.swift */,
+				9C28C9922991A0E9002296A1 /* ParseCustomSchemeUrl.swift */,
 			);
 			path = Functions;
+			sourceTree = "<group>";
+		};
+		9C28C98F2991985D002296A1 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				9C8217D92942C2990011B7E0 /* MapDelegate.swift */,
+				9C28C99029919868002296A1 /* AppDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		9C28C9B029957A91002296A1 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				9C28C9B129957A9F002296A1 /* SearchNavButton.swift */,
+				9C26318F29957C5E00A65CC3 /* SearchReviewsView.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		9C40AA9229366063009134EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9C2631932995AE7200A65CC3 /* Observables */,
+				9C2631922995AE6500A65CC3 /* Data */,
 				9C871CEF29635930007B72F7 /* NavigationDestinations */,
-				9C82179829369C800011B7E0 /* ErrorDisplay.swift */,
-				9C8217A629395A390011B7E0 /* User.swift */,
-				9C8217E62949293D0011B7E0 /* Review.swift */,
-				9C871CC32954F422007B72F7 /* Like.swift */,
-				9C871CC52954FDBA007B72F7 /* FullReview.swift */,
-				9C871CC72954FDE2007B72F7 /* Reply.swift */,
-				9C871D272968F04F007B72F7 /* FriendRequest.swift */,
-				9C871D292968F0F3007B72F7 /* Friend.swift */,
-				9CD42D8C296E08D600C2FBE9 /* FullFriends.swift */,
-				9CAEB39D29777852009A18A3 /* Pic.swift */,
-				9CAEB3AC298991BE009A18A3 /* UserNotification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -338,6 +389,7 @@
 		9C68CC3029522968007FC567 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9C28C9B029957A91002296A1 /* Search */,
 				9CAEB3B02989C067009A18A3 /* Notifications */,
 				9CAEB3A12988543D009A18A3 /* Likes */,
 				9CD42D8E296E2C9200C2FBE9 /* Friends */,
@@ -441,18 +493,9 @@
 			isa = PBXGroup;
 			children = (
 				9C8217D229412AE30011B7E0 /* MapView.swift */,
-				9C8217D92942C2990011B7E0 /* MapDelegate.swift */,
 				9C8217DE2947D6220011B7E0 /* MapScreenView.swift */,
 			);
 			path = Map;
-			sourceTree = "<group>";
-		};
-		9C8217CD29412A7F0011B7E0 /* RecentActivity */ = {
-			isa = PBXGroup;
-			children = (
-				9C8217CE29412AD50011B7E0 /* RecentActivityView.swift */,
-			);
-			path = RecentActivity;
 			sourceTree = "<group>";
 		};
 		9C871CD129561BF9007B72F7 /* EnvironmentObjects */ = {
@@ -495,6 +538,7 @@
 				9CD42D91296E2D7600C2FBE9 /* FriendsListDestination.swift */,
 				9CAEB3B52989CE1F009A18A3 /* ReviewDestination.swift */,
 				9CAEB3B72989D0F1009A18A3 /* NotificationDestination.swift */,
+				9C28C9B329957AF4002296A1 /* SearchDestination.swift */,
 			);
 			path = NavigationDestinations;
 			sourceTree = "<group>";
@@ -563,6 +607,7 @@
 			children = (
 				9C68CC3329522AEF007FC567 /* ReviewPicLoader.swift */,
 				9C68CC2129512B8A007FC567 /* ReviewLoader.swift */,
+				9C2631982995B79000A65CC3 /* ReviewLoaderA.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -607,6 +652,7 @@
 			isa = PBXGroup;
 			children = (
 				9C871CDA2958EDBF007B72F7 /* Info.plist */,
+				9C28C98F2991985D002296A1 /* Delegates */,
 				9C871CD129561BF9007B72F7 /* EnvironmentObjects */,
 				9C68CC3029522968007FC567 /* Components */,
 				9C8217A9293BC6CB0011B7E0 /* Utilities */,
@@ -640,7 +686,6 @@
 			isa = PBXGroup;
 			children = (
 				9C8217CB29412A730011B7E0 /* Map */,
-				9C8217CD29412A7F0011B7E0 /* RecentActivity */,
 				9C8217C3293FEC670011B7E0 /* ErrorViews */,
 				9C8217A32939580E0011B7E0 /* Login */,
 				9C82179229368E9A0011B7E0 /* Onboarding */,
@@ -903,7 +948,9 @@
 				9CAEB3942971DF47009A18A3 /* MapBoundaryQueue.swift in Sources */,
 				9C8217BD293FB6E30011B7E0 /* GetStartedView.swift in Sources */,
 				9C8217C6293FEC8B0011B7E0 /* GetMeErrorView.swift in Sources */,
+				9C2631972995B1BC00A65CC3 /* ReviewViewData.swift in Sources */,
 				9CAEB3BB2989DDD2009A18A3 /* NotificationNavButton.swift in Sources */,
+				9C2631992995B79000A65CC3 /* ReviewLoaderA.swift in Sources */,
 				9C82179929369C800011B7E0 /* ErrorDisplay.swift in Sources */,
 				9CD42D90296E2C9E00C2FBE9 /* FriendsList.swift in Sources */,
 				9C8217E329490BFA0011B7E0 /* LocationReviewsView.swift in Sources */,
@@ -915,6 +962,7 @@
 				9C40AA8C2935D298009134EA /* MainView.swift in Sources */,
 				9C871CD52957755B007B72F7 /* SlimDate.swift in Sources */,
 				9C871D2A2968F0F3007B72F7 /* Friend.swift in Sources */,
+				9C28C9B429957AF4002296A1 /* SearchDestination.swift in Sources */,
 				9C871D1C2967921C007B72F7 /* LatestReviewsView.swift in Sources */,
 				9CAEB39E29777852009A18A3 /* Pic.swift in Sources */,
 				9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */,
@@ -928,12 +976,14 @@
 				9C871D242968ED70007B72F7 /* MyProfileLoader.swift in Sources */,
 				9CAEB3AD298991BE009A18A3 /* UserNotification.swift in Sources */,
 				9C871D042964FBC8007B72F7 /* ReviewListItem.swift in Sources */,
+				9C2631952995AEE700A65CC3 /* PaginatedReviewModel.swift in Sources */,
 				9CD42DB82970A57300C2FBE9 /* MapBoundary.swift in Sources */,
 				9C871D0F2965FF01007B72F7 /* ReviewView.swift in Sources */,
 				9C68CC2E29522334007FC567 /* ReviewPicOverlay.swift in Sources */,
 				9C871CF12963594D007B72F7 /* UniqueLocationCreateReview.swift in Sources */,
 				9C871CD92958B07C007B72F7 /* NavigationManager.swift in Sources */,
 				9C871D1E2967B2F9007B72F7 /* ReviewListItemSkeleton.swift in Sources */,
+				9C28C9B229957A9F002296A1 /* SearchNavButton.swift in Sources */,
 				9CD42DB62970A55300C2FBE9 /* MapBoundaryManager.swift in Sources */,
 				9CAEB3A929886F57009A18A3 /* UserProfileView.swift in Sources */,
 				9C8217DF2947D6220011B7E0 /* MapScreenView.swift in Sources */,
@@ -945,7 +995,6 @@
 				9C40AA9029365B31009134EA /* IntializerView.swift in Sources */,
 				9CD42D81296DE5F100C2FBE9 /* MyProfileView.swift in Sources */,
 				9CD42D92296E2D7600C2FBE9 /* FriendsListDestination.swift in Sources */,
-				9C8217CF29412AD50011B7E0 /* RecentActivityView.swift in Sources */,
 				9C8217AD293BCC990011B7E0 /* NameValidationError.swift in Sources */,
 				9C8217A5293958740011B7E0 /* LoginView.swift in Sources */,
 				9C871D222968EB6A007B72F7 /* UserProfileLoader.swift in Sources */,
@@ -965,6 +1014,7 @@
 				9CD42D96296E2F4600C2FBE9 /* IncomingFriendsList.swift in Sources */,
 				9C40AA8E2935D2AB009134EA /* OnboardingView.swift in Sources */,
 				9CAEB3A32988544B009A18A3 /* LikesList.swift in Sources */,
+				9C28C99129919868002296A1 /* AppDelegate.swift in Sources */,
 				9C68CC2229512B8A007FC567 /* ReviewLoader.swift in Sources */,
 				9C68CC2529513090007FC567 /* ReviewPreviewData.swift in Sources */,
 				9C8217C9294022D30011B7E0 /* WelcomeView.swift in Sources */,
@@ -974,6 +1024,7 @@
 				9CD42D83296DF54E00C2FBE9 /* ProfilePicSkeleton.swift in Sources */,
 				9C8217DA2942C2990011B7E0 /* MapDelegate.swift in Sources */,
 				9C871CC42954F422007B72F7 /* Like.swift in Sources */,
+				9C26319029957C5E00A65CC3 /* SearchReviewsView.swift in Sources */,
 				9CD42D8D296E08D600C2FBE9 /* FullFriends.swift in Sources */,
 				9C40AA94293667E0009134EA /* Authentication.swift in Sources */,
 				9C871CDE295BCE4C007B72F7 /* UniqueUser.swift in Sources */,
@@ -988,6 +1039,7 @@
 				9C871CE3295BD5BD007B72F7 /* ViewExtensions.swift in Sources */,
 				9C8217DC2947C5DF0011B7E0 /* LocateButton.swift in Sources */,
 				9C871CFF2963E611007B72F7 /* ChildViewReloadCallback.swift in Sources */,
+				9C28C9932991A0E9002296A1 /* ParseCustomSchemeUrl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,12 +1112,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1114,11 +1167,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1139,26 +1193,30 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = spotster/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Spotster!";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "location-services";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.coltonlathrop.bout;
+				MARKETING_VERSION = 1.1;
+				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = none;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1176,26 +1234,30 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = spotster/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Spotster!";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "location-services";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.coltonlathrop.bout;
+				MARKETING_VERSION = 1.1;
+				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = none;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

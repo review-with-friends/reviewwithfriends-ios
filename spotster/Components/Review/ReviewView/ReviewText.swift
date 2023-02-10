@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 struct ReviewText: View {
+    @Binding var path: NavigationPath
+    
     var fullReview: FullReview
     
     @State var animation = 1.0
-    
-    @EnvironmentObject var navigationManager: NavigationManager
     
     func makeReplyText() -> String {
         if self.fullReview.replies.count == 1 {
@@ -43,7 +43,7 @@ struct ReviewText: View {
         VStack {
             HStack {
                 Button(action: {
-                    self.navigationManager.path.append(fullReview.likes)
+                    self.path.append(fullReview.likes)
                 }) {
                     Text(makeLikeText()).foregroundColor(.secondary).padding(.top, 1)
                 }.buttonStyle(PlainButtonStyle())
@@ -64,7 +64,7 @@ struct ReviewText_Preview: PreviewProvider {
     
     static var previews: some View {
         VStack{
-            ReviewText(fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+            ReviewText(path: .constant(NavigationPath()), fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
         }
     }
 }

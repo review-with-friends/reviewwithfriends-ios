@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 struct ReviewListItemText: View {
+    @Binding var path: NavigationPath
+    
     var fullReview: FullReview
     
     @State var animation = 1.0
-    
-    @EnvironmentObject var navigationManager: NavigationManager
     
     func makeReplyText() -> String {
         if self.fullReview.replies.count == 1 {
@@ -43,7 +43,7 @@ struct ReviewListItemText: View {
         VStack {
             Button(action:{
                 let reviewDestination = ReviewDestination(id: fullReview.review.id, userId: fullReview.review.userId)
-                navigationManager.path.append(reviewDestination)
+                self.path.append(reviewDestination)
             }){
                 VStack {
                     HStack {
@@ -72,7 +72,7 @@ struct ReviewListItemText_Preview: PreviewProvider {
     
     static var previews: some View {
         VStack{
-            ReviewListItemText(fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+            ReviewListItemText(path: .constant(NavigationPath()), fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
         }
     }
 }

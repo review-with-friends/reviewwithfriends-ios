@@ -9,26 +9,29 @@ import Foundation
 import SwiftUI
 
 struct SearchForFriendsListItem: View {
+    @Binding var path: NavigationPath
+    
     let user: User
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
-    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View  {
         HStack {
-            ProfilePicLoader(userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
+            ProfilePicLoader(path: self.$path,  userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
             VStack {
                 Text(user.displayName)
                 Text("@" + user.name).font(.caption)
             }
             Spacer()
-            UserActions(user: user)
+            UserActions(path: self.$path, user: user)
         }
     }
 }
 
 struct UserActions: View {
+    @Binding var path: NavigationPath
+    
     let user: User
     
     @State var pending = false
@@ -38,7 +41,6 @@ struct UserActions: View {
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
-    @EnvironmentObject var navigationManager: NavigationManager
     
     func isUserFriend() -> Bool {
         self.friendsCache.fullFriends.friends.contains{ friend in
@@ -102,7 +104,7 @@ struct UserActions: View {
                 Text("Friends").foregroundColor(.secondary)
             } else if self.isFriendRequestSent() {
                 Button(action: {
-                    self.navigationManager.path.append(FriendsListDestination(view: .Outgoing))
+                    self.path.append(FriendsListDestination(view: .Outgoing))
                 }){
                     HStack {
                         Text("Cancel Request")
@@ -111,7 +113,7 @@ struct UserActions: View {
                 }
             } else if self.isFriendRequestIncoming() {
                 Button(action: {
-                    self.navigationManager.path.append(FriendsListDestination(view: .Incoming))
+                    self.path.append(FriendsListDestination(view: .Incoming))
                 }){
                     HStack {
                         Text("Accept Request")
@@ -120,7 +122,7 @@ struct UserActions: View {
                 }
             } else if self.isFriendRequestIgnored() {
                 Button(action: {
-                    self.navigationManager.path.append(FriendsListDestination(view: .Ignored))
+                    self.path.append(FriendsListDestination(view: .Ignored))
                 }){
                     HStack {
                         Text("Unignore and Accept")
@@ -149,11 +151,10 @@ struct UserActions: View {
 struct SearchForFriendsListItem_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            SearchForFriendsListItem(user: generateUserPreviewData())
+            SearchForFriendsListItem(path: .constant(NavigationPath()), user: generateUserPreviewData())
         }.preferredColorScheme(.dark)
             .environmentObject(FriendsCache.generateDummyData())
             .environmentObject(UserCache())
-            .environmentObject(NavigationManager())
             .environmentObject(Authentication.initPreview())
     }
 }

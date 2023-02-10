@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct SetNamesView: View {
+    @Binding var path: NavigationPath
+    
     /// Username used as an additional unique identifier for users.
     @State var name: String = ""
     /// Display name used to display in most cases within the app. Not unique.
@@ -20,10 +22,9 @@ struct SetNamesView: View {
     @State var errorText = ""
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     
     func moveToNextScreen() {
-        self.navigationManager.path.append(SetProfilePic())
+        self.path.append(SetProfilePic())
     }
     
     func showError(error: String) {
@@ -132,7 +133,7 @@ struct SetNamesView: View {
         
         switch result {
         case .success():
-            self.navigationManager.path.append(SetProfilePic())
+            self.path.append(SetProfilePic())
             self.pending = false
         case .failure(let err):
             self.showError(error: err.description)
@@ -165,6 +166,6 @@ struct SetNamesView: View {
 
 struct SetNamesView_Previews: PreviewProvider {
     static var previews: some View {
-        SetNamesView().preferredColorScheme(.dark).environmentObject(Authentication.initPreview())
+        SetNamesView(path: .constant(NavigationPath())).preferredColorScheme(.dark).environmentObject(Authentication.initPreview())
     }
 }

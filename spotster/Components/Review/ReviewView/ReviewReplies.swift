@@ -9,19 +9,23 @@ import Foundation
 import SwiftUI
 
 struct ReviewReplies: View {
+    @Binding var path: NavigationPath
+    
     var reloadCallback: () async -> Void
     var fullReview: FullReview
     
     var body: some View {
         VStack{
             ForEach(fullReview.replies.sorted { $0.created > $1.created }) { reply in
-                ReviewReply(reloadCallback: reloadCallback, reply: reply)
+                ReviewReply(path: self.$path, reloadCallback: reloadCallback, reply: reply)
             }
         }
     }
 }
 
 struct ReviewReply: View {
+    @Binding var path: NavigationPath
+    
     var reloadCallback: () async -> Void
     var reply: Reply
     
@@ -47,7 +51,7 @@ struct ReviewReply: View {
         VStack {
             HStack {
                 VStack {
-                    ProfilePicLoader(userId: reply.userId, profilePicSize: .small, navigatable: true, ignoreCache: false)
+                    ProfilePicLoader(path: self.$path, userId: reply.userId, profilePicSize: .small, navigatable: true, ignoreCache: false)
                     Spacer()
                 }
                 VStack {
@@ -111,7 +115,7 @@ struct ReviewReplies_Preview: PreviewProvider {
     
     static var previews: some View {
         VStack {
-            ReviewReplies(reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+            ReviewReplies(path: .constant(NavigationPath()), reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
         }
     }
 }

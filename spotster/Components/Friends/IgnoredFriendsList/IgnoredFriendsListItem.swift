@@ -4,17 +4,13 @@
 //
 //  Created by Colton Lathrop on 1/11/23.
 //
-//
-//  IncomingFriendsListItem.swift
-//  spotster
-//
-//  Created by Colton Lathrop on 1/10/23.
-//
 
 import Foundation
 import SwiftUI
 
 struct IgnoredFriendsListItem: View {
+    @Binding var path: NavigationPath
+    
     /// User who issued the given request
     let user: User
     
@@ -53,7 +49,7 @@ struct IgnoredFriendsListItem: View {
     
     var body: some View  {
         HStack {
-            ProfilePicLoader(userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
+            ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
             VStack {
                 Text(user.displayName)
                 Text("@" + user.name).font(.caption)
@@ -79,11 +75,10 @@ struct IgnoredFriendsListItem: View {
 struct IgnoredFriendsListItem_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            IgnoredFriendsListItem(user: generateUserPreviewData(), requestId: "peepeepoopoo")
+            IgnoredFriendsListItem(path: .constant(NavigationPath()), user: generateUserPreviewData(), requestId: "peepeepoopoo")
         }.preferredColorScheme(.dark)
             .environmentObject(FriendsCache.generateDummyData())
             .environmentObject(UserCache())
-            .environmentObject(NavigationManager())
             .environmentObject(Authentication.initPreview())
     }
 }

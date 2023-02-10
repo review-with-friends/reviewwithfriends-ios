@@ -11,6 +11,8 @@ import SwiftUI
 /// Actually renders the ReviewPic and like button overlay.
 /// We could break this up a bit more but it's w/e for now.
 struct ReviewPicOverlay: View {
+    @Binding var path: NavigationPath
+    
     var likes: [Like]
     var reviewId: String
     var reloadCallback: () async -> Void
@@ -19,7 +21,6 @@ struct ReviewPicOverlay: View {
     @State var failed = false
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
             VStack{
@@ -41,7 +42,6 @@ struct ReviewPicOverlay: View {
                             switch result {
                             case .success():
                                 await reloadCallback()
-                                self.navigationManager.recentlyUpdatedReviews.append(self.reviewId)
                                 break
                             case .failure(_):
                                 withAnimation {
@@ -87,8 +87,8 @@ struct ReviewPic_Preview: PreviewProvider {
     }
     static var previews: some View {
         VStack{
-            ReviewPicOverlay(likes: [], reviewId: "123", reloadCallback: test).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(NavigationManager())
-            ReviewPicOverlay(likes: [Like(id: "123", created: Date(), userId: "123", reviewId: "123")], reviewId: "123", reloadCallback: test).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(NavigationManager())
+            ReviewPicOverlay(path: .constant(NavigationPath()), likes: [], reviewId: "123", reloadCallback: test).preferredColorScheme(.dark).environmentObject(Authentication.initPreview())
+            ReviewPicOverlay(path: .constant(NavigationPath()), likes: [Like(id: "123", created: Date(), userId: "123", reviewId: "123")], reviewId: "123", reloadCallback: test).preferredColorScheme(.dark).environmentObject(Authentication.initPreview())
         }
     }
 }

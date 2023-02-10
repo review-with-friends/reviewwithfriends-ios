@@ -10,6 +10,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ProfilePicLoader: View {
+    @Binding var path: NavigationPath
+    
     let userId: String
     let profilePicSize: ProfilePicSize
     let navigatable: Bool
@@ -19,7 +21,6 @@ struct ProfilePicLoader: View {
     @State var reloadHard = false
     
     @EnvironmentObject var userCache: UserCache
-    @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var auth: Authentication
     
     func loadUser(ignoreCachee: Bool) async -> Void {
@@ -51,7 +52,7 @@ struct ProfilePicLoader: View {
                         .transition(.fade(duration: 0.5)) // Fade Transition with duration
                         .onTapGesture {
                             if navigatable {
-                                navigationManager.path.append(UniqueUser(userId: self.userId))
+                                self.path.append(UniqueUser(userId: self.userId))
                             }
                         }
                 } else {
@@ -70,11 +71,4 @@ enum ProfilePicSize: CGFloat {
     case small = 28.0
     case medium = 48.0
     case large = 256.0
-}
-
-struct ProfilePicView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-        }
-    }
 }

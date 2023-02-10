@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ReviewListItemHeader: View {
+    @Binding var path: NavigationPath
+    
     var user: User
     var review: Review
     var showLocation = false
@@ -18,12 +20,11 @@ struct ReviewListItemHeader: View {
     @State var deleteErrorMessage = ""
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
         HStack{
             VStack{
-                ProfilePicLoader(userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: false)
+                ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: false)
             }
             VStack {
                 HStack {
@@ -34,7 +35,7 @@ struct ReviewListItemHeader: View {
                 if showLocation {
                     HStack {
                         Button(action: {
-                            self.navigationManager.path.append(UniqueLocation(locationName: review.locationName, category: review.category, latitude: review.latitude, longitude: review.longitude))
+                            self.path.append(UniqueLocation(locationName: review.locationName, category: review.category, latitude: review.latitude, longitude: review.longitude))
                         }) {
                             Image(systemName:"mappin.and.ellipse").foregroundColor(.primary).font(.caption)
                             Text(review.locationName).font(.caption).foregroundColor(.primary).lineLimit(1)
@@ -50,16 +51,14 @@ struct ReviewListItemHeader: View {
 struct ReviewListItemHeader_Preview: PreviewProvider {
     static var previews: some View {
         VStack{
-            ReviewListItemHeader(user: generateUserPreviewData(), review: generateReviewPreviewData())
-                .preferredColorScheme(.dark)
-                .environmentObject(Authentication.initPreview())
-                .environmentObject(NavigationManager())
-                .environmentObject(UserCache())
-            ReviewListItemHeader(user: generateUserPreviewData(), review: generateReviewPreviewData(), showLocation: true)
+            ReviewListItemHeader(path: .constant(NavigationPath()), user: generateUserPreviewData(), review: generateReviewPreviewData())
                 .preferredColorScheme(.dark)
                 .environmentObject(Authentication.initPreview())
                 .environmentObject(UserCache())
-                .environmentObject(NavigationManager())
+            ReviewListItemHeader(path: .constant(NavigationPath()), user: generateUserPreviewData(), review: generateReviewPreviewData(), showLocation: true)
+                .preferredColorScheme(.dark)
+                .environmentObject(Authentication.initPreview())
+                .environmentObject(UserCache())
         }
     }
 }

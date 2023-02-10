@@ -10,7 +10,7 @@ import SwiftUI
 import MapKit
 
 struct MainView: View {
-    @StateObject var navigationManager = NavigationManager()
+    @State var path = NavigationPath()
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
@@ -19,19 +19,19 @@ struct MainView: View {
     @State var tab = 0
     
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: $path) {
             ZStack{
                 TabView (selection: $tab){
-                    RecentActivityView()
+                    LatestReviewsView(path: self.$path )
                         .tabItem {
                             Label("Feed", systemImage: "house.fill")
                         }.tag(0).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
-                    MapScreenView(mapView: MapView(navigationManager: navigationManager))
+                    MapScreenView(mapView: MapView(path: path))
                         .tabItem {
                             Label("Map", systemImage: "map")
                         }.tag(1).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
                     if let user = auth.user {
-                        MyProfileView(user: user)
+                        MyProfileView(path: self.$path, user: user)
                             .badge(self.friendsCache.fullFriends.incomingRequests.count > 0 ? "\($friendsCache.fullFriends.incomingRequests.count)" : nil)
                             .tabItem {
                                 Label("Profile", systemImage: "person.crop.circle.fill")
@@ -39,48 +39,67 @@ struct MainView: View {
                     }
                 }
             }
-                .navigationDestination(for: UniqueLocation.self) { uniqueLocation in
-                    LocationReviewsView(uniqueLocation: uniqueLocation)
+            .navigationDestination(for: UniqueLocation.self) { uniqueLocation in
+                LocationReviewsView(path: self.$path, uniqueLocation: uniqueLocation)
+            }
+            .navigationDestination(for: UniqueLocationCreateReview.self) { uniqueLocationReview in
+                CreateReviewView(path: self.$path, reviewLocation: uniqueLocationReview)
+            }
+            .navigationDestination(for: UniqueUser.self) { uniqueUser in
+                UserProfileLoader(path: self.$path, userId: uniqueUser.userId)
+            }
+            .navigationDestination(for: ReviewDestination.self) { review in
+                ReviewLoader(path: self.$path, review: review, showListItem: false)
+            }
+            .navigationDestination(for: [Like].self) { likes in
+                LikesList(path: self.$path, likes: likes)
+            }
+            .navigationDestination(for: NotificationDestination.self) { _ in
+                NotificationList(path: self.$path)
+            }
+            .navigationDestination(for: SearchDestination.self) { _ in
+                SearchReviewsView(path: self.$path)
+            }
+            .navigationDestination(for: FriendsListDestination.self) { friendsList in
+                switch friendsList.view {
+                case .Friends:
+                    FriendsList(path: self.$path)
+                case .Ignored:
+                    IgnoredFriendsList(path: self.$path)
+                case .Incoming:
+                    IncomingFriendsList(path: self.$path)
+                case .Outgoing:
+                    OutgoingFriendsList(path: self.$path)
+                case .Search:
+                    SearchForFriendsList(path: self.$path)
                 }
-                .navigationDestination(for: UniqueLocationCreateReview.self) { uniqueLocationReview in
-                    CreateReviewView(reviewLocation: uniqueLocationReview)
-                }
-                .navigationDestination(for: UniqueUser.self) { uniqueUser in
-                    UserProfileLoader(userId: uniqueUser.userId)
-                }
-                .navigationDestination(for: ReviewDestination.self) { review in
-                    ReviewLoader(review: review, showListItem: false)
-                }
-                .navigationDestination(for: [Like].self) { likes in
-                    LikesList(likes: likes)
-                }
-                .navigationDestination(for: NotificationDestination.self) { _ in
-                    NotificationList()
-                }
-                .navigationDestination(for: FriendsListDestination.self) { friendsList in
-                    switch friendsList.view {
-                    case .Friends:
-                        FriendsList()
-                    case .Ignored:
-                        IgnoredFriendsList()
-                    case .Incoming:
-                        IncomingFriendsList()
-                    case .Outgoing:
-                        OutgoingFriendsList()
-                    case .Search:
-                        SearchForFriendsList()
-                    }
-                }
-        }.environmentObject(self.navigationManager)
-            .environmentObject(ChildViewReloadCallback(callback: nil))
+            }
+        }.environmentObject(ChildViewReloadCallback(callback: nil))
             .accentColor(.primary)
             .onAppear {
                 Task {
-                    do {
-                        try await Task.sleep(for: Duration.milliseconds(4000))
-                        let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
-                        await self.notificatonManager.getNotifications(token: self.auth.token)
-                    } catch {}
+                    let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
+                    await self.notificatonManager.getNotifications(token: self.auth.token)
+                }
+            }.onOpenURL { url in
+                guard let url = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
+                
+                guard let navigationType = url.queryItems?.first(where: { $0.name == "navType" })?.value
+                else { return }
+                
+                switch navigationType {
+                case "location":
+                    guard let uniqueLocation = spotster.getUniqueLocationFromURL(url: url)
+                    else { return }
+                    
+                    self.path.append(uniqueLocation)
+                case "review":
+                    guard let reviewDestination = spotster.getReviewDestinationFromUrl(url: url)
+                    else { return }
+                    
+                    self.path.append(reviewDestination)
+                default:
+                    return
                 }
             }
     }

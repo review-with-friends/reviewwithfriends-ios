@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ReviewLoader: View {
+    @Binding var path: NavigationPath
+    
     var review: ReviewDestination
     var showListItem: Bool
     var showLocation = true
@@ -21,7 +23,6 @@ struct ReviewLoader: View {
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var userCache: UserCache
-    @EnvironmentObject var navigationManager: NavigationManager
     
     func loadReviewAndUser() async -> Void {
         self.resetError()
@@ -30,13 +31,6 @@ struct ReviewLoader: View {
         
         if self.user == nil {
             await self.loadUser()
-        }
-        
-        // Downstream navigation views can flag reviews as changed to force a reload.
-        // Only a single view will react to this, so we primarily intend the reaction to be on
-        if self.navigationManager.recentlyUpdatedReviews.contains(review.id) {
-            await self.loadFullReview()
-            self.navigationManager.recentlyUpdatedReviews.removeAll(where: { $0 == review.id })
         }
         
         if self.fullReview == nil {
@@ -79,7 +73,7 @@ struct ReviewLoader: View {
     }
     
     var body: some View {
-        VStack {
+        HStack {
             if self.failed {
                 Text(self.error)
                 Button(action: {
@@ -93,17 +87,23 @@ struct ReviewLoader: View {
                 if let user = self.user {
                     if let fullReview = self.fullReview {
                         if showListItem {
-                            ReviewListItem(reloadCallback: self.loadFullReview, user: user, fullReview: fullReview, showLocation: showLocation)
+                            ReviewListItem(path: self.$path, reloadCallback: self.loadFullReview, user: user, fullReview: fullReview, showLocation: showLocation)
                         } else {
-                            ReviewView(reloadCallback: self.loadFullReview, user: user, fullReview: fullReview)
+                            ReviewView(path: self.$path, reloadCallback: self.loadFullReview, user: user, fullReview: fullReview)
                         }
                     }
                 }
             }
-        }.onAppear {
-            Task {
-                await loadReviewAndUser()
-            }
-        }
+        }.task {
+            await self.loadReviewAndUser()
+        }.listRowSeparator(.hidden)
+            .listRowInsets(.init(top: 0,
+                                 leading: 0,
+                                 bottom: 20,
+                                 trailing: 0))
+            .listRowBackground(Rectangle()
+                .background(.clear)
+                .opacity(0.0)
+            )
     }
 }

@@ -11,6 +11,8 @@ import CoreLocation
 import MapKit
 
 struct LocationReviewsView: View {
+    @Binding var path: NavigationPath
+    
     var uniqueLocation: UniqueLocation
     
     @State var loading = true
@@ -24,7 +26,6 @@ struct LocationReviewsView: View {
     @State var installedMapsApps: [(String, URL)] = []
     
     @EnvironmentObject var auth: Authentication
-    @EnvironmentObject var navigationManager: NavigationManager
     
     func loadReviews() async {
         if !self.loaded {
@@ -97,54 +98,63 @@ struct LocationReviewsView: View {
                     Text("Retry Loading")
                 }
             } else {
-                ScrollView {
-                    Button(action: {
-                        self.showingMapsConfirmation = true
-                    }) {
-                        Text("Open in Maps")
+                List {
+                    VStack {
+                        Text(uniqueLocation.locationName).font(.largeTitle)
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                self.showingMapsConfirmation = true
+                            }) {
+                                Image(systemName:"map.fill").font(.title)
+                            }
+                        }.padding()
                     }
                     if reviews.count >= 1 {
                         ForEach(reviews) { review in
                             let reviewDestination = ReviewDestination(id: review.id, userId: review.userId)
-                            ReviewLoader(review: reviewDestination, showListItem: true, showLocation: false).padding(.bottom.union(.horizontal))
+                            ReviewLoader(path: self.$path, review: reviewDestination, showListItem: true, showLocation: false)
+                                .padding(.bottom)
                         }
                     } else {
                         Text("No reviews yet.").foregroundColor(.secondary)
                     }
-                }.refreshable {
-                    Task {
-                        await loadReviews()
-                    }
-                }.onChange(of: self.showingMapsConfirmation){ toggle in
-                    self.setInstalledApps()
-                }.confirmationDialog("Open in maps", isPresented: $showingMapsConfirmation) {
-                    if let apple = self.installedMapsApps.first {
-                        Button(action: {
-                            UIApplication.shared.open(apple.1, options: [:], completionHandler: nil)
-                        }) {
-                            Text(apple.0)
+                }.listStyle(.plain)
+                    .buttonStyle(BorderlessButtonStyle())
+                    .refreshable {
+                        Task {
+                            await loadReviews()
+                        }
+                    }.onChange(of: self.showingMapsConfirmation){ toggle in
+                        self.setInstalledApps()
+                    }.confirmationDialog("Open in maps", isPresented: $showingMapsConfirmation) {
+                        if let apple = self.installedMapsApps.first {
+                            Button(action: {
+                                UIApplication.shared.open(apple.1, options: [:], completionHandler: nil)
+                            }) {
+                                Text(apple.0)
+                            }
+                        }
+                        if let google = self.installedMapsApps[safe: 1] {
+                            Button(action: {
+                                UIApplication.shared.open(google.1, options: [:], completionHandler: nil)
+                            }) {
+                                Text(google.0)
+                            }
                         }
                     }
-                    if let google = self.installedMapsApps[safe: 1] {
-                        Button(action: {
-                            UIApplication.shared.open(google.1, options: [:], completionHandler: nil)
-                        }) {
-                            Text(google.0)
-                        }
-                    }
-                }
             }
         }.toolbar {
             Button(action: {
-                self.navigationManager.path.append(UniqueLocationCreateReview(locationName: uniqueLocation.locationName, category: uniqueLocation.category, latitude: uniqueLocation.latitude, longitude: uniqueLocation.longitude))
+                self.path.append(UniqueLocationCreateReview(locationName: uniqueLocation.locationName, category: uniqueLocation.category, latitude: uniqueLocation.latitude, longitude: uniqueLocation.longitude))
             }) {
                 Image(systemName:"plus.square")
-                }
-            }.onAppear {
-                Task {
-                    await loadReviews()
-                }
-            }.environmentObject(ChildViewReloadCallback(callback: loadReviews)).navigationTitle(uniqueLocation.locationName)
+            }
+        }.onAppear {
+            Task {
+                await loadReviews()
+            }
+        }.environmentObject(ChildViewReloadCallback(callback: loadReviews))
     }
 }
 

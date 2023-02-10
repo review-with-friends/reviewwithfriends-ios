@@ -10,6 +10,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ReviewPicLoader: View {
+    @Binding var path: NavigationPath
+    
     let pic: Pic
     
     @State var reloadHard = false

@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ReviewListItem: View {
+    @Binding var path: NavigationPath
+    
     var reloadCallback: () async -> Void
     var user: User
     var fullReview: FullReview
@@ -18,22 +20,20 @@ struct ReviewListItem: View {
     
     var body: some View {
         VStack {
-            VStack {
-                if let pic = self.fullReview.pics.first {
-                    ReviewPicLoader(pic: pic).overlay {
+            if let pic = self.fullReview.pics.first {
+                ReviewPicLoader(path: self.$path, pic: pic).overlay {
                         ZStack {
                             LinearGradient(gradient: Gradient(colors: [.black.opacity(0.75), .clear, .clear, .clear, .black.opacity(0.75)]), startPoint: .top, endPoint: .bottom)
                             VStack {
-                                ReviewListItemHeader(user: user, review: fullReview.review, showLocation: showLocation).padding(.bottom, 4)
+                                ReviewListItemHeader(path: self.$path, user: user, review: fullReview.review, showLocation: showLocation).padding(.bottom, 4)
                                 Spacer()
                             }.padding()
                         }
                         VStack {
-                            ReviewPicOverlay(likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
-                            ReviewListItemText(fullReview: self.fullReview)
+                            ReviewPicOverlay(path: self.$path, likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
+                            ReviewListItemText(path: self.$path, fullReview: self.fullReview)
                                 .padding(.bottom.union(.horizontal))
                         }
-                    }
                 }
             }
         }
@@ -44,6 +44,6 @@ struct ReviewListItem_Previews: PreviewProvider {
     static func dummyCallback() async {}
     
     static var previews: some View {
-        ReviewListItem(reloadCallback: dummyCallback, user: generateUserPreviewData(), fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+        ReviewListItem(path: .constant(NavigationPath()),reloadCallback: dummyCallback, user: generateUserPreviewData(), fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
     }
 }

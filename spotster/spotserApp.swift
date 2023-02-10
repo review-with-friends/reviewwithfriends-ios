@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct spotserApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     @StateObject var authentication = Authentication()
     @StateObject var userCache = UserCache()
     

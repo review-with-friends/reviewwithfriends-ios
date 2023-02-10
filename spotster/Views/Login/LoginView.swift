@@ -15,21 +15,21 @@ enum LoginPhase {
 }
 
 struct LoginView: View {
+    @State var path = NavigationPath()
     @State var phone: String = ""
-    @StateObject var navigationManager = NavigationManager()
     
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: self.$path) {
             VStack{
-                WelcomeView()
+                WelcomeView(path: self.$path)
             }
             .navigationDestination(for: GetCode.self) { _ in
-                GetCodeView(phone: $phone)
+                GetCodeView(path: self.$path, phone: $phone)
             }
             .navigationDestination(for: SubmitCode.self) { _ in
-                SubmitCodeView(phone: $phone)
+                SubmitCodeView(path: self.$path, phone: $phone)
             }
-        }.environmentObject(self.navigationManager).accentColor(.primary)
+        }.accentColor(.primary)
     }
 }
 

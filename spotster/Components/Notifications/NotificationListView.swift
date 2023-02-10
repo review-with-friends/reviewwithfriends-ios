@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct NotificationList: View {
+    @Binding var path: NavigationPath
+    
     @EnvironmentObject var notificationManager: NotificationManager
     @EnvironmentObject var auth: Authentication
     
@@ -18,7 +20,7 @@ struct NotificationList: View {
         ScrollView {
             VStack {
                 ForEach(Array(self.notificationManager.notifications.enumerated()), id: \.element) { index, notification in
-                    NotificationListItem(notification: notification, highlighted: (index <= self.newCount - 1))
+                    NotificationListItem(path: self.$path, notification: notification, highlighted: (index <= self.newCount - 1))
                 }
             }.padding(.horizontal)
         }.refreshable {

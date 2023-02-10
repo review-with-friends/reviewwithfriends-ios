@@ -45,7 +45,7 @@ struct PhoneInput: View {
                 
                 
             }.padding(8).background(.tertiary).cornerRadius(8)
-            Text("if its not obvious, we'll text you a verification code to sign you in").font(.caption).foregroundColor(.secondary)
+            Text("We'll text you a verification code to sign you in").font(.caption).foregroundColor(.secondary)
         }.padding()
     }
 }
