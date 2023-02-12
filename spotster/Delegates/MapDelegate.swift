@@ -13,17 +13,15 @@ import SDWebImageMapKit
 
 class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, ObservableObject {
     public var mapView = MKMapView()
-    public var locationManager: CLLocationManager
-    public var path: NavigationPath
+    public var locationManager = CLLocationManager()
     public var movedToUserLocation = false
     
     var boundaryManager = MapBoundaryManager()
     public var boundaryQueue = MapBoundaryQueue()
     
-    init(path: NavigationPath) {
-        self.path = path
-        self.locationManager = CLLocationManager()
-    }
+    public var navigate: ((_: UniqueLocation) -> Void)?
+    
+    override init() {}
     
     @Published var showingUserLocation = false
     @Published var showUserReviews = false
@@ -81,7 +79,9 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
                 let category = extractCategoryFromAnnotation(annotation: annotation)
                 let uniqueLocation = UniqueLocation(locationName: title, category: category, latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
                 DispatchQueue.main.async {
-                    self.path.append(uniqueLocation)
+                    if let navigate = self.navigate {
+                        navigate(uniqueLocation)
+                    }
                 }
             }
         }

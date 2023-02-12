@@ -9,9 +9,10 @@ import Foundation
 import SwiftUI
 
 struct ReviewAddReply: View {
+    @Binding var path: NavigationPath
     var reloadCallback: () async -> Void
     var fullReview: FullReview
-    var scrollProxy: ScrollViewProxy
+    var scrollProxy: ScrollViewProxy?
     
     @State var text = ""
     
@@ -62,11 +63,13 @@ struct ReviewAddReply: View {
     
     var body: some View {
         VStack {
-            HStack {
-                VStack {
-                    TextField("Max 400 characters.", text: $text, axis: .vertical)
+            VStack {
+                HStack {
+                    if let user = self.auth.user {
+                        ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: false, ignoreCache: false)
+                    }
+                    TextField("Write a reply", text: $text, axis: .vertical)
                         .lineLimit(3...)
-                        .padding(12)
                         .font(.caption)
                         .overlay {
                             if pending {
@@ -75,7 +78,9 @@ struct ReviewAddReply: View {
                         }.id("replyInput")
                         .onTapGesture {
                             withAnimation {
-                                scrollProxy.scrollTo("replyInput", anchor: .center)
+                                if let scroll = self.scrollProxy {
+                                    scroll.scrollTo("replyInput", anchor: .center)
+                                }
                             }
                         }.toolbar {
                             ToolbarItemGroup(placement: .keyboard) {
@@ -86,7 +91,7 @@ struct ReviewAddReply: View {
                                 }
                             }
                         }
-                }.background(.black.opacity(0.001)).cornerRadius(8)
+                }.padding().background(.quaternary).cornerRadius(8)
             }
             if showError {
                 Text(errorText).foregroundColor(.red)
@@ -94,3 +99,16 @@ struct ReviewAddReply: View {
         }.accentColor(.primary)
     }
 }
+
+struct ReviewAddReply_Preview: PreviewProvider {
+    static func dummyCallback() async {
+        
+    }
+    
+    static var previews: some View {
+        VStack {
+            ReviewAddReply(path: .constant(NavigationPath()), reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+        }
+    }
+}
+

@@ -10,7 +10,7 @@ import SwiftUI
 import MapKit
 
 struct MapScreenView: View {
-    //var navigationManager: NavigationManager
+    @Binding var path: NavigationPath
     
     @State var mapView: MapView
     @State private var showFriendsReviews = false
@@ -21,6 +21,10 @@ struct MapScreenView: View {
     @State private var task: Task<Void, Error>?
     
     @EnvironmentObject var auth: Authentication
+    
+    func updatePath(uniqueLocation: UniqueLocation) {
+        self.path.append(uniqueLocation)
+    }
     
     func applyFilter() {
         if self.showFriendsReviews {
@@ -69,6 +73,7 @@ struct MapScreenView: View {
             
             self.applyFilter()
             self.mapView.mapDelegate.updateLocationState()
+            self.mapView.mapDelegate.navigate = self.updatePath
         }.onDisappear {
             self.isVisible = false
             self.stopBackgroundTask()

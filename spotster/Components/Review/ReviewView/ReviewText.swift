@@ -15,39 +15,18 @@ struct ReviewText: View {
     
     @State var animation = 1.0
     
-    func makeReplyText() -> String {
-        if self.fullReview.replies.count == 1 {
-            return String(fullReview.replies.count) + " reply"
-        }
-        
-        if self.fullReview.replies.count == 0 {
-            return "no replies"
-        }
-        
-        return String(fullReview.replies.count) + " replies"
-    }
-    
-    func makeLikeText() -> String {
-        if self.fullReview.likes.count == 1 {
-            return String(fullReview.likes.count) + " like"
-        }
-        
-        if self.fullReview.likes.count == 0 {
-            return "no likes"
-        }
-        
-        return String(fullReview.likes.count) + " likes"
-    }
+    @EnvironmentObject var auth: Authentication
     
     var body: some View {
         VStack {
             HStack {
+                Spacer()
                 Button(action: {
                     self.path.append(fullReview.likes)
                 }) {
-                    Text(makeLikeText()).foregroundColor(.secondary).padding(.top, 1)
+                    let alreadyLiked = self.fullReview.likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
+                    Label("\(self.fullReview.likes.count)", systemImage: alreadyLiked ? "heart.fill" : "heart").font(.title3).padding(.trailing)
                 }.buttonStyle(PlainButtonStyle())
-                Spacer()
             }.padding(.bottom, 1)
             HStack {
                 Text(self.fullReview.review.text)
@@ -64,7 +43,10 @@ struct ReviewText_Preview: PreviewProvider {
     
     static var previews: some View {
         VStack{
-            ReviewText(path: .constant(NavigationPath()), fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+            ReviewText(path: .constant(NavigationPath()), fullReview: generateFullReviewPreviewData())
+                .preferredColorScheme(.dark)
+                .environmentObject(Authentication.initPreview())
+                .environmentObject(UserCache())
         }
     }
 }

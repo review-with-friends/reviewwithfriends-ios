@@ -15,29 +15,7 @@ struct ReviewListItemText: View {
     
     @State var animation = 1.0
     
-    func makeReplyText() -> String {
-        if self.fullReview.replies.count == 1 {
-            return String(fullReview.replies.count) + " Reply"
-        }
-        
-        if self.fullReview.replies.count == 0 {
-            return "No Replies"
-        }
-        
-        return String(fullReview.replies.count) + " Replies"
-    }
-    
-    func makeLikeText() -> String {
-        if self.fullReview.likes.count == 1 {
-            return String(fullReview.likes.count) + " Like"
-        }
-        
-        if self.fullReview.likes.count == 0 {
-            return "No Likes"
-        }
-        
-        return String(fullReview.likes.count) + " Likes"
-    }
+    @EnvironmentObject var auth: Authentication
     
     var body: some View {
         VStack {
@@ -55,11 +33,12 @@ struct ReviewListItemText: View {
                             .foregroundColor(.secondary)
                     }
                     HStack {
-                        Text(makeReplyText()).font(.caption).foregroundColor(.secondary).padding(.top, 1)
-                        Text(makeLikeText()).font(.caption).foregroundColor(.secondary).padding(.top, 1)
+                        let alreadyLiked = self.fullReview.likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
+                        Label("\(self.fullReview.likes.count)", systemImage: alreadyLiked ? "heart.fill" : "heart").font(.callout).padding(.trailing)
+                        Label("\(self.fullReview.replies.count)", systemImage: "ellipsis.message.fill").font(.callout)
                         Spacer()
-                    }
-                }.background(.black.opacity(0.01))
+                    }.padding(.top, 1)
+                }.background(.black.opacity(0.0001))
             }.buttonStyle(PlainButtonStyle())
         }
     }

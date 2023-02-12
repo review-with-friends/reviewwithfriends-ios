@@ -12,7 +12,7 @@ let NEW_NOTIFICATIONS = "<NEW_NOTIFICATIONS>"
 
 @MainActor
 class NotificationManager: ObservableObject {
-    @Published var notifications : [UserNotification] = [] // The Published wrapper marks this value as a source of truth for the view
+    @Published var notifications : [UserNotification] = []
     @Published var newNotifications: Int = 0
     
     private var documentDirectory: URL
@@ -96,7 +96,6 @@ class NotificationManager: ObservableObject {
                 let data = try Data(contentsOf: url, options: .mappedIfSafe)
                 let decoder =  JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .millisecondsSince1970
                 self.notifications = try decoder.decode([UserNotification].self, from: data)
             } catch {
                 let url = self.getCommonURL()

@@ -28,13 +28,20 @@ struct LatestReviewsView: View {
                 Spacer()
                 SearchNavButton(path: self.$path)
                 NotificationNavButton(path: self.$path)
-            }
+            }.padding(.horizontal)
             ScrollView {
                 LazyVStack {
                     ForEach(self.model.reviewsToRender) { review in
                         ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
                     }
-                    ProgressView().padding().onAppear {
+                    VStack {
+                        if self.model.noMorePages {
+                            Text("Hmmm, no more reviews...").foregroundColor(.secondary).padding(50).font(.caption)
+                        }
+                        else {
+                            ProgressView().padding()
+                        }
+                    }.onAppear {
                         Task {
                             await self.model.onItemAppear(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
                         }

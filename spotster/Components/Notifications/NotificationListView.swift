@@ -20,7 +20,7 @@ struct NotificationList: View {
         ScrollView {
             VStack {
                 ForEach(Array(self.notificationManager.notifications.enumerated()), id: \.element) { index, notification in
-                    NotificationListItem(path: self.$path, notification: notification, highlighted: (index <= self.newCount - 1))
+                    NotificationListItem(path: self.$path, notification: notification, highlighted: (index <= self.newCount - 1)).padding(.bottom, 8)
                 }
             }.padding(.horizontal)
         }.refreshable {
@@ -30,6 +30,7 @@ struct NotificationList: View {
         }.onAppear {
             self.newCount = self.notificationManager.newNotifications
             self.notificationManager.newNotifications = 0
+            self.notificationManager.setCachedNewNotifications()
         }.navigationTitle("Notifications").padding(.top)
     }
 }

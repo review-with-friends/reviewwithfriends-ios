@@ -88,6 +88,9 @@
 		9C871D262968EDF0007B72F7 /* FriendsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D252968EDF0007B72F7 /* FriendsCache.swift */; };
 		9C871D282968F04F007B72F7 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D272968F04F007B72F7 /* FriendRequest.swift */; };
 		9C871D2A2968F0F3007B72F7 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D292968F0F3007B72F7 /* Friend.swift */; };
+		9C8D86D02999892D007E714F /* ReviewPicCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86CF2999892D007E714F /* ReviewPicCarousel.swift */; };
+		9C8D86D229998E2C007E714F /* CreateReviewPhotoCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86D129998E2C007E714F /* CreateReviewPhotoCarousel.swift */; };
+		9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86D329998FE5007E714F /* PhotoPreviewData.swift */; };
 		9C96946229357CB800AAEC25 /* spotserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C96946129357CB800AAEC25 /* spotserApp.swift */; };
 		9C96946629357CB900AAEC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946529357CB900AAEC25 /* Assets.xcassets */; };
 		9C96946929357CB900AAEC25 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946829357CB900AAEC25 /* Preview Assets.xcassets */; };
@@ -226,6 +229,9 @@
 		9C871D252968EDF0007B72F7 /* FriendsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCache.swift; sourceTree = "<group>"; };
 		9C871D272968F04F007B72F7 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		9C871D292968F0F3007B72F7 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		9C8D86CF2999892D007E714F /* ReviewPicCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPicCarousel.swift; sourceTree = "<group>"; };
+		9C8D86D129998E2C007E714F /* CreateReviewPhotoCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewPhotoCarousel.swift; sourceTree = "<group>"; };
+		9C8D86D329998FE5007E714F /* PhotoPreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewData.swift; sourceTree = "<group>"; };
 		9C96945E29357CB800AAEC25 /* spotster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spotster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C96946129357CB800AAEC25 /* spotserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotserApp.swift; sourceTree = "<group>"; };
 		9C96946529357CB900AAEC25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -369,6 +375,7 @@
 			children = (
 				9C68CC2429513090007FC567 /* ReviewPreviewData.swift */,
 				9C68CC2629516588007FC567 /* UserPreviewData.swift */,
+				9C8D86D329998FE5007E714F /* PhotoPreviewData.swift */,
 			);
 			path = "Preview Data";
 			sourceTree = "<group>";
@@ -548,6 +555,7 @@
 			children = (
 				9C871CF329635A4B007B72F7 /* CreateReviewView.swift */,
 				9C871CFA296377AB007B72F7 /* StarsSelector.swift */,
+				9C8D86D129998E2C007E714F /* CreateReviewPhotoCarousel.swift */,
 			);
 			path = CreateReview;
 			sourceTree = "<group>";
@@ -598,6 +606,7 @@
 				9C871D12296604F0007B72F7 /* ReviewText.swift */,
 				9C871CCB29561812007B72F7 /* ReviewReplies.swift */,
 				9C871D1929674FD3007B72F7 /* ReviewAddReply.swift */,
+				9C8D86CF2999892D007E714F /* ReviewPicCarousel.swift */,
 			);
 			path = ReviewView;
 			sourceTree = "<group>";
@@ -955,6 +964,7 @@
 				9CD42D90296E2C9E00C2FBE9 /* FriendsList.swift in Sources */,
 				9C8217E329490BFA0011B7E0 /* LocationReviewsView.swift in Sources */,
 				9C8217B0293BDEDE0011B7E0 /* Retryable.swift in Sources */,
+				9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */,
 				9C871CC62954FDBA007B72F7 /* FullReview.swift in Sources */,
 				9C871CEE295E2F33007B72F7 /* CreatedBy.swift in Sources */,
 				9C8217E52949258E0011B7E0 /* ReviewRequests.swift in Sources */,
@@ -1024,7 +1034,9 @@
 				9CD42D83296DF54E00C2FBE9 /* ProfilePicSkeleton.swift in Sources */,
 				9C8217DA2942C2990011B7E0 /* MapDelegate.swift in Sources */,
 				9C871CC42954F422007B72F7 /* Like.swift in Sources */,
+				9C8D86D02999892D007E714F /* ReviewPicCarousel.swift in Sources */,
 				9C26319029957C5E00A65CC3 /* SearchReviewsView.swift in Sources */,
+				9C8D86D229998E2C007E714F /* CreateReviewPhotoCarousel.swift in Sources */,
 				9CD42D8D296E08D600C2FBE9 /* FullFriends.swift in Sources */,
 				9C40AA94293667E0009134EA /* Authentication.swift in Sources */,
 				9C871CDE295BCE4C007B72F7 /* UniqueUser.swift in Sources */,
@@ -1206,7 +1218,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1247,7 +1259,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";

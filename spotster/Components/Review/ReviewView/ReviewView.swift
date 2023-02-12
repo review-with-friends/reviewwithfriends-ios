@@ -23,14 +23,10 @@ struct ReviewView: View {
             ScrollView {
                 VStack {
                     ReviewHeader(path: self.$path, user: user, review: fullReview.review)
-                    if let pic = self.fullReview.pics.first {
-                        ReviewPicLoader(path: self.$path, pic: pic).overlay {
-                            ReviewPicOverlay(path: self.$path, likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
-                        }
-                    }
+                    ReviewPicCarousel(path: self.$path, fullReview: fullReview, reloadCallback: reloadCallback)
                     ReviewText(path: self.$path, fullReview: self.fullReview)
                         .padding(.top, 3.0)
-                    ReviewAddReply(reloadCallback: reloadCallback, fullReview: fullReview, scrollProxy: proxy)
+                    ReviewAddReply(path: self.$path, reloadCallback: reloadCallback, fullReview: fullReview, scrollProxy: proxy)
                     ReviewReplies(path: self.$path, reloadCallback: self.reloadCallback, fullReview: self.fullReview)
                 }.padding()
             }.scrollDismissesKeyboard(.immediately)

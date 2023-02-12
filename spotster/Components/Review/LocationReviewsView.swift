@@ -148,7 +148,10 @@ struct LocationReviewsView: View {
             Button(action: {
                 self.path.append(UniqueLocationCreateReview(locationName: uniqueLocation.locationName, category: uniqueLocation.category, latitude: uniqueLocation.latitude, longitude: uniqueLocation.longitude))
             }) {
-                Image(systemName:"plus.square")
+                HStack {
+                    Image(systemName:"plus.square")
+                    Text("Review This Spot")
+                }
             }
         }.onAppear {
             Task {

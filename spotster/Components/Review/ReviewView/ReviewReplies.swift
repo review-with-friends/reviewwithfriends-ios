@@ -51,7 +51,7 @@ struct ReviewReply: View {
         VStack {
             HStack {
                 VStack {
-                    ProfilePicLoader(path: self.$path, userId: reply.userId, profilePicSize: .small, navigatable: true, ignoreCache: false)
+                    ProfilePicLoader(path: self.$path, userId: reply.userId, profilePicSize: .medium, navigatable: true, ignoreCache: false)
                     Spacer()
                 }
                 VStack {
@@ -70,7 +70,7 @@ struct ReviewReply: View {
                                         self.showDeleteConfirmation = true
                                     }){
                                         Image(systemName: "trash")
-                                    }.padding(.top, 1).accentColor(.primary)
+                                    }.padding(.top, 1).accentColor(.secondary)
                                 }
                             }
                         }
@@ -103,7 +103,7 @@ struct ReviewReply: View {
                     }
                     Spacer()
                 }
-            }.padding()
+            }.padding().background(.quaternary).cornerRadius(8)
         }
     }
 }

@@ -26,7 +26,7 @@ struct MainView: View {
                         .tabItem {
                             Label("Feed", systemImage: "house.fill")
                         }.tag(0).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
-                    MapScreenView(mapView: MapView(path: path))
+                    MapScreenView(path: self.$path, mapView: MapView())
                         .tabItem {
                             Label("Map", systemImage: "map")
                         }.tag(1).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)

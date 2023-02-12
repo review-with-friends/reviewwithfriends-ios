@@ -17,25 +17,50 @@ struct ReviewPicOverlay: View {
     var reviewId: String
     var reloadCallback: () async -> Void
     
+    @State var showHeart = false
+    
     @State var isPending = false
     @State var failed = false
     
     @EnvironmentObject var auth: Authentication
     
+    
     var body: some View {
-            VStack{
-                Spacer()
-                HStack{
-                    let alreadyLiked = likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
-                    Spacer()
-                    Button(action: {
+        VStack{
+            let alreadyLiked = likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
+            Spacer()
+            ZStack {
+                Rectangle()
+                    .foregroundColor(.black)
+                    .opacity(0.00001)
+                    .cornerRadius(8.0)
+                    .onTapGesture(count: 2) {
                         self.isPending = true
                         self.failed = false
                         Task {
                             var result: Result<(), RequestError>
                             if alreadyLiked {
+                                let generator = UINotificationFeedbackGenerator()
+                                generator.notificationOccurred(.success)
+                                
                                 result = await spotster.unlikeReview(token: auth.token, reviewId: reviewId)
-                            } else{
+                            } else {
+                                Task {
+                                    withAnimation {
+                                        showHeart = true
+                                    }
+                                    
+                                    let generator = UIImpactFeedbackGenerator(style: .light)
+                                    generator.impactOccurred()
+                                    
+                                    do {
+                                        try await Task.sleep(for: Duration.milliseconds(250))
+                                        withAnimation {
+                                            showHeart = false
+                                        }
+                                    }
+                                    catch {}
+                                }
                                 result = await spotster.likeReview(token: auth.token, reviewId: reviewId)
                             }
                             
@@ -52,32 +77,15 @@ struct ReviewPicOverlay: View {
                             
                             isPending = false
                         }
-                    }) {
-                        ZStack {
-                            Rectangle()
-                                .frame(width: 42, height: 42)
-                                .foregroundColor(.black)
-                                .cornerRadius(8.0)
-                            if alreadyLiked {
-                                Image(systemName: "heart.fill")
-                                    .resizable()
-                                    .frame(width: 28, height: 24)
-                                    .foregroundColor(.primary)
-                            } else {
-                                Image(systemName: "heart")
-                                    .resizable().frame(width: 28, height: 24)
-                                    .foregroundColor(.primary)
-                            }
-                                Image(systemName: "xmark.circle.fill")
-                                    .resizable().frame(width: 16, height: 16)
-                                    .foregroundColor(.red)
-                                    .offset(x: 20, y: -20)
-                                    .opacity(self.failed ? 1.0 : 0.0)
-                                    .animation(.easeInOut(duration: 0.5), value: 1.0)
-                        }.shadow(radius: 4).animation(.easeInOut(duration: 0.4), value: 1.0)
                     }
-                }.padding()
+                if self.showHeart {
+                    Image(systemName: "heart.fill")
+                        .font(.system(size: 128))
+                        .foregroundColor(.primary)
+                        .transition(.asymmetric(insertion: .scale, removal: .opacity))
+                }
             }
+        }.padding()
     }
 }
 

@@ -12,13 +12,11 @@ import CoreLocation
 
 struct MapView: UIViewRepresentable {
     public var mapDelegate: MapDelegate
-    public var path: NavigationPath
     
     private var showingFriends = false
     
-    init(path: NavigationPath) {
-        self.path = path
-        self.mapDelegate = MapDelegate(path: path)
+    init() {
+        self.mapDelegate = MapDelegate()
     }
     
     func makeUIView(context: Context) -> MKMapView {
