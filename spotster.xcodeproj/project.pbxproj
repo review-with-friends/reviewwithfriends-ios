@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C2276B8299B5A79005566A0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276B7299B5A79005566A0 /* Colors.swift */; };
+		9C2276BB299C24DA005566A0 /* ReviewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276BA299C24DA005566A0 /* ReviewGridItem.swift */; };
+		9C2276BE299D98E4005566A0 /* ProfileOptionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276BD299D98E4005566A0 /* ProfileOptionMenu.swift */; };
+		9C2276C0299DAAB5005566A0 /* DeleteAccountDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276BF299DAAB5005566A0 /* DeleteAccountDestination.swift */; };
+		9C2276C3299EBE8E005566A0 /* LikedReviewsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276C2299EBE8E005566A0 /* LikedReviewsList.swift */; };
+		9C2276C5299EBE97005566A0 /* LikedReviewsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276C4299EBE97005566A0 /* LikedReviewsListItem.swift */; };
+		9C2276C7299EC038005566A0 /* LikedReviewsDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276C6299EC038005566A0 /* LikedReviewsDestination.swift */; };
+		9C2276CA299EC941005566A0 /* EditReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276C9299EC941005566A0 /* EditReviewView.swift */; };
+		9C2276CC299EC9BB005566A0 /* EditReviewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276CB299EC9BB005566A0 /* EditReviewDestination.swift */; };
 		9C26319029957C5E00A65CC3 /* SearchReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C26318F29957C5E00A65CC3 /* SearchReviewsView.swift */; };
 		9C2631952995AEE700A65CC3 /* PaginatedReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2631942995AEE700A65CC3 /* PaginatedReviewModel.swift */; };
 		9C2631972995B1BC00A65CC3 /* ReviewViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2631962995B1BC00A65CC3 /* ReviewViewData.swift */; };
@@ -91,6 +100,7 @@
 		9C8D86D02999892D007E714F /* ReviewPicCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86CF2999892D007E714F /* ReviewPicCarousel.swift */; };
 		9C8D86D229998E2C007E714F /* CreateReviewPhotoCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86D129998E2C007E714F /* CreateReviewPhotoCarousel.swift */; };
 		9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86D329998FE5007E714F /* PhotoPreviewData.swift */; };
+		9C8D86D7299ADC07007E714F /* ReviewAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86D6299ADC07007E714F /* ReviewAnnotationView.swift */; };
 		9C96946229357CB800AAEC25 /* spotserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C96946129357CB800AAEC25 /* spotserApp.swift */; };
 		9C96946629357CB900AAEC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946529357CB900AAEC25 /* Assets.xcassets */; };
 		9C96946929357CB900AAEC25 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946829357CB900AAEC25 /* Preview Assets.xcassets */; };
@@ -115,9 +125,7 @@
 		9CAEB3BB2989DDD2009A18A3 /* NotificationNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3BA2989DDD2009A18A3 /* NotificationNavButton.swift */; };
 		9CD42D81296DE5F100C2FBE9 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */; };
 		9CD42D83296DF54E00C2FBE9 /* ProfilePicSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D82296DF54E00C2FBE9 /* ProfilePicSkeleton.swift */; };
-		9CD42D85296E052500C2FBE9 /* LogoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D84296E052500C2FBE9 /* LogoutButton.swift */; };
-		9CD42D87296E056300C2FBE9 /* ChangeProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D86296E056300C2FBE9 /* ChangeProfileButton.swift */; };
-		9CD42D8B296E067800C2FBE9 /* DeleteAccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8A296E067800C2FBE9 /* DeleteAccountButton.swift */; };
+		9CD42D8B296E067800C2FBE9 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */; };
 		9CD42D8D296E08D600C2FBE9 /* FullFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8C296E08D600C2FBE9 /* FullFriends.swift */; };
 		9CD42D90296E2C9E00C2FBE9 /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8F296E2C9E00C2FBE9 /* FriendsList.swift */; };
 		9CD42D92296E2D7600C2FBE9 /* FriendsListDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D91296E2D7600C2FBE9 /* FriendsListDestination.swift */; };
@@ -147,6 +155,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C2276B7299B5A79005566A0 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		9C2276BA299C24DA005566A0 /* ReviewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewGridItem.swift; sourceTree = "<group>"; };
+		9C2276BD299D98E4005566A0 /* ProfileOptionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionMenu.swift; sourceTree = "<group>"; };
+		9C2276BF299DAAB5005566A0 /* DeleteAccountDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountDestination.swift; sourceTree = "<group>"; };
+		9C2276C2299EBE8E005566A0 /* LikedReviewsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedReviewsList.swift; sourceTree = "<group>"; };
+		9C2276C4299EBE97005566A0 /* LikedReviewsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedReviewsListItem.swift; sourceTree = "<group>"; };
+		9C2276C6299EC038005566A0 /* LikedReviewsDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedReviewsDestination.swift; sourceTree = "<group>"; };
+		9C2276C9299EC941005566A0 /* EditReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReviewView.swift; sourceTree = "<group>"; };
+		9C2276CB299EC9BB005566A0 /* EditReviewDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReviewDestination.swift; sourceTree = "<group>"; };
 		9C26318F29957C5E00A65CC3 /* SearchReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReviewsView.swift; sourceTree = "<group>"; };
 		9C2631942995AEE700A65CC3 /* PaginatedReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedReviewModel.swift; sourceTree = "<group>"; };
 		9C2631962995B1BC00A65CC3 /* ReviewViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewData.swift; sourceTree = "<group>"; };
@@ -232,6 +249,7 @@
 		9C8D86CF2999892D007E714F /* ReviewPicCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPicCarousel.swift; sourceTree = "<group>"; };
 		9C8D86D129998E2C007E714F /* CreateReviewPhotoCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewPhotoCarousel.swift; sourceTree = "<group>"; };
 		9C8D86D329998FE5007E714F /* PhotoPreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewData.swift; sourceTree = "<group>"; };
+		9C8D86D6299ADC07007E714F /* ReviewAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAnnotationView.swift; sourceTree = "<group>"; };
 		9C96945E29357CB800AAEC25 /* spotster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spotster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C96946129357CB800AAEC25 /* spotserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotserApp.swift; sourceTree = "<group>"; };
 		9C96946529357CB900AAEC25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -255,9 +273,7 @@
 		9CAEB3BA2989DDD2009A18A3 /* NotificationNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNavButton.swift; sourceTree = "<group>"; };
 		9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		9CD42D82296DF54E00C2FBE9 /* ProfilePicSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicSkeleton.swift; sourceTree = "<group>"; };
-		9CD42D84296E052500C2FBE9 /* LogoutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutButton.swift; sourceTree = "<group>"; };
-		9CD42D86296E056300C2FBE9 /* ChangeProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileButton.swift; sourceTree = "<group>"; };
-		9CD42D8A296E067800C2FBE9 /* DeleteAccountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountButton.swift; sourceTree = "<group>"; };
+		9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		9CD42D8C296E08D600C2FBE9 /* FullFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFriends.swift; sourceTree = "<group>"; };
 		9CD42D8F296E2C9E00C2FBE9 /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
 		9CD42D91296E2D7600C2FBE9 /* FriendsListDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListDestination.swift; sourceTree = "<group>"; };
@@ -297,6 +313,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C2276B9299C24CC005566A0 /* ReviewGridItem */ = {
+			isa = PBXGroup;
+			children = (
+				9C2276BA299C24DA005566A0 /* ReviewGridItem.swift */,
+			);
+			path = ReviewGridItem;
+			sourceTree = "<group>";
+		};
+		9C2276C1299EBE80005566A0 /* LikedReviewsList */ = {
+			isa = PBXGroup;
+			children = (
+				9C2276C2299EBE8E005566A0 /* LikedReviewsList.swift */,
+				9C2276C4299EBE97005566A0 /* LikedReviewsListItem.swift */,
+			);
+			path = LikedReviewsList;
+			sourceTree = "<group>";
+		};
+		9C2276C8299EC936005566A0 /* EditReviewView */ = {
+			isa = PBXGroup;
+			children = (
+				9C2276C9299EC941005566A0 /* EditReviewView.swift */,
+			);
+			path = EditReviewView;
+			sourceTree = "<group>";
+		};
 		9C2631922995AE6500A65CC3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +370,7 @@
 			children = (
 				9CAEB39F297780C6009A18A3 /* UIColorExtensions.swift */,
 				9C27DFD2298AEAD20094AEDD /* MKExtensions.swift */,
+				9C2276B7299B5A79005566A0 /* Colors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -383,6 +425,8 @@
 		9C68CC2A29521DA7007FC567 /* Review */ = {
 			isa = PBXGroup;
 			children = (
+				9C2276C8299EC936005566A0 /* EditReviewView */,
+				9C2276B9299C24CC005566A0 /* ReviewGridItem */,
 				9C871D0D2965FE4C007B72F7 /* ReviewView */,
 				9C871D092965F4F8007B72F7 /* ReviewListItem */,
 				9C871CF2296359AF007B72F7 /* CreateReview */,
@@ -416,6 +460,7 @@
 		9C68CC31295229AD007FC567 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				9C8D86D5299ADBFC007E714F /* Annotations */,
 				9C8217DB2947C5DF0011B7E0 /* LocateButton.swift */,
 				9C871CE4295CBACD007B72F7 /* FriendsOnlyToggle.swift */,
 			);
@@ -546,6 +591,9 @@
 				9CAEB3B52989CE1F009A18A3 /* ReviewDestination.swift */,
 				9CAEB3B72989D0F1009A18A3 /* NotificationDestination.swift */,
 				9C28C9B329957AF4002296A1 /* SearchDestination.swift */,
+				9C2276BF299DAAB5005566A0 /* DeleteAccountDestination.swift */,
+				9C2276C6299EC038005566A0 /* LikedReviewsDestination.swift */,
+				9C2276CB299EC9BB005566A0 /* EditReviewDestination.swift */,
 			);
 			path = NavigationDestinations;
 			sourceTree = "<group>";
@@ -639,6 +687,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		9C8D86D5299ADBFC007E714F /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				9C8D86D6299ADC07007E714F /* ReviewAnnotationView.swift */,
+			);
+			path = Annotations;
+			sourceTree = "<group>";
+		};
 		9C96945529357CB800AAEC25 = {
 			isa = PBXGroup;
 			children = (
@@ -707,6 +763,7 @@
 		9CAEB3A12988543D009A18A3 /* Likes */ = {
 			isa = PBXGroup;
 			children = (
+				9C2276C1299EBE80005566A0 /* LikedReviewsList */,
 				9CAEB3A22988544B009A18A3 /* LikesList.swift */,
 				9CAEB3A429885454009A18A3 /* LikesListItem.swift */,
 			);
@@ -726,10 +783,9 @@
 		9CD42D88296E057500C2FBE9 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
-				9CD42D84296E052500C2FBE9 /* LogoutButton.swift */,
-				9CD42D86296E056300C2FBE9 /* ChangeProfileButton.swift */,
-				9CD42D8A296E067800C2FBE9 /* DeleteAccountButton.swift */,
+				9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */,
 				9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */,
+				9C2276BD299D98E4005566A0 /* ProfileOptionMenu.swift */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -932,7 +988,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CAEB3B62989CE1F009A18A3 /* ReviewDestination.swift in Sources */,
-				9CD42D8B296E067800C2FBE9 /* DeleteAccountButton.swift in Sources */,
+				9C8D86D7299ADC07007E714F /* ReviewAnnotationView.swift in Sources */,
+				9C2276CA299EC941005566A0 /* EditReviewView.swift in Sources */,
+				9CD42D8B296E067800C2FBE9 /* DeleteAccountView.swift in Sources */,
 				9C871CCC29561812007B72F7 /* ReviewReplies.swift in Sources */,
 				9CD42DB0296F5B5700C2FBE9 /* SearchForFriendsListItem.swift in Sources */,
 				9C871CD029561BA8007B72F7 /* UserCache.swift in Sources */,
@@ -947,11 +1005,12 @@
 				9C871CEC295E2BDB007B72F7 /* UnsplashOverlay.swift in Sources */,
 				9C27DFD3298AEAD20094AEDD /* MKExtensions.swift in Sources */,
 				9C871CCA295605DC007B72F7 /* LikeRequests.swift in Sources */,
+				9C2276BE299D98E4005566A0 /* ProfileOptionMenu.swift in Sources */,
 				9CD42D9F296E384800C2FBE9 /* IncomingFriendsListItem.swift in Sources */,
 				9C871D0C2965F5AA007B72F7 /* ReviewListItemHeader.swift in Sources */,
-				9CD42D87296E056300C2FBE9 /* ChangeProfileButton.swift in Sources */,
 				9C8217A729395A390011B7E0 /* User.swift in Sources */,
 				9C82179F2936C73B0011B7E0 /* SetNamesView.swift in Sources */,
+				9C2276BB299C24DA005566A0 /* ReviewGridItem.swift in Sources */,
 				9C871CCE2956185F007B72F7 /* ReviewListItemText.swift in Sources */,
 				9CD42D9C296E35D900C2FBE9 /* FriendsListItem.swift in Sources */,
 				9CAEB3942971DF47009A18A3 /* MapBoundaryQueue.swift in Sources */,
@@ -961,6 +1020,7 @@
 				9CAEB3BB2989DDD2009A18A3 /* NotificationNavButton.swift in Sources */,
 				9C2631992995B79000A65CC3 /* ReviewLoaderA.swift in Sources */,
 				9C82179929369C800011B7E0 /* ErrorDisplay.swift in Sources */,
+				9C2276C5299EBE97005566A0 /* LikedReviewsListItem.swift in Sources */,
 				9CD42D90296E2C9E00C2FBE9 /* FriendsList.swift in Sources */,
 				9C8217E329490BFA0011B7E0 /* LocationReviewsView.swift in Sources */,
 				9C8217B0293BDEDE0011B7E0 /* Retryable.swift in Sources */,
@@ -977,11 +1037,11 @@
 				9CAEB39E29777852009A18A3 /* Pic.swift in Sources */,
 				9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */,
 				9C8217C2293FE19E0011B7E0 /* Loading.swift in Sources */,
+				9C2276C3299EBE8E005566A0 /* LikedReviewsList.swift in Sources */,
 				9CD42DA6296F519B00C2FBE9 /* IgnoredFriendsListItem.swift in Sources */,
 				9C871D162967465D007B72F7 /* ReplyRequests.swift in Sources */,
 				9CAEB3B42989C081009A18A3 /* NotificationListItem.swift in Sources */,
 				9CD42DA1296E394F00C2FBE9 /* FriendRequests.swift in Sources */,
-				9CD42D85296E052500C2FBE9 /* LogoutButton.swift in Sources */,
 				9C8217E72949293D0011B7E0 /* Review.swift in Sources */,
 				9C871D242968ED70007B72F7 /* MyProfileLoader.swift in Sources */,
 				9CAEB3AD298991BE009A18A3 /* UserNotification.swift in Sources */,
@@ -1011,8 +1071,10 @@
 				9C68CC2729516588007FC567 /* UserPreviewData.swift in Sources */,
 				9C871D282968F04F007B72F7 /* FriendRequest.swift in Sources */,
 				9CD42D98296E2F4F00C2FBE9 /* IgnoredFriendsList.swift in Sources */,
+				9C2276CC299EC9BB005566A0 /* EditReviewDestination.swift in Sources */,
 				9C8217B4293C35420011B7E0 /* PicRequests.swift in Sources */,
 				9C871CFB296377AB007B72F7 /* StarsSelector.swift in Sources */,
+				9C2276C0299DAAB5005566A0 /* DeleteAccountDestination.swift in Sources */,
 				9CAEB3A0297780C6009A18A3 /* UIColorExtensions.swift in Sources */,
 				9C871D1A29674FD3007B72F7 /* ReviewAddReply.swift in Sources */,
 				9C82179429368ECC0011B7E0 /* GetCodeView.swift in Sources */,
@@ -1036,9 +1098,11 @@
 				9C871CC42954F422007B72F7 /* Like.swift in Sources */,
 				9C8D86D02999892D007E714F /* ReviewPicCarousel.swift in Sources */,
 				9C26319029957C5E00A65CC3 /* SearchReviewsView.swift in Sources */,
+				9C2276B8299B5A79005566A0 /* Colors.swift in Sources */,
 				9C8D86D229998E2C007E714F /* CreateReviewPhotoCarousel.swift in Sources */,
 				9CD42D8D296E08D600C2FBE9 /* FullFriends.swift in Sources */,
 				9C40AA94293667E0009134EA /* Authentication.swift in Sources */,
+				9C2276C7299EC038005566A0 /* LikedReviewsDestination.swift in Sources */,
 				9C871CDE295BCE4C007B72F7 /* UniqueUser.swift in Sources */,
 				9C871D0729650383007B72F7 /* ReviewHeaderSkeleton.swift in Sources */,
 				9CAEB3AF298998C9009A18A3 /* NotificationRequests.swift in Sources */,
@@ -1197,7 +1261,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"spotster/Preview Content\"";
 				DEVELOPMENT_TEAM = W3CBQB54QR;
@@ -1218,7 +1282,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.5;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1239,7 +1303,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"spotster/Preview Content\"";
 				DEVELOPMENT_TEAM = W3CBQB54QR;
 				ENABLE_PREVIEWS = YES;
@@ -1259,7 +1323,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.5;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";

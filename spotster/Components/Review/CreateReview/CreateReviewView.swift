@@ -86,8 +86,6 @@ struct CreateReviewView: View {
                                     if let uiImage = UIImage(data: data) {
                                         let resizedImage = resizeImage(image: uiImage)
                                         self.selectedImages.append(resizedImage)
-                                        print(self.selectedImages.count)
-                                        //self.selectedItemData = resizedImage.jpegData(compressionQuality: 0.9)
                                     }
                                 }
                             }
@@ -118,12 +116,24 @@ struct CreateReviewView: View {
             }) {
                 Text("Post")
             }
+        }.overlay {
+            if self.pending {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                    Spacer()
+                }.background(APP_BACKGROUND.opacity(0.5))
+            }
         }
     }
     
     func postReview() async {
         var dataToBeUploaded: Data
-        
+
         if let pic = self.selectedImages.first {
             if let data = pic.jpegData(compressionQuality: 0.9) {
                 dataToBeUploaded = data

@@ -29,12 +29,15 @@ struct MyProfileView: View {
     }
     
     var body: some View {
+        VStack {
             List {
                 Section {
                     VStack {
                         HStack {
                             Spacer()
-                            ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true).padding()
+                            ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true).padding().overlay {
+                                ProfileOptionMenu(path: self.$path)
+                            }
                             Spacer()
                         }
                         HStack {
@@ -55,6 +58,15 @@ struct MyProfileView: View {
                     }){
                         HStack {
                             Text("View Profile")
+                            Spacer()
+                            Image(systemName: "chevron.right").foregroundColor(.secondary)
+                        }
+                    }
+                    Button(action:{
+                        self.path.append(LikedReviewsDestination())
+                    }){
+                        HStack {
+                            Text("View Favorites")
                             Spacer()
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
                         }
@@ -108,13 +120,9 @@ struct MyProfileView: View {
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
                         }
                     }
-                    ChangeProfileButton()
                 }
-                Section {
-                    LogoutButton()
-                    DeleteAccountButton()
-                }
-            }.accentColor(.primary).onAppear {
+            }
+        }.accentColor(.primary).onAppear {
             Task {
                 await self.friendsCache.refreshFriendsCache(token: self.auth.token)
             }

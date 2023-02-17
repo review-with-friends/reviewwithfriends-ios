@@ -109,7 +109,7 @@ struct LocationReviewsView: View {
                                 Image(systemName:"map.fill").font(.title)
                             }
                         }.padding()
-                    }
+                    }.listRowSeparator(.hidden)
                     if reviews.count >= 1 {
                         ForEach(reviews) { review in
                             let reviewDestination = ReviewDestination(id: review.id, userId: review.userId)
@@ -117,7 +117,11 @@ struct LocationReviewsView: View {
                                 .padding(.bottom)
                         }
                     } else {
-                        Text("No reviews yet.").foregroundColor(.secondary)
+                        HStack {
+                            Spacer()
+                            Text("No reviews yet.").foregroundColor(.secondary)
+                            Spacer()
+                        }.listRowSeparator(.hidden)
                     }
                 }.listStyle(.plain)
                     .buttonStyle(BorderlessButtonStyle())
@@ -150,7 +154,7 @@ struct LocationReviewsView: View {
             }) {
                 HStack {
                     Image(systemName:"plus.square")
-                    Text("Review This Spot")
+                    Text("Review this Spot")
                 }
             }
         }.onAppear {

@@ -11,10 +11,11 @@ import MapKit
 
 struct FriendsOnlyToggle: View {
     @Binding var isOn: Bool
+    var callBack: () -> Void
     
     var body: some View {
             Button(action: {
-                self.isOn.toggle()
+                self.callBack()
             }){
                 VStack{
                     if isOn {

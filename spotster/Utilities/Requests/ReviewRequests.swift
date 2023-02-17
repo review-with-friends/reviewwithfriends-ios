@@ -164,6 +164,40 @@ func deleteReview(token: String, reviewId: String) async -> Result<(), RequestEr
     }
 }
 
+func editReview(token: String, editRequest: EditReviewRequest) async -> Result<(), RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/edit") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    do {
+        request.httpBody = try JSONEncoder().encode(editRequest)
+    } catch {
+        return .failure(.URLMalformedError(message: "failed to serialize body"))
+    }
+    
+    let result = await spotster.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(_):
+        return .success(())
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
+struct EditReviewRequest: Codable {
+    let review_id: String
+    let text: String
+    let stars: Int
+}
+
 func createReview(token: String, reviewRequest: CreateReviewRequest) async -> Result<Review, RequestError> {
     var url: URL
     if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/") {
@@ -177,7 +211,8 @@ func createReview(token: String, reviewRequest: CreateReviewRequest) async -> Re
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue(token, forHTTPHeaderField: "Authorization")
     do {
-        request.httpBody = try JSONEncoder().encode(reviewRequest)
+        let body = try JSONEncoder().encode(reviewRequest)
+        request.httpBody = body
     } catch {
         return .failure(.URLMalformedError(message: "failed to serialize body"))
     }

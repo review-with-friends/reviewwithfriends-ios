@@ -13,9 +13,13 @@ struct LatestReviewsView: View {
     
     @StateObject var model = PaginatedReviewModel()
     
+    @State var lastLoad = Date()
+    
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var userCache: UserCache
     @EnvironmentObject var notificationManager: NotificationManager
+    
+    @Environment(\.scenePhase) var scenePhase
     
     func createActionCallback(page: Int) async -> Result<[Review], RequestError> {
         return await spotster.getLatestReviews(token: auth.token, page: page)
@@ -48,7 +52,7 @@ struct LatestReviewsView: View {
                     }
                 }.listStyle(.plain).buttonStyle(BorderlessButtonStyle())
             }.scrollIndicators(.hidden)
-
+            
             if self.model.failed {
                 Text(self.model.error)
                 
@@ -65,7 +69,19 @@ struct LatestReviewsView: View {
             }
         }.onAppear {
             Task {
+                /// The model handles loading correctly. Though a byproduct is several tab navigations can lead to loading more pages.
                 await self.model.loadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+            }
+        }.onChange(of: scenePhase) { newPhase in
+            /// When opening the app from the background, an active event is fired here.
+            /// We hook onto this and check if the last time we loaded data was. If it was recent, we hard refresh.
+            if newPhase == .active {
+                if self.lastLoad.addingTimeInterval(TimeInterval(300)) < Date() {
+                    self.lastLoad = Date()
+                    Task {
+                        await self.model.hardLoadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+                    }
+                }
             }
         }
     }

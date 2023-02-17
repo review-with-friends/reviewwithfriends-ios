@@ -31,7 +31,6 @@ func requestWithRetry(request: URLRequest) async -> Result<Data, RequestError> {
                 }
             case .NetworkingError:
                 do {
-                    print("failed, retrying")
                     try await Task.sleep(for: Duration.milliseconds(500 * attempt))
                     continue
                 } catch {
@@ -62,7 +61,6 @@ private func internalRequestWithRetry(request: URLRequest) async -> Result<Data,
             content = temp_content
         }
     } catch (let error) {
-        print("networking error")
         return .failure(.NetworkingError(message: error.localizedDescription))
     }
     

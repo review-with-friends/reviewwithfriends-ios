@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 struct MapView: UIViewRepresentable {
-    public var mapDelegate: MapDelegate
+    @State public var mapDelegate: MapDelegate
     
     private var showingFriends = false
     
@@ -48,6 +48,24 @@ class ReviewAnnotation: NSObject, MKAnnotation {
         self.title = title
         self.subtitle = subtitle
         self.picId = picId
+        self.category = category
+    }
+}
+
+class SearchResultAnnotation: NSObject, MKAnnotation {
+    
+    var coordinate: CLLocationCoordinate2D
+    
+    var title: String?
+    
+    var subtitle: String?
+    
+    var category: String?
+    
+    init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil, category: String?) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
         self.category = category
     }
 }

@@ -35,7 +35,10 @@ struct ReviewListItemText: View {
                     HStack {
                         let alreadyLiked = self.fullReview.likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
                         Label("\(self.fullReview.likes.count)", systemImage: alreadyLiked ? "heart.fill" : "heart").font(.callout).padding(.trailing)
-                        Label("\(self.fullReview.replies.count)", systemImage: "ellipsis.message.fill").font(.callout)
+                        Label("\(self.fullReview.replies.count)", systemImage: "ellipsis.message.fill").font(.callout).padding(.trailing)
+                        if self.fullReview.pics.count > 1 {
+                            Label("\(self.fullReview.pics.count)", systemImage: "photo.on.rectangle.angled").font(.callout)
+                        }
                         Spacer()
                     }.padding(.top, 1)
                 }.background(.black.opacity(0.0001))

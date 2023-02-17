@@ -16,13 +16,15 @@ struct ReviewView: View {
     var fullReview: FullReview
     var showLocation = true
     
+    @State var lastLoad = Date()
+    
     @EnvironmentObject var auth: Authentication
     
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 VStack {
-                    ReviewHeader(path: self.$path, user: user, review: fullReview.review)
+                    ReviewHeader(path: self.$path, user: user, fullReview: fullReview)
                     ReviewPicCarousel(path: self.$path, fullReview: fullReview, reloadCallback: reloadCallback)
                     ReviewText(path: self.$path, fullReview: self.fullReview)
                         .padding(.top, 3.0)
@@ -35,6 +37,13 @@ struct ReviewView: View {
                         await self.reloadCallback()
                     }
                 }.navigationBarTitleDisplayMode(.inline)
+        }.onAppear {
+            if self.lastLoad.addingTimeInterval(TimeInterval(5)) < Date() {
+                self.lastLoad = Date()
+                Task {
+                    await self.reloadCallback()
+                }
+            }
         }
     }
 }

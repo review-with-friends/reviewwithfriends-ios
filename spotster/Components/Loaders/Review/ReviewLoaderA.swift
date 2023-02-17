@@ -11,14 +11,24 @@ import SwiftUI
 struct ReviewLoaderA: View {
     @Binding var path: NavigationPath
     
-    var review: ReviewViewData
+    @State var review: ReviewViewData
+    
     var showListItem: Bool
     var showLocation = true
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var userCache: UserCache
     
-    func loadFullReview() async -> Void {}
+    func loadFullReview() async -> Void {
+        let fullReviewResult = await getFullReviewById(token: auth.token, reviewId: review.id)
+        
+        switch fullReviewResult {
+        case .success(let fullReview):
+            self.review.fullReview = fullReview
+        case .failure(_):
+            return
+        }
+    }
     
     var body: some View {
         HStack {

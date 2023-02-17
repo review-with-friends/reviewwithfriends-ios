@@ -20,13 +20,13 @@ struct ReviewText: View {
     var body: some View {
         VStack {
             HStack {
-                Spacer()
                 Button(action: {
                     self.path.append(fullReview.likes)
                 }) {
                     let alreadyLiked = self.fullReview.likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
                     Label("\(self.fullReview.likes.count)", systemImage: alreadyLiked ? "heart.fill" : "heart").font(.title3).padding(.trailing)
                 }.buttonStyle(PlainButtonStyle())
+                Spacer()
             }.padding(.bottom, 1)
             HStack {
                 Text(self.fullReview.review.text)

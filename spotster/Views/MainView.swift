@@ -25,17 +25,21 @@ struct MainView: View {
                     LatestReviewsView(path: self.$path )
                         .tabItem {
                             Label("Feed", systemImage: "house.fill")
-                        }.tag(0).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
+                        }.tag(0).toolbarBackground(APP_BACKGROUND, for: .tabBar)
+                        .toolbarBackground(.visible, for: .tabBar)
                     MapScreenView(path: self.$path, mapView: MapView())
                         .tabItem {
                             Label("Map", systemImage: "map")
-                        }.tag(1).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
+                        }.tag(1).toolbarBackground(APP_BACKGROUND, for: .tabBar)
+                        .toolbarBackground(.visible, for: .tabBar)
                     if let user = auth.user {
                         MyProfileView(path: self.$path, user: user)
                             .badge(self.friendsCache.fullFriends.incomingRequests.count > 0 ? "\($friendsCache.fullFriends.incomingRequests.count)" : nil)
                             .tabItem {
                                 Label("Profile", systemImage: "person.crop.circle.fill")
-                            }.tag(2).toolbarBackground(.ultraThinMaterial, for: .tabBar).toolbarBackground(.visible, for: .tabBar)
+                            }.tag(2)
+                            .toolbarBackground(APP_BACKGROUND, for: .tabBar)
+                             .toolbarBackground(.visible, for: .tabBar)
                     }
                 }
             }
@@ -48,6 +52,9 @@ struct MainView: View {
             .navigationDestination(for: UniqueUser.self) { uniqueUser in
                 UserProfileLoader(path: self.$path, userId: uniqueUser.userId)
             }
+            .navigationDestination(for: LikedReviewsDestination.self) { dest in
+                LikedReviewsList(path: self.$path)
+            }
             .navigationDestination(for: ReviewDestination.self) { review in
                 ReviewLoader(path: self.$path, review: review, showListItem: false)
             }
@@ -59,6 +66,12 @@ struct MainView: View {
             }
             .navigationDestination(for: SearchDestination.self) { _ in
                 SearchReviewsView(path: self.$path)
+            }
+            .navigationDestination(for: EditReviewDestination.self) { dest in
+                EditReviewView(path: self.$path, fullReview: dest.fullReview)
+            }
+            .navigationDestination(for: DeleteAccountDestination.self) { _ in
+                DeleteAccountView()
             }
             .navigationDestination(for: FriendsListDestination.self) { friendsList in
                 switch friendsList.view {

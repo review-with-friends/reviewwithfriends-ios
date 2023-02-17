@@ -74,8 +74,7 @@ class NotificationManager: ObservableObject {
             
             // confirming the notifications have been received
             let _ = await spotster.confirmNotifications(token: token)
-        case .failure(let error):
-            print(error.description)
+        case .failure(_):
             return
         }
     }
