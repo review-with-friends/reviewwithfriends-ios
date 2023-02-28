@@ -13,6 +13,7 @@ struct ProfileOptionMenu: View {
     @State var logoutConfirmationShowing = false
 
     @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var notifications: NotificationManager
     
     var body: some View {
         VStack {

@@ -21,6 +21,11 @@ struct GetCodeView: View {
     @EnvironmentObject var auth: Authentication
     
     func requestCode() async {
+        if self.phone == "9999999999" {
+            await self.signInDemoUser()
+            return
+        }
+        
         if self.pending == true {
             return
         }
@@ -96,13 +101,7 @@ struct GetCodeView: View {
             
             
             Spacer()
-        }.frame(alignment: .center).toolbar {
-            Button(action: {
-                Task { await self.signInDemoUser() }
-            }) {
-                Text("Login as Demo User")
-            }
-        }
+        }.frame(alignment: .center)
     }
 }
 
@@ -130,6 +129,36 @@ func getCode(phone: String) async -> Result<(), RequestError> {
     
     if status == 200 {
         return .success(())
+    } else if status <= 499 && status >= 400 {
+        return .failure(.BadRequestError(message: content))
+    } else {
+        return .failure(.InternalServerError(message: content))
+    }
+}
+
+func SignInDemo() async ->  Result<String, RequestError> {
+    let url = URL(string: "https://spotster.spacedoglabs.com/auth/signin-demo")!
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    
+    var data: Data
+    var response: HTTPURLResponse
+    var content: String
+    
+    do {
+        var tempResponse: URLResponse
+        (data, tempResponse) = try await URLSession.shared.data(for: request)
+        response = (tempResponse as? HTTPURLResponse)!
+        content = String(data: data, encoding: .utf8)!
+    } catch {
+        return .failure(.NetworkingError(message: "failed due to networking issues"))
+    }
+    
+    let status = response.statusCode
+    
+    if status == 200 {
+        return .success(content)
     } else if status <= 499 && status >= 400 {
         return .failure(.BadRequestError(message: content))
     } else {

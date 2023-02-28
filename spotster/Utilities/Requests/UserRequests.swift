@@ -106,3 +106,27 @@ func searchUserByName(token: String, name: String) async -> Result<[User], Reque
     }
 }
 
+func setNewDeviceToken(token: String, deviceToken: String) async -> Result<(), RequestError> {
+    var url: URL
+    if let url_temp = URL(string: USER_V1_ENDPOINT + "/device_token") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "device_token", value: deviceToken)])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await spotster.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(_):
+        return .success(())
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+

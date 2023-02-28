@@ -41,6 +41,8 @@ struct SetNamesView: View {
         VStack {
             if let user = auth.user {
                 VStack {
+                    Text("Choose your usernames!").padding()
+                    Text("You can change then whenever you want 🤓").font(.caption).foregroundColor(.secondary)
                     Form {
                         HStack {
                             Text("Username")

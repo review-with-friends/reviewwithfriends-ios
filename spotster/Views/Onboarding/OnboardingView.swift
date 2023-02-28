@@ -14,20 +14,30 @@ struct OnboardingView: View {
     var body: some View {
         NavigationStack(path: self.$path) {
             VStack{
+                // First Stop
+                GetStartedView(path: self.$path)
+            }
+            .navigationDestination(for: SetNames.self) { _ in
+                // Third Stop
                 SetNamesView(path: self.$path)
             }
             .navigationDestination(for: SetProfilePic.self) { _ in
+                // Fourth Stop
                 SetProfilePicView(path: self.$path)
             }
-            .navigationDestination(for: ReviewNamesAndProfilePic.self) { _ in
-                GetStartedView(path: self.$path)
+            .navigationDestination(for: ConfirmProfile.self) { _ in
+                // Fifth Stop
+                ConfirmProfileView(path: self.$path)
             }
-        }.accentColor(.primary)
+        }.accentColor(.primary).onAppear {
+            spotster.requestNotifications()
+        }
     }
 }
 
 struct SetProfilePic: Hashable {}
-struct ReviewNamesAndProfilePic: Hashable {}
+struct SetNames: Hashable {}
+struct ConfirmProfile: Hashable {}
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {

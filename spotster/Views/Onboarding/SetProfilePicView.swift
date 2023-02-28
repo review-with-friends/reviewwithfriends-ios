@@ -28,7 +28,7 @@ struct SetProfilePicView: View {
     @EnvironmentObject var auth: Authentication
     
     func moveToNextScreen() {
-        self.path.append(ReviewNamesAndProfilePic())
+        self.path.append(ConfirmProfile())
     }
     
     func showError(error: String) {
@@ -43,7 +43,8 @@ struct SetProfilePicView: View {
     
     var body: some View {
         VStack {
-            
+            Text("Choose a profile picture!").padding()
+            Text("You can also change this whenever 😁").font(.caption).foregroundColor(.secondary)
             Spacer()
             if let selectedItemData,
                let uiImage = UIImage(data: selectedItemData) {

@@ -30,6 +30,7 @@ struct NotificationList: View {
         }.onAppear {
             self.newCount = self.notificationManager.newNotifications
             self.notificationManager.newNotifications = 0
+            UIApplication.shared.applicationIconBadgeNumber = 0
             self.notificationManager.setCachedNewNotifications()
         }.navigationTitle("Notifications").padding(.top)
     }

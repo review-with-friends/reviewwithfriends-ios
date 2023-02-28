@@ -2,7 +2,7 @@
 //  GetStartedView.swift
 //  spotster
 //
-//  Created by Colton Lathrop on 12/6/22.
+//  Created by Colton Lathrop on 2/28/23.
 //
 
 import Foundation
@@ -13,26 +13,24 @@ struct GetStartedView: View {
     
     @EnvironmentObject var auth: Authentication
     
+    func moveToNextScreen() {
+        self.path.append(SetNames())
+    }
+    
     var body: some View {
         VStack {
             Spacer()
             VStack{
-                ProfilePicLoader(path: self.$path, userId: auth.user?.id ?? "", profilePicSize: .large, navigatable: false, ignoreCache: true).padding()
-                Text(auth.user?.displayName ?? "").font(.title2.bold())
-                Text("@" + (auth.user?.name ?? "")).foregroundColor(.secondary)
+                Text("Lets get your profile set up!").font(.title)
             }.padding()
             Spacer()
             Button(action: {
-                withAnimation(.spring().speed(2.0)){
-                    auth.setCachedOnboarding()
-                }
+                self.moveToNextScreen()
             }){
-                Text("Finish")
+                Text("Get Started")
                     .font(.title.bold())
                     .padding()
             }.foregroundColor(.primary).disabled(false)
-
-            Spacer()
         }
     }
 }

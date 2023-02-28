@@ -32,7 +32,7 @@ struct WelcomeView: View {
             Button(action: {
                 self.path.append(GetCode())
             }) {
-                Text("Get Started").font(.largeTitle).fontWeight(.bold)
+                Text("Login").font(.largeTitle).fontWeight(.bold)
             }
         }.accentColor(.primary)
     }

@@ -15,8 +15,13 @@ struct MainView: View {
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
     @EnvironmentObject var notificatonManager: NotificationManager
+    @EnvironmentObject var appDelegate: AppDelegate
     
     @State var tab = 0
+    
+    init() {
+        spotster.requestNotifications()
+    }
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -39,7 +44,7 @@ struct MainView: View {
                                 Label("Profile", systemImage: "person.crop.circle.fill")
                             }.tag(2)
                             .toolbarBackground(APP_BACKGROUND, for: .tabBar)
-                             .toolbarBackground(.visible, for: .tabBar)
+                            .toolbarBackground(.visible, for: .tabBar)
                     }
                 }
             }
@@ -89,6 +94,9 @@ struct MainView: View {
             }
         }.environmentObject(ChildViewReloadCallback(callback: nil))
             .accentColor(.primary)
+            .onFirstAppear {
+                await self.notificatonManager.updateDeviceToken(authToken: self.auth.token, deviceToken: self.appDelegate.deviceToken)
+            }
             .onAppear {
                 Task {
                     let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)

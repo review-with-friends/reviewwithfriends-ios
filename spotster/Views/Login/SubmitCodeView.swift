@@ -122,36 +122,6 @@ func SignIn(phone: String, code: String) async ->  Result<String, RequestError> 
     }
 }
 
-func SignInDemo() async ->  Result<String, RequestError> {
-    let url = URL(string: "https://spotster.spacedoglabs.com/auth/signin-demo")!
-    
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    
-    var data: Data
-    var response: HTTPURLResponse
-    var content: String
-    
-    do {
-        var tempResponse: URLResponse
-        (data, tempResponse) = try await URLSession.shared.data(for: request)
-        response = (tempResponse as? HTTPURLResponse)!
-        content = String(data: data, encoding: .utf8)!
-    } catch {
-        return .failure(.NetworkingError(message: "failed due to networking issues"))
-    }
-    
-    let status = response.statusCode
-    
-    if status == 200 {
-        return .success(content)
-    } else if status <= 499 && status >= 400 {
-        return .failure(.BadRequestError(message: content))
-    } else {
-        return .failure(.InternalServerError(message: content))
-    }
-}
-
 struct SubmitCodeView_Previews: PreviewProvider {
     static var previews: some View {
         SubmitCodeView(path: .constant(NavigationPath()), phone: .constant("7014910059"))

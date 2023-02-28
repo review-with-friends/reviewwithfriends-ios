@@ -9,11 +9,15 @@ import Foundation
 import SwiftUI
 
 let NEW_NOTIFICATIONS = "<NEW_NOTIFICATIONS>"
+let DEVICE_TOKEN = "<DEVICE_TOKEN>"
+
 
 @MainActor
 class NotificationManager: ObservableObject {
     @Published var notifications : [UserNotification] = []
     @Published var newNotifications: Int = 0
+    
+    private var lastDeviceToken: String = ""
     
     private var documentDirectory: URL
     private var enabled: Bool
@@ -30,6 +34,7 @@ class NotificationManager: ObservableObject {
         
         self.readJSON()
         self.getCachedNewNotifications()
+        self.getCachedDeviceToken()
     }
     
     func getCachedNewNotifications() {
@@ -41,6 +46,38 @@ class NotificationManager: ObservableObject {
         var value = AppStorage.init(wrappedValue: 0, NEW_NOTIFICATIONS)
         value.wrappedValue = self.newNotifications
         value.update()
+    }
+    
+    /// Gets the last successful device token sent to the server for APN.
+    func getCachedDeviceToken() {
+        let value = AppStorage.init(wrappedValue: "", DEVICE_TOKEN)
+        self.lastDeviceToken = value.wrappedValue
+    }
+    
+    /// Updates the last successful device token sent to the server for APN.
+    /// This will likely never fire after the first call. Device tokens are reasonably stable but CAN change...
+    func setCachedDeviceToken(token: String) {
+        var value = AppStorage.init(wrappedValue: "", DEVICE_TOKEN)
+        value.wrappedValue = token
+        value.update()
+        
+        self.getCachedDeviceToken()
+    }
+    
+    func updateDeviceToken(authToken: String, deviceToken: String) async {
+        if deviceToken == self.lastDeviceToken && !self.lastDeviceToken.isEmpty {
+            // no need to update the token. current isn't empty and the current is the same as the last sent
+            return
+        }
+        
+        let deviceTokenUpdateResult = await spotster.setNewDeviceToken(token: authToken, deviceToken: deviceToken)
+        
+        switch deviceTokenUpdateResult {
+        case .success(_):
+            self.setCachedDeviceToken(token: deviceToken)
+        case .failure(_):
+            return
+        }
     }
     
     func getNotifications(token: String) async {
@@ -109,8 +146,27 @@ class NotificationManager: ObservableObject {
     }
     
     private func getCommonURL() -> URL {
-            return documentDirectory
-                .appendingPathComponent("notifications")
-                .appendingPathExtension("json")
+        return documentDirectory
+            .appendingPathComponent("notifications")
+            .appendingPathExtension("json")
+    }
+}
+
+func requestNotifications(){
+    let center = UNUserNotificationCenter.current()
+    
+    center.requestAuthorization(options: [.alert, .badge]) { granted, error in
+        
+        if let error = error {
+            print(error)
+        } else {
+            if granted {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            } else {
+                print("not granted")
+            }
+        }
     }
 }
