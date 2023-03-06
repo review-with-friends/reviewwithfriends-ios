@@ -87,7 +87,7 @@ struct UserActions: View {
                     self.path.append(FriendsListDestination(view: .Outgoing))
                 }){
                     HStack {
-                        Text("Cancel Request")
+                        Text("Cancel")
                         Image(systemName: "x.circle").font(.system(size: 20))
                     }.foregroundColor(.red)
                 }
@@ -96,7 +96,7 @@ struct UserActions: View {
                     self.path.append(FriendsListDestination(view: .Incoming))
                 }){
                     HStack {
-                        Text("Accept Request")
+                        Text("Accept")
                         Image(systemName: "checkmark.circle").font(.system(size: 20))
                     }.foregroundColor(.green)
                 }

@@ -11,10 +11,10 @@ import PhotosUI
 
 struct CreateReviewView: View {
     @Binding var path: NavigationPath
-    var reviewLocation: UniqueLocationCreateReview
     
-    /// Selected image from the photo picker.
-    @State var selectedItem: PhotosPickerItem?
+    @State var tabSelection: Int = 0
+    
+    var reviewLocation: UniqueLocationCreateReview
     
     @State var selectedImages: [UIImage] = []
     
@@ -31,6 +31,8 @@ struct CreateReviewView: View {
     
     @State var review: Review?
     
+    @State var cancelAlertShowing: Bool = false
+    
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var reloadCallback: ChildViewReloadCallback
     
@@ -44,79 +46,55 @@ struct CreateReviewView: View {
         errorText = ""
     }
     
+    var cancelButton: some View {
+        Button("Cancel") {
+            if self.selectedImages.count == 0 && self.text.isEmpty {
+                self.path.removeLast()
+            } else {
+                self.cancelAlertShowing = true
+            }
+        }
+    }
+    
     var body: some View {
-        ScrollView {
-            if self.showError {
-                Text(self.errorText).foregroundColor(.red)
-            }
+        TabView(selection: self.$tabSelection) {
             VStack {
-                HStack{
-                    Spacer()
-                    ReviewStarsSelector(stars: $stars).padding()
-                    Spacer()
-                }.padding()
-                HStack {
-                    VStack {
-                        TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...)
-                        if text.count > 400 {
-                            Text("too long").foregroundColor(.red)
-                        }
-                    }.padding().background(.quaternary).cornerRadius(8)
-                }
-                HStack {
-                    Spacer()
-                    PhotosPicker(
-                        selection: $selectedItem,
-                        matching: .images,
-                        photoLibrary: .shared()) {
-                            VStack {
-                                    if self.selectedImages.count > 0 {
-                                        Text("Add Another Photo").foregroundColor(self.selectedImages.count >= 3 ? .secondary : .primary)
-                                    }
-                                    else {
-                                        Text("Add Photo")
-                                    }
-                            }
-                        }.onChange(of: selectedItem) { newItem in
-                            if self.selectedImages.count >= 3 {
-                                return
-                            }
-                            Task {
-                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                                    if let uiImage = UIImage(data: data) {
-                                        let resizedImage = resizeImage(image: uiImage)
-                                        self.selectedImages.append(resizedImage)
-                                    }
-                                }
-                            }
-                        }.foregroundColor(.primary).disabled(self.selectedImages.count >= 3)
-                }.padding()
+                CreateReviewPhotoSelector(tabSelection: self.$tabSelection, selectedImages: self.$selectedImages)
+            }.tag(0)
+            VStack {
                 VStack {
-                    HStack {
-                        Text("Photo Preview:").foregroundColor(.secondary)
-                        Spacer()
+                    PrimaryButton(title: "Change Photos", action: {
+                        self.tabSelection = 0
+                    })
+                }
+                VStack {
+                    if self.showError {
+                        Text(self.errorText).foregroundColor(.red)
                     }
-                    if self.selectedImages.count > 0 {
-                        VStack {
-                            CreateReviewPhotoCarousel(images: self.selectedImages)
+                    VStack {
+                        HStack{
+                            Spacer()
+                            ReviewStarsSelector(stars: $stars).padding()
+                            Spacer()
+                        }.padding()
+                        HStack {
+                            VStack {
+                                TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...)
+                                if text.count > 400 {
+                                    Text("too long").foregroundColor(.red)
+                                }
+                            }.padding().background(.quaternary).cornerRadius(8)
                         }
-                    } else {
-                        VStack {
-                            Image(systemName: "photo.fill").font(.system(size: 96)).foregroundColor(.secondary).opacity(0.5)
-                        }.frame(height: 500)
                     }
+                    Spacer()
+                    PrimaryButton(title: "Post", action: {
+                        Task {
+                            await self.postReview()
+                        }
+                    })
                 }
-            }
-            Spacer()
-        }.accentColor(.primary).toolbar {
-            Button(action: {
-                Task {
-                    await postReview()
-                }
-            }) {
-                Text("Post")
-            }
-        }.overlay {
+            }.tag(1)
+        }.accentColor(.primary).overlay {
             if self.pending {
                 VStack {
                     Spacer()
@@ -129,11 +107,31 @@ struct CreateReviewView: View {
                 }.background(APP_BACKGROUND.opacity(0.5))
             }
         }
+        .navigationTitle(self.reviewLocation.locationName).navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: cancelButton)
+            .alert(isPresented: self.$cancelAlertShowing) {
+                Alert(
+                    title: Text("Are you sure you want to trash this review?"),
+                    message: Text("You'll need to recreate everything."),
+                    primaryButton: .default(
+                        Text("Keep Going"),
+                        action: {
+                            self.cancelAlertShowing = false
+                        }
+                    ),
+                    secondaryButton: .destructive(
+                        Text("Trash Review"),
+                        action: {
+                            self.path.removeLast()
+                        }
+                    )
+                )
+            }
     }
     
     func postReview() async {
         var dataToBeUploaded: Data
-
+        
         if let pic = self.selectedImages.first {
             if let data = pic.jpegData(compressionQuality: 0.9) {
                 dataToBeUploaded = data
@@ -175,37 +173,7 @@ struct CreateReviewView: View {
         
         self.pending = false
     }
-    
-    /// Resizes the given UIImage to within the given size constraints and returns the new one.
-    func resizeImage(image: UIImage) -> UIImage {
-        let size = image.size
-        var scale: CGFloat = 1
-        
-        var newSize = getSizeFromRatio(size: size, scale: scale)
-        
-        while newSize.height > 2000 || newSize.width > 2000 {
-            scale += 1
-            newSize = getSizeFromRatio(size: size, scale: scale)
-        }
-        
-        let rect = CGRect(origin: .zero, size: newSize)
-        
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        
-        image.draw(in: rect)
-        
-        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
-            UIGraphicsEndImageContext()
-            
-            self.dataToUpload = newImage.jpegData(compressionQuality: 0.9)
-            
-            return newImage
-        }
-        
-        return image
-    }
 }
-
 
 struct CreateReviewView_Preview: PreviewProvider {
     static var previews: some View {

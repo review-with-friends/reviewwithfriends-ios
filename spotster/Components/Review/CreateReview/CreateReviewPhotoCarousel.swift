@@ -7,26 +7,45 @@
 
 import Foundation
 import SwiftUI
+import PhotosUI
 
 struct CreateReviewPhotoCarousel: View {
-    var images: [UIImage]
+    @Binding var pickerItems: [PhotosPickerItem]
+    @State var images: [PhotoPickerDisplayMapping] = []
     
     var body: some View {
         TabView {
-            ForEach(self.images, id: \.self.hash) { uiImage in
-                Image(uiImage: uiImage).resizable().scaledToFit().cornerRadius(16)
+            ForEach(self.images) { map in
+                Image(uiImage: map.image).resizable().scaledToFit().cornerRadius(16)
+            }
+        }.onChange(of: self.pickerItems, perform: { _ in
+            Task {
+                await self.loadImages()
+            }
+        })
+        .onAppear {
+            Task {
+                await self.loadImages()
             }
         }
         .tabViewStyle(PageTabViewStyle())
         .frame(height: 500)
     }
-}
-
-struct CreateReviewPhotoCarousel_Previews: PreviewProvider {
-    static func dummyCallback() async {}
     
-    static var previews: some View {
-        CreateReviewPhotoCarousel(images: spotster.generateArrayOfImages()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+    func loadImages() async {
+        self.images = []
+        for pickerItem in self.pickerItems {
+            if let data = try? await pickerItem.loadTransferable(type: Data.self) {
+                if let uiImage = UIImage(data: data) {
+                    images.append(PhotoPickerDisplayMapping(id: pickerItem.hashValue, image: uiImage, photosPickerItem: pickerItem))
+                }
+            }
+        }
     }
 }
 
+struct PhotoPickerDisplayMapping: Identifiable {
+    let id: Int
+    let image: UIImage
+    let photosPickerItem: PhotosPickerItem
+}

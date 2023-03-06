@@ -17,6 +17,10 @@
 		9C1D8F8429B10D3700B40B32 /* FriendsListItemProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D8F8329B10D3700B40B32 /* FriendsListItemProfileView.swift */; };
 		9C1D8F8729B149E300B40B32 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D8F8629B149E300B40B32 /* PrimaryButton.swift */; };
 		9C1D8F8929B158B700B40B32 /* EnableContactAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D8F8829B158B700B40B32 /* EnableContactAccessView.swift */; };
+		9C1D8F8B29B6642500B40B32 /* CreateReviewPhotoSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D8F8A29B6642500B40B32 /* CreateReviewPhotoSelector.swift */; };
+		9C1D8F8D29B66AB100B40B32 /* DisabledPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D8F8C29B66AB100B40B32 /* DisabledPrimaryButton.swift */; };
+		9C1D8F9029B6843400B40B32 /* LocationReviewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D8F8F29B6843400B40B32 /* LocationReviewHeader.swift */; };
+		9C1D8F9229B6870A00B40B32 /* SmallPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D8F9129B6870A00B40B32 /* SmallPrimaryButton.swift */; };
 		9C2276B8299B5A79005566A0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276B7299B5A79005566A0 /* Colors.swift */; };
 		9C2276BB299C24DA005566A0 /* ReviewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276BA299C24DA005566A0 /* ReviewGridItem.swift */; };
 		9C2276BE299D98E4005566A0 /* ProfileOptionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276BD299D98E4005566A0 /* ProfileOptionMenu.swift */; };
@@ -175,6 +179,10 @@
 		9C1D8F8329B10D3700B40B32 /* FriendsListItemProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListItemProfileView.swift; sourceTree = "<group>"; };
 		9C1D8F8629B149E300B40B32 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		9C1D8F8829B158B700B40B32 /* EnableContactAccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableContactAccessView.swift; sourceTree = "<group>"; };
+		9C1D8F8A29B6642500B40B32 /* CreateReviewPhotoSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewPhotoSelector.swift; sourceTree = "<group>"; };
+		9C1D8F8C29B66AB100B40B32 /* DisabledPrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledPrimaryButton.swift; sourceTree = "<group>"; };
+		9C1D8F8F29B6843400B40B32 /* LocationReviewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationReviewHeader.swift; sourceTree = "<group>"; };
+		9C1D8F9129B6870A00B40B32 /* SmallPrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallPrimaryButton.swift; sourceTree = "<group>"; };
 		9C2276B7299B5A79005566A0 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		9C2276BA299C24DA005566A0 /* ReviewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewGridItem.swift; sourceTree = "<group>"; };
 		9C2276BD299D98E4005566A0 /* ProfileOptionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionMenu.swift; sourceTree = "<group>"; };
@@ -357,8 +365,19 @@
 			isa = PBXGroup;
 			children = (
 				9C1D8F8629B149E300B40B32 /* PrimaryButton.swift */,
+				9C1D8F8C29B66AB100B40B32 /* DisabledPrimaryButton.swift */,
+				9C1D8F9129B6870A00B40B32 /* SmallPrimaryButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		9C1D8F8E29B6842400B40B32 /* LocationReviews */ = {
+			isa = PBXGroup;
+			children = (
+				9C8217E229490BFA0011B7E0 /* LocationReviewsView.swift */,
+				9C1D8F8F29B6843400B40B32 /* LocationReviewHeader.swift */,
+			);
+			path = LocationReviews;
 			sourceTree = "<group>";
 		};
 		9C2276B9299C24CC005566A0 /* ReviewGridItem */ = {
@@ -474,13 +493,13 @@
 		9C68CC2A29521DA7007FC567 /* Review */ = {
 			isa = PBXGroup;
 			children = (
+				9C1D8F8E29B6842400B40B32 /* LocationReviews */,
 				9C2276C8299EC936005566A0 /* EditReviewView */,
 				9C2276B9299C24CC005566A0 /* ReviewGridItem */,
 				9C871D0D2965FE4C007B72F7 /* ReviewView */,
 				9C871D092965F4F8007B72F7 /* ReviewListItem */,
 				9C871CF2296359AF007B72F7 /* CreateReview */,
 				9C68CC2B2952220F007FC567 /* ReviewStars.swift */,
-				9C8217E229490BFA0011B7E0 /* LocationReviewsView.swift */,
 				9C871D1B2967921C007B72F7 /* LatestReviewsView.swift */,
 			);
 			path = Review;
@@ -657,6 +676,7 @@
 				9C871CF329635A4B007B72F7 /* CreateReviewView.swift */,
 				9C871CFA296377AB007B72F7 /* StarsSelector.swift */,
 				9C8D86D129998E2C007E714F /* CreateReviewPhotoCarousel.swift */,
+				9C1D8F8A29B6642500B40B32 /* CreateReviewPhotoSelector.swift */,
 			);
 			path = CreateReview;
 			sourceTree = "<group>";
@@ -1060,6 +1080,7 @@
 				9C871D262968EDF0007B72F7 /* FriendsCache.swift in Sources */,
 				9CD42DAB296F584800C2FBE9 /* OutgoingFriendsListItem.swift in Sources */,
 				9C871CEC295E2BDB007B72F7 /* UnsplashOverlay.swift in Sources */,
+				9C1D8F9229B6870A00B40B32 /* SmallPrimaryButton.swift in Sources */,
 				9C27DFD3298AEAD20094AEDD /* MKExtensions.swift in Sources */,
 				9C871CCA295605DC007B72F7 /* LikeRequests.swift in Sources */,
 				9C2276BE299D98E4005566A0 /* ProfileOptionMenu.swift in Sources */,
@@ -1126,9 +1147,11 @@
 				9C871D13296604F0007B72F7 /* ReviewText.swift in Sources */,
 				9C8217A229393F0C0011B7E0 /* RequestError.swift in Sources */,
 				9CAEB3922971D456009A18A3 /* MapKitExtensions.swift in Sources */,
+				9C1D8F9029B6843400B40B32 /* LocationReviewHeader.swift in Sources */,
 				9C40AA9029365B31009134EA /* IntializerView.swift in Sources */,
 				9CD42D81296DE5F100C2FBE9 /* MyProfileView.swift in Sources */,
 				9CD42D92296E2D7600C2FBE9 /* FriendsListDestination.swift in Sources */,
+				9C1D8F8D29B66AB100B40B32 /* DisabledPrimaryButton.swift in Sources */,
 				9C8217AD293BCC990011B7E0 /* NameValidationError.swift in Sources */,
 				9C8217A5293958740011B7E0 /* LoginView.swift in Sources */,
 				9C871D222968EB6A007B72F7 /* UserProfileLoader.swift in Sources */,
@@ -1174,6 +1197,7 @@
 				9CAEB3AF298998C9009A18A3 /* NotificationRequests.swift in Sources */,
 				9C8217B7293C36440011B7E0 /* ProfilePicLoader.swift in Sources */,
 				9CAEB3B22989C075009A18A3 /* NotificationListView.swift in Sources */,
+				9C1D8F8B29B6642500B40B32 /* CreateReviewPhotoSelector.swift in Sources */,
 				9C68CC3429522AEF007FC567 /* ReviewPicLoader.swift in Sources */,
 				9C96946229357CB800AAEC25 /* spotserApp.swift in Sources */,
 				9C28C980298DD210002296A1 /* DynamicAppIcon.swift in Sources */,

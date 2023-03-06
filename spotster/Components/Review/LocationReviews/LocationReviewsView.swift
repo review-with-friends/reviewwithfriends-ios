@@ -21,10 +21,6 @@ struct LocationReviewsView: View {
     @State var error = ""
     @State var reviews: [Review] = []
     
-    @State var showingMapsConfirmation = false
-    
-    @State var installedMapsApps: [(String, URL)] = []
-    
     @EnvironmentObject var auth: Authentication
     
     func loadReviews() async {
@@ -68,24 +64,6 @@ struct LocationReviewsView: View {
         } / reviews.count
     }
     
-    func setInstalledApps() {
-        let latitude = self.uniqueLocation.latitude
-        let longitude = self.uniqueLocation.longitude
-        
-        let appleURL = "http://maps.apple.com/?daddr=\(latitude),\(longitude)"
-        let googleURL = "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving"
-        
-        let googleItem = ("Google Maps", URL(string:googleURL)!)
-        
-        self.installedMapsApps = []
-        
-        self.installedMapsApps = [("Apple Maps", URL(string:appleURL)!)]
-        
-        if UIApplication.shared.canOpenURL(googleItem.1) {
-            self.installedMapsApps.append(googleItem)
-        }
-    }
-    
     var body: some View {
         VStack {
             if self.loading {
@@ -99,17 +77,7 @@ struct LocationReviewsView: View {
                 }
             } else {
                 List {
-                    VStack {
-                        Text(uniqueLocation.locationName).font(.largeTitle)
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                self.showingMapsConfirmation = true
-                            }) {
-                                Image(systemName:"map.fill").font(.title)
-                            }
-                        }.padding()
-                    }.listRowSeparator(.hidden)
+                    LocationReviewHeader(locationName: self.uniqueLocation.locationName, latitude: self.uniqueLocation.latitude, longitude: self.uniqueLocation.longitude)
                     if reviews.count >= 1 {
                         ForEach(reviews) { review in
                             let reviewDestination = ReviewDestination(id: review.id, userId: review.userId)
@@ -129,23 +97,6 @@ struct LocationReviewsView: View {
                         Task {
                             await loadReviews()
                         }
-                    }.onChange(of: self.showingMapsConfirmation){ toggle in
-                        self.setInstalledApps()
-                    }.confirmationDialog("Open in maps", isPresented: $showingMapsConfirmation) {
-                        if let apple = self.installedMapsApps.first {
-                            Button(action: {
-                                UIApplication.shared.open(apple.1, options: [:], completionHandler: nil)
-                            }) {
-                                Text(apple.0)
-                            }
-                        }
-                        if let google = self.installedMapsApps[safe: 1] {
-                            Button(action: {
-                                UIApplication.shared.open(google.1, options: [:], completionHandler: nil)
-                            }) {
-                                Text(google.0)
-                            }
-                        }
                     }
             }
         }.toolbar {
@@ -154,7 +105,6 @@ struct LocationReviewsView: View {
             }) {
                 HStack {
                     Image(systemName:"plus.square")
-                    Text("Review this Spot")
                 }
             }
         }.onAppear {
