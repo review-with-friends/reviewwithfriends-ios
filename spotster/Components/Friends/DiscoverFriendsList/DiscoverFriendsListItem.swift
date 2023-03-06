@@ -2,33 +2,34 @@
 //  SearchForFriendsListItem.swift
 //  spotster
 //
-//  Created by Colton Lathrop on 1/11/23.
+//  Created by Colton Lathrop on 3/1/23.
 //
 
 import Foundation
 import SwiftUI
 
-struct SearchForFriendsListItem: View {
+struct DiscoverFriendsListItem: View {
     @Binding var path: NavigationPath
     
     let user: User
+    let navigatable: Bool
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
     
     var body: some View  {
         HStack {
-            FriendsListItemProfileView(path: self.$path, user: self.user)
+            FriendsListItemProfileView(path: self.$path, user: self.user, navigatable: self.navigatable)
             Spacer()
             UserActions(path: self.$path, user: user)
         }
     }
 }
 
-struct SearchForFriendsListItem_Preview: PreviewProvider {
+struct DiscoverFriendsListItem_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            SearchForFriendsListItem(path: .constant(NavigationPath()), user: generateUserPreviewData())
+            DiscoverFriendsListItem(path: .constant(NavigationPath()), user: generateUserPreviewData(), navigatable: true)
         }.preferredColorScheme(.dark)
             .environmentObject(FriendsCache.generateDummyData())
             .environmentObject(UserCache())

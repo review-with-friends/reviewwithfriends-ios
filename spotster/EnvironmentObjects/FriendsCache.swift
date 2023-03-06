@@ -35,8 +35,9 @@ class FriendsCache: ObservableObject {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 decoder.dateDecodingStrategy = .millisecondsSince1970
                 
-                self.fullFriends = try decoder.decode(FullFriends.self, from: data)
-                
+                let fullFriendsTmp = try decoder.decode(FullFriends.self, from: data)
+                self.fullFriends = fullFriendsTmp
+
                 return .success(())
             } catch (let error) {
                 return .failure(.DeserializationError(message: error.localizedDescription))

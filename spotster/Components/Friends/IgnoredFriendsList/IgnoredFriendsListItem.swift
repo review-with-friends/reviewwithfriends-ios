@@ -49,11 +49,7 @@ struct IgnoredFriendsListItem: View {
     
     var body: some View  {
         HStack {
-            ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
-            VStack {
-                Text(user.displayName)
-                Text("@" + user.name).font(.caption)
-            }
+            FriendsListItemProfileView(path: self.$path, user: self.user)
             Spacer()
             Button(action: {
                 Task {
@@ -61,7 +57,7 @@ struct IgnoredFriendsListItem: View {
                 }
             }){
                 HStack {
-                    Text("Unignored and Accept")
+                    Text("Unignore and Accept")
                     Image(systemName: "checkmark.circle").font(.system(size: 20))
                 }.foregroundColor(.green)
             }

@@ -112,6 +112,15 @@ struct MyProfileView: View {
                         }
                     }
                     Button(action:{
+                        self.path.append(DiscoverFriendsDestination())
+                    }){
+                        HStack {
+                            Text("Discover Friends")
+                            Spacer()
+                            Image(systemName: "chevron.right").foregroundColor(.secondary)
+                        }
+                    }
+                    Button(action:{
                         self.path.append(FriendsListDestination(view: .Friends))
                     }){
                         HStack {

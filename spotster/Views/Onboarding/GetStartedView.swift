@@ -13,26 +13,30 @@ struct GetStartedView: View {
     
     @EnvironmentObject var auth: Authentication
     
+    let photos = [GetStartedPhoto(id: "like"), GetStartedPhoto(id: "find"), GetStartedPhoto(id: "map_friends"), GetStartedPhoto(id: "search")]
+    
     func moveToNextScreen() {
-        self.path.append(SetNames())
+        self.path.append(DiscoverFriends())
     }
     
     var body: some View {
         VStack {
+            TabView {
+                ForEach(self.photos) { photo in
+                    Image(photo.id).resizable().scaledToFit()
+                }
+            }.tabViewStyle(PageTabViewStyle())
+                .padding()
             Spacer()
-            VStack{
-                Text("Lets get your profile set up!").font(.title)
-            }.padding()
-            Spacer()
-            Button(action: {
+            PrimaryButton(title: "Get Started", action: {
                 self.moveToNextScreen()
-            }){
-                Text("Get Started")
-                    .font(.title.bold())
-                    .padding()
-            }.foregroundColor(.primary).disabled(false)
+            })
         }
     }
+}
+
+struct GetStartedPhoto: Identifiable {
+    let id: String
 }
 
 struct GetStartedView_Previews: PreviewProvider {

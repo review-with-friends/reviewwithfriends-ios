@@ -49,11 +49,7 @@ struct OutgoingFriendsListItem: View {
     
     var body: some View  {
         HStack {
-            ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: true, ignoreCache: true)
-            VStack {
-                Text(user.displayName)
-                Text("@" + user.name).font(.caption)
-            }
+            FriendsListItemProfileView(path: self.$path, user: self.user)
             Spacer()
             Button(action: {
                 Task {

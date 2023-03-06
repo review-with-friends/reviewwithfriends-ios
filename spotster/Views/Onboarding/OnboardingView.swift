@@ -11,11 +11,18 @@ import SwiftUI
 struct OnboardingView: View {
     @State var path = NavigationPath()
     
+    @EnvironmentObject var friendsCache: FriendsCache
+    @EnvironmentObject var auth: Authentication
+    
     var body: some View {
         NavigationStack(path: self.$path) {
             VStack{
                 // First Stop
                 GetStartedView(path: self.$path)
+            }
+            .navigationDestination(for: DiscoverFriends.self) { _ in
+                // Second Stop
+                DiscoverFriendsView(path: self.$path)
             }
             .navigationDestination(for: SetNames.self) { _ in
                 // Third Stop
@@ -31,6 +38,10 @@ struct OnboardingView: View {
             }
         }.accentColor(.primary).onAppear {
             spotster.requestNotifications()
+        }.onAppear {
+            Task {
+                let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
+            }
         }
     }
 }
@@ -38,6 +49,7 @@ struct OnboardingView: View {
 struct SetProfilePic: Hashable {}
 struct SetNames: Hashable {}
 struct ConfirmProfile: Hashable {}
+struct DiscoverFriends: Hashable {}
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
@@ -45,5 +57,6 @@ struct OnboardingView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
             .environmentObject(Authentication.initPreview())
             .environmentObject(UserCache())
+            .environmentObject(FriendsCache())
     }
 }

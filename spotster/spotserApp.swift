@@ -13,14 +13,16 @@ struct spotserApp: App {
     
     @StateObject var authentication = Authentication()
     @StateObject var userCache = UserCache()
+    @StateObject var friendsCache = FriendsCache()
+    @StateObject var notificationManager = NotificationManager()
     
     var body: some Scene {
         WindowGroup {
             IntializerView()
                 .environmentObject(authentication)
                 .environmentObject(userCache)
-                .environmentObject(FriendsCache())
-                .environmentObject(NotificationManager())
+                .environmentObject(friendsCache)
+                .environmentObject(notificationManager)
                 .preferredColorScheme(.dark)
         }
     }

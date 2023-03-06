@@ -42,7 +42,7 @@ struct SetNamesView: View {
             if let user = auth.user {
                 VStack {
                     Text("Choose your usernames!").padding()
-                    Text("You can change then whenever you want 🤓").font(.caption).foregroundColor(.secondary)
+                    Text("You can change them whenever you want 🤓").font(.caption).foregroundColor(.secondary)
                     Form {
                         HStack {
                             Text("Username")
@@ -85,16 +85,12 @@ struct SetNamesView: View {
                         }
                     }
                 }.padding()
-                Button(action: {
+                PrimaryButton(title: "Save", action: {
                     Task {
                         await setNames()
                         let _ = await auth.getMe()
                     }
-                }){
-                    Text("Save")
-                        .font(.title.bold())
-                        .padding()
-                }.foregroundColor(.primary)
+                })
             } else {
                 
             }

@@ -25,7 +25,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     {
         self.deviceToken = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         
-        print("The token: \(self.deviceToken)")
+        //print("The token: \(self.deviceToken)")
     }
 }
 

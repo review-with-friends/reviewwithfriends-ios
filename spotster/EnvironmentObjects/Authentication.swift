@@ -9,7 +9,7 @@ import SwiftUI
 
 let NO_TOKEN = "<NOTOKEN>"
 let AUTH_TOKEN_KEY = "AuthenticationToken"
-let ONBOARDING_KEY = "Onboarding"
+let ONBOARDING_KEY = "Onboarding_1"
 
 @MainActor
 class Authentication: ObservableObject {

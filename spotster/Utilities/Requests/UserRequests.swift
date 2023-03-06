@@ -129,4 +129,3 @@ func setNewDeviceToken(token: String, deviceToken: String) async -> Result<(), R
         return .failure(error)
     }
 }
-

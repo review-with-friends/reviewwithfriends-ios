@@ -64,9 +64,7 @@ struct SetProfilePicView: View {
                 selection: $selectedItem,
                 matching: .images,
                 photoLibrary: .shared()) {
-                    Text("Pick From Library")
-                        .font(.title2.bold())
-                        .padding()
+                    PrimaryButton(title:"Pick From Library", action: {}).disabled(true)
                 }.onChange(of: selectedItem) { newItem in
                     Task {
                         if let data = try? await newItem?.loadTransferable(type: Data.self) {
@@ -78,6 +76,9 @@ struct SetProfilePicView: View {
                         }
                     }
                 }.foregroundColor(.primary)
+            PrimaryButton(title:"Continue", action: {
+                self.moveToNextScreen()
+            })
         }.toolbar {
             Button("Skip for now") {
                 moveToNextScreen()

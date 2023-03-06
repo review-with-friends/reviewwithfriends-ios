@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FullFriends: Codable {
+struct FullFriends: Codable, Hashable, Equatable {
     var friends: [Friend] = []
     var incomingRequests: [FriendRequest] = []
     var outgoingRequests: [FriendRequest] = []

@@ -22,17 +22,11 @@ struct ConfirmProfileView: View {
                 Text("@" + (auth.user?.name ?? "")).foregroundColor(.secondary)
             }.padding()
             Spacer()
-            Button(action: {
+            PrimaryButton(title:"Finish", action: {
                 withAnimation(.spring().speed(2.0)){
                     auth.setCachedOnboarding()
                 }
-            }){
-                Text("Finish")
-                    .font(.title.bold())
-                    .padding()
-            }.foregroundColor(.primary).disabled(false)
-
-            Spacer()
+            })
         }
     }
 }
