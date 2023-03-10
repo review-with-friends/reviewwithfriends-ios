@@ -15,17 +15,15 @@ struct ReviewPicCarousel: View {
     var reloadCallback: () async -> Void
     
     var body: some View {
-        TabView {
-            ForEach(self.fullReview.pics) { pic in
-                VStack {
-                    ReviewPicLoader(path: self.$path, pic: pic).overlay {
-                        ReviewPicOverlay(path: self.$path, likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: reloadCallback)
-                    }
+        HStack {
+            TabView {
+                ForEach(self.fullReview.pics) { pic in
+                    PinchZoomReviewPicLoader(path: self.$path, pic: pic).padding(0)
                 }
-            }
+            }.padding(0).frame(height: 600)
+            .aspectRatio(contentMode: .fill)
+            .tabViewStyle(PageTabViewStyle())
         }
-        .tabViewStyle(PageTabViewStyle())
-        .frame(height: 500)
     }
 }
 

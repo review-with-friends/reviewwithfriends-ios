@@ -26,11 +26,13 @@ struct ReviewView: View {
                 VStack {
                     ReviewHeader(path: self.$path, user: user, fullReview: fullReview)
                     ReviewPicCarousel(path: self.$path, fullReview: fullReview, reloadCallback: reloadCallback)
-                    ReviewText(path: self.$path, fullReview: self.fullReview)
-                        .padding(.top, 3.0)
-                    ReviewAddReply(path: self.$path, reloadCallback: reloadCallback, fullReview: fullReview, scrollProxy: proxy)
-                    ReviewReplies(path: self.$path, reloadCallback: self.reloadCallback, fullReview: self.fullReview)
-                }.padding()
+                    VStack {
+                        ReviewText(path: self.$path, fullReview: self.fullReview, reloadCallback: self.reloadCallback)
+                            .padding(.top, 3.0)
+                        ReviewAddReply(path: self.$path, reloadCallback: reloadCallback, fullReview: fullReview, scrollProxy: proxy)
+                        ReviewReplies(path: self.$path, reloadCallback: self.reloadCallback, fullReview: self.fullReview)
+                    }.padding(.horizontal)
+                }
             }.scrollDismissesKeyboard(.immediately)
                 .refreshable {
                     Task {
@@ -44,7 +46,7 @@ struct ReviewView: View {
                     await self.reloadCallback()
                 }
             }
-        }
+        }.scrollIndicators(.hidden)
     }
 }
 

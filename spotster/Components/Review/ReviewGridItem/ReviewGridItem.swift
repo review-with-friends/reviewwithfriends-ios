@@ -29,20 +29,21 @@ struct ReviewGridItem: View {
     
     var body: some View {
         VStack {
+            Spacer()
             if let pic = self.fullReview.pics.first {
                 ReviewPicLoader(path: self.$path, pic: pic).overlay {
                     ZStack {
-                        LinearGradient(gradient: Gradient(colors: [.black.opacity(0.75), .clear, .clear, .clear, .black.opacity(0.75)]), startPoint: .top, endPoint: .bottom)
+                        LinearGradient(gradient: Gradient(colors: [.clear, .clear, .clear, .clear, .black.opacity(0.75)]), startPoint: .top, endPoint: .bottom)
                         VStack {
                             Spacer()
                             ReviewGridItemText(fullReview: self.fullReview)
-                        }.padding()
+                        }.padding(4)
                     }.background(.black.opacity(0.0001))
                 }
                 .onTapGesture {
                     let reviewDestination = ReviewDestination(id: fullReview.review.id, userId: fullReview.review.userId)
                     self.path.append(reviewDestination)
-                }.frame(minHeight: 100).buttonStyle(PlainButtonStyle())
+                }.buttonStyle(PlainButtonStyle())
             }
             Spacer()
         }
@@ -61,7 +62,7 @@ struct ReviewGridItemText: View {
         VStack {
             HStack {
                 let alreadyLiked = self.fullReview.likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
-                Label("\(self.fullReview.likes.count)", systemImage: alreadyLiked ? "heart.fill" : "heart").font(.caption).padding(.trailing)
+                Label("\(self.fullReview.likes.count)", systemImage: alreadyLiked ? "heart.fill" : "heart").font(.caption).padding(.trailing, 4)
                 Label("\(self.fullReview.replies.count)", systemImage: "ellipsis.message.fill").font(.caption)
             }.padding(.top, 1)
         }

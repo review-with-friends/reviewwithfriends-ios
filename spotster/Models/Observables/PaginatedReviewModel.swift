@@ -23,7 +23,7 @@ class PaginatedReviewModel: ObservableObject {
         if reviews.count == 0 {
             return
         }
-        
+
         if noMorePages {
             return
         }

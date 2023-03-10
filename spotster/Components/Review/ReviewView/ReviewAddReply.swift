@@ -42,7 +42,7 @@ struct ReviewAddReply: View {
         
         if text.isEmpty {
             showError = true
-            errorText = "write something"
+            errorText = "Use your words 😮"
             pending = false
             return
         }
@@ -82,19 +82,20 @@ struct ReviewAddReply: View {
                                     scroll.scrollTo("replyInput", anchor: .center)
                                 }
                             }
-                        }.toolbar {
-                            ToolbarItemGroup(placement: .keyboard) {
-                                Button("Post Reply") {
-                                    Task {
-                                        await self.postReply()
-                                    }
-                                }
-                            }
                         }
-                }.padding().background(.quaternary).cornerRadius(8)
-            }
-            if showError {
-                Text(errorText).foregroundColor(.red)
+                }.padding(8).background(APP_BACKGROUND).cornerRadius(8)
+                HStack {
+                    Spacer()
+                    if showError {
+                        Text(errorText).foregroundColor(.red)
+                    }
+                    Spacer()
+                    SmallPrimaryButton(title: "Send",icon: "paperplane.fill", action: {
+                        Task {
+                            await self.postReply()
+                        }
+                    })
+                }
             }
         }.accentColor(.primary)
     }

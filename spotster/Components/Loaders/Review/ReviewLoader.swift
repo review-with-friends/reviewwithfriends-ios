@@ -73,23 +73,30 @@ struct ReviewLoader: View {
     }
     
     var body: some View {
-        HStack {
-            if self.failed {
-                Text(self.error)
-                Button(action: {
-                    Task {
-                        await self.loadReviewAndUser()
+        VStack {
+            if self.loading {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
+            else {
+                if self.failed {
+                    Text(self.error)
+                    Button(action: {
+                        Task {
+                            await self.loadReviewAndUser()
+                        }
+                    }){
+                        Text("Retry Loading")
                     }
-                }){
-                    Text("Retry Loading")
-                }
-            } else {
-                if let user = self.user {
-                    if let fullReview = self.fullReview {
-                        if showListItem {
-                            ReviewListItem(path: self.$path, reloadCallback: self.loadFullReview, user: user, fullReview: fullReview, showLocation: showLocation)
-                        } else {
-                            ReviewView(path: self.$path, reloadCallback: self.loadFullReview, user: user, fullReview: fullReview)
+                } else {
+                    if let user = self.user {
+                        if let fullReview = self.fullReview {
+                            if showListItem {
+                                ReviewListItem(path: self.$path, reloadCallback: self.loadFullReview, user: user, fullReview: fullReview, showLocation: showLocation)
+                            } else {
+                                ReviewView(path: self.$path, reloadCallback: self.loadFullReview, user: user, fullReview: fullReview)
+                            }
                         }
                     }
                 }

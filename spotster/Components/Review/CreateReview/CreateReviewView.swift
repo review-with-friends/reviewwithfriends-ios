@@ -25,6 +25,7 @@ struct CreateReviewView: View {
     
     @State var text: String = ""
     @State var stars: Int = 0
+    @State var date = Date()
     
     @State var showError = false
     @State var errorText = ""
@@ -47,53 +48,67 @@ struct CreateReviewView: View {
     }
     
     var cancelButton: some View {
-        Button("Cancel") {
+        Button(action: {
             if self.selectedImages.count == 0 && self.text.isEmpty {
                 self.path.removeLast()
             } else {
                 self.cancelAlertShowing = true
             }
+        }) {
+            Text("Cancel").bold()
         }
     }
     
     var body: some View {
-        TabView(selection: self.$tabSelection) {
+        VStack {
             VStack {
-                CreateReviewPhotoSelector(tabSelection: self.$tabSelection, selectedImages: self.$selectedImages)
-            }.tag(0)
-            VStack {
+                Text(self.reviewLocation.locationName).font(.title.bold())
+            }
+            TabView(selection: self.$tabSelection) {
                 VStack {
-                    PrimaryButton(title: "Change Photos", action: {
-                        self.tabSelection = 0
-                    })
-                }
+                    CreateReviewPhotoSelector(tabSelection: self.$tabSelection, selectedImages: self.$selectedImages)
+                }.tag(0)
                 VStack {
-                    if self.showError {
-                        Text(self.errorText).foregroundColor(.red)
+                    VStack {
+                        PrimaryButton(title: "Change Photos", action: {
+                            self.tabSelection = 0
+                        })
                     }
                     VStack {
-                        HStack{
-                            Spacer()
-                            ReviewStarsSelector(stars: $stars).padding()
-                            Spacer()
-                        }.padding()
-                        HStack {
-                            VStack {
-                                TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...)
-                                if text.count > 400 {
-                                    Text("too long").foregroundColor(.red)
-                                }
-                            }.padding().background(.quaternary).cornerRadius(8)
+                        if self.showError {
+                            Text(self.errorText).foregroundColor(.red)
                         }
+                        VStack {
+                            HStack{
+                                Spacer()
+                                ReviewStarsSelector(stars: $stars).padding()
+                                Spacer()
+                            }.padding()
+                            HStack {
+                                DatePicker(
+                                    "",
+                                    selection: $date,
+                                    displayedComponents: [.date]
+                                )
+                            }
+                            HStack {
+                                VStack {
+                                    TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...)
+                                    if text.count > 400 {
+                                        Text("too long").foregroundColor(.red)
+                                    }
+                                }.padding().background(.quaternary).cornerRadius(8)
+                            }
+                        }
+                        Spacer()
+                        PrimaryButton(title: "Post", action: {
+                            Task {
+                                await self.postReview()
+                            }
+                        })
                     }
-                    Spacer()
-                    PrimaryButton(title: "Post", action: {
-                        Task {
-                            await self.postReview()
-                        }
-                    })
-                }
-            }.tag(1)
+                }.tag(1)
+            }
         }.accentColor(.primary).overlay {
             if self.pending {
                 VStack {
@@ -107,26 +122,26 @@ struct CreateReviewView: View {
                 }.background(APP_BACKGROUND.opacity(0.5))
             }
         }
-        .navigationTitle(self.reviewLocation.locationName).navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: cancelButton)
-            .alert(isPresented: self.$cancelAlertShowing) {
-                Alert(
-                    title: Text("Are you sure you want to trash this review?"),
-                    message: Text("You'll need to recreate everything."),
-                    primaryButton: .default(
-                        Text("Keep Going"),
-                        action: {
-                            self.cancelAlertShowing = false
-                        }
-                    ),
-                    secondaryButton: .destructive(
-                        Text("Trash Review"),
-                        action: {
-                            self.path.removeLast()
-                        }
-                    )
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: cancelButton)
+        .alert(isPresented: self.$cancelAlertShowing) {
+            Alert(
+                title: Text("Are you sure you want to trash this review?"),
+                message: Text("You'll need to recreate everything."),
+                primaryButton: .default(
+                    Text("Keep Going"),
+                    action: {
+                        self.cancelAlertShowing = false
+                    }
+                ),
+                secondaryButton: .destructive(
+                    Text("Trash Review"),
+                    action: {
+                        self.path.removeLast()
+                    }
                 )
-            }
+            )
+        }
     }
     
     func postReview() async {
@@ -151,8 +166,18 @@ struct CreateReviewView: View {
         
         self.pending = true
         
+        print(Int64((self.date.timeIntervalSince1970 * 1000.0).rounded()))
+        
         if self.review == nil {
-            let request = CreateReviewRequest(text: self.text, stars: self.stars, category: self.reviewLocation.category, location_name: self.reviewLocation.locationName, latitude: self.reviewLocation.latitude, longitude: self.reviewLocation.longitude, is_custom: false, pic: dataToBeUploaded.base64EncodedString())
+            let request = CreateReviewRequest(text: self.text,
+                                              stars: self.stars,
+                                              category: self.reviewLocation.category,
+                                              location_name: self.reviewLocation.locationName,
+                                              latitude: self.reviewLocation.latitude,
+                                              longitude: self.reviewLocation.longitude,
+                                              is_custom: false,
+                                              pic: dataToBeUploaded.base64EncodedString(),
+                                              post_date: Int64((self.date.timeIntervalSince1970 * 1000.0).rounded()))
             
             let reviewResult = await spotster.createReview(token: auth.token, reviewRequest: request)
             

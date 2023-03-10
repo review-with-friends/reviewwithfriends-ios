@@ -76,35 +76,26 @@ struct LocationReviewsView: View {
                     Text("Retry Loading")
                 }
             } else {
-                List {
-                    LocationReviewHeader(locationName: self.uniqueLocation.locationName, latitude: self.uniqueLocation.latitude, longitude: self.uniqueLocation.longitude)
+                VStack {
+                    LocationReviewHeader(path: self.$path, locationName: self.uniqueLocation.locationName, latitude: self.uniqueLocation.latitude, longitude: self.uniqueLocation.longitude, category: self.uniqueLocation.category)
                     if reviews.count >= 1 {
-                        ForEach(reviews) { review in
-                            let reviewDestination = ReviewDestination(id: review.id, userId: review.userId)
-                            ReviewLoader(path: self.$path, review: reviewDestination, showListItem: true, showLocation: false)
-                                .padding(.bottom)
-                        }
+                        List {
+                            ForEach(reviews) { review in
+                                let reviewDestination = ReviewDestination(id: review.id, userId: review.userId)
+                                ReviewLoader(path: self.$path, review: reviewDestination, showListItem: true, showLocation: false)
+                                    .padding(.bottom)
+                            }
+                                .buttonStyle(BorderlessButtonStyle())
+                                .refreshable {
+                                    Task {
+                                        await loadReviews()
+                                    }
+                                }
+                            
+                        }.listStyle(.plain)
                     } else {
-                        HStack {
-                            Spacer()
-                            Text("No reviews yet.").foregroundColor(.secondary)
-                            Spacer()
-                        }.listRowSeparator(.hidden)
+                        LocationReviewsNoResults()
                     }
-                }.listStyle(.plain)
-                    .buttonStyle(BorderlessButtonStyle())
-                    .refreshable {
-                        Task {
-                            await loadReviews()
-                        }
-                    }
-            }
-        }.toolbar {
-            Button(action: {
-                self.path.append(UniqueLocationCreateReview(locationName: uniqueLocation.locationName, category: uniqueLocation.category, latitude: uniqueLocation.latitude, longitude: uniqueLocation.longitude))
-            }) {
-                HStack {
-                    Image(systemName:"plus.square")
                 }
             }
         }.onAppear {

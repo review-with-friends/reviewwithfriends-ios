@@ -67,7 +67,7 @@ struct UserProfileView: View {
                     Spacer()
                 }
                 if self.showGrid {
-                    LazyVGrid(columns: columns) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 125))]) {
                         ForEach(self.model.reviewsToRender) { review in
                             ReviewGridItem(path: self.$path, fullReview: review.fullReview)
                         }
@@ -88,9 +88,6 @@ struct UserProfileView: View {
                 }.onAppear {
                     Task {
                         await self.model.onItemAppear(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
-                        if self.showGrid {
-                            await self.model.onItemAppear(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
-                        }
                     }
                 }
             }
@@ -98,7 +95,9 @@ struct UserProfileView: View {
                 Text(self.model.error)
                 
                 Button(action: {
-                    
+                    Task {
+                        await self.model.hardLoadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+                    }
                 }){
                     Text("Retry Loading")
                 }
@@ -110,6 +109,9 @@ struct UserProfileView: View {
         }.onAppear {
             Task {
                 await self.model.loadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+                if self.showGrid {
+                    await self.model.onItemAppear(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+                }
             }
         }.scrollIndicators(.hidden)
     }

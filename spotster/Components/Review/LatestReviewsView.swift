@@ -28,7 +28,14 @@ struct LatestReviewsView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Spotster").font(.title).fontWeight(.bold)
+                Button(action:{
+                    Task {
+                        await self.model.hardLoadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+                        await self.notificationManager.getNotifications(token: self.auth.token)
+                    }
+                }) {
+                    Text("Spotster").font(.title).fontWeight(.bold)
+                }.accentColor(.primary)
                 Spacer()
                 SearchNavButton(path: self.$path)
                 NotificationNavButton(path: self.$path)

@@ -29,12 +29,12 @@ struct MainView: View {
                 TabView (selection: $tab){
                     LatestReviewsView(path: self.$path )
                         .tabItem {
-                            Label("Feed", systemImage: "house.fill")
+                            Label("Home", systemImage: "house.fill")
                         }.tag(0).toolbarBackground(APP_BACKGROUND, for: .tabBar)
                         .toolbarBackground(.visible, for: .tabBar)
                     MapScreenView(path: self.$path, mapView: MapView())
                         .tabItem {
-                            Label("Map", systemImage: "map")
+                            Label("Explore", systemImage: "map")
                         }.tag(1).toolbarBackground(APP_BACKGROUND, for: .tabBar)
                         .toolbarBackground(.visible, for: .tabBar)
                     if let user = auth.user {

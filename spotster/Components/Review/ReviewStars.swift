@@ -15,10 +15,10 @@ struct ReviewStars: View {
             ForEach((1...5), id: \.self) {
                 if $0 <= self.stars {
                     Image(systemName:"star.fill").resizable()
-                        .scaledToFill().frame(width: 14, height: 14)
+                        .scaledToFill().frame(width: 12, height: 12)
                 } else {
                     Image(systemName:"star").resizable()
-                        .scaledToFill().frame(width: 14, height: 14)
+                        .scaledToFill().frame(width: 12, height: 12)
                 }
             }
         }

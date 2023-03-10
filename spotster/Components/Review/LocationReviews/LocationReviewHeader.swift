@@ -7,11 +7,15 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 struct LocationReviewHeader: View {
+    @Binding var path: NavigationPath
+    
     var locationName: String
     var latitude: Double
     var longitude: Double
+    var category: String
     
     @State var showingMapsConfirmation: Bool = false
     @State var installedMapsApps: [(String, URL)] = []
@@ -22,9 +26,17 @@ struct LocationReviewHeader: View {
                 HStack {
                     Text(self.locationName).font(.title3.bold())
                     Spacer()
+                    if let mkCategory = MKPointOfInterestCategory.getCategory(category: self.category){
+                        if let image = mkCategory.getSystemImageString() {
+                            Image(systemName: image)
+                        }
+                    }
                 }
                 HStack {
                     Spacer()
+                    SmallPrimaryButton(title: "Review Spot", icon: "square.and.pencil", action: {
+                        self.path.append(UniqueLocationCreateReview(locationName: self.locationName, category: self.category, latitude: self.latitude, longitude: self.longitude))
+                    })
                     SmallPrimaryButton(title: "Directions", icon: "map.fill", action: {self.showingMapsConfirmation = true})
                 }
             }.padding()
@@ -71,7 +83,7 @@ struct LocationReviewHeader: View {
 struct LocationReviewHeader_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            LocationReviewHeader(locationName: "Mcdonalds this is a really long", latitude: 20.0, longitude: 44.0).preferredColorScheme(.dark)
+            LocationReviewHeader(path: .constant(NavigationPath()), locationName: "Mcdonalds this is a really long", latitude: 20.0, longitude: 44.0, category: "restaurant").preferredColorScheme(.dark)
         }
     }
 }

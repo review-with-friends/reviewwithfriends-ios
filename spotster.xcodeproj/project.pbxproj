@@ -76,6 +76,7 @@
 		9C8217E329490BFA0011B7E0 /* LocationReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217E229490BFA0011B7E0 /* LocationReviewsView.swift */; };
 		9C8217E52949258E0011B7E0 /* ReviewRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217E42949258E0011B7E0 /* ReviewRequests.swift */; };
 		9C8217E72949293D0011B7E0 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217E62949293D0011B7E0 /* Review.swift */; };
+		9C86881529B96A97005511E8 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C86881429B96A97005511E8 /* IconButton.swift */; };
 		9C871CC22953EA75007B72F7 /* ReviewPicSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871CC12953EA75007B72F7 /* ReviewPicSkeleton.swift */; };
 		9C871CC42954F422007B72F7 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871CC32954F422007B72F7 /* Like.swift */; };
 		9C871CC62954FDBA007B72F7 /* FullReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871CC52954FDBA007B72F7 /* FullReview.swift */; };
@@ -137,6 +138,8 @@
 		9CAEB3B62989CE1F009A18A3 /* ReviewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3B52989CE1F009A18A3 /* ReviewDestination.swift */; };
 		9CAEB3B82989D0F1009A18A3 /* NotificationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3B72989D0F1009A18A3 /* NotificationDestination.swift */; };
 		9CAEB3BB2989DDD2009A18A3 /* NotificationNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3BA2989DDD2009A18A3 /* NotificationNavButton.swift */; };
+		9CCCEB5929B7DDCF005A2696 /* LocationReviewsNoResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCCEB5829B7DDCF005A2696 /* LocationReviewsNoResults.swift */; };
+		9CCCEB5D29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCCEB5C29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift */; };
 		9CD42D81296DE5F100C2FBE9 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */; };
 		9CD42D83296DF54E00C2FBE9 /* ProfilePicSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D82296DF54E00C2FBE9 /* ProfilePicSkeleton.swift */; };
 		9CD42D8B296E067800C2FBE9 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */; };
@@ -239,6 +242,7 @@
 		9C8217E229490BFA0011B7E0 /* LocationReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationReviewsView.swift; sourceTree = "<group>"; };
 		9C8217E42949258E0011B7E0 /* ReviewRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequests.swift; sourceTree = "<group>"; };
 		9C8217E62949293D0011B7E0 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		9C86881429B96A97005511E8 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		9C871CC12953EA75007B72F7 /* ReviewPicSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPicSkeleton.swift; sourceTree = "<group>"; };
 		9C871CC32954F422007B72F7 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		9C871CC52954FDBA007B72F7 /* FullReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullReview.swift; sourceTree = "<group>"; };
@@ -300,6 +304,8 @@
 		9CAEB3B52989CE1F009A18A3 /* ReviewDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDestination.swift; sourceTree = "<group>"; };
 		9CAEB3B72989D0F1009A18A3 /* NotificationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDestination.swift; sourceTree = "<group>"; };
 		9CAEB3BA2989DDD2009A18A3 /* NotificationNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNavButton.swift; sourceTree = "<group>"; };
+		9CCCEB5829B7DDCF005A2696 /* LocationReviewsNoResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationReviewsNoResults.swift; sourceTree = "<group>"; };
+		9CCCEB5C29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchZoomReviewPicLoader.swift; sourceTree = "<group>"; };
 		9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		9CD42D82296DF54E00C2FBE9 /* ProfilePicSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicSkeleton.swift; sourceTree = "<group>"; };
 		9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
@@ -367,6 +373,7 @@
 				9C1D8F8629B149E300B40B32 /* PrimaryButton.swift */,
 				9C1D8F8C29B66AB100B40B32 /* DisabledPrimaryButton.swift */,
 				9C1D8F9129B6870A00B40B32 /* SmallPrimaryButton.swift */,
+				9C86881429B96A97005511E8 /* IconButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -376,6 +383,7 @@
 			children = (
 				9C8217E229490BFA0011B7E0 /* LocationReviewsView.swift */,
 				9C1D8F8F29B6843400B40B32 /* LocationReviewHeader.swift */,
+				9CCCEB5829B7DDCF005A2696 /* LocationReviewsNoResults.swift */,
 			);
 			path = LocationReviews;
 			sourceTree = "<group>";
@@ -738,6 +746,7 @@
 				9C68CC3329522AEF007FC567 /* ReviewPicLoader.swift */,
 				9C68CC2129512B8A007FC567 /* ReviewLoader.swift */,
 				9C2631982995B79000A65CC3 /* ReviewLoaderA.swift */,
+				9CCCEB5C29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -1081,6 +1090,7 @@
 				9CD42DAB296F584800C2FBE9 /* OutgoingFriendsListItem.swift in Sources */,
 				9C871CEC295E2BDB007B72F7 /* UnsplashOverlay.swift in Sources */,
 				9C1D8F9229B6870A00B40B32 /* SmallPrimaryButton.swift in Sources */,
+				9C86881529B96A97005511E8 /* IconButton.swift in Sources */,
 				9C27DFD3298AEAD20094AEDD /* MKExtensions.swift in Sources */,
 				9C871CCA295605DC007B72F7 /* LikeRequests.swift in Sources */,
 				9C2276BE299D98E4005566A0 /* ProfileOptionMenu.swift in Sources */,
@@ -1165,6 +1175,7 @@
 				9C2276C0299DAAB5005566A0 /* DeleteAccountDestination.swift in Sources */,
 				9CAEB3A0297780C6009A18A3 /* UIColorExtensions.swift in Sources */,
 				9C871D1A29674FD3007B72F7 /* ReviewAddReply.swift in Sources */,
+				9CCCEB5929B7DDCF005A2696 /* LocationReviewsNoResults.swift in Sources */,
 				9C82179429368ECC0011B7E0 /* GetCodeView.swift in Sources */,
 				9C82179D2936BE110011B7E0 /* SubmitCodeView.swift in Sources */,
 				9C871CC82954FDE2007B72F7 /* Reply.swift in Sources */,
@@ -1188,6 +1199,7 @@
 				9C8D86D02999892D007E714F /* ReviewPicCarousel.swift in Sources */,
 				9C26319029957C5E00A65CC3 /* SearchReviewsView.swift in Sources */,
 				9C2276B8299B5A79005566A0 /* Colors.swift in Sources */,
+				9CCCEB5D29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift in Sources */,
 				9C8D86D229998E2C007E714F /* CreateReviewPhotoCarousel.swift in Sources */,
 				9CD42D8D296E08D600C2FBE9 /* FullFriends.swift in Sources */,
 				9C40AA94293667E0009134EA /* Authentication.swift in Sources */,
@@ -1373,7 +1385,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1415,7 +1427,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";

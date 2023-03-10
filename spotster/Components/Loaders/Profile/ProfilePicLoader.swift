@@ -48,7 +48,7 @@ struct ProfilePicLoader: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: profilePicSize.rawValue, height: profilePicSize.rawValue)
-                        .clipShape(Circle()).padding(.bottom, -6)
+                        .clipShape(Circle())
                         .transition(.fade(duration: 0.5)) // Fade Transition with duration
                         .onTapGesture {
                             if navigatable {
@@ -69,6 +69,7 @@ struct ProfilePicLoader: View {
 
 enum ProfilePicSize: CGFloat {
     case small = 28.0
+    case mediumSmall = 36.0
     case medium = 48.0
     case large = 256.0
 }

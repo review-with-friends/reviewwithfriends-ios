@@ -51,17 +51,21 @@ struct ReviewReply: View {
         VStack {
             HStack {
                 VStack {
-                    ProfilePicLoader(path: self.$path, userId: reply.userId, profilePicSize: .medium, navigatable: true, ignoreCache: false)
-                    Spacer()
+                    ProfilePicLoader(path: self.$path, userId: reply.userId, profilePicSize: .mediumSmall, navigatable: true, ignoreCache: false)
                 }
                 VStack {
-                    Text(reply.text).font(.caption)
-                    Spacer()
+                    HStack {
+                        SlimDate(date: reply.created)
+                        Spacer()
+                    }
+                    HStack {
+                        Text(reply.text).font(.caption)
+                        Spacer()
+                    }
                 }
                 Spacer()
                 VStack {
                     VStack {
-                        SlimDate(date: reply.created)
                         if let user = auth.user {
                             if reply.userId == user.id {
                                 HStack {
@@ -101,9 +105,8 @@ struct ReviewReply: View {
                     } message: { message in
                         Text(message)
                     }
-                    Spacer()
                 }
-            }.padding().background(.quaternary).cornerRadius(8)
+            }.padding()
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 struct ReviewListItemHeader: View {
     @Binding var path: NavigationPath
@@ -28,9 +29,13 @@ struct ReviewListItemHeader: View {
             }
             VStack {
                 HStack {
-                    SlimDate(date: self.review.created)
-                    Spacer()
                     ReviewStars(stars: self.review.stars)
+                    Spacer()
+                    if let mkCategory = MKPointOfInterestCategory.getCategory(category: self.review.category){
+                        if let image = mkCategory.getSystemImageString() {
+                            Image(systemName: image)
+                        }
+                    }
                 }
                 if showLocation {
                     HStack {

@@ -244,6 +244,7 @@ struct CreateReviewRequest: Codable {
     let longitude: Double
     let is_custom: Bool
     let pic: String
+    let post_date: Int64
 }
 
 func getReviewFromBoundary(token: String, boundary: MapBoundary, page: Int) async -> Result<[Review], RequestError> {

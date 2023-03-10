@@ -282,89 +282,11 @@ extension MKPointOfInterestCategory {
     
     static func getCategoryColor(category: String) -> UIColor {
         switch category {
-        case "airport":
-            return UIColor.systemBlue
-        case "amusementPark":
-            return UIColor.systemPink
-        case "aquarium":
-            return UIColor.systemBlue
-        case "atm":
-            return UIColor.systemBlue
-        case "bakery":
-            return UIColor.systemOrange
-        case "bank":
-            return UIColor.systemGray
-        case "beach":
-            return UIColor.systemGreen
-        case "brewery":
-            return UIColor.systemYellow
-        case "cafe":
-            return UIColor.systemOrange
-        case "campground":
-            return UIColor.systemGreen
-        case "carRental":
-            return UIColor.systemGray
-        case "evCharger":
-            return UIColor.systemGreen
-        case "fireStation":
-            return UIColor.systemRed
-        case "fitnessCenter":
-            return UIColor.systemBlue
-        case "foodMarket":
-            return UIColor.systemOrange
-        case "gasStation":
-            return UIColor.systemBlue
-        case "hospital":
-            return UIColor.systemRed
-        case "hotel":
-            return UIColor.systemPurple
-        case "laundry":
-            return UIColor.systemOrange
-        case "marina":
-            return UIColor.systemBlue
-        case "movieTheater":
-            return UIColor.systemPink
-        case "museum":
-            return UIColor.systemBrown
-        case "nationalPark":
-            return UIColor.systemGreen
-        case "nightlife":
-            return UIColor.systemOrange
-        case "park":
-            return UIColor.systemGreen
-        case "parking":
-            return UIColor.systemBlue
-        case "pharmacy":
-            return UIColor.systemRed
-        case "police":
-            return UIColor.systemRed
-        case "postOffice":
-            return UIColor.systemGray
-        case "publicTransport":
-            return UIColor.systemBlue
-        case "restaurant":
-            return UIColor.systemOrange
-        case "restroom":
-            return UIColor.systemPurple
-        case "school":
-            return UIColor.systemBrown
-        case "stadium":
-            return UIColor.systemBlue
-        case "store":
-            return UIColor.systemOrange
-        case "theater":
-            return UIColor.systemPink
-        case "university":
-            return UIColor.systemBrown
-        case "winery":
-            return UIColor.systemRed
-        case "zoo":
-            return UIColor.systemGreen
         default:
             // Ideally switches are exhaustive and this isn't needed!
             // But MapKit implemented this a struct, not an enum.
             // Thus we can't rely on an exhaustive switch....
-            return UIColor.systemOrange
+            return UIColor.white
         }
     }
 }
