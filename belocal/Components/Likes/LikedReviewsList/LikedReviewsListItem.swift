@@ -1,0 +1,8 @@
+//
+//  LikedReviewsListItem.swift
+//  belocal
+//
+//  Created by Colton Lathrop on 2/16/23.
+//
+
+import Foundation
