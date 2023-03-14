@@ -37,6 +37,7 @@ struct WelcomeView: View {
                     Spacer()
                 }
             }
+            Text("By pressing Get Started, you are agreeing to our Terms of Service and Privacy policy.").font(.caption).foregroundColor(.secondary).padding(.horizontal).multilineTextAlignment(.center)
             PrimaryButton(title: "Get Started", action: {
                 self.path.append(GetCode())
             }).padding(.vertical)

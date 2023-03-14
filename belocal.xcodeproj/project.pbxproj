@@ -116,6 +116,10 @@
 		9C8D86D229998E2C007E714F /* CreateReviewPhotoCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86D129998E2C007E714F /* CreateReviewPhotoCarousel.swift */; };
 		9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86D329998FE5007E714F /* PhotoPreviewData.swift */; };
 		9C8D86D7299ADC07007E714F /* ReviewAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D86D6299ADC07007E714F /* ReviewAnnotationView.swift */; };
+		9C936AF029BFCDC200AA1F41 /* RecoveryGetStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AEF29BFCDC200AA1F41 /* RecoveryGetStartedView.swift */; };
+		9C936AF229BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AF129BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift */; };
+		9C936AF429BFE6F200AA1F41 /* RecoverySubmitCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AF329BFE6F200AA1F41 /* RecoverySubmitCodeView.swift */; };
+		9C936AF729BFEFCF00AA1F41 /* SetupRecoveryEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AF629BFEFCF00AA1F41 /* SetupRecoveryEmail.swift */; };
 		9C96946229357CB800AAEC25 /* spotserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C96946129357CB800AAEC25 /* spotserApp.swift */; };
 		9C96946629357CB900AAEC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946529357CB900AAEC25 /* Assets.xcassets */; };
 		9C96946929357CB900AAEC25 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946829357CB900AAEC25 /* Preview Assets.xcassets */; };
@@ -284,6 +288,10 @@
 		9C8D86D129998E2C007E714F /* CreateReviewPhotoCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewPhotoCarousel.swift; sourceTree = "<group>"; };
 		9C8D86D329998FE5007E714F /* PhotoPreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewData.swift; sourceTree = "<group>"; };
 		9C8D86D6299ADC07007E714F /* ReviewAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAnnotationView.swift; sourceTree = "<group>"; };
+		9C936AEF29BFCDC200AA1F41 /* RecoveryGetStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryGetStartedView.swift; sourceTree = "<group>"; };
+		9C936AF129BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryGetPhoneCodeView.swift; sourceTree = "<group>"; };
+		9C936AF329BFE6F200AA1F41 /* RecoverySubmitCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverySubmitCodeView.swift; sourceTree = "<group>"; };
+		9C936AF629BFEFCF00AA1F41 /* SetupRecoveryEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRecoveryEmail.swift; sourceTree = "<group>"; };
 		9C96945E29357CB800AAEC25 /* belocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = belocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C96946129357CB800AAEC25 /* spotserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotserApp.swift; sourceTree = "<group>"; };
 		9C96946529357CB900AAEC25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -517,6 +525,7 @@
 		9C68CC3029522968007FC567 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9C936AF529BFEFB000AA1F41 /* Modals */,
 				9C1D8F8529B149CB00B40B32 /* Buttons */,
 				9C28C9B029957A91002296A1 /* Search */,
 				9CAEB3B02989C067009A18A3 /* Notifications */,
@@ -569,6 +578,7 @@
 		9C8217A32939580E0011B7E0 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				9C936AEE29BFCD9900AA1F41 /* Recovery */,
 				9C8217A4293958740011B7E0 /* LoginView.swift */,
 				9C82179329368ECC0011B7E0 /* GetCodeView.swift */,
 				9C82179C2936BE110011B7E0 /* SubmitCodeView.swift */,
@@ -778,6 +788,24 @@
 				9C8D86D6299ADC07007E714F /* ReviewAnnotationView.swift */,
 			);
 			path = Annotations;
+			sourceTree = "<group>";
+		};
+		9C936AEE29BFCD9900AA1F41 /* Recovery */ = {
+			isa = PBXGroup;
+			children = (
+				9C936AEF29BFCDC200AA1F41 /* RecoveryGetStartedView.swift */,
+				9C936AF129BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift */,
+				9C936AF329BFE6F200AA1F41 /* RecoverySubmitCodeView.swift */,
+			);
+			path = Recovery;
+			sourceTree = "<group>";
+		};
+		9C936AF529BFEFB000AA1F41 /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				9C936AF629BFEFCF00AA1F41 /* SetupRecoveryEmail.swift */,
+			);
+			path = Modals;
 			sourceTree = "<group>";
 		};
 		9C96945529357CB800AAEC25 = {
@@ -1110,11 +1138,13 @@
 				9C2631972995B1BC00A65CC3 /* ReviewViewData.swift in Sources */,
 				9CAEB3BB2989DDD2009A18A3 /* NotificationNavButton.swift in Sources */,
 				9C2631992995B79000A65CC3 /* ReviewLoaderA.swift in Sources */,
+				9C936AF229BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift in Sources */,
 				9C82179929369C800011B7E0 /* ErrorDisplay.swift in Sources */,
 				9C1D8F7D29B005A400B40B32 /* ContactLookups.swift in Sources */,
 				9C2276C5299EBE97005566A0 /* LikedReviewsListItem.swift in Sources */,
 				9CD42D90296E2C9E00C2FBE9 /* FriendsList.swift in Sources */,
 				9C8217E329490BFA0011B7E0 /* LocationReviewsView.swift in Sources */,
+				9C936AF729BFEFCF00AA1F41 /* SetupRecoveryEmail.swift in Sources */,
 				9C8217B0293BDEDE0011B7E0 /* Retryable.swift in Sources */,
 				9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */,
 				9C871CC62954FDBA007B72F7 /* FullReview.swift in Sources */,
@@ -1123,6 +1153,7 @@
 				9C8217E52949258E0011B7E0 /* ReviewRequests.swift in Sources */,
 				9C871CE9295E1FB9007B72F7 /* UnsplashCredit.swift in Sources */,
 				9C40AA8C2935D298009134EA /* MainView.swift in Sources */,
+				9C936AF029BFCDC200AA1F41 /* RecoveryGetStartedView.swift in Sources */,
 				9C871CD52957755B007B72F7 /* SlimDate.swift in Sources */,
 				9C871D2A2968F0F3007B72F7 /* Friend.swift in Sources */,
 				9C28C9B429957AF4002296A1 /* SearchDestination.swift in Sources */,
@@ -1147,6 +1178,7 @@
 				9C1D8F8729B149E300B40B32 /* PrimaryButton.swift in Sources */,
 				9C68CC2E29522334007FC567 /* ReviewPicOverlay.swift in Sources */,
 				9C1D8F7629AFFC4600B40B32 /* DiscoverFriendsView.swift in Sources */,
+				9C936AF429BFE6F200AA1F41 /* RecoverySubmitCodeView.swift in Sources */,
 				9C871CF12963594D007B72F7 /* UniqueLocationCreateReview.swift in Sources */,
 				9C871CD92958B07C007B72F7 /* NavigationManager.swift in Sources */,
 				9C871D1E2967B2F9007B72F7 /* ReviewListItemSkeleton.swift in Sources */,
@@ -1377,6 +1409,7 @@
 				INFOPLIST_FILE = belocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BeLocal;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSContactsUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1389,7 +1422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 1.7;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1419,6 +1452,7 @@
 				INFOPLIST_FILE = belocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BeLocal;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSContactsUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1431,7 +1465,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 1.7;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";

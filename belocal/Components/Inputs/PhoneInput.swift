@@ -45,7 +45,6 @@ struct PhoneInput: View {
                 
                 
             }.padding(8).background(.tertiary).cornerRadius(8)
-            Text("We'll send you a code to login. ").font(.caption).foregroundColor(.secondary)
         }.padding()
     }
 }

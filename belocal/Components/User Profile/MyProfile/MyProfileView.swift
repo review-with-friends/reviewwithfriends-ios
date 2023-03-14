@@ -30,6 +30,9 @@ struct MyProfileView: View {
     
     var body: some View {
         VStack {
+            if user.recovery == false {
+                SetupRecoveryEmail()
+            }
             List {
                 Section {
                     VStack {

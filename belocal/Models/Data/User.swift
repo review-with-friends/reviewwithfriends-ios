@@ -13,4 +13,5 @@ struct User : Codable, Identifiable {
     let displayName: String
     let created: Date
     let picId: String
+    let recovery: Optional<Bool> 
 }

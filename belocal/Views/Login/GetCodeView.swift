@@ -32,7 +32,7 @@ struct GetCodeView: View {
         
         self.pending = true
         self.hideError()
-
+        
         let result: Result<(), RequestError> = await getCode(phone: "1".appending(phone))
         
         switch result {
@@ -79,14 +79,28 @@ struct GetCodeView: View {
     var body: some View {
         VStack {
             Spacer()
-            Form {
-                PhoneInput(phone: $phone)
-                if self.showError {
-                    Text(self.errorText).foregroundColor(.red)
-                }
-            }.buttonStyle(.plain)
+            HStack {
+                Text("Let's start with your phone number.").font(.title.bold())
+                Spacer()
+            }.padding()
+            HStack {
+                Text("Don't worry, we won't sell it.")
+                Spacer()
+            }.padding(.horizontal)
+            HStack {
+                Spacer()
+                Button(action: {
+                    self.path.append(RecoverGetStarted())
+                }) {
+                    Text("Get a new phone number?").font(.caption)
+                }.padding(4).accentColor(.red)
+            }
+            PhoneInput(phone: $phone)
+            if self.showError {
+                Text(self.errorText).foregroundColor(.red)
+            }
             
-            PrimaryButton(title: "Get Code", action: {
+            PrimaryButton(title: "Text Code", action: {
                 Task {
                     await requestCode()
                 }

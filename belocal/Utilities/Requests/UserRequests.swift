@@ -129,3 +129,27 @@ func setNewDeviceToken(token: String, deviceToken: String) async -> Result<(), R
         return .failure(error)
     }
 }
+
+func setRecoveryEmail(token: String, email: String) async -> Result<(), RequestError> {
+    var url: URL
+    if let url_temp = URL(string: USER_V1_ENDPOINT + "/recovery_email") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "recovery_email", value: email)])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await belocal.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(_):
+        return .success(())
+    case .failure(let error):
+        return .failure(error)
+    }
+}

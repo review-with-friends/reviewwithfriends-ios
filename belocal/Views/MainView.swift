@@ -96,8 +96,13 @@ struct MainView: View {
                 await self.notificatonManager.updateDeviceToken(authToken: self.auth.token, deviceToken: self.appDelegate.deviceToken)
             }
             .onAppear {
-                UIApplication.shared.setAlternateIconName("AppIcon")
+                
+                if UIApplication.shared.alternateIconName != "AppIcon-Alt" {
+                    UIApplication.shared.setAlternateIconName("AppIcon-Alt")
+                }
+                
                 belocal.requestNotifications()
+                
                 Task {
                     let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
                     await self.notificatonManager.getNotifications(token: self.auth.token)
