@@ -29,7 +29,6 @@ struct ProfileOptionMenu: View {
                                 Text("Change Profile")
                             }
                         }
-                        SetupRecoveryEmail()
                         Button("Logout"){
                             logoutConfirmationShowing = true
                         }

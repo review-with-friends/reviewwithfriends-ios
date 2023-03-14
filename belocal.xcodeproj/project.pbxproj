@@ -120,6 +120,9 @@
 		9C936AF229BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AF129BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift */; };
 		9C936AF429BFE6F200AA1F41 /* RecoverySubmitCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AF329BFE6F200AA1F41 /* RecoverySubmitCodeView.swift */; };
 		9C936AF729BFEFCF00AA1F41 /* SetupRecoveryEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AF629BFEFCF00AA1F41 /* SetupRecoveryEmail.swift */; };
+		9C936AF929C0F10900AA1F41 /* SetupRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AF829C0F10900AA1F41 /* SetupRecoveryView.swift */; };
+		9C936AFB29C0FC6B00AA1F41 /* PrimaryButtonRed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AFA29C0FC6B00AA1F41 /* PrimaryButtonRed.swift */; };
+		9C936AFD29C0FEA300AA1F41 /* PrimaryButtonGreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C936AFC29C0FEA300AA1F41 /* PrimaryButtonGreen.swift */; };
 		9C96946229357CB800AAEC25 /* spotserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C96946129357CB800AAEC25 /* spotserApp.swift */; };
 		9C96946629357CB900AAEC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946529357CB900AAEC25 /* Assets.xcassets */; };
 		9C96946929357CB900AAEC25 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946829357CB900AAEC25 /* Preview Assets.xcassets */; };
@@ -292,6 +295,9 @@
 		9C936AF129BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryGetPhoneCodeView.swift; sourceTree = "<group>"; };
 		9C936AF329BFE6F200AA1F41 /* RecoverySubmitCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverySubmitCodeView.swift; sourceTree = "<group>"; };
 		9C936AF629BFEFCF00AA1F41 /* SetupRecoveryEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRecoveryEmail.swift; sourceTree = "<group>"; };
+		9C936AF829C0F10900AA1F41 /* SetupRecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRecoveryView.swift; sourceTree = "<group>"; };
+		9C936AFA29C0FC6B00AA1F41 /* PrimaryButtonRed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonRed.swift; sourceTree = "<group>"; };
+		9C936AFC29C0FEA300AA1F41 /* PrimaryButtonGreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonGreen.swift; sourceTree = "<group>"; };
 		9C96945E29357CB800AAEC25 /* belocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = belocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C96946129357CB800AAEC25 /* spotserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spotserApp.swift; sourceTree = "<group>"; };
 		9C96946529357CB900AAEC25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -384,6 +390,8 @@
 				9C1D8F8C29B66AB100B40B32 /* DisabledPrimaryButton.swift */,
 				9C1D8F9129B6870A00B40B32 /* SmallPrimaryButton.swift */,
 				9C86881429B96A97005511E8 /* IconButton.swift */,
+				9C936AFA29C0FC6B00AA1F41 /* PrimaryButtonRed.swift */,
+				9C936AFC29C0FEA300AA1F41 /* PrimaryButtonGreen.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -571,6 +579,7 @@
 				9C8217BC293FB6E30011B7E0 /* ConfirmProfileView.swift */,
 				9C1D8F7329AEA30600B40B32 /* GetStartedView.swift */,
 				9C1D8F7529AFFC4600B40B32 /* DiscoverFriendsView.swift */,
+				9C936AF829C0F10900AA1F41 /* SetupRecoveryView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1148,6 +1157,7 @@
 				9C8217B0293BDEDE0011B7E0 /* Retryable.swift in Sources */,
 				9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */,
 				9C871CC62954FDBA007B72F7 /* FullReview.swift in Sources */,
+				9C936AF929C0F10900AA1F41 /* SetupRecoveryView.swift in Sources */,
 				9C871CEE295E2F33007B72F7 /* CreatedBy.swift in Sources */,
 				9C1D8F8429B10D3700B40B32 /* FriendsListItemProfileView.swift in Sources */,
 				9C8217E52949258E0011B7E0 /* ReviewRequests.swift in Sources */,
@@ -1160,6 +1170,7 @@
 				9C871D1C2967921C007B72F7 /* LatestReviewsView.swift in Sources */,
 				9CAEB39E29777852009A18A3 /* Pic.swift in Sources */,
 				9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */,
+				9C936AFD29C0FEA300AA1F41 /* PrimaryButtonGreen.swift in Sources */,
 				9C8217C2293FE19E0011B7E0 /* Loading.swift in Sources */,
 				9C2276C3299EBE8E005566A0 /* LikedReviewsList.swift in Sources */,
 				9CD42DA6296F519B00C2FBE9 /* IgnoredFriendsListItem.swift in Sources */,
@@ -1209,6 +1220,7 @@
 				9C1D8F8229B10CE800B40B32 /* UserActions.swift in Sources */,
 				9C2276C0299DAAB5005566A0 /* DeleteAccountDestination.swift in Sources */,
 				9CAEB3A0297780C6009A18A3 /* UIColorExtensions.swift in Sources */,
+				9C936AFB29C0FC6B00AA1F41 /* PrimaryButtonRed.swift in Sources */,
 				9C871D1A29674FD3007B72F7 /* ReviewAddReply.swift in Sources */,
 				9CCCEB5929B7DDCF005A2696 /* LocationReviewsNoResults.swift in Sources */,
 				9C82179429368ECC0011B7E0 /* GetCodeView.swift in Sources */,

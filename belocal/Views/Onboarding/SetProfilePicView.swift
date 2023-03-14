@@ -79,11 +79,7 @@ struct SetProfilePicView: View {
             PrimaryButton(title:"Continue", action: {
                 self.moveToNextScreen()
             })
-        }.toolbar {
-            Button("Skip for now") {
-                moveToNextScreen()
-            }
-        }
+        }.navigationTitle("Profile Pic")
     }
     
     /// Uploads/Saves the newly selected image from what is currently selected.

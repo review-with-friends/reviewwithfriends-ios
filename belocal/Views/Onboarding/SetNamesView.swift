@@ -24,7 +24,7 @@ struct SetNamesView: View {
     @EnvironmentObject var auth: Authentication
     
     func moveToNextScreen() {
-        self.path.append(SetProfilePic())
+        self.path.append(SetupRecovery())
     }
     
     func showError(error: String) {
@@ -41,8 +41,8 @@ struct SetNamesView: View {
         VStack {
             if let user = auth.user {
                 VStack {
-                    Text("Choose your usernames!").padding()
-                    Text("You can change them whenever you want 🤓").font(.caption).foregroundColor(.secondary)
+                    Text("Choose your usernames.").padding()
+                    Text("You can change them whenever you want.").font(.caption).foregroundColor(.secondary)
                     Form {
                         HStack {
                             Text("Username")
@@ -85,7 +85,7 @@ struct SetNamesView: View {
                         }
                     }
                 }.padding()
-                PrimaryButton(title: "Save", action: {
+                PrimaryButton(title: "Continue", action: {
                     Task {
                         await setNames()
                         let _ = await auth.getMe()
@@ -96,16 +96,12 @@ struct SetNamesView: View {
             }
             
             Spacer()
-        }.toolbar {
-            Button("Skip for now") {
-                moveToNextScreen()
-            }
         }.onAppear {
             if let user = auth.user {
                 self.name = user.name
                 self.displayName = user.displayName
             }
-        }
+        }.navigationTitle("Set Username")
     }
     
     /// Attempts to set both names for the given user.
@@ -131,7 +127,7 @@ struct SetNamesView: View {
         
         switch result {
         case .success():
-            self.path.append(SetProfilePic())
+            self.moveToNextScreen()
             self.pending = false
         case .failure(let err):
             self.showError(error: err.description)

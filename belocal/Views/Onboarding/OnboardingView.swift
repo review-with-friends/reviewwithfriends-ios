@@ -28,12 +28,16 @@ struct OnboardingView: View {
                 // Third Stop
                 SetNamesView(path: self.$path)
             }
-            .navigationDestination(for: SetProfilePic.self) { _ in
+            .navigationDestination(for: SetupRecovery.self) { _ in
                 // Fourth Stop
+                SetupRecoveryView(path: self.$path)
+            }
+            .navigationDestination(for: SetProfilePic.self) { _ in
+                // Fifth Stop
                 SetProfilePicView(path: self.$path)
             }
             .navigationDestination(for: ConfirmProfile.self) { _ in
-                // Fifth Stop
+                // Sixth Stop
                 ConfirmProfileView(path: self.$path)
             }
         }.accentColor(.primary).onAppear {
@@ -50,6 +54,7 @@ struct SetProfilePic: Hashable {}
 struct SetNames: Hashable {}
 struct ConfirmProfile: Hashable {}
 struct DiscoverFriends: Hashable {}
+struct SetupRecovery: Hashable {}
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
