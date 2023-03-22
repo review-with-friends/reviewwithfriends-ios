@@ -11,8 +11,10 @@ import SwiftUI
 
 @MainActor
 class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
+    
     public var deviceToken: String = ""
-    public var updatePathCallback: ((AnyHashable) -> Void)?
+    
+    @Published var deeplinkQueue: [DeeplinkTarget] = []
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
@@ -24,8 +26,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         return true
     }
     
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
-    {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         self.deviceToken = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
     }
 }
@@ -41,16 +42,24 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ){
         let userInfo = response.notification.request.content.userInfo
-
+        
         guard let arrAPS = userInfo["aps"] as? [String: Any] else { return }
         guard let notification_type = arrAPS["notification_type"] as? String else { return }
         guard let notification_value = arrAPS["notification_value"] as? String else { return }
         
-        print(notification_type)
-        print(notification_value)
-        
-        if let pathCallback = self.updatePathCallback {
-            pathCallback([] as [Like])
+        DispatchQueue.main.async {
+            switch notification_type {
+            case "Post":
+                self.deeplinkQueue.append(DeeplinkTarget(id: notification_value, type: .Review))
+            case "Reply":
+                self.deeplinkQueue.append(DeeplinkTarget(id: notification_value, type: .Review))
+            case "Favorite":
+                self.deeplinkQueue.append(DeeplinkTarget(id: notification_value, type: .Review))
+            case "Add":
+                self.deeplinkQueue.append(DeeplinkTarget(id: notification_value, type: .User))
+            default:
+                break
+            }
         }
         
         completionHandler()

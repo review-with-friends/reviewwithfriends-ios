@@ -8,17 +8,17 @@
 import Foundation
 import SwiftUI
 
-struct SearchNavButton: View {
+struct CreateReviewNavButton: View {
     @Binding var path: NavigationPath
     
     var body: some View {
         ZStack {
             VStack {
                 Button(action: {
-                    self.path.append(SearchDestination())
+                    self.path.append(CreateReviewFromImageDestination())
                 }) {
                     ZStack {
-                        Image(systemName: "magnifyingglass").font(.title).padding(.horizontal)
+                        Image(systemName: "plus.app").font(.title).padding(.horizontal)
                     }
                 }.accentColor(.primary)
             }
@@ -26,10 +26,10 @@ struct SearchNavButton: View {
     }
 }
 
-struct SearchNavButton_Preview: PreviewProvider {
+struct CreateReviewNavButton_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            SearchNavButton(path: .constant(NavigationPath()))
+            CreateReviewNavButton(path: .constant(NavigationPath()))
         }.preferredColorScheme(.dark)
     }
 }

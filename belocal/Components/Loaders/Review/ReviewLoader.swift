@@ -29,19 +29,21 @@ struct ReviewLoader: View {
         
         self.loading = true
         
-        if self.user == nil {
-            await self.loadUser()
-        }
-        
         if self.fullReview == nil {
             await self.loadFullReview()
+        }
+        
+        if self.user == nil {
+            if let fullReview = self.fullReview {
+                await self.loadUser(userId: fullReview.review.userId)
+            }
         }
         
         self.loading = false
     }
     
-    func loadUser() async -> Void {
-        let userResult = await userCache.getUserById(token: auth.token, userId: review.userId)
+    func loadUser(userId: String) async -> Void {
+        let userResult = await userCache.getUserById(token: auth.token, userId: userId)
         
         switch userResult {
         case .success(let user):
@@ -81,14 +83,11 @@ struct ReviewLoader: View {
             }
             else {
                 if self.failed {
-                    Text(self.error)
-                    Button(action: {
+                    LoaderError(id: self.review.id, contextText: "We failed to load this review.", errorText: self.error, callback: {
                         Task {
                             await self.loadReviewAndUser()
                         }
-                    }){
-                        Text("Retry Loading")
-                    }
+                    })
                 } else {
                     if let user = self.user {
                         if let fullReview = self.fullReview {

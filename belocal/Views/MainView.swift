@@ -18,29 +18,34 @@ struct MainView: View {
     @State var tab = 0
     @State var path = NavigationPath()
     
+    func processDeepLinkQueue() {
+        if self.appDelegate.deeplinkQueue.count > 0 {
+            if let target = self.appDelegate.deeplinkQueue.first {
+                switch target.type {
+                case .Review:
+                    self.path.append(ReviewDestination(id: target.id, userId: nil))
+                case .User:
+                    self.path.append(UniqueUser(userId: target.id))
+                }
+                self.appDelegate.deeplinkQueue = []
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack(path: $path) {
             ZStack{
                 TabView (selection: $tab){
-                    LatestReviewsView(path: self.$path )
-                        .tabItem {
-                            Label("Home", systemImage: "house.fill")
-                        }.tag(0).toolbarBackground(APP_BACKGROUND, for: .tabBar)
-                        .toolbarBackground(.visible, for: .tabBar)
-                    MapScreenView(path: self.$path, mapView: MapView())
-                        .tabItem {
-                            Label("Explore", systemImage: "map")
-                        }.tag(1).toolbarBackground(APP_BACKGROUND, for: .tabBar)
-                        .toolbarBackground(.visible, for: .tabBar)
+                    LatestReviewsView(path: self.$path ).tag(0).toolbarBackground(.hidden, for: .tabBar)
+                    MapScreenView(path: self.$path, mapView: MapView()).tag(1).toolbarBackground(.hidden, for: .tabBar)
                     if let user = auth.user {
                         MyProfileView(path: self.$path, user: user)
-                            .badge(self.friendsCache.fullFriends.incomingRequests.count > 0 ? "\($friendsCache.fullFriends.incomingRequests.count)" : nil)
-                            .tabItem {
-                                Label("Profile", systemImage: "person.crop.circle.fill")
-                            }.tag(2)
-                            .toolbarBackground(APP_BACKGROUND, for: .tabBar)
-                            .toolbarBackground(.visible, for: .tabBar)
+                            .tag(2).toolbarBackground(.hidden, for: .tabBar)
                     }
+                }
+                VStack {
+                    Spacer()
+                    NavigationTabBar(path: self.$path, tab: self.$tab)
                 }
             }
             .navigationDestination(for: UniqueLocation.self) { uniqueLocation in
@@ -48,6 +53,9 @@ struct MainView: View {
             }
             .navigationDestination(for: UniqueLocationCreateReview.self) { uniqueLocationReview in
                 CreateReviewView(path: self.$path, reviewLocation: uniqueLocationReview)
+            }
+            .navigationDestination(for: CreateReviewFromImageDestination.self) { _ in
+                CreateReviewFromImagesView(path: self.$path)
             }
             .navigationDestination(for: UniqueUser.self) { uniqueUser in
                 UserProfileLoader(path: self.$path, userId: uniqueUser.userId)
@@ -95,13 +103,21 @@ struct MainView: View {
             .onFirstAppear {
                 await self.notificatonManager.updateDeviceToken(authToken: self.auth.token, deviceToken: self.appDelegate.deviceToken)
             }
+            .onChange(of: self.appDelegate.deeplinkQueue) { _ in
+                self.processDeepLinkQueue()
+            }
+            .onChange(of: self.tab){ _ in
+                let generator = UISelectionFeedbackGenerator()
+                generator.selectionChanged()
+            }
             .onAppear {
-                
                 if UIApplication.shared.alternateIconName != "AppIcon-Alt" {
                     UIApplication.shared.setAlternateIconName("AppIcon-Alt")
                 }
                 
                 belocal.requestNotifications()
+                
+                self.processDeepLinkQueue()
                 
                 Task {
                     let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)

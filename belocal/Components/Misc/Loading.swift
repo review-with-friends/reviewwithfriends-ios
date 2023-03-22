@@ -12,7 +12,7 @@ struct Loading: View {
     var body: some View {
         VStack{
             Spacer()
-            ProgressLoader()
+            Image("loader").resizable().scaledToFit()
             Spacer()
         }.ignoresSafeArea()
     }
@@ -20,6 +20,8 @@ struct Loading: View {
 
 struct Loading_Previews: PreviewProvider {
     static var previews: some View {
-        Loading().preferredColorScheme(.dark)
+        VStack {
+            Loading().preferredColorScheme(.dark)
+        }
     }
 }

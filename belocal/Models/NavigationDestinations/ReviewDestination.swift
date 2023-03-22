@@ -9,5 +9,5 @@ import Foundation
 
 struct ReviewDestination: Hashable {
     var id: String
-    var userId: String
+    var userId: String?
 }

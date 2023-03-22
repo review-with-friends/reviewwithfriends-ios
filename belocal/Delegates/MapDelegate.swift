@@ -76,8 +76,10 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         
         if let titleOpt = annotation.title {
             if let title = titleOpt {
-                let category = extractCategoryFromAnnotation(annotation: annotation)
+                let category = belocal.extractCategoryFromAnnotation(annotation: annotation)
                 let uniqueLocation = UniqueLocation(locationName: title, category: category, latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+                let generator = UISelectionFeedbackGenerator()
+                generator.selectionChanged()
                 DispatchQueue.main.async {
                     if let navigate = self.navigate {
                         navigate(uniqueLocation)
@@ -85,22 +87,6 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
                 }
             }
         }
-    }
-    
-    func extractCategoryFromAnnotation(annotation: MKAnnotation) -> String {
-        if let annotation = annotation as? MKMapFeatureAnnotation {
-            if let category = annotation.pointOfInterestCategory {
-                return category.getString()
-            }
-        }
-        
-        if let annotation = annotation as? SearchResultAnnotation {
-            if let category = annotation.category {
-                return category
-            }
-        }
-        
-        return ""
     }
     
     /// Moves center to the user location changing. Won't move if we've already done it once.
@@ -194,4 +180,20 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         
         manager.startUpdatingLocation()
     }
+}
+
+func extractCategoryFromAnnotation(annotation: MKAnnotation) -> String {
+    if let annotation = annotation as? MKMapFeatureAnnotation {
+        if let category = annotation.pointOfInterestCategory {
+            return category.getString()
+        }
+    }
+    
+    if let annotation = annotation as? SearchResultAnnotation {
+        if let category = annotation.category {
+            return category
+        }
+    }
+    
+    return ""
 }
