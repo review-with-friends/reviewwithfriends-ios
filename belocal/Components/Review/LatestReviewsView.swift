@@ -37,7 +37,7 @@ struct LatestReviewsView: View {
                     Text("BeLocal.").font(.title).fontWeight(.bold)
                 }.accentColor(.primary)
                 Spacer()
-                SearchNavButton(path: self.$path)
+                CreateReviewNavButton(path: self.$path)
                 NotificationNavButton(path: self.$path)
             }.padding(.horizontal)
             ScrollView {

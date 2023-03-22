@@ -28,7 +28,7 @@ struct NotificationNavButton: View {
                     self.path.append(NotificationDestination())
                 }) {
                     ZStack {
-                        Image(systemName: "heart").font(.title)
+                        Image(systemName: "bell").font(.title)
                         if self.notificationManager.newNotifications > 0 {
                             VStack {
                                 Circle().foregroundColor(.red).frame(width: 16).overlay {

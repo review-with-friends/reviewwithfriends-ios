@@ -56,10 +56,11 @@ struct UserProfileLoader: View {
             if self.loading {
                 ReviewListItemSkeleton(loading: self.loading)
             } else if self.failed {
-                Text(self.error)
-                Button(action: {}){
-                    Text("Retry Loading")
-                }
+                LoaderError(id: self.userId, contextText: "We failed to load this profile.", errorText: self.error, callback: {
+                    Task {
+                        await self.loadUserAndFriendRequests()
+                    }
+                })
             } else {
                 if let user = self.user {
                     UserProfileView(path: self.$path, user: user)

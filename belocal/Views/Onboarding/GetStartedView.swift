@@ -21,12 +21,35 @@ struct GetStartedView: View {
     
     var body: some View {
         VStack {
-            TabView {
-                ForEach(self.photos) { photo in
-                    Image(photo.id).resizable().scaledToFit()
-                }
-            }.tabViewStyle(PageTabViewStyle())
-                .padding()
+            Text("BeLocal.").font(.system(size: 72).bold())
+            Image("powells")
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(50).overlay {
+                    VStack {
+                        Spacer()
+                        VStack {
+                            HStack {
+                                HStack {
+                                    Text("Doubletap reviews to favorite.").font(.title2.bold()).padding()
+                                }.background(.green).cornerRadius(25)
+                                Spacer()
+                            }.padding()
+                            HStack {
+                                Spacer()
+                                HStack {
+                                    Text("Find where you've been on the map.").font(.title2.bold()).padding().foregroundColor(.black)
+                                }.background(.yellow).cornerRadius(25)
+                            }.padding(.horizontal)
+                            HStack {
+                                HStack {
+                                    Text("Write some reviews for your friends.").font(.title2.bold()).padding()
+                                }.background(.blue).cornerRadius(25)
+                                Spacer()
+                            }.padding()
+                        }
+                    }.shadow(radius: 5)
+                }.unsplashToolTip(URL(string: "https://unsplash.com/@coleito")!)
             Spacer()
             PrimaryButton(title: "Get Started", action: {
                 self.moveToNextScreen()

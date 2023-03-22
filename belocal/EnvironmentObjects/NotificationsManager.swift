@@ -158,14 +158,12 @@ func requestNotifications(){
     center.requestAuthorization(options: [.alert, .badge]) { granted, error in
         
         if let error = error {
-            print(error)
         } else {
             if granted {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
             } else {
-                print("not granted")
             }
         }
     }

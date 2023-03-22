@@ -1,22 +1,22 @@
 //
-//  CreateReviewView.swift
+//  CreateReviewFromImagesView.swift
 //  belocal
 //
-//  Created by Colton Lathrop on 1/2/23.
+//  Created by Colton Lathrop on 3/16/23.
 //
 
 import Foundation
 import SwiftUI
 import PhotosUI
 
-struct CreateReviewView: View {
+struct CreateReviewFromImagesView: View {
     @Binding var path: NavigationPath
     
     @State var tabSelection: Int = 0
     
-    var reviewLocation: UniqueLocationCreateReview
-    
     @State var selectedImages: [ImageSelection] = []
+    
+    @State var selectedLocation: UniqueLocation?
     
     /// Image Data that will be uploaded.
     @State var dataToUpload: Data?
@@ -56,9 +56,6 @@ struct CreateReviewView: View {
     
     var body: some View {
         VStack {
-            VStack {
-                Text(self.reviewLocation.locationName).font(.title.bold())
-            }
             TabView(selection: self.$tabSelection) {
                 ScrollView {
                     ImageSelectorPhotoDisplay(imageSelection: self.$selectedImages)
@@ -73,15 +70,29 @@ struct CreateReviewView: View {
                     }
                 }.tag(0).scrollIndicators(.hidden)
                 VStack {
+                    ReviewImageLookup(selectedImages: self.$selectedImages, selectedLocation: self.$selectedLocation).frame(height: 400)
+                    Spacer()
+                    VStack {
+                        if self.selectedLocation == nil {
+                            DisabledPrimaryButton(title: "Continue")
+                        }
+                        else {
+                            PrimaryButton(title: "Continue", action: {self.tabSelection = 2})
+                        }
+                    }
+                }.tag(1)
+                VStack {
                     VStack {
                         PrimaryButton(title: "Change Photos", action: {
                             self.tabSelection = 0
                         })
                     }
-                    ReviewDataEditor(model: self.model, postAction: {Task {
-                        await self.postReview()
-                    }})
-                }.tag(1)
+                    VStack {
+                        ReviewDataEditor(model: self.model, postAction: {Task {
+                            await self.postReview()
+                        }})
+                    }
+                }.tag(2)
             }
         }.accentColor(.primary).overlay {
             if self.pending {
@@ -119,6 +130,10 @@ struct CreateReviewView: View {
     }
     
     func postReview() async {
+        guard let reviewLocation = self.selectedLocation else {
+            return // Don't navigation to user location annotation
+        }
+        
         var dataToBeUploaded: Data
         
         if let selectedImage = self.selectedImages.first {
@@ -143,10 +158,10 @@ struct CreateReviewView: View {
         if self.review == nil {
             let request = CreateReviewRequest(text: self.model.text,
                                               stars: self.model.stars,
-                                              category: self.reviewLocation.category,
-                                              location_name: self.reviewLocation.locationName,
-                                              latitude: self.reviewLocation.latitude,
-                                              longitude: self.reviewLocation.longitude,
+                                              category: reviewLocation.category,
+                                              location_name: reviewLocation.locationName,
+                                              latitude: reviewLocation.latitude,
+                                              longitude: reviewLocation.longitude,
                                               is_custom: false,
                                               pic: dataToBeUploaded.base64EncodedString(),
                                               post_date: Int64((self.model.date.timeIntervalSince1970 * 1000.0).rounded()))
@@ -172,8 +187,8 @@ struct CreateReviewView: View {
     }
 }
 
-struct CreateReviewView_Preview: PreviewProvider {
+struct CreateReviewFromImagesView_Preview: PreviewProvider {
     static var previews: some View {
-        CreateReviewView(path: .constant(NavigationPath()), reviewLocation: UniqueLocationCreateReview(locationName: "Taco Bell", category: "restaurant", latitude: -122.436734, longitude: 45.2384234)).preferredColorScheme(.dark)
+        CreateReviewFromImagesView(path: .constant(NavigationPath())).preferredColorScheme(.dark)
     }
 }
