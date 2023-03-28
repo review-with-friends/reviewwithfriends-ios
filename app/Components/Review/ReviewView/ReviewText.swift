@@ -15,6 +15,7 @@ struct ReviewText: View {
     var reloadCallback: () async -> Void
     
     @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var feedRefreshManager: FeedRefreshManager
     
     func isAlreadyFavorited() -> Bool {
         return self.fullReview.likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
@@ -36,6 +37,8 @@ struct ReviewText: View {
         
         switch result {
         case .success():
+            print("pushed \(self.fullReview.review.id)")
+            feedRefreshManager.push(review_id: self.fullReview.review.id)
             await reloadCallback()
             break
         case .failure(_):

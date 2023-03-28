@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-let FRIEND_V1_ENDPOINT = "https://spotster.spacedoglabs.com/api/v1/friends"
+let FRIEND_V1_ENDPOINT = "https://reviewwithfriends.com/api/v1/friends"
 
 @MainActor
 class FriendsCache: ObservableObject {

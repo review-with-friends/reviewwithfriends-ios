@@ -31,6 +31,7 @@ struct CreateReviewFromImagesView: View {
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var reloadCallback: ChildViewReloadCallback
+    @EnvironmentObject var feedRefreshManager: FeedRefreshManager
     
     func showError(error: String) {
         self.model.showError = true
@@ -179,7 +180,7 @@ struct CreateReviewFromImagesView: View {
                 self.showError(error: err.description)
             }
         }
-        
+        self.feedRefreshManager.pushHardReload()
         await self.reloadCallback.callIfExists()
         
         self.pending = false

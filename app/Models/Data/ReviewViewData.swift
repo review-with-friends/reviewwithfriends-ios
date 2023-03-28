@@ -7,8 +7,14 @@
 
 import Foundation
 
-struct ReviewViewData: Identifiable {
+class ReviewViewData: Identifiable {
     var id: String
     var fullReview: FullReview
     var user: User
+    
+    init(id: String, fullReview: FullReview, user: User) {
+        self.id = id
+        self.fullReview = fullReview
+        self.user = user
+    }
 }

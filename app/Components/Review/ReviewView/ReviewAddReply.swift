@@ -22,6 +22,7 @@ struct ReviewAddReply: View {
     @State var errorText = ""
     
     @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var feedRefreshManager: FeedRefreshManager
     
     func showError(error: String) {
         showError = true
@@ -53,6 +54,7 @@ struct ReviewAddReply: View {
         case .success(_):
             text = ""
             await reloadCallback()
+            self.feedRefreshManager.push(review_id: self.fullReview.review.id)
         case .failure(let error):
             showError = true
             errorText = error.description

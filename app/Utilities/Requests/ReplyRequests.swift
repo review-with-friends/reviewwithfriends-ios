@@ -7,7 +7,7 @@
 
 import Foundation
 
-let REPLY_V1_ENDPOINT = "https://spotster.spacedoglabs.com/api/v1/reply"
+let REPLY_V1_ENDPOINT = "https://reviewwithfriends.com/api/v1/reply"
 
 struct AddReplyRequest: Codable {
     var text: String

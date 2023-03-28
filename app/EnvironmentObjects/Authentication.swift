@@ -73,7 +73,7 @@ class Authentication: ObservableObject {
     }
     
     func getMe(incomingToken: String) async -> Result<(), RequestError> {
-        let url = URL(string: "https://spotster.spacedoglabs.com/api/v1/user/me")!
+        let url = URL(string: "https://reviewwithfriends.com/api/v1/user/me")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         

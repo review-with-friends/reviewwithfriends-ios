@@ -93,7 +93,7 @@ struct RecoveryGetStartedView: View {
 }
 
 func getEmailCode(phone: String) async -> Result<(), RequestError> {
-    var url = URL(string: "https://spotster.spacedoglabs.com/auth/recovery_code")!
+    var url = URL(string: "https://reviewwithfriends.com/auth/recovery_code")!
     url.append(queryItems:  [URLQueryItem(name: "phone", value: phone)])
     
     var request = URLRequest(url: url)

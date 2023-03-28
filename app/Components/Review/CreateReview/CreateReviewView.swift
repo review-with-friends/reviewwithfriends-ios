@@ -31,6 +31,7 @@ struct CreateReviewView: View {
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var reloadCallback: ChildViewReloadCallback
+    @EnvironmentObject var feedRefreshManager: FeedRefreshManager
     
     func showError(error: String) {
         self.model.showError = true
@@ -60,8 +61,7 @@ struct CreateReviewView: View {
                 Text(self.reviewLocation.locationName).font(.title.bold())
             }
             TabView(selection: self.$tabSelection) {
-                ScrollView {
-                    ImageSelectorPhotoDisplay(imageSelection: self.$selectedImages)
+                VStack {
                     ImageSelector(selectedImages: self.$selectedImages)
                     VStack {
                         if selectedImages.count == 0 {
@@ -165,6 +165,8 @@ struct CreateReviewView: View {
                 self.showError(error: err.description)
             }
         }
+        
+        self.feedRefreshManager.pushHardReload()
         
         await self.reloadCallback.callIfExists()
         

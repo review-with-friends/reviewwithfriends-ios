@@ -18,6 +18,8 @@ struct MainView: View {
     @State var tab = 0
     @State var path = NavigationPath()
     
+    @StateObject var feedRefreshManager = FeedRefreshManager()
+    
     func processDeepLinkQueue() {
         if self.appDelegate.deeplinkQueue.count > 0 {
             if let target = self.appDelegate.deeplinkQueue.first {
@@ -99,6 +101,7 @@ struct MainView: View {
                 }
             }
         }.environmentObject(ChildViewReloadCallback(callback: nil))
+            .environmentObject(self.feedRefreshManager)
             .accentColor(.primary)
             .onFirstAppear {
                 await self.notificatonManager.updateDeviceToken(authToken: self.auth.token, deviceToken: self.appDelegate.deviceToken)

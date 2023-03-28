@@ -1,25 +1,23 @@
 //
-//  RecoverySubmitCodeView.swift
+//  SubmitCodeView.swift
 //  app
 //
-//  Created by Colton Lathrop on 3/13/23.
+//  Created by Colton Lathrop on 11/29/22.
 //
 
 import Foundation
 import SwiftUI
 
-struct RecoverySubmitCodeView: View {
+struct SubmitCodeView: View {
     @Binding var path: NavigationPath
     
     enum FocusField: Hashable {
         case CodeEntry
     }
     
-    @Binding var oldPhone: String
-    @Binding var newPhone: String
+    @Binding var phone: String
     
-    @State var oldPhoneCode: String = ""
-    @State var newPhoneCode: String = ""
+    @State var code: String = ""
     
     @State var showError = false
     @State var errorText = ""
@@ -31,7 +29,7 @@ struct RecoverySubmitCodeView: View {
     func submitCode() async {
         self.hideError()
         
-        let signInResult = await submitRecovery(oldPhone: "1".appending(oldPhone), oldPhoneCode: self.oldPhoneCode, newPhone: "1".appending(newPhone), newPhoneCode: self.newPhoneCode)
+        let signInResult = await SignIn(phone: "1".appending(phone), code: self.code)
         
         switch signInResult {
         case .success(let token):
@@ -64,12 +62,8 @@ struct RecoverySubmitCodeView: View {
             Spacer()
             VStack {
                 HStack {
-                    Text("Code from recovery email:").bold()
-                    Spacer()
-                }
-                HStack {
                     Image(systemName: "number.square")
-                    TextField("123456789", text: $oldPhoneCode)
+                    TextField("123456789", text: $code)
                         .font(.title3)
                         .padding(.trailing)
                         .disableAutocorrection(true)
@@ -80,29 +74,15 @@ struct RecoverySubmitCodeView: View {
                             self.focusedField = .CodeEntry
                         }
                 }.padding(8.0).frame(alignment: .center).background(.tertiary).cornerRadius(8.0)
-            }.padding()
-            VStack {
-                HStack {
-                    Text("Code from text:").bold()
-                    Spacer()
-                }
-                HStack {
-                    Image(systemName: "number.square")
-                    TextField("123456789", text: $newPhoneCode)
-                        .font(.title3)
-                        .padding(.trailing)
-                        .disableAutocorrection(true)
-                        .keyboardType(.numberPad)
-                        .textContentType(.oneTimeCode)
-                }.padding(8.0).frame(alignment: .center).background(.tertiary).cornerRadius(8.0)
+                Text("Go back and try again if you don't get the code.").font(.caption).foregroundColor(.secondary)
             }.padding()
             if self.showError {
                 Text(self.errorText).foregroundColor(.red)
             }
-            if (self.oldPhoneCode.count < 9 || self.newPhoneCode.count < 9) {
-                DisabledPrimaryButton(title: "Submit Codes")
+            if self.code.count < 9 {
+                DisabledPrimaryButton(title: "Submit")
             } else {
-                PrimaryButton(title: "Submit Codes", action: {
+                PrimaryButton(title: "Submit", action: {
                     Task {
                         await submitCode()
                     }
@@ -113,9 +93,9 @@ struct RecoverySubmitCodeView: View {
     }
 }
 
-func submitRecovery(oldPhone: String, oldPhoneCode: String, newPhone: String, newPhoneCode: String) async ->  Result<String, RequestError> {
-    var url = URL(string: "https://spotster.spacedoglabs.com/auth/update_phone")!
-    url.append(queryItems:  [URLQueryItem(name: "phone", value: oldPhone),URLQueryItem(name: "new_phone", value: newPhone),URLQueryItem(name: "code", value: oldPhoneCode),URLQueryItem(name: "new_phone_code", value: newPhoneCode)])
+func SignIn(phone: String, code: String) async ->  Result<String, RequestError> {
+    var url = URL(string: "https://reviewwithfriends.com/auth/signin")!
+    url.append(queryItems:  [URLQueryItem(name: "phone", value: phone),URLQueryItem(name: "code", value: code)])
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -144,9 +124,9 @@ func submitRecovery(oldPhone: String, oldPhoneCode: String, newPhone: String, ne
     }
 }
 
-struct RecoverySubmitCodeView_Previews: PreviewProvider {
+struct SubmitCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        RecoverySubmitCodeView(path: .constant(NavigationPath()), oldPhone: .constant("7014910059"), newPhone: .constant("7014910059"))
+        SubmitCodeView(path: .constant(NavigationPath()), phone: .constant("7014910059"))
             .preferredColorScheme(.dark)
     }
 }

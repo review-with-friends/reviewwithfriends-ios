@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-let PROFILEPIC_V1_ENDPOINT = "https://spotster.spacedoglabs.com/api/v1/pic"
-let REVIEWPIC_V1_ENDPOINT = "https://spotster.spacedoglabs.com/api/v1/review"
+let PROFILEPIC_V1_ENDPOINT = "https://reviewwithfriends.com/api/v1/pic"
+let REVIEWPIC_V1_ENDPOINT = "https://reviewwithfriends.com/api/v1/review"
 
 let app_SPACES_ENDPOINT = "https://bout.sfo3.digitaloceanspaces.com/"
 

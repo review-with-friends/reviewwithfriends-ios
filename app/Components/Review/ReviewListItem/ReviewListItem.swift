@@ -13,21 +13,21 @@ struct ReviewListItem: View {
     
     var reloadCallback: () async -> Void
     var user: User
-    @State var fullReview: FullReview
+    var fullReview: FullReview
     var showLocation = true
     
     @EnvironmentObject var auth: Authentication
     
-    func loadFullReview() async -> Void {
-        let fullReviewResult = await getFullReviewById(token: auth.token, reviewId: self.fullReview.review.id)
-        
-        switch fullReviewResult {
-        case .success(let fullReview):
-            self.fullReview = fullReview
-        case .failure(_):
-            return
-        }
-    }
+//    func loadFullReview() async -> Void {
+//        let fullReviewResult = await getFullReviewById(token: auth.token, reviewId: self.fullReview.review.id)
+//        
+//        switch fullReviewResult {
+//        case .success(let fullReview):
+//            self.fullReview = fullReview
+//        case .failure(_):
+//            return
+//        }
+//    }
     
     var body: some View {
         VStack {
@@ -38,7 +38,7 @@ struct ReviewListItem: View {
                         VStack {
                             ReviewListItemHeader(path: self.$path, user: user, review: fullReview.review, showLocation: showLocation).padding(.bottom, 4)
                             Spacer()
-                            ReviewPicOverlay(path: self.$path, likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: self.loadFullReview)
+                            ReviewPicOverlay(path: self.$path, likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: self.reloadCallback)
                             ReviewListItemText(path: self.$path, fullReview: self.fullReview)
                         }.padding()
                     }

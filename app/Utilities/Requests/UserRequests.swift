@@ -7,7 +7,7 @@
 
 import Foundation
 
-let USER_V1_ENDPOINT = "https://spotster.spacedoglabs.com/api/v1/user"
+let USER_V1_ENDPOINT = "https://reviewwithfriends.com/api/v1/user"
 
 struct UpdateUserRequest : Codable {
     let name: String

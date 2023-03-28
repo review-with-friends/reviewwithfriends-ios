@@ -34,6 +34,7 @@ struct ReviewReply: View {
     @State var deleteErrorMessage = ""
     
     @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var feedRefreshManager: FeedRefreshManager
     
     func deleteReply() async {
         let result = await app.removeReplyFromReview(token: self.auth.token, reviewId: self.reply.reviewId, replyId: self.reply.id)
@@ -41,6 +42,7 @@ struct ReviewReply: View {
         switch result {
         case .success(_):
             await reloadCallback()
+            self.feedRefreshManager.push(review_id: self.reply.reviewId)
         case .failure(let error):
             self.deleteErrorMessage = error.description
             self.showDeleteError = true

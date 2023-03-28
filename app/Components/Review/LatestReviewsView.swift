@@ -18,6 +18,7 @@ struct LatestReviewsView: View {
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var userCache: UserCache
     @EnvironmentObject var notificationManager: NotificationManager
+    @EnvironmentObject var feedRefreshManager: FeedRefreshManager
     
     @Environment(\.scenePhase) var scenePhase
     
@@ -75,9 +76,15 @@ struct LatestReviewsView: View {
                 await self.notificationManager.getNotifications(token: self.auth.token)
             }
         }.onAppear {
-            Task {
-                /// The model handles loading correctly. Though a byproduct is several tab navigations can lead to loading more pages.
-                await self.model.loadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+            if self.feedRefreshManager.popHardReload() {
+                Task {
+                    await self.model.hardLoadReviews(auth:self.auth, userCache: self.userCache, action: self.createActionCallback)
+                }
+            } else {
+                Task {
+                    /// The model handles loading correctly. Though a byproduct is several tab navigations can lead to loading more pages.
+                    await self.model.loadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+                }
             }
         }.onChange(of: scenePhase) { newPhase in
             /// When opening the app from the background, an active event is fired here.

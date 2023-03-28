@@ -21,6 +21,7 @@ struct ReviewHeader: View {
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var reloadCallback: ChildViewReloadCallback
+    @EnvironmentObject var feedRefreshManager: FeedRefreshManager
     
     var body: some View {
         HStack{
@@ -96,6 +97,7 @@ struct ReviewHeader: View {
         
         switch result {
         case .success(_):
+            self.feedRefreshManager.pushHardReload()
             await self.reloadCallback.callIfExists()
             self.path.removeLast()
         case .failure(let error):

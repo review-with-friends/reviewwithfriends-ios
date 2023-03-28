@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C033AA929D2464200EDDF14 /* ImageAlbumSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C033AA829D2464200EDDF14 /* ImageAlbumSelector.swift */; };
+		9C033AAB29D3691000EDDF14 /* FeedForceRefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C033AAA29D3691000EDDF14 /* FeedForceRefreshManager.swift */; };
 		9C0BC9DC29C26E630086E59D /* NavigationTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0BC9DB29C26E630086E59D /* NavigationTabBar.swift */; };
 		9C0BC9DF29C388570086E59D /* CreateReviewFromImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0BC9DE29C388570086E59D /* CreateReviewFromImagesView.swift */; };
 		9C0BC9E229C3889D0086E59D /* ReviewDataEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0BC9E129C3889D0086E59D /* ReviewDataEditor.swift */; };
@@ -194,6 +195,7 @@
 
 /* Begin PBXFileReference section */
 		9C033AA829D2464200EDDF14 /* ImageAlbumSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAlbumSelector.swift; sourceTree = "<group>"; };
+		9C033AAA29D3691000EDDF14 /* FeedForceRefreshManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedForceRefreshManager.swift; sourceTree = "<group>"; };
 		9C0BC9DB29C26E630086E59D /* NavigationTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTabBar.swift; sourceTree = "<group>"; };
 		9C0BC9DE29C388570086E59D /* CreateReviewFromImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewFromImagesView.swift; sourceTree = "<group>"; };
 		9C0BC9E129C3889D0086E59D /* ReviewDataEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDataEditor.swift; sourceTree = "<group>"; };
@@ -594,6 +596,9 @@
 		9C68CC3029522968007FC567 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9C8217C3293FEC670011B7E0 /* ErrorViews */,
+				9C8217A32939580E0011B7E0 /* Login */,
+				9C82179229368E9A0011B7E0 /* Onboarding */,
 				9C936AF529BFEFB000AA1F41 /* Modals */,
 				9C1D8F8529B149CB00B40B32 /* Buttons */,
 				9C28C9B029957A91002296A1 /* Search */,
@@ -618,6 +623,8 @@
 			children = (
 				9C8D86D5299ADBFC007E714F /* Annotations */,
 				9C8217DB2947C5DF0011B7E0 /* LocateButton.swift */,
+				9C8217D229412AE30011B7E0 /* MapView.swift */,
+				9C8217DE2947D6220011B7E0 /* MapScreenView.swift */,
 				9C871CE4295CBACD007B72F7 /* FriendsOnlyToggle.swift */,
 			);
 			path = Map;
@@ -701,15 +708,6 @@
 			path = ErrorViews;
 			sourceTree = "<group>";
 		};
-		9C8217CB29412A730011B7E0 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				9C8217D229412AE30011B7E0 /* MapView.swift */,
-				9C8217DE2947D6220011B7E0 /* MapScreenView.swift */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
 		9C871CD129561BF9007B72F7 /* EnvironmentObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -719,6 +717,7 @@
 				9C871CFE2963E611007B72F7 /* ChildViewReloadCallback.swift */,
 				9C871D252968EDF0007B72F7 /* FriendsCache.swift */,
 				9CAEB3AA2989915C009A18A3 /* NotificationsManager.swift */,
+				9C033AAA29D3691000EDDF14 /* FeedForceRefreshManager.swift */,
 			);
 			path = EnvironmentObjects;
 			sourceTree = "<group>";
@@ -909,8 +908,9 @@
 				9C8217A9293BC6CB0011B7E0 /* Utilities */,
 				9C8217A829395C320011B7E0 /* Enums */,
 				9C40AA9229366063009134EA /* Models */,
-				9C96948B2935CE9500AAEC25 /* Views */,
 				9C96946129357CB800AAEC25 /* appMain.swift */,
+				9C40AA8F29365B31009134EA /* IntializerView.swift */,
+				9C40AA8B2935D298009134EA /* MainView.swift */,
 				9C96946529357CB900AAEC25 /* Assets.xcassets */,
 				9C96946729357CB900AAEC25 /* Preview Content */,
 			);
@@ -931,19 +931,6 @@
 				9CAEB38F2970AC77009A18A3 /* mapBoundaryTests.swift */,
 			);
 			path = boutTests;
-			sourceTree = "<group>";
-		};
-		9C96948B2935CE9500AAEC25 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				9C8217CB29412A730011B7E0 /* Map */,
-				9C8217C3293FEC670011B7E0 /* ErrorViews */,
-				9C8217A32939580E0011B7E0 /* Login */,
-				9C82179229368E9A0011B7E0 /* Onboarding */,
-				9C40AA8B2935D298009134EA /* MainView.swift */,
-				9C40AA8F29365B31009134EA /* IntializerView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		9CAEB3A12988543D009A18A3 /* Likes */ = {
@@ -1204,6 +1191,7 @@
 				9C82179F2936C73B0011B7E0 /* SetNamesView.swift in Sources */,
 				9C2276BB299C24DA005566A0 /* ReviewGridItem.swift in Sources */,
 				9C871CCE2956185F007B72F7 /* ReviewListItemText.swift in Sources */,
+				9C033AAB29D3691000EDDF14 /* FeedForceRefreshManager.swift in Sources */,
 				9CD42D9C296E35D900C2FBE9 /* FriendsListItem.swift in Sources */,
 				9C0BC9EF29C7D6CE0086E59D /* LimitedPickerPrompt.swift in Sources */,
 				9CAEB3942971DF47009A18A3 /* MapBoundaryQueue.swift in Sources */,
