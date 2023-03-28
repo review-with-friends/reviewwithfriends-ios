@@ -82,7 +82,11 @@ struct SetupRecoveryEmailSheet: View {
                 Spacer()
             }.padding(.vertical, 4)
             HStack {
-                Text("We won't send you advertisements or sell it to anyone. 🤡")
+                Text("We won't send you advertisements or sell it to anyone.")
+                Spacer()
+            }.padding(.vertical, 4)
+            HStack {
+                Text("Try out the 'Hide My Email' option, we actually prefer you use it! 🤫")
                 Spacer()
             }.padding(.vertical, 4)
             HStack {
