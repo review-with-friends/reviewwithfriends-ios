@@ -114,8 +114,8 @@ struct MainView: View {
                 generator.selectionChanged()
             }
             .onAppear {
-                if UIApplication.shared.alternateIconName != "AppIcon-Alt" {
-                    UIApplication.shared.setAlternateIconName("AppIcon-Alt")
+                if UIApplication.shared.alternateIconName != "AppIcon-New1" {
+                    UIApplication.shared.setAlternateIconName("AppIcon-New1")
                 }
                 
                 app.requestNotifications()

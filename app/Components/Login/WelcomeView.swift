@@ -31,7 +31,7 @@ struct WelcomeView: View {
                 VStack {
                     Spacer()
                     VStack {
-                        Text("app.").font(.system(size: 78).bold()).padding()
+                        Text("Review With Friends").font(.system(size: 78).bold()).padding()
                     }.background(.black).cornerRadius(16).shadow(radius: 8)
                     Spacer()
                     Spacer()

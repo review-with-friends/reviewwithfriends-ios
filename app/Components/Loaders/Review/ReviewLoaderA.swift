@@ -50,13 +50,10 @@ struct ReviewLoaderA: View {
                 ReviewView(path: self.$path, reloadCallback: self.loadFullReview, user: self.review.user, fullReview: self.fullReview)
             }
         }.onAppear {
-            print("\(self.review.id) appeared")
             if self.feedRefreshManager.pop(review_id: self.review.id) {
-                print("\(self.review.id) popped")
                 Task {
                     await self.loadFullReview()
                 }
-            } else {
             }
         }
     }

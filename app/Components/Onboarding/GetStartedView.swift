@@ -21,7 +21,7 @@ struct GetStartedView: View {
     
     var body: some View {
         VStack {
-            Text("app.").font(.system(size: 72).bold())
+            Spacer()
             Image("powells")
                 .resizable()
                 .scaledToFit()
@@ -51,6 +51,7 @@ struct GetStartedView: View {
                     }.shadow(radius: 5)
                 }.unsplashToolTip(URL(string: "https://unsplash.com/@coleito")!)
             Spacer()
+            Text("You are logged in. Let's setup your profile.")
             PrimaryButton(title: "Get Started", action: {
                 self.moveToNextScreen()
             })
