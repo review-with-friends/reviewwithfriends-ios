@@ -1,0 +1,86 @@
+//
+//  FriendsListItem.swift
+//  app
+//
+//  Created by Colton Lathrop on 1/10/23.
+//
+
+import Foundation
+import SwiftUI
+
+struct FriendsListItem: View {
+    @Binding var path: NavigationPath
+    
+    let user: User
+    
+    @State var isConfirmationShowing = false
+    
+    @State var isShowingErrorMessage = false
+    @State var errorMessage = ""
+    
+    @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var friendsCache: FriendsCache
+    
+    func removeFriend() async {
+        let result = await app.removeFriend(token: auth.token, friendId: user.id)
+        
+        switch result {
+        case .success():
+            let _ = await friendsCache.refreshFriendsCache(token: auth.token)
+        case .failure(let error):
+            self.errorMessage = error.description
+            self.isShowingErrorMessage = true
+        }
+    }
+    
+    func shouldShowRemove() -> Bool {
+        if let loggedInUser = auth.user {
+            if user.id == loggedInUser.id {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    var body: some View  {
+        HStack {
+            FriendsListItemProfileView(path: self.$path, user: self.user)
+            Spacer()
+            if shouldShowRemove() {
+                Button(action: {
+                    isConfirmationShowing = true
+                }){
+                    HStack {
+                        Image(systemName: "x.circle").font(.system(size: 20))
+                        Text("Remove")
+                    }.foregroundColor(.red)
+                }.alert("Are you sure you want to remove this friend?", isPresented: $isConfirmationShowing){
+                    Button(role: .destructive) {
+                        Task {
+                            await self.removeFriend()
+                        }
+                    } label: {
+                        Text("Remove")
+                    }
+                } message: {
+                    Text("You can add them back later.")
+                }
+            }
+        }.alert("Failed to remove friend", isPresented: $isShowingErrorMessage){
+        } message: {
+            Text(self.errorMessage)
+        }
+    }
+}
+
+struct FriendsListItem_Preview: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            FriendsListItem(path: .constant(NavigationPath()), user: generateUserPreviewData())
+        }.preferredColorScheme(.dark)
+            .environmentObject(FriendsCache.generateDummyData())
+            .environmentObject(UserCache())
+            .environmentObject(Authentication.initPreview())
+    }
+}

@@ -1,12 +1,12 @@
 //
 //  mapBoundaryTests.swift
-//  belocalTests
+//  appTests
 //
 //  Created by Colton Lathrop on 1/12/23.
 //
 
 import XCTest
-@testable import belocal
+@testable import app
 
 final class mapBoundaryTests: XCTestCase {
     func testBoundaryManager() throws {
