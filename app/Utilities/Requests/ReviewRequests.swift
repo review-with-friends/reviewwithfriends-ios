@@ -7,7 +7,7 @@
 
 import Foundation
 
-let REVIEW_V1_ENDPOINT = "https://reviewwithfriends.com/api/v1/review"
+let REVIEW_V1_ENDPOINT = "https://api.reviewwithfriends.com/api/v1/review"
 
 func getReviewsForLocation(token: String, location_name: String, latitude: Double, longitude: Double) async -> Result<[Review], RequestError> {
     var url: URL

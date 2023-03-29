@@ -94,7 +94,7 @@ struct SubmitCodeView: View {
 }
 
 func SignIn(phone: String, code: String) async ->  Result<String, RequestError> {
-    var url = URL(string: "https://reviewwithfriends.com/auth/signin")!
+    var url = URL(string: "https://api.reviewwithfriends.com/auth/signin")!
     url.append(queryItems:  [URLQueryItem(name: "phone", value: phone),URLQueryItem(name: "code", value: code)])
     
     var request = URLRequest(url: url)

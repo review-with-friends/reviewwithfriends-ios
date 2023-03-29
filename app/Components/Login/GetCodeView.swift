@@ -112,7 +112,7 @@ struct GetCodeView: View {
 }
 
 func getCode(phone: String) async -> Result<(), RequestError> {
-    var url = URL(string: "https://reviewwithfriends.com/auth/requestcode")!
+    var url = URL(string: "https://api.reviewwithfriends.com/auth/requestcode")!
     url.append(queryItems:  [URLQueryItem(name: "phone", value: phone)])
     
     var request = URLRequest(url: url)
@@ -143,7 +143,7 @@ func getCode(phone: String) async -> Result<(), RequestError> {
 }
 
 func SignInDemo() async ->  Result<String, RequestError> {
-    let url = URL(string: "https://reviewwithfriends.com/auth/signin-demo")!
+    let url = URL(string: "https://api.reviewwithfriends.com/auth/signin-demo")!
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"

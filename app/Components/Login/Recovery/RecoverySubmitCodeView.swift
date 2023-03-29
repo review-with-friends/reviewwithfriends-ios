@@ -114,7 +114,7 @@ struct RecoverySubmitCodeView: View {
 }
 
 func submitRecovery(oldPhone: String, oldPhoneCode: String, newPhone: String, newPhoneCode: String) async ->  Result<String, RequestError> {
-    var url = URL(string: "https://reviewwithfriends.com/auth/update_phone")!
+    var url = URL(string: "https://api.reviewwithfriends.com/auth/update_phone")!
     url.append(queryItems:  [URLQueryItem(name: "phone", value: oldPhone),URLQueryItem(name: "new_phone", value: newPhone),URLQueryItem(name: "code", value: oldPhoneCode),URLQueryItem(name: "new_phone_code", value: newPhoneCode)])
     
     var request = URLRequest(url: url)

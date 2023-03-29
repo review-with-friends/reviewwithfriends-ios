@@ -29,6 +29,8 @@ struct CreateReviewFromImagesView: View {
     
     @State var cancelAlertShowing: Bool = false
     
+    @State var showPreviewSheet: Bool = false
+    
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var reloadCallback: ChildViewReloadCallback
     @EnvironmentObject var feedRefreshManager: FeedRefreshManager
@@ -52,6 +54,14 @@ struct CreateReviewFromImagesView: View {
             }
         }) {
             Text("Cancel").bold()
+        }
+    }
+    
+    var previewButton: some View {
+        Button(action: {
+            self.showPreviewSheet = true
+        }) {
+            Text("Preview Photos").bold()
         }
     }
     
@@ -108,7 +118,7 @@ struct CreateReviewFromImagesView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: cancelButton)
+        .navigationBarItems(leading: cancelButton, trailing: previewButton)
         .alert(isPresented: self.$cancelAlertShowing) {
             Alert(
                 title: Text("Are you sure you want to trash this review?"),
@@ -126,6 +136,10 @@ struct CreateReviewFromImagesView: View {
                     }
                 )
             )
+        }.sheet(isPresented: self.$showPreviewSheet) {
+            VStack {
+                ImageSelectorPhotoDisplay(imageSelection: self.$selectedImages)
+            }
         }
     }
     

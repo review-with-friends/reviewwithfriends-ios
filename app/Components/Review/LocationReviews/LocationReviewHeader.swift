@@ -17,8 +17,30 @@ struct LocationReviewHeader: View {
     var longitude: Double
     var category: String
     
+    @State var placemark: CLPlacemark?
+    
     @State var showingMapsConfirmation: Bool = false
     @State var installedMapsApps: [(String, URL)] = []
+    
+    func lookupAddress() {
+        var geocoder = CLGeocoder()
+        // Create Location
+        let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
+        
+        // Geocode Location
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let _ = error {
+                return
+            }
+            
+            if let placemarkList = placemarks {
+                if let targetPlacemark = placemarkList.first {
+                    self.placemark = targetPlacemark
+                }
+            }
+        }
+        
+    }
     
     var body: some View {
         VStack {
@@ -31,6 +53,14 @@ struct LocationReviewHeader: View {
                             Image(systemName: image)
                         }
                     }
+                }
+                HStack {
+                    if let placemark = self.placemark {
+                        if let postalAddress = placemark.postalAddress {
+                            Text("\(postalAddress.street), \(postalAddress.city), \(postalAddress.state) \(postalAddress.postalCode)").font(.caption).textSelection(.enabled)
+                        }
+                    }
+                    Spacer()
                 }
                 HStack {
                     Spacer()
@@ -58,6 +88,8 @@ struct LocationReviewHeader: View {
                         Text(google.0)
                     }
                 }
+            }.onAppear {
+                self.lookupAddress()
             }
     }
     

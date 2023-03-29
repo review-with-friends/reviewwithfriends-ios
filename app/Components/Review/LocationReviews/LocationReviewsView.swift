@@ -94,7 +94,7 @@ struct LocationReviewsView: View {
                             
                         }.listStyle(.plain)
                     } else {
-                        LocationReviewsNoResults()
+                        NoReviewsYet().listRowSeparator(.hidden)
                     }
                 }
             }

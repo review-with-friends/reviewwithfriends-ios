@@ -15,10 +15,9 @@ struct ImageSelectorPhotoDisplay: View {
     var body: some View {
         TabView {
             ForEach(self.imageSelection) { imageSelection in
-                Image(uiImage: imageSelection.image).resizable().scaledToFit().frame(height: 350)
+                Image(uiImage: imageSelection.image).resizable().scaledToFit()
             }
         }
         .tabViewStyle(PageTabViewStyle())
-        .frame(height: 400)
     }
 }

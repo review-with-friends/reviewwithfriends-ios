@@ -7,7 +7,7 @@
 
 import Foundation
 
-let NOTIFICATION_V1_ENDPOINT = "https://reviewwithfriends.com/api/v1/notification"
+let NOTIFICATION_V1_ENDPOINT = "https://api.reviewwithfriends.com/api/v1/notification"
 
 func getNotifications(token: String) async -> Result<[UserNotification], RequestError> {
     var url: URL

@@ -7,7 +7,7 @@
 
 import Foundation
 
-let LIKE_V1_ENDPOINT = "https://reviewwithfriends.com/api/v1/like"
+let LIKE_V1_ENDPOINT = "https://api.reviewwithfriends.com/api/v1/like"
 
 func likeReview(token: String, reviewId: String) async -> Result<(), RequestError> {
     var url: URL
