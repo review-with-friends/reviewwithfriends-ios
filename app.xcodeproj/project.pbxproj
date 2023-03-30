@@ -87,6 +87,9 @@
 		9C8217E329490BFA0011B7E0 /* LocationReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217E229490BFA0011B7E0 /* LocationReviewsView.swift */; };
 		9C8217E52949258E0011B7E0 /* ReviewRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217E42949258E0011B7E0 /* ReviewRequests.swift */; };
 		9C8217E72949293D0011B7E0 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8217E62949293D0011B7E0 /* Review.swift */; };
+		9C839CAF29D4FFFE0025A20A /* FeedEndOfReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C839CAE29D4FFFE0025A20A /* FeedEndOfReviews.swift */; };
+		9C839CB129D500130025A20A /* FeedZeroReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C839CB029D500130025A20A /* FeedZeroReviews.swift */; };
+		9C839CB329D63EEA0025A20A /* ZeroNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C839CB229D63EEA0025A20A /* ZeroNotifications.swift */; };
 		9C86881529B96A97005511E8 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C86881429B96A97005511E8 /* IconButton.swift */; };
 		9C86881729BD0E2F005511E8 /* ProgressLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C86881629BD0E2F005511E8 /* ProgressLoader.swift */; };
 		9C86B08729C8E20100A00769 /* ImageSelectorPhotoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C86B08629C8E20100A00769 /* ImageSelectorPhotoDisplay.swift */; };
@@ -275,6 +278,9 @@
 		9C8217E229490BFA0011B7E0 /* LocationReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationReviewsView.swift; sourceTree = "<group>"; };
 		9C8217E42949258E0011B7E0 /* ReviewRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequests.swift; sourceTree = "<group>"; };
 		9C8217E62949293D0011B7E0 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		9C839CAE29D4FFFE0025A20A /* FeedEndOfReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedEndOfReviews.swift; sourceTree = "<group>"; };
+		9C839CB029D500130025A20A /* FeedZeroReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedZeroReviews.swift; sourceTree = "<group>"; };
+		9C839CB229D63EEA0025A20A /* ZeroNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroNotifications.swift; sourceTree = "<group>"; };
 		9C86881429B96A97005511E8 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		9C86881629BD0E2F005511E8 /* ProgressLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressLoader.swift; sourceTree = "<group>"; };
 		9C86B08629C8E20100A00769 /* ImageSelectorPhotoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectorPhotoDisplay.swift; sourceTree = "<group>"; };
@@ -589,6 +595,8 @@
 				9C871CF2296359AF007B72F7 /* CreateReview */,
 				9C68CC2B2952220F007FC567 /* ReviewStars.swift */,
 				9C871D1B2967921C007B72F7 /* LatestReviewsView.swift */,
+				9C839CAE29D4FFFE0025A20A /* FeedEndOfReviews.swift */,
+				9C839CB029D500130025A20A /* FeedZeroReviews.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -949,6 +957,7 @@
 				9CAEB3B12989C075009A18A3 /* NotificationListView.swift */,
 				9CAEB3B32989C081009A18A3 /* NotificationListItem.swift */,
 				9CAEB3BA2989DDD2009A18A3 /* NotificationNavButton.swift */,
+				9C839CB229D63EEA0025A20A /* ZeroNotifications.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -1198,6 +1207,7 @@
 				9C8217BD293FB6E30011B7E0 /* ConfirmProfileView.swift in Sources */,
 				9C8217C6293FEC8B0011B7E0 /* GetMeErrorView.swift in Sources */,
 				9C2631972995B1BC00A65CC3 /* ReviewViewData.swift in Sources */,
+				9C839CAF29D4FFFE0025A20A /* FeedEndOfReviews.swift in Sources */,
 				9CAEB3BB2989DDD2009A18A3 /* NotificationNavButton.swift in Sources */,
 				9C2631992995B79000A65CC3 /* ReviewLoaderA.swift in Sources */,
 				9C936AF229BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift in Sources */,
@@ -1290,6 +1300,7 @@
 				9C871CF429635A4B007B72F7 /* CreateReviewView.swift in Sources */,
 				9C86B08729C8E20100A00769 /* ImageSelectorPhotoDisplay.swift in Sources */,
 				9CD42DA9296F583D00C2FBE9 /* OutgoingFriendsList.swift in Sources */,
+				9C839CB129D500130025A20A /* FeedZeroReviews.swift in Sources */,
 				9C8217D329412AE30011B7E0 /* MapView.swift in Sources */,
 				9CD42D96296E2F4600C2FBE9 /* IncomingFriendsList.swift in Sources */,
 				9C40AA8E2935D2AB009134EA /* OnboardingView.swift in Sources */,
@@ -1330,6 +1341,7 @@
 				9C8217DC2947C5DF0011B7E0 /* LocateButton.swift in Sources */,
 				9C871CFF2963E611007B72F7 /* ChildViewReloadCallback.swift in Sources */,
 				9C28C9932991A0E9002296A1 /* ParseCustomSchemeUrl.swift in Sources */,
+				9C839CB329D63EEA0025A20A /* ZeroNotifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

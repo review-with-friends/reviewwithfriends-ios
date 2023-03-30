@@ -29,9 +29,6 @@ struct IntializerView: View {
     /// If no user is authenticated, we instantly know that and can bring up the login menu.
     /// If we are authenticated, and fail to get the user (built-in retries), we bring up a manual retry menu.
     func ensureUserFetched() async {
-        do {
-            try await Task.sleep(for: Duration.milliseconds(500))
-        } catch {}
         if authentication.authenticated {
             if authentication.user == nil {
                 self.isLoading = true

@@ -12,17 +12,16 @@ struct CreateReviewNavButton: View {
     @Binding var path: NavigationPath
     
     var body: some View {
-        ZStack {
-            VStack {
-                Button(action: {
-                    self.path.append(CreateReviewFromImageDestination())
-                }) {
-                    ZStack {
-                        Image(systemName: "plus.app").font(.title).padding(.horizontal)
-                    }
-                }.accentColor(.primary)
-            }
-        }
+        VStack {
+            Button(action: {
+                self.path.append(CreateReviewFromImageDestination())
+            }) {
+                ZStack {
+                    Circle().frame(width: 64).foregroundColor(.primary).shadow(radius: 8)
+                    Image(systemName: "plus").resizable().frame(width: 28, height: 28).padding(.horizontal).bold().foregroundColor(.black)
+                }
+            }.accentColor(.primary)
+        }.offset(y: -20)
     }
 }
 

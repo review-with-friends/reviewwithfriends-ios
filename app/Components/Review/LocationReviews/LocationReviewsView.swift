@@ -95,6 +95,7 @@ struct LocationReviewsView: View {
                         }.listStyle(.plain)
                     } else {
                         NoReviewsYet().listRowSeparator(.hidden)
+                        Spacer()
                     }
                 }
             }

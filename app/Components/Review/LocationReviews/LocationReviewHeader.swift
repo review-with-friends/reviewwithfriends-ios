@@ -23,11 +23,10 @@ struct LocationReviewHeader: View {
     @State var installedMapsApps: [(String, URL)] = []
     
     func lookupAddress() {
-        var geocoder = CLGeocoder()
-        // Create Location
+        let geocoder = CLGeocoder()
+
         let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
-        
-        // Geocode Location
+
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             if let _ = error {
                 return

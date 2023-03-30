@@ -44,6 +44,7 @@ struct MainView: View {
                         MyProfileView(path: self.$path, user: user)
                             .tag(2).toolbarBackground(.hidden, for: .tabBar)
                     }
+                    NotificationList(path: self.$path).tag(3).toolbarBackground(.hidden, for: .tabBar)
                 }
                 VStack {
                     Spacer()

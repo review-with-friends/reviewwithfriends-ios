@@ -17,15 +17,21 @@ struct NotificationList: View {
     @State var newCount = 0
     
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(Array(self.notificationManager.notifications.enumerated()), id: \.element) { index, notification in
-                    NotificationListItem(path: self.$path, notification: notification, highlighted: (index <= self.newCount - 1)).padding(.bottom, 8)
+        VStack {
+            if self.notificationManager.notifications.count == 0 {
+                ZeroNotifications()
+            } else {
+                ScrollView {
+                    VStack {
+                        ForEach(Array(self.notificationManager.notifications.enumerated()), id: \.element) { index, notification in
+                            NotificationListItem(path: self.$path, notification: notification, highlighted: (index <= self.newCount - 1)).padding(.bottom, 8)
+                        }
+                    }.padding(.horizontal)
+                }.refreshable {
+                    Task {
+                        await self.notificationManager.getNotifications(token:auth.token)
+                    }
                 }
-            }.padding(.horizontal)
-        }.refreshable {
-            Task {
-                await self.notificationManager.getNotifications(token:auth.token)
             }
         }.onAppear {
             self.newCount = self.notificationManager.newNotifications

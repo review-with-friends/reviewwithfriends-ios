@@ -28,27 +28,29 @@ struct LatestReviewsView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button(action:{
-                    Task {
-                        await self.model.hardLoadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
-                        await self.notificationManager.getNotifications(token: self.auth.token)
-                    }
-                }) {
-                    Text("Review with friends").font(.title3).fontWeight(.bold)
-                }.accentColor(.primary)
-                Spacer()
-                CreateReviewNavButton(path: self.$path)
-                NotificationNavButton(path: self.$path)
-            }.padding(.horizontal)
+//            HStack {
+//                Button(action:{
+//                    Task {
+//                        await self.model.hardLoadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+//                        await self.notificationManager.getNotifications(token: self.auth.token)
+//                    }
+//                }) {
+//                    Text("Recent Posts").font(.title3).fontWeight(.bold)
+//                }.accentColor(.primary)
+//                Spacer()
+//                CreateReviewNavButton(path: self.$path)
+//                NotificationNavButton(path: self.$path)
+//            }.padding(.horizontal)
             ScrollView {
                 LazyVStack {
                     ForEach(self.model.reviewsToRender) { review in
                         ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
                     }
                     VStack {
-                        if self.model.noMorePages {
-                            Text("Hmmm, no more reviews...").foregroundColor(.secondary).padding(50).font(.caption)
+                        if self.model.noMorePages && self.model.reviews.isEmpty {
+                            FeedZeroReviews(path: self.$path)
+                        } else if self.model.noMorePages {
+                            FeedEndOfReviews()
                         }
                         else {
                             ProgressView().padding()

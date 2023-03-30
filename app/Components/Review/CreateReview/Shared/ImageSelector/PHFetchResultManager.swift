@@ -57,6 +57,9 @@ class PHFetchResultManager: ObservableObject {
         var mappedAssets: [IdentifiablePHAsset] = []
         
         if let result = self.fetchResult {
+            if result.count == 0 {
+                return
+            }
             mappedAssets = result.objects(at: IndexSet(integersIn: pageLow...pageHigh)).map {IdentifiablePHAsset(asset: $0)}
         }
         
