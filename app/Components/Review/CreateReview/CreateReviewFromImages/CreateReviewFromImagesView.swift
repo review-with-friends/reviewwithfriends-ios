@@ -62,7 +62,8 @@ struct CreateReviewFromImagesView: View {
             self.showPreviewSheet = true
         }) {
             Text("Preview Photos").bold()
-        }
+        }.accentColor(self.selectedImages.count > 0 ? .primary : .secondary)
+            .disabled(self.selectedImages.count > 0 ? false : true)
     }
     
     var body: some View {
@@ -92,6 +93,11 @@ struct CreateReviewFromImagesView: View {
                     }
                 }.tag(1)
                 VStack {
+                    VStack {
+                        if let reviewLocation = self.selectedLocation {
+                            Text(reviewLocation.locationName).font(.title.bold())
+                        }
+                    }.padding(.top)
                     VStack {
                         PrimaryButton(title: "Change Photos", action: {
                             self.tabSelection = 0
