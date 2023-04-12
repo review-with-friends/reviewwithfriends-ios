@@ -15,6 +15,8 @@ import PhotosUI
 struct ImageSelector: View {
     @Binding var selectedImages: [ImageSelection]
     
+    @State private var isLoading: Bool = true
+    
     @State private var isPresented: Bool = false
     @State private var authStatus: PHAuthorizationStatus
     @State private var changeObserver = ImageSelectorPhotoLibraryChangeObserver()
@@ -88,10 +90,19 @@ struct ImageSelector: View {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
-        if let identifiableAssetCollection = self.selectedAssetCollection {
-            self.fetchResults.assignNewResults(results: PHAsset.fetchAssets(in: identifiableAssetCollection.assetCollection, options: fetchOptions))
-        } else {
-            self.fetchResults.assignNewResults(results: PHAsset.fetchAssets(with: .image, options: fetchOptions))
+        self.isLoading = true
+        
+        /// Kick off task to do the loading
+        Task {
+            if let identifiableAssetCollection = self.selectedAssetCollection {
+                self.fetchResults.assignNewResults(results: PHAsset.fetchAssets(in: identifiableAssetCollection.assetCollection, options: fetchOptions))
+            } else {
+                self.fetchResults.assignNewResults(results: PHAsset.fetchAssets(with: .image, options: fetchOptions))
+            }
+            /// Send back the completion of the loading to the main queue
+            DispatchQueue.main.async() {
+                self.isLoading = false
+            }
         }
     }
     
@@ -220,8 +231,12 @@ struct ImageSelector: View {
                 LimitedPicker(isPresented: $isPresented)
                     .frame(width: 0, height: 0)
             }
-            if self.shouldShowImageGrid() {
-                self.imageGrid
+            if self.isLoading {
+                ProgressView()
+            } else {
+                if self.shouldShowImageGrid() {
+                    self.imageGrid
+                }
             }
         }.onAppear {
             /// Set an escaping callback to respond to users changing shared images

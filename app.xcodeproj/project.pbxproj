@@ -62,6 +62,7 @@
 		9C68CC2C2952220F007FC567 /* ReviewStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C68CC2B2952220F007FC567 /* ReviewStars.swift */; };
 		9C68CC2E29522334007FC567 /* ReviewPicOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C68CC2D29522334007FC567 /* ReviewPicOverlay.swift */; };
 		9C68CC3429522AEF007FC567 /* ReviewPicLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C68CC3329522AEF007FC567 /* ReviewPicLoader.swift */; };
+		9C6F44D729E71F3400E20515 /* ReviewLikedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F44D629E71F3400E20515 /* ReviewLikedBy.swift */; };
 		9C82179429368ECC0011B7E0 /* GetCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179329368ECC0011B7E0 /* GetCodeView.swift */; };
 		9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179529368F300011B7E0 /* PhoneInput.swift */; };
 		9C82179929369C800011B7E0 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179829369C800011B7E0 /* ErrorDisplay.swift */; };
@@ -253,6 +254,7 @@
 		9C68CC2B2952220F007FC567 /* ReviewStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewStars.swift; sourceTree = "<group>"; };
 		9C68CC2D29522334007FC567 /* ReviewPicOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPicOverlay.swift; sourceTree = "<group>"; };
 		9C68CC3329522AEF007FC567 /* ReviewPicLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPicLoader.swift; sourceTree = "<group>"; };
+		9C6F44D629E71F3400E20515 /* ReviewLikedBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLikedBy.swift; sourceTree = "<group>"; };
 		9C82179329368ECC0011B7E0 /* GetCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCodeView.swift; sourceTree = "<group>"; };
 		9C82179529368F300011B7E0 /* PhoneInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInput.swift; sourceTree = "<group>"; };
 		9C82179829369C800011B7E0 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
@@ -828,6 +830,7 @@
 				9C871CCB29561812007B72F7 /* ReviewReplies.swift */,
 				9C871D1929674FD3007B72F7 /* ReviewAddReply.swift */,
 				9C8D86CF2999892D007E714F /* ReviewPicCarousel.swift */,
+				9C6F44D629E71F3400E20515 /* ReviewLikedBy.swift */,
 			);
 			path = ReviewView;
 			sourceTree = "<group>";
@@ -1251,6 +1254,7 @@
 				9C1D8F8929B158B700B40B32 /* EnableContactAccessView.swift in Sources */,
 				9C0BC9E229C3889D0086E59D /* ReviewDataEditor.swift in Sources */,
 				9C1D8F7B29B003B600B40B32 /* DiscoverFriendsListItem.swift in Sources */,
+				9C6F44D729E71F3400E20515 /* ReviewLikedBy.swift in Sources */,
 				9C871D0F2965FF01007B72F7 /* ReviewView.swift in Sources */,
 				9C1D8F8729B149E300B40B32 /* PrimaryButton.swift in Sources */,
 				9C86B08929CA388E00A00769 /* ImageLookupHelp.swift in Sources */,

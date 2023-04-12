@@ -9,10 +9,13 @@ import Foundation
 import SwiftUI
 
 struct ReviewAddReply: View {
+    @Binding var showOverlay: Bool
     @Binding var path: NavigationPath
     var reloadCallback: () async -> Void
     var fullReview: FullReview
     var scrollProxy: ScrollViewProxy?
+    
+    let emojiBarEmojis = ["❤️", "🔥", "😍", "😮", "😢", "🤣" ]
     
     @State var text = ""
     
@@ -21,8 +24,15 @@ struct ReviewAddReply: View {
     @State var showError = false
     @State var errorText = ""
     
+    @State var showTextInput = false
+    @FocusState private var focusedField: FocusField?
+    
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var feedRefreshManager: FeedRefreshManager
+    
+    enum FocusField: Hashable {
+        case ReplyText
+    }
     
     func showError(error: String) {
         showError = true
@@ -54,6 +64,7 @@ struct ReviewAddReply: View {
         case .success(_):
             text = ""
             await reloadCallback()
+            self.showOverlay = false
             self.feedRefreshManager.push(review_id: self.fullReview.review.id)
         case .failure(let error):
             showError = true
@@ -63,29 +74,38 @@ struct ReviewAddReply: View {
         pending = false
     }
     
+    var emojiRow: some View {
+        HStack {
+            ForEach(emojiBarEmojis, id: \.self) { emoji in
+                Spacer()
+                Button(emoji) {
+                    self.text += emoji
+                }
+            }
+            Spacer()
+        }.padding(.vertical)
+    }
+    
     var body: some View {
         VStack {
             VStack {
+                Rectangle().foregroundColor(.black).opacity(0.5)
+            }.ignoresSafeArea(.all)
+                .onTapGesture{
+                    self.showOverlay = false
+                }.padding(-10)
+            VStack {
+                self.emojiRow
                 HStack {
-                    if let user = self.auth.user {
-                        ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: false, ignoreCache: false)
-                    }
                     TextField("Write a reply", text: $text, axis: .vertical)
-                        .lineLimit(3...)
+                        .lineLimit(4...)
                         .font(.caption)
                         .overlay {
                             if pending {
                                 ProgressView()
                             }
-                        }.id("replyInput")
-                        .onTapGesture {
-                            withAnimation {
-                                if let scroll = self.scrollProxy {
-                                    scroll.scrollTo("replyInput", anchor: .center)
-                                }
-                            }
-                        }
-                }.padding(8).background(APP_BACKGROUND_DARK).cornerRadius(8)
+                        }.focused($focusedField, equals: .ReplyText)
+                }.padding()
                 HStack {
                     Spacer()
                     if showError {
@@ -97,9 +117,13 @@ struct ReviewAddReply: View {
                             await self.postReply()
                         }
                     })
-                }
+                }.padding()
+            }.background(.black)
+        }.accentColor(.primary).onAppear {
+            withAnimation {
+                self.focusedField = FocusField.ReplyText
             }
-        }.accentColor(.primary)
+        }
     }
 }
 
@@ -110,7 +134,7 @@ struct ReviewAddReply_Preview: PreviewProvider {
     
     static var previews: some View {
         VStack {
-            ReviewAddReply(path: .constant(NavigationPath()), reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+            ReviewAddReply(showOverlay: .constant(true), path: .constant(NavigationPath()), reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
         }
     }
 }
