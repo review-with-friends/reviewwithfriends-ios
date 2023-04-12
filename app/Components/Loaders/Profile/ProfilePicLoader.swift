@@ -35,28 +35,38 @@ struct ProfilePicLoader: View {
         }
     }
     
+    var image: some View {
+        VStack {
+            if let user = self.user {
+                WebImage(url: URL(string: "https://bout.sfo3.cdn.digitaloceanspaces.com/" + user.picId))
+                    .placeholder {
+                        ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
+                    }
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: profilePicSize.rawValue, height: profilePicSize.rawValue)
+                    .clipShape(Circle())
+                    .transition(.fade(duration: 0.5)) // Fade Transition with duration
+            } else {
+                ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             if self.reloadHard {
                 ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
             } else {
-                if let user = self.user {
-                    WebImage(url: URL(string: "https://bout.sfo3.cdn.digitaloceanspaces.com/" + user.picId))
-                        .placeholder {
-                            ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
-                        }
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: profilePicSize.rawValue, height: profilePicSize.rawValue)
-                        .clipShape(Circle())
-                        .transition(.fade(duration: 0.5)) // Fade Transition with duration
+                if self.navigatable {
+                    self.image
                         .onTapGesture {
                             if navigatable {
                                 self.path.append(UniqueUser(userId: self.userId))
                             }
                         }
                 } else {
-                    ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
+                    self.image
                 }
             }
         }.onFirstAppear {
@@ -69,6 +79,7 @@ struct ProfilePicLoader: View {
 
 enum ProfilePicSize: CGFloat {
     case small = 28.0
+    case smallMedium = 32.0
     case mediumSmall = 36.0
     case medium = 48.0
     case large = 256.0

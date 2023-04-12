@@ -35,7 +35,6 @@ struct PinchZoomReviewPicLoader: View {
                     ReviewPicSkeleton(loading: true, width: pic.width, height: pic.height)
                 }
                 .resizable().scaledToFit()
-                .cornerRadius(16)
                 .scaleEffect(scale)
                 .gesture(magnify)
         }

@@ -20,7 +20,8 @@ struct ReviewPicCarousel: View {
                 ForEach(self.fullReview.pics) { pic in
                     PinchZoomReviewPicLoader(path: self.$path, pic: pic).padding(0)
                 }
-            }.padding(0).frame(height: 600)
+            }.padding(0)
+            .frame(height: 600)
             .aspectRatio(contentMode: .fill)
             .tabViewStyle(PageTabViewStyle())
         }

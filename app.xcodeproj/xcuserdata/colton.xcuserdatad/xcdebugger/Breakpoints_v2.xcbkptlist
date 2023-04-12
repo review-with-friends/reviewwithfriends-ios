@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E90D4C09-1285-42D5-8708-1D99FA1FF9A1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "app/Components/Review/CreateReview/Shared/ImageSelector/LimitedPickerPrompt.swift"

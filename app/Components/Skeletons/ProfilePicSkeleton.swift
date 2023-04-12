@@ -20,13 +20,9 @@ struct ProfilePicSkeleton: View {
             .foregroundColor(.secondary)
             .opacity(0.2)
             .overlay {
-                if loading {
-                    ProgressView()
-                }
                 if error {
                     VStack {
                         Image(systemName: "exclamationmark.triangle").padding(.bottom, 4)
-                        Text("Tap to retry").font(.caption)
                     }
                 }
             }

@@ -17,6 +17,7 @@ struct ReviewView: View {
     var showLocation = true
     
     @State var lastLoad = Date()
+    @State var showOverlay = false
     
     @EnvironmentObject var auth: Authentication
     
@@ -28,8 +29,14 @@ struct ReviewView: View {
                     ReviewPicCarousel(path: self.$path, fullReview: fullReview, reloadCallback: reloadCallback)
                     VStack {
                         ReviewText(path: self.$path, fullReview: self.fullReview, reloadCallback: self.reloadCallback)
-                            .padding(.top, 3.0)
-                        ReviewAddReply(path: self.$path, reloadCallback: reloadCallback, fullReview: fullReview, scrollProxy: proxy)
+                        HStack {
+                            Spacer()
+                            SmallPrimaryButton(title: "Reply", icon: "arrowshape.turn.up.left.fill", action: {
+                                withAnimation {
+                                    self.showOverlay = true
+                                }
+                            })
+                        }
                         ReviewReplies(path: self.$path, reloadCallback: self.reloadCallback, fullReview: self.fullReview)
                     }.padding(.horizontal)
                 }
@@ -47,6 +54,11 @@ struct ReviewView: View {
                 }
             }
         }.scrollIndicators(.hidden)
+        .overlay {
+            if self.showOverlay {
+                ReviewAddReply(showOverlay: self.$showOverlay, path: self.$path, reloadCallback: reloadCallback, fullReview: fullReview)
+            }
+        }
     }
 }
 

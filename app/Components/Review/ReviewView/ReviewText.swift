@@ -49,22 +49,26 @@ struct ReviewText: View {
     var body: some View {
         VStack {
             HStack {
+                ReviewLikedBy(path: self.$path, fullReview: self.fullReview)
                 Spacer()
                 let alreadyFavorited = self.isAlreadyFavorited()
-                SmallPrimaryButton(title:"\(self.fullReview.likes.count)", icon: "heart", action: {
-                    self.path.append(self.fullReview.likes)
-                })
-                SmallPrimaryButton(title: alreadyFavorited ? "Favorited" : "Favorite", icon: alreadyFavorited ? "heart.fill" : "heart", action: {
+                Button(action: {
                     Task {
                         await self.toggleFavorite()
                     }
-                })
+                }){
+                    if alreadyFavorited {
+                        Image(systemName: "heart.fill").foregroundColor(.red).font(.system(size: 28))
+                    } else {
+                        Image(systemName: "heart").foregroundColor(.primary).font(.system(size: 28))
+                    }
+                }
             }.padding(.bottom, 12)
             HStack {
                 Text(self.fullReview.review.text)
                 Spacer()
             }
-        }
+        }.padding(8)
     }
 }
 

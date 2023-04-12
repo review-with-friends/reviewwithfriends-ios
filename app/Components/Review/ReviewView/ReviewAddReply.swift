@@ -9,10 +9,13 @@ import Foundation
 import SwiftUI
 
 struct ReviewAddReply: View {
+    @Binding var showOverlay: Bool
     @Binding var path: NavigationPath
     var reloadCallback: () async -> Void
     var fullReview: FullReview
     var scrollProxy: ScrollViewProxy?
+    
+    let emojiBarEmojis = ["❤️", "🔥", "😍", "😮", "😢", "🤣" ]
     
     @State var text = ""
     
@@ -61,6 +64,7 @@ struct ReviewAddReply: View {
         case .success(_):
             text = ""
             await reloadCallback()
+            self.showOverlay = false
             self.feedRefreshManager.push(review_id: self.fullReview.review.id)
         case .failure(let error):
             showError = true
@@ -70,64 +74,56 @@ struct ReviewAddReply: View {
         pending = false
     }
     
-    var userIcon: some View {
-        VStack {
-            if let user = self.auth.user {
-                ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .medium, navigatable: false, ignoreCache: false)
+    var emojiRow: some View {
+        HStack {
+            ForEach(emojiBarEmojis, id: \.self) { emoji in
+                Spacer()
+                Button(emoji) {
+                    self.text += emoji
+                }
             }
-        }
+            Spacer()
+        }.padding(.vertical)
     }
     
     var body: some View {
-        ZStack {
+        VStack {
             VStack {
+                Rectangle().foregroundColor(.black).opacity(0.5)
+            }.ignoresSafeArea(.all)
+                .onTapGesture{
+                    self.showOverlay = false
+                }.padding(-10)
+            VStack {
+                self.emojiRow
+                HStack {
+                    TextField("Write a reply", text: $text, axis: .vertical)
+                        .lineLimit(4...)
+                        .font(.caption)
+                        .overlay {
+                            if pending {
+                                ProgressView()
+                            }
+                        }.focused($focusedField, equals: .ReplyText)
+                }.padding()
                 HStack {
                     Spacer()
-                    SmallPrimaryButton(title: "Write Comment",icon: "text.bubble.fill", action: {
-                        withAnimation {
-                            self.showTextInput = true
-                            self.focusedField = .ReplyText
+                    if showError {
+                        Text(errorText).foregroundColor(.red)
+                    }
+                    Spacer()
+                    SmallPrimaryButton(title: "Send",icon: "paperplane.fill", action: {
+                        Task {
+                            await self.postReply()
                         }
                     })
-                }
+                }.padding()
+            }.background(.black)
+        }.accentColor(.primary).onAppear {
+            withAnimation {
+                self.focusedField = FocusField.ReplyText
             }
-            VStack {
-                if self.showTextInput {
-                    VStack {
-                        VStack {
-                            Rectangle().foregroundColor(.black).opacity(0.5)
-                        }.background(.quaternary).ignoresSafeArea(.all)
-                        VStack {
-                            VStack {
-                                HStack {
-                                    self.userIcon
-                                    TextField("Write a reply", text: $text, axis: .vertical)
-                                        .lineLimit(3...)
-                                        .font(.caption)
-                                        .overlay {
-                                            if pending {
-                                                ProgressView()
-                                            }
-                                        }.focused($focusedField, equals: .ReplyText)
-                                }
-                                HStack {
-                                    Spacer()
-                                    if showError {
-                                        Text(errorText).foregroundColor(.red)
-                                    }
-                                    Spacer()
-                                    SmallPrimaryButton(title: "Send",icon: "paperplane.fill", action: {
-                                        Task {
-                                            await self.postReply()
-                                        }
-                                    })
-                                }
-                            }.padding()
-                        }.background(.black)
-                    }
-                }
-            }
-        }.accentColor(.primary)
+        }
     }
 }
 
@@ -138,7 +134,7 @@ struct ReviewAddReply_Preview: PreviewProvider {
     
     static var previews: some View {
         VStack {
-            ReviewAddReply(path: .constant(NavigationPath()), reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+            ReviewAddReply(showOverlay: .constant(true), path: .constant(NavigationPath()), reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
         }
     }
 }
