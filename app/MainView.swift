@@ -87,6 +87,9 @@ struct MainView: View {
             .navigationDestination(for: DeleteAccountDestination.self) { _ in
                 DeleteAccountView()
             }
+            .navigationDestination(for: UserFriendsListDestination.self) { dest in
+                UserFriendsList(path: self.$path, userId: dest.userId)
+            }
             .navigationDestination(for: FriendsListDestination.self) { friendsList in
                 switch friendsList.view {
                 case .Friends:

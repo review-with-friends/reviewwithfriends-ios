@@ -46,7 +46,6 @@ struct ProfilePicLoader: View {
                     .scaledToFill()
                     .frame(width: profilePicSize.rawValue, height: profilePicSize.rawValue)
                     .clipShape(Circle())
-                    .transition(.fade(duration: 0.5)) // Fade Transition with duration
             } else {
                 ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
             }

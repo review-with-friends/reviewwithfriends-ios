@@ -133,7 +133,7 @@ struct MyProfileView: View {
                         }
                     }
                 }
-            }
+            }.padding(.bottom)
         }.accentColor(.primary).onAppear {
             Task {
                 await self.friendsCache.refreshFriendsCache(token: self.auth.token)

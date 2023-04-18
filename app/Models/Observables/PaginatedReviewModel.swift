@@ -27,6 +27,10 @@ class PaginatedReviewModel: ObservableObject {
         if noMorePages {
             return
         }
+        
+        if self.loading {
+            return
+        }
 
         await loadReviews(auth: auth, userCache: userCache, action: action)
     }

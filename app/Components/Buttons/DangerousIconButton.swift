@@ -1,32 +1,31 @@
 //
-//  IconButton.swift
+//  DangerousIconButton.swift
 //  app
 //
-//  Created by Colton Lathrop on 3/8/23.
+//  Created by Colton Lathrop on 4/17/23.
 //
 
 import Foundation
 import SwiftUI
 
-struct IconButton: View {
+struct DangerousIconButton: View {
     var icon: String
     var action: () -> Void
     
     var body: some View {
         Button(action: self.action){
             ZStack {
-                Circle().foregroundColor(.primary).frame(width: 32)
-                Image(systemName: icon).foregroundColor(.black)
+                Image(systemName: icon).foregroundColor(.red)
             }.disabled(false)
         }.cornerRadius(50)
     }
 }
 
 
-struct IconButton_Previews: PreviewProvider {
+struct DangerousIconButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            IconButton(icon: "car.fill", action: {})
+            DangerousIconButton(icon: "car.fill", action: {})
         }.preferredColorScheme(.dark)
     }
 }

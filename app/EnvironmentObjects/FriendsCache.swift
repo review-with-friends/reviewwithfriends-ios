@@ -47,6 +47,13 @@ class FriendsCache: ObservableObject {
         }
     }
     
+    /// Checks if user is a friend of the passed userId.
+    func areFriends(userId: String) -> Bool {
+        self.fullFriends.friends.contains { friend in
+            friend.friendId == userId
+        }
+    }
+    
     static func generateDummyData() -> FriendsCache {
         let friendsCache = FriendsCache()
         
