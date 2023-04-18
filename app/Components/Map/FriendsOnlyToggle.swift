@@ -23,9 +23,7 @@ struct FriendsOnlyToggle: View {
                     } else {
                         Image(systemName:"person.2")
                     }
-                }.padding(.horizontal, 8)
-                    .padding(.top, 12)
-                    .padding(.bottom, 4)
+                }
             }
     }
 }

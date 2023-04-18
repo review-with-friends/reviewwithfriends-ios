@@ -25,9 +25,7 @@ struct LocateButton: View {
                     } else {
                         Image(systemName:"location")
                     }
-                }.padding(.horizontal, 8)
-                    .padding(.bottom, 12)
-                    .padding(.top, 4)
+                }
             }
         }
     }

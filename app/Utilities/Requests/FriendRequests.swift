@@ -197,3 +197,39 @@ func discoverFriendsWithNumbers(token: String, numbers: [String]) async -> Resul
         return .failure(error)
     }
 }
+
+/// Gets the users you are requestings friend list.
+/// Will fail on the backend if you are not friends with this person.
+func getUserFriends(token: String, userId: String) async -> Result<[Friend], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: FRIEND_V1_ENDPOINT + "/user") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "user_id", value: userId)])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await app.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            
+            let userFriends = try decoder.decode([Friend].self, from: data)
+
+            return .success(userFriends)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}

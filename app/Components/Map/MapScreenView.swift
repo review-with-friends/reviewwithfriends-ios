@@ -119,7 +119,9 @@ struct MapScreenView: View {
     
     var body: some View {
         ZStack {
-            mapView.ignoresSafeArea(.all)
+            mapView.ignoresSafeArea(.all).onTapGesture {
+                app.hideKeyboard()
+            }
             VStack{
                 VStack {
                     HStack {
@@ -129,6 +131,11 @@ struct MapScreenView: View {
                         Image(systemName: "magnifyingglass").foregroundColor(.secondary)
                     }.padding(8).background(APP_BACKGROUND).cornerRadius(8).shadow(radius: 3)
                     HStack {
+                        VStack {
+                            VStack{
+                                FriendsOnlyToggle(isOn: $showUserReviewsOnly, callBack: self.setUserReviewsOnly)
+                            }.foregroundColor(.secondary).padding(10)
+                        }.background(APP_BACKGROUND).cornerRadius(8).shadow(radius: 4)
                         Spacer()
                         if self.showAreaSearchResults {
                             HStack {
@@ -161,12 +168,10 @@ struct MapScreenView: View {
                     Spacer()
                     VStack {
                         VStack{
-                            FriendsOnlyToggle(isOn: $showUserReviewsOnly, callBack: self.setUserReviewsOnly)
-                            Rectangle().frame(height: 0.5)
                             LocateButton(mapDelegate: mapView.mapDelegate)
-                        }.background(APP_BACKGROUND).frame(alignment: .center).cornerRadius(8).shadow(radius: 4).foregroundColor(.secondary)
-                    }.frame(width: 44, height: 144)
-                }.padding(.trailing)
+                        }.foregroundColor(.secondary).padding(10)
+                    }.background(APP_BACKGROUND).cornerRadius(8).shadow(radius: 4)
+                }.padding(.trailing).padding(.bottom, 70)
             }
         }.onAppear {
             self.isVisible = true

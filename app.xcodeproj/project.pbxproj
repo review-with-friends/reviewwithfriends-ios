@@ -185,6 +185,13 @@
 		9CD42DB0296F5B5700C2FBE9 /* SearchForFriendsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DAF296F5B5700C2FBE9 /* SearchForFriendsListItem.swift */; };
 		9CD42DB62970A55300C2FBE9 /* MapBoundaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DB52970A55300C2FBE9 /* MapBoundaryManager.swift */; };
 		9CD42DB82970A57300C2FBE9 /* MapBoundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42DB72970A57300C2FBE9 /* MapBoundary.swift */; };
+		9CF2E16329ECE2BA0024228B /* UserProfileCommandBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16229ECE2BA0024228B /* UserProfileCommandBar.swift */; };
+		9CF2E16629EDA8D70024228B /* UserFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16529EDA8D70024228B /* UserFriendsList.swift */; };
+		9CF2E16A29EDAD9D0024228B /* UserFriendsListDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */; };
+		9CF2E16C29EDDC4E0024228B /* DangerousIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16B29EDDC4E0024228B /* DangerousIconButton.swift */; };
+		9CF2E16E29EDE6140024228B /* ReportUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16D29EDE6140024228B /* ReportUser.swift */; };
+		9CF2E17029EDE6F90024228B /* ReportRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16F29EDE6F90024228B /* ReportRequests.swift */; };
+		9CF2E17229EE40CF0024228B /* HideKeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E17129EE40CF0024228B /* HideKeyboardExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,6 +384,13 @@
 		9CD42DAF296F5B5700C2FBE9 /* SearchForFriendsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForFriendsListItem.swift; sourceTree = "<group>"; };
 		9CD42DB52970A55300C2FBE9 /* MapBoundaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoundaryManager.swift; sourceTree = "<group>"; };
 		9CD42DB72970A57300C2FBE9 /* MapBoundary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoundary.swift; sourceTree = "<group>"; };
+		9CF2E16229ECE2BA0024228B /* UserProfileCommandBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCommandBar.swift; sourceTree = "<group>"; };
+		9CF2E16529EDA8D70024228B /* UserFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsList.swift; sourceTree = "<group>"; };
+		9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsListDestination.swift; sourceTree = "<group>"; };
+		9CF2E16B29EDDC4E0024228B /* DangerousIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangerousIconButton.swift; sourceTree = "<group>"; };
+		9CF2E16D29EDE6140024228B /* ReportUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportUser.swift; sourceTree = "<group>"; };
+		9CF2E16F29EDE6F90024228B /* ReportRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportRequests.swift; sourceTree = "<group>"; };
+		9CF2E17129EE40CF0024228B /* HideKeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboardExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,6 +476,7 @@
 				9C936AFA29C0FC6B00AA1F41 /* PrimaryButtonRed.swift */,
 				9C936AFC29C0FEA300AA1F41 /* PrimaryButtonGreen.swift */,
 				9C0BC9DB29C26E630086E59D /* NavigationTabBar.swift */,
+				9CF2E16B29EDDC4E0024228B /* DangerousIconButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -535,6 +550,7 @@
 				9CAEB39F297780C6009A18A3 /* UIColorExtensions.swift */,
 				9C27DFD2298AEAD20094AEDD /* MKExtensions.swift */,
 				9C2276B7299B5A79005566A0 /* Colors.swift */,
+				9CF2E17129EE40CF0024228B /* HideKeyboardExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -706,6 +722,7 @@
 				9C871D152967465D007B72F7 /* ReplyRequests.swift */,
 				9CD42DA0296E394F00C2FBE9 /* FriendRequests.swift */,
 				9CAEB3AE298998C9009A18A3 /* NotificationRequests.swift */,
+				9CF2E16F29EDE6F90024228B /* ReportRequests.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -765,6 +782,7 @@
 				9C2276CB299EC9BB005566A0 /* EditReviewDestination.swift */,
 				9C1D8F7E29B00C5A00B40B32 /* DiscoverFriendsDestination.swift */,
 				9C0BC9E529C38F230086E59D /* CreateReviewFromImageDestination.swift */,
+				9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */,
 			);
 			path = NavigationDestinations;
 			sourceTree = "<group>";
@@ -993,6 +1011,7 @@
 		9CD42D99296E35B200C2FBE9 /* FriendsList */ = {
 			isa = PBXGroup;
 			children = (
+				9CF2E16529EDA8D70024228B /* UserFriendsList.swift */,
 				9CD42D8F296E2C9E00C2FBE9 /* FriendsList.swift */,
 				9CD42D9B296E35D900C2FBE9 /* FriendsListItem.swift */,
 			);
@@ -1039,6 +1058,8 @@
 			isa = PBXGroup;
 			children = (
 				9CAEB3A829886F57009A18A3 /* UserProfileView.swift */,
+				9CF2E16229ECE2BA0024228B /* UserProfileCommandBar.swift */,
+				9CF2E16D29EDE6140024228B /* ReportUser.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -1223,6 +1244,7 @@
 				9C936AF729BFEFCF00AA1F41 /* SetupRecoveryEmail.swift in Sources */,
 				9C8217B0293BDEDE0011B7E0 /* Retryable.swift in Sources */,
 				9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */,
+				9CF2E16C29EDDC4E0024228B /* DangerousIconButton.swift in Sources */,
 				9C871CC62954FDBA007B72F7 /* FullReview.swift in Sources */,
 				9C936AF929C0F10900AA1F41 /* SetupRecoveryView.swift in Sources */,
 				9C871CEE295E2F33007B72F7 /* CreatedBy.swift in Sources */,
@@ -1236,6 +1258,7 @@
 				9C28C9B429957AF4002296A1 /* SearchDestination.swift in Sources */,
 				9C871D1C2967921C007B72F7 /* LatestReviewsView.swift in Sources */,
 				9CAEB39E29777852009A18A3 /* Pic.swift in Sources */,
+				9CF2E16629EDA8D70024228B /* UserFriendsList.swift in Sources */,
 				9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */,
 				9C936AFD29C0FEA300AA1F41 /* PrimaryButtonGreen.swift in Sources */,
 				9C8217C2293FE19E0011B7E0 /* Loading.swift in Sources */,
@@ -1267,7 +1290,10 @@
 				9C871CD92958B07C007B72F7 /* NavigationManager.swift in Sources */,
 				9C871D1E2967B2F9007B72F7 /* ReviewListItemSkeleton.swift in Sources */,
 				9C28C9B229957A9F002296A1 /* SearchNavButton.swift in Sources */,
+				9CF2E17029EDE6F90024228B /* ReportRequests.swift in Sources */,
+				9CF2E16A29EDAD9D0024228B /* UserFriendsListDestination.swift in Sources */,
 				9CD42DB62970A55300C2FBE9 /* MapBoundaryManager.swift in Sources */,
+				9CF2E16E29EDE6140024228B /* ReportUser.swift in Sources */,
 				9CAEB3A929886F57009A18A3 /* UserProfileView.swift in Sources */,
 				9C8217DF2947D6220011B7E0 /* MapScreenView.swift in Sources */,
 				9C68CC2929521CAE007FC567 /* ReviewHeader.swift in Sources */,
@@ -1331,6 +1357,7 @@
 				9CD42D8D296E08D600C2FBE9 /* FullFriends.swift in Sources */,
 				9C40AA94293667E0009134EA /* Authentication.swift in Sources */,
 				9C2276C7299EC038005566A0 /* LikedReviewsDestination.swift in Sources */,
+				9CF2E17229EE40CF0024228B /* HideKeyboardExtension.swift in Sources */,
 				9C871CDE295BCE4C007B72F7 /* UniqueUser.swift in Sources */,
 				9C871D0729650383007B72F7 /* ReviewHeaderSkeleton.swift in Sources */,
 				9CAEB3AF298998C9009A18A3 /* NotificationRequests.swift in Sources */,
@@ -1338,6 +1365,7 @@
 				9C0BC9F329C7D8A30086E59D /* PHFetchResultManager.swift in Sources */,
 				9CAEB3B22989C075009A18A3 /* NotificationListView.swift in Sources */,
 				9C68CC3429522AEF007FC567 /* ReviewPicLoader.swift in Sources */,
+				9CF2E16329ECE2BA0024228B /* UserProfileCommandBar.swift in Sources */,
 				9C96946229357CB800AAEC25 /* appMain.swift in Sources */,
 				9CB0D10029BD121B002706F8 /* SmolProgressLoader.swift in Sources */,
 				9CAEB3AB2989915C009A18A3 /* NotificationsManager.swift in Sources */,
@@ -1499,9 +1527,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = app/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Review With Friends";
+				INFOPLIST_KEY_CFBundleDisplayName = "Review With Friends";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSContactsUsageDescription = "";
+				INFOPLIST_KEY_NSContactsUsageDescription = "We'll use your contacts to find your friends!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Read location where photos were taken";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1515,7 +1543,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.8;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1543,9 +1571,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = app/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Review With Friends";
+				INFOPLIST_KEY_CFBundleDisplayName = "Review With Friends";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSContactsUsageDescription = "";
+				INFOPLIST_KEY_NSContactsUsageDescription = "We'll use your contacts to find your friends!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Read location where photos were taken";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1559,7 +1587,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.8;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";

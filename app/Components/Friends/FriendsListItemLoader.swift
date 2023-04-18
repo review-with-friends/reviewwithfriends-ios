@@ -25,11 +25,13 @@ struct FriendsListItemLoader: View {
     
     @State var user: User?
     @State var loading: Bool = false
+    @State var error: Bool = false
     
     @EnvironmentObject var auth: Authentication
     
     func loadUser() async {
         self.loading = true
+        self.error = false
         
         let result = await app.getUserById(token: auth.token, userId: userId)
 
@@ -37,6 +39,7 @@ struct FriendsListItemLoader: View {
         case .success(let user):
             self.user = user
         case .failure(_):
+            self.error = true
             break
         }
         
@@ -46,7 +49,7 @@ struct FriendsListItemLoader: View {
     var body: some View  {
         VStack {
             if self.loading {
-                ProgressView()
+                //ProgressView()
             } else {
                 if let user = self.user {
                     switch self.itemType {
@@ -61,7 +64,7 @@ struct FriendsListItemLoader: View {
                     case .SearchItem:
                         SearchForFriendsListItem(path: self.$path, user: user)
                     }
-                } else {
+                } else if self.error {
                     Button(action: {
                         Task {
                             await loadUser()
