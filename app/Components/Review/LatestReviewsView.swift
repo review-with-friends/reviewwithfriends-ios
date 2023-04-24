@@ -28,19 +28,6 @@ struct LatestReviewsView: View {
     
     var body: some View {
         VStack {
-//            HStack {
-//                Button(action:{
-//                    Task {
-//                        await self.model.hardLoadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
-//                        await self.notificationManager.getNotifications(token: self.auth.token)
-//                    }
-//                }) {
-//                    Text("Recent Posts").font(.title3).fontWeight(.bold)
-//                }.accentColor(.primary)
-//                Spacer()
-//                CreateReviewNavButton(path: self.$path)
-//                NotificationNavButton(path: self.$path)
-//            }.padding(.horizontal)
             ScrollView {
                 LazyVStack {
                     ForEach(self.model.reviewsToRender) { review in

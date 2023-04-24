@@ -24,7 +24,7 @@ struct SetNamesView: View {
     @EnvironmentObject var auth: Authentication
     
     func moveToNextScreen() {
-        self.path.append(SetupRecovery())
+        self.path.append(DiscoverFriends())
     }
     
     func showError(error: String) {

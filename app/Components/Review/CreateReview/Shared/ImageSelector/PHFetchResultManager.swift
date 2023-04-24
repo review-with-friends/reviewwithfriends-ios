@@ -77,7 +77,6 @@ class PHFetchResultManager: ObservableObject {
 class IdentifiablePHAsset: Identifiable {
     var asset: PHAsset
     var id: String
-    var selected: Bool = false
     
     init(asset: PHAsset) {
         self.asset = asset

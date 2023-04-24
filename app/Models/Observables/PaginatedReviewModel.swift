@@ -63,7 +63,8 @@ class PaginatedReviewModel: ObservableObject {
                     let userResult = await userCache.getUserById(token: auth.token, userId: review.userId)
                     switch userResult {
                     case .success(let user):
-                        self.reviewsToRender.append(ReviewViewData(id: review.id, fullReview: fullReview, user: user))
+                        let id = "\(review.id)|\(fullReview.likes.count)\(fullReview.replies.count)\(fullReview.pics.count)"
+                        self.reviewsToRender.append(ReviewViewData(id: id, fullReview: fullReview, user: user))
                     case .failure(_):
                         print("failure loading user")
                     }
@@ -98,5 +99,14 @@ class PaginatedReviewModel: ObservableObject {
     func setError(error: String) {
         self.error = error
         self.failed = true
+    }
+}
+
+func extractReviewIdFromRenderId(renderId: String) -> String {
+    let parts = renderId.split(separator: "|")
+    if let id = parts.first {
+        return String(id)
+    } else {
+        return ""
     }
 }

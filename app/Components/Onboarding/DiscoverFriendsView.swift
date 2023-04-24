@@ -14,7 +14,7 @@ struct DiscoverFriendsView: View {
     @EnvironmentObject var auth: Authentication
     
     func moveToNextScreen() {
-        self.path.append(SetNames())
+        self.path.append(SetupRecovery())
     }
     
     var body: some View {

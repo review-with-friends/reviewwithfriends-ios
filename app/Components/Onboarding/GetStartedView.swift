@@ -16,7 +16,7 @@ struct GetStartedView: View {
     let photos = [GetStartedPhoto(id: "like"), GetStartedPhoto(id: "find"), GetStartedPhoto(id: "map_friends"), GetStartedPhoto(id: "search")]
     
     func moveToNextScreen() {
-        self.path.append(DiscoverFriends())
+        self.path.append(SetNames())
     }
     
     var body: some View {

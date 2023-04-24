@@ -18,17 +18,6 @@ struct ReviewListItem: View {
     
     @EnvironmentObject var auth: Authentication
     
-//    func loadFullReview() async -> Void {
-//        let fullReviewResult = await getFullReviewById(token: auth.token, reviewId: self.fullReview.review.id)
-//        
-//        switch fullReviewResult {
-//        case .success(let fullReview):
-//            self.fullReview = fullReview
-//        case .failure(_):
-//            return
-//        }
-//    }
-    
     var body: some View {
         VStack {
             if let pic = self.fullReview.pics.first {

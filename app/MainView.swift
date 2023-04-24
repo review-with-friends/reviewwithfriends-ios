@@ -41,7 +41,7 @@ struct MainView: View {
                     LatestReviewsView(path: self.$path ).tag(0).toolbarBackground(.hidden, for: .tabBar)
                     MapScreenView(path: self.$path, mapView: MapView()).tag(1).toolbarBackground(.hidden, for: .tabBar)
                     if let user = auth.user {
-                        MyProfileView(path: self.$path, user: user)
+                        UserProfileView(path: self.$path, user: user)
                             .tag(2).toolbarBackground(.hidden, for: .tabBar)
                     }
                     NotificationList(path: self.$path).tag(3).toolbarBackground(.hidden, for: .tabBar)
@@ -65,6 +65,12 @@ struct MainView: View {
             }
             .navigationDestination(for: LikedReviewsDestination.self) { dest in
                 LikedReviewsList(path: self.$path)
+            }
+            .navigationDestination(for: SettingsDestination.self) { _ in
+                if let user = auth.user {
+                    MyProfileView(path: self.$path, user: user)
+                        .tag(2).toolbarBackground(.hidden, for: .tabBar)
+                }
             }
             .navigationDestination(for: ReviewDestination.self) { review in
                 ReviewLoader(path: self.$path, review: review, showListItem: false)

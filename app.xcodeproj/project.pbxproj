@@ -35,7 +35,6 @@
 		9C1D8F9229B6870A00B40B32 /* SmallPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D8F9129B6870A00B40B32 /* SmallPrimaryButton.swift */; };
 		9C2276B8299B5A79005566A0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276B7299B5A79005566A0 /* Colors.swift */; };
 		9C2276BB299C24DA005566A0 /* ReviewGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276BA299C24DA005566A0 /* ReviewGridItem.swift */; };
-		9C2276BE299D98E4005566A0 /* ProfileOptionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276BD299D98E4005566A0 /* ProfileOptionMenu.swift */; };
 		9C2276C0299DAAB5005566A0 /* DeleteAccountDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276BF299DAAB5005566A0 /* DeleteAccountDestination.swift */; };
 		9C2276C3299EBE8E005566A0 /* LikedReviewsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276C2299EBE8E005566A0 /* LikedReviewsList.swift */; };
 		9C2276C5299EBE97005566A0 /* LikedReviewsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2276C4299EBE97005566A0 /* LikedReviewsListItem.swift */; };
@@ -192,6 +191,8 @@
 		9CF2E16E29EDE6140024228B /* ReportUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16D29EDE6140024228B /* ReportUser.swift */; };
 		9CF2E17029EDE6F90024228B /* ReportRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16F29EDE6F90024228B /* ReportRequests.swift */; };
 		9CF2E17229EE40CF0024228B /* HideKeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E17129EE40CF0024228B /* HideKeyboardExtension.swift */; };
+		9CF2E17629F4E37C0024228B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CF2E17529F4E37C0024228B /* Launch Screen.storyboard */; };
+		9CF2E17829F59AA60024228B /* SettingsDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E17729F59AA60024228B /* SettingsDestination.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -233,7 +234,6 @@
 		9C1D8F9129B6870A00B40B32 /* SmallPrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallPrimaryButton.swift; sourceTree = "<group>"; };
 		9C2276B7299B5A79005566A0 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		9C2276BA299C24DA005566A0 /* ReviewGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewGridItem.swift; sourceTree = "<group>"; };
-		9C2276BD299D98E4005566A0 /* ProfileOptionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionMenu.swift; sourceTree = "<group>"; };
 		9C2276BF299DAAB5005566A0 /* DeleteAccountDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountDestination.swift; sourceTree = "<group>"; };
 		9C2276C2299EBE8E005566A0 /* LikedReviewsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedReviewsList.swift; sourceTree = "<group>"; };
 		9C2276C4299EBE97005566A0 /* LikedReviewsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedReviewsListItem.swift; sourceTree = "<group>"; };
@@ -391,6 +391,8 @@
 		9CF2E16D29EDE6140024228B /* ReportUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportUser.swift; sourceTree = "<group>"; };
 		9CF2E16F29EDE6F90024228B /* ReportRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportRequests.swift; sourceTree = "<group>"; };
 		9CF2E17129EE40CF0024228B /* HideKeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboardExtension.swift; sourceTree = "<group>"; };
+		9CF2E17529F4E37C0024228B /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		9CF2E17729F59AA60024228B /* SettingsDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDestination.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -783,6 +785,7 @@
 				9C1D8F7E29B00C5A00B40B32 /* DiscoverFriendsDestination.swift */,
 				9C0BC9E529C38F230086E59D /* CreateReviewFromImageDestination.swift */,
 				9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */,
+				9CF2E17729F59AA60024228B /* SettingsDestination.swift */,
 			);
 			path = NavigationDestinations;
 			sourceTree = "<group>";
@@ -942,6 +945,7 @@
 				9C40AA8B2935D298009134EA /* MainView.swift */,
 				9C96946529357CB900AAEC25 /* Assets.xcassets */,
 				9C96946729357CB900AAEC25 /* Preview Content */,
+				9CF2E17529F4E37C0024228B /* Launch Screen.storyboard */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -988,7 +992,6 @@
 			children = (
 				9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */,
 				9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */,
-				9C2276BD299D98E4005566A0 /* ProfileOptionMenu.swift */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -1176,6 +1179,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CF2E17629F4E37C0024228B /* Launch Screen.storyboard in Resources */,
 				9C96946929357CB900AAEC25 /* Preview Assets.xcassets in Resources */,
 				9C96946629357CB900AAEC25 /* Assets.xcassets in Resources */,
 			);
@@ -1217,7 +1221,6 @@
 				9C86881529B96A97005511E8 /* IconButton.swift in Sources */,
 				9C27DFD3298AEAD20094AEDD /* MKExtensions.swift in Sources */,
 				9C871CCA295605DC007B72F7 /* LikeRequests.swift in Sources */,
-				9C2276BE299D98E4005566A0 /* ProfileOptionMenu.swift in Sources */,
 				9CD42D9F296E384800C2FBE9 /* IncomingFriendsListItem.swift in Sources */,
 				9C871D0C2965F5AA007B72F7 /* ReviewListItemHeader.swift in Sources */,
 				9C8217A729395A390011B7E0 /* User.swift in Sources */,
@@ -1318,6 +1321,7 @@
 				9CD42D98296E2F4F00C2FBE9 /* IgnoredFriendsList.swift in Sources */,
 				9C2276CC299EC9BB005566A0 /* EditReviewDestination.swift in Sources */,
 				9C8217B4293C35420011B7E0 /* PicRequests.swift in Sources */,
+				9CF2E17829F59AA60024228B /* SettingsDestination.swift in Sources */,
 				9C871CFB296377AB007B72F7 /* StarsSelector.swift in Sources */,
 				9C1D8F8229B10CE800B40B32 /* UserActions.swift in Sources */,
 				9C2276C0299DAAB5005566A0 /* DeleteAccountDestination.swift in Sources */,
@@ -1534,6 +1538,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Read location where photos were taken";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "location-services";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
@@ -1578,6 +1583,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Read location where photos were taken";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "location-services";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;

@@ -31,12 +31,11 @@ struct ReviewLoaderA: View {
     }
     
     func loadFullReview() async -> Void {
-        let fullReviewResult = await getFullReviewById(token: auth.token, reviewId: review.id)
+        let fullReviewResult = await getFullReviewById(token: self.auth.token, reviewId: extractReviewIdFromRenderId(renderId: self.review.id))
         
         switch fullReviewResult {
         case .success(let fullReview):
             self.fullReview = fullReview
-            print("\(self.fullReview.likes.count)")
         case .failure(_):
             return
         }
@@ -50,7 +49,7 @@ struct ReviewLoaderA: View {
                 ReviewView(path: self.$path, reloadCallback: self.loadFullReview, user: self.review.user, fullReview: self.fullReview)
             }
         }.onAppear {
-            if self.feedRefreshManager.pop(review_id: self.review.id) {
+            if self.feedRefreshManager.pop(review_id: extractReviewIdFromRenderId(renderId: self.review.id)) {
                 Task {
                     await self.loadFullReview()
                 }

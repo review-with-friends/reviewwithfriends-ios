@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ReviewViewData: Identifiable {
+class ReviewViewData: Identifiable, ObservableObject {
     var id: String
     var fullReview: FullReview
     var user: User

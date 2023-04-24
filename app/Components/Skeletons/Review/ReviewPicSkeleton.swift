@@ -23,13 +23,7 @@ struct ReviewPicSkeleton: View {
                 .cornerRadius(16)
                 .overlay {
                     if loading {
-                        SmolProgressLoader()
-                    }
-                    if error {
-                        VStack {
-                            Image(systemName: "exclamationmark.triangle").padding(.bottom, 4)
-                            Text("Tap to retry").font(.caption)
-                        }
+                        ProgressView()
                     }
                 }
     }

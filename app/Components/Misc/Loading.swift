@@ -7,15 +7,25 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 struct Loading: View {
     var body: some View {
-        VStack{
-            Spacer()
-            Image("loader").resizable().scaledToFit()
-            Spacer()
-        }.ignoresSafeArea()
+        ZStack {
+            LaunchScreenView().ignoresSafeArea(.all)
+        }.ignoresSafeArea(.all)
     }
+}
+
+struct LaunchScreenView: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let storyboard = UIStoryboard(name: "Launch Screen", bundle: Bundle.main)
+        let controller = storyboard.instantiateViewController(withIdentifier: "LaunchScreen")
+        
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
 
 struct Loading_Previews: PreviewProvider {

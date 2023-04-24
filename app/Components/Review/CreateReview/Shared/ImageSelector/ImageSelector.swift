@@ -113,7 +113,6 @@ struct ImageSelector: View {
         if self.selectedImages.contains(where: { selection in
             selection.id == asset.id
         }) {
-            asset.selected = false
             self.selectedImages.removeAll { selection in
                 selection.id == asset.id
             }
@@ -135,10 +134,12 @@ struct ImageSelector: View {
         /// This need to contain the orientation metadata which also contains
         /// the potential latitude and longitude of where the image was taken.
         imageManager.requestImageDataAndOrientation(for: asset.asset, options: options) { data, dataUTI, orientation, info  in
+            if self.selectedImages.count >= 3 {
+                return
+            }
             if let data = data {
                 if var image = UIImage(data: data) {
                     image = app.resizeImage(image: image)
-                    asset.selected = true
                     if !self.selectedImages.contains(where: { existingSelection in
                         existingSelection.id == asset.id
                     }) {
@@ -210,7 +211,7 @@ struct ImageSelector: View {
         ScrollView {
             LazyVGrid(columns: [GridItem(), GridItem(), GridItem(), GridItem()]) {
                 ForEach(self.fetchResults.assets) { identifiableAsset in
-                    ImageSelectorGridItem(identifiableAsset: identifiableAsset, selectImageCallback: self.selectImage)
+                    ImageSelectorGridItem(selectedImages: self.$selectedImages, identifiableAsset: identifiableAsset, selectImageCallback: self.selectImage)
                 }
                 if self.fetchResults.finished == false {
                     ProgressView().onAppear(perform: self.loadMoreForImageGrid)
@@ -266,12 +267,17 @@ struct ImageSelector: View {
 }
 
 struct ImageSelectorGridItem: View {
+    @Binding var selectedImages: [ImageSelection]
     @State public var identifiableAsset: IdentifiablePHAsset
     @State var thumbnail: UIImage?
     
     var selectImageCallback: (_: IdentifiablePHAsset) -> Void
     
     var imageManager = PHImageManager.default()
+    
+    func select() {
+        self.selectImageCallback(self.identifiableAsset)
+    }
     
     var body: some View {
         VStack {
@@ -280,14 +286,16 @@ struct ImageSelectorGridItem: View {
                     .aspectRatio(1, contentMode: .fit)
                     .overlay {
                         Button(action: {
-                            self.selectImageCallback(self.identifiableAsset)
+                            self.select()
                         }){
                             Image(uiImage: thumbnail)
                                 .resizable()
                                 .scaledToFill()
                         }
                     }.overlay {
-                        if self.identifiableAsset.selected {
+                        if self.selectedImages.contains(where: { selectedImage in
+                            selectedImage.id == identifiableAsset.id
+                        }) {
                             VStack {
                                 HStack {
                                     Spacer()

@@ -13,6 +13,8 @@ struct MyProfileView: View {
     
     var user: User
     
+    @State var logoutConfirmationShowing = false
+    
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
     
@@ -35,36 +37,6 @@ struct MyProfileView: View {
             }
             List {
                 Section {
-                    VStack {
-                        HStack {
-                            Spacer()
-                            ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true).padding().overlay {
-                                ProfileOptionMenu(path: self.$path)
-                            }
-                            Spacer()
-                        }
-                        HStack {
-                            Spacer()
-                            Text(user.displayName).font(.title)
-                            Spacer()
-                        }
-                        HStack {
-                            Spacer()
-                            Text("@" + user.name).font(.caption)
-                            Spacer()
-                        }
-                    }
-                }
-                Section {
-                    Button(action:{
-                        self.path.append(UniqueUser(userId: user.id))
-                    }){
-                        HStack {
-                            Text("View Profile")
-                            Spacer()
-                            Image(systemName: "chevron.right").foregroundColor(.secondary)
-                        }
-                    }
                     Button(action:{
                         self.path.append(LikedReviewsDestination())
                     }){
@@ -133,11 +105,34 @@ struct MyProfileView: View {
                         }
                     }
                 }
-            }.padding(.bottom)
+                Section {
+                    Button(action:{
+                        auth.resetCachedOnboarding()
+                    }){
+                        HStack {
+                            Text("Change Profile")
+                            Spacer()
+                            Image(systemName: "chevron.right").foregroundColor(.secondary)
+                        }
+                    }
+                    Button("Logout", role: .cancel){
+                        logoutConfirmationShowing = true
+                    }
+                    Button("Delete Account", role: .destructive){
+                        path.append(DeleteAccountDestination())
+                    }
+                }
+            }
         }.accentColor(.primary).onAppear {
             Task {
                 await self.friendsCache.refreshFriendsCache(token: self.auth.token)
             }
+        }.navigationTitle("Settings").confirmationDialog("Are you sure you want to logout?", isPresented: $logoutConfirmationShowing){
+            Button("Yes", role: .destructive) {
+                self.auth.logout()
+            }
+        } message: {
+            Text("Are you sure you want to logout?")
         }
     }
 }

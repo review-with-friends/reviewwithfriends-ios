@@ -48,6 +48,13 @@ struct UserProfileView: View {
                             Spacer()
                             UserProfileCommandBar(path: self.$path, showReportSheet: self.$showReportSheet, userId: self.user.id)
                         }.padding(.bottom.union(.trailing))
+                    } else {
+                        HStack {
+                            Spacer()
+                            IconButton(icon: "gearshape.fill", action: {
+                                self.path.append(SettingsDestination())
+                            }).padding(8)
+                        }
                     }
                 }
                 HStack {
