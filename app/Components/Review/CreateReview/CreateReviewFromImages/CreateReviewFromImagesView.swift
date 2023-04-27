@@ -70,7 +70,7 @@ struct CreateReviewFromImagesView: View {
         VStack {
             TabView(selection: self.$tabSelection) {
                 VStack {
-                    ImageSelector(selectedImages: self.$selectedImages)
+                    ImageSelector(selectedImages: self.$selectedImages, maxImages: 3)
                     VStack {
                         if selectedImages.count == 0 {
                             DisabledPrimaryButton(title: "Continue")
@@ -79,7 +79,7 @@ struct CreateReviewFromImagesView: View {
                             PrimaryButton(title: "Continue", action: {self.tabSelection = 1})
                         }
                     }
-                }.tag(0).scrollIndicators(.hidden)
+                }.tag(0).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
                 VStack {
                     ReviewImageLookup(selectedImages: self.$selectedImages, selectedLocation: self.$selectedLocation).frame(height: 400)
                     Spacer()
@@ -91,7 +91,7 @@ struct CreateReviewFromImagesView: View {
                             PrimaryButton(title: "Continue", action: {self.tabSelection = 2})
                         }
                     }
-                }.tag(1)
+                }.tag(1).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
                 VStack {
                     VStack {
                         if let reviewLocation = self.selectedLocation {
@@ -108,8 +108,8 @@ struct CreateReviewFromImagesView: View {
                             await self.postReview()
                         }})
                     }
-                }.tag(2)
-            }
+                }.tag(2).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
+            }.toolbar(.hidden, for: .tabBar)
         }.accentColor(.primary).overlay {
             if self.pending {
                 VStack {

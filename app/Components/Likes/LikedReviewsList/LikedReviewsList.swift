@@ -28,7 +28,7 @@ struct LikedReviewsList: View {
                 }
                 VStack {
                     if self.model.noMorePages {
-                        Text("Hmmm, no more favorites...").foregroundColor(.secondary).padding(50).font(.caption)
+                        Text("Hmmm, no more likes...").foregroundColor(.secondary).padding(50).font(.caption)
                     }
                     else {
                         ProgressView().padding()

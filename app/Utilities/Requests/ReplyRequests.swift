@@ -12,9 +12,10 @@ let REPLY_V1_ENDPOINT = "https://api.reviewwithfriends.com/api/v1/reply"
 struct AddReplyRequest: Codable {
     var text: String
     var review_id: String
+    var reply_to_id: String?
 }
 
-func addReplyToReview(token: String, reviewId: String, text: String) async -> Result<(), RequestError> {
+func addReplyToReview(token: String, reviewId: String, text: String, replyTo: String?) async -> Result<(), RequestError> {
     var url: URL
     if let url_temp = URL(string: REPLY_V1_ENDPOINT) {
         url = url_temp
@@ -22,7 +23,7 @@ func addReplyToReview(token: String, reviewId: String, text: String) async -> Re
         return .failure(.NetworkingError(message: "failed created url"))
     }
     
-    let requestBody = AddReplyRequest(text: text, review_id: reviewId)
+    let requestBody = AddReplyRequest(text: text, review_id: reviewId, reply_to_id: replyTo)
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"

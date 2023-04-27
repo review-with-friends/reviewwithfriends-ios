@@ -19,7 +19,20 @@ struct ReviewView: View {
     @State var lastLoad = Date()
     @State var showOverlay = false
     
+    @State var isReplyingToReply = false;
+    @State var replyToReplyTo = "";
+    
     @EnvironmentObject var auth: Authentication
+    
+    func setIsReplyingTo(id: String) {
+        self.isReplyingToReply = true
+        self.replyToReplyTo = id
+    }
+    
+    func resetIsReplyingTo() {
+        self.isReplyingToReply = false
+        self.replyToReplyTo = ""
+    }
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -31,13 +44,14 @@ struct ReviewView: View {
                         ReviewText(path: self.$path, fullReview: self.fullReview, reloadCallback: self.reloadCallback)
                         HStack {
                             Spacer()
-                            SmallPrimaryButton(title: "Reply", icon: "arrowshape.turn.up.left.fill", action: {
+                            SmallPrimaryButton(title: "Comment", icon: "square.and.pencil", action: {
                                 withAnimation {
+                                    self.resetIsReplyingTo()
                                     self.showOverlay = true
                                 }
                             })
                         }
-                        ReviewReplies(path: self.$path, reloadCallback: self.reloadCallback, fullReview: self.fullReview)
+                        ReviewReplies(path: self.$path, showReplyOverlay:self.$showOverlay, setReplyingTo: self.setIsReplyingTo, reloadCallback: self.reloadCallback, fullReview: self.fullReview)
                     }.padding(.horizontal)
                 }
             }.scrollDismissesKeyboard(.immediately)
@@ -53,10 +67,9 @@ struct ReviewView: View {
                     await self.reloadCallback()
                 }
             }
-        }.scrollIndicators(.hidden)
-        .overlay {
+        }.scrollIndicators(.hidden).overlay {
             if self.showOverlay {
-                ReviewAddReply(showOverlay: self.$showOverlay, path: self.$path, reloadCallback: reloadCallback, fullReview: fullReview)
+                ReviewAddReply(showOverlay: self.$showOverlay, path: self.$path, resetReplyTo: self.resetIsReplyingTo, replies: self.fullReview.replies, isReplyingTo: self.isReplyingToReply, replyTo: self.replyToReplyTo, reloadCallback: reloadCallback, fullReview: fullReview)
             }
         }
     }

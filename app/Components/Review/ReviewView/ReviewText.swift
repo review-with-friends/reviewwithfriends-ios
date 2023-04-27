@@ -37,7 +37,6 @@ struct ReviewText: View {
         
         switch result {
         case .success():
-            print("pushed \(self.fullReview.review.id)")
             feedRefreshManager.push(review_id: self.fullReview.review.id)
             await reloadCallback()
             break

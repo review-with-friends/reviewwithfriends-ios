@@ -15,6 +15,8 @@ import PhotosUI
 struct ImageSelector: View {
     @Binding var selectedImages: [ImageSelection]
     
+    var maxImages: Int32
+    
     @State private var isLoading: Bool = true
     
     @State private var isPresented: Bool = false
@@ -27,9 +29,10 @@ struct ImageSelector: View {
     
     var imageManager = PHImageManager.default()
     
-    init(selectedImages: Binding<[ImageSelection]>) {
+    init(selectedImages: Binding<[ImageSelection]>, maxImages: Int32) {
         /// Set the binding. Parent will render the selected images.
         self._selectedImages = selectedImages
+        self.maxImages = maxImages
         
         /// Grab authorization status before we render anything
         self.authStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
@@ -119,9 +122,7 @@ struct ImageSelector: View {
             return
         }
         
-        /// Block selection to just 3 total.
-        /// This may change later.
-        if self.selectedImages.count >= 3 {
+        if self.selectedImages.count >= self.maxImages {
             return
         }
         
@@ -134,7 +135,7 @@ struct ImageSelector: View {
         /// This need to contain the orientation metadata which also contains
         /// the potential latitude and longitude of where the image was taken.
         imageManager.requestImageDataAndOrientation(for: asset.asset, options: options) { data, dataUTI, orientation, info  in
-            if self.selectedImages.count >= 3 {
+            if self.selectedImages.count >= self.maxImages {
                 return
             }
             if let data = data {
@@ -154,9 +155,11 @@ struct ImageSelector: View {
     }
     
     var selectLimitedPhotos: some View {
-        SmallPrimaryButton(title: "Add Photos", action: {
+        Button(action:{
             isPresented.toggle()
-        })
+        }){
+            Image(systemName: "photo.stack.fill")
+        }.padding(.top, 1).accentColor(.primary)
     }
     
     var navigateToSettings: some View {
@@ -228,12 +231,52 @@ struct ImageSelector: View {
                     if self.shouldShowAlbumSelect() {
                         ImageAlbumSelector(selectedAssetCollection: self.$selectedAssetCollection)
                     }
-                }
+                    Button(action:{
+                        self.selectedImages = []
+                    }){
+                        Image(systemName: "rectangle.on.rectangle.slash.fill")
+                    }.padding(.top, 1).accentColor(.primary).disabled(self.selectedImages.count == 0).padding(.horizontal, 8.0)
+                }.padding(.vertical, 8)
                 LimitedPicker(isPresented: $isPresented)
                     .frame(width: 0, height: 0)
             }
             if self.isLoading {
-                ProgressView()
+                VStack {
+                    Spacer()
+                    if self.authStatus == .denied {
+                        Image("disobey")
+                            .resizable()
+                            .scaledToFit()
+                            .overlay {
+                                VStack {
+                                    Spacer()
+                                    VStack {
+                                        HStack {
+                                            HStack {
+                                                Text("We don't have access to your Photos.").font(.title2.bold()).padding().foregroundColor(.primary)
+                                            }.background(.blue).cornerRadius(25)
+                                            Spacer()
+                                        }.padding(.horizontal)
+                                        HStack {
+                                            Spacer()
+                                            HStack {
+                                                Text("Don't worry, I don't trust me either.").font(.title2.bold()).padding().foregroundColor(.black)
+                                            }.background(.yellow).cornerRadius(25)
+                                        }.padding(.horizontal)
+                                        HStack {
+                                            HStack {
+                                                Text("Try the Limited Access option and only give us access to what you want to post.").font(.title2.bold()).padding().foregroundColor(.primary)
+                                            }.background(.red).cornerRadius(25)
+                                            Spacer()
+                                        }.padding(.horizontal.union(.bottom))
+                                    }
+                                }.shadow(radius: 5)
+                            }.unsplashToolTip(URL(string: "https://unsplash.com/@bfigas")!).cornerRadius(16)
+                    } else {
+                        ProgressView()
+                    }
+                    Spacer()
+                }
             } else {
                 if self.shouldShowImageGrid() {
                     self.imageGrid

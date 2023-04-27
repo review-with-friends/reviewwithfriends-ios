@@ -11,6 +11,11 @@ import SwiftUI
 struct ReviewAddReply: View {
     @Binding var showOverlay: Bool
     @Binding var path: NavigationPath
+    
+    var resetReplyTo: () -> Void
+    var replies: [Reply]
+    var isReplyingTo: Bool
+    var replyTo: String
     var reloadCallback: () async -> Void
     var fullReview: FullReview
     var scrollProxy: ScrollViewProxy?
@@ -58,7 +63,13 @@ struct ReviewAddReply: View {
             return
         }
         
-        let result = await app.addReplyToReview(token: auth.token, reviewId: fullReview.review.id, text: text)
+        var result: Result<(), RequestError>;
+        
+        if self.isReplyingTo {
+            result = await app.addReplyToReview(token: auth.token, reviewId: fullReview.review.id, text: text, replyTo: self.replyTo)
+        } else {
+            result = await app.addReplyToReview(token: auth.token, reviewId: fullReview.review.id, text: text, replyTo: nil)
+        }
         
         switch result {
         case .success(_):
@@ -96,6 +107,13 @@ struct ReviewAddReply: View {
                 }.padding(-10)
             VStack {
                 self.emojiRow
+                if self.isReplyingTo {
+                    if let reply =  self.replies.first(where: { reply in
+                        reply.id == self.replyTo
+                    }) {
+                        ReplyingToRow(userId: reply.userId, reply: reply)
+                    }
+                }
                 HStack {
                     TextField("Write a reply", text: $text, axis: .vertical)
                         .lineLimit(4...)
@@ -127,14 +145,55 @@ struct ReviewAddReply: View {
     }
 }
 
+struct ReplyingToRow: View {
+    var userId: String
+    var reply: Reply
+    @State var user: User?
+    
+    @EnvironmentObject var userCache: UserCache
+    @EnvironmentObject var auth: Authentication
+    
+    func loadUser() async {
+        let result = await userCache.getUserById(token: auth.token, userId: self.userId, ignoreCache: false)
+        
+        switch result {
+        case .success(let user):
+            self.user = user
+        case .failure(_):
+            print("failed")
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                if let user = self.user {
+                    Text("Replying to:").foregroundColor(.secondary).font(.caption)
+                    Text("@\(user.name)").foregroundColor(.blue).font(.caption)
+                    Text(self.reply.text).foregroundColor(.secondary).font(.caption)
+                    Spacer()
+                }
+            }.onAppear {
+                Task {
+                    await loadUser()
+                }
+            }.padding(.leading, 8)
+        }
+    }
+}
+
 struct ReviewAddReply_Preview: PreviewProvider {
     static func dummyCallback() async {
         
     }
     
+    static func dummyReset() {
+        
+    }
+    
     static var previews: some View {
         VStack {
-            ReviewAddReply(showOverlay: .constant(true), path: .constant(NavigationPath()), reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
+            ReviewAddReply(showOverlay: .constant(true), path: .constant(NavigationPath()), resetReplyTo: dummyReset, replies: [], isReplyingTo: true, replyTo: "", reloadCallback: dummyCallback, fullReview: generateFullReviewPreviewData()).preferredColorScheme(.dark).environmentObject(Authentication.initPreview()).environmentObject(UserCache())
         }
     }
 }

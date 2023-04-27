@@ -41,7 +41,7 @@ struct MyProfileView: View {
                         self.path.append(LikedReviewsDestination())
                     }){
                         HStack {
-                            Text("View Favorites")
+                            Text("View Likes")
                             Spacer()
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
                         }

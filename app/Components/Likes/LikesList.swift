@@ -20,6 +20,6 @@ struct LikesList: View {
                     LikesListItem(path: self.$path, userId: like.userId, date: like.created)
                 }
             }.padding(.horizontal)
-        }.navigationTitle("Favorites").padding(.top)
+        }.navigationTitle("Likes").padding(.top)
     }
 }

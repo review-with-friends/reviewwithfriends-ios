@@ -13,4 +13,5 @@ struct Reply : Codable, Identifiable, Equatable, Hashable {
     let userId: String
     let reviewId: String
     let text: String
+    let replyToId: String?
 }

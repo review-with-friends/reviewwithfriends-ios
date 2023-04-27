@@ -72,7 +72,7 @@ struct CreateReviewView: View {
             }
             TabView(selection: self.$tabSelection) {
                 VStack {
-                    ImageSelector(selectedImages: self.$selectedImages)
+                    ImageSelector(selectedImages: self.$selectedImages, maxImages: 3)
                     VStack {
                         if selectedImages.count == 0 {
                             DisabledPrimaryButton(title: "Continue")

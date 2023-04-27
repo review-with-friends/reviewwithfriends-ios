@@ -20,7 +20,7 @@ struct NotificationListItem: View {
     var body: some View  {
         HStack {
             VStack {
-                ProfilePicLoader(path: self.$path, userId: notification.userId, profilePicSize: .medium, navigatable: true, ignoreCache: false)
+                ProfilePicLoader(path: self.$path, userId: notification.userId, profilePicSize: .mediumSmall, navigatable: true, ignoreCache: false)
             }
             Button(action: {
                 self.path.append(ReviewDestination(id: notification.reviewId, userId: notification.reviewUserId))
@@ -28,12 +28,15 @@ struct NotificationListItem: View {
                 VStack {
                     HStack {
                         if notification.actionType == 1 {
-                            Text("liked your review at \(notification.reviewLocation)").font(.caption).lineLimit(2)
+                            Text("liked your review at \(notification.reviewLocation)").font(.caption)
                         } else if notification.actionType == 2 {
-                            Text("replied to your review at \(notification.reviewLocation)").font(.caption).lineLimit(2)
+                            Text("replied to your review at \(notification.reviewLocation)").font(.caption)
+                        } else if notification.actionType == 3 {
+                            Text("replied to your comment").font(.caption)
                         } else {
-                            Text("mentioned your review at \(notification.reviewLocation)").font(.caption).lineLimit(2)
+                            Text("mentioned your review at \(notification.reviewLocation)").font(.caption)
                         }
+                        Spacer()
                         Text("\(app.getDateString(date: notification.created))").foregroundColor(.secondary).font(.caption)
                         if self.highlighted {
                             Circle().foregroundColor(.red).frame(width: 10)

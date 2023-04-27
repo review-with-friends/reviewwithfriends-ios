@@ -16,8 +16,14 @@ struct EditReviewView: View {
     
     @State var text: String = ""
     @State var stars: Int = 0
+    
     @State var selectedPhoto: Int = 0
     @State var selectedItem: PhotosPickerItem?
+    
+    @State var tabSelection: Int = 0
+    @State var selectedPhotosToUpload: [ImageSelection] = []
+    
+    @State var uploading = false
     
     @EnvironmentObject var auth: Authentication
     
@@ -33,25 +39,20 @@ struct EditReviewView: View {
     }
     
     func addPic(data: Data) async {
+        if self.uploading == true {
+            return
+        }
+        self.uploading = true
         let result = await app.addReviewPic(token: auth.token, reviewId: self.fullReview.review.id, data: data)
         
         switch result {
         case .success():
+            self.uploading = false
             await refreshFullReview()
+            self.path.removeLast()
         case .failure(_):
+            self.uploading = false
             return
-        }
-    }
-    
-    func removePic() async {
-        if let pic = self.fullReview.pics.first(where: { $0.hashValue == self.selectedPhoto }) {
-            let result = await app.removeReviewPic(token: auth.token, picId: pic.id, reviewId: self.fullReview.review.id)
-            switch result {
-            case .success():
-                await refreshFullReview()
-            case .failure(_):
-                return
-            }
         }
     }
     
@@ -75,66 +76,69 @@ struct EditReviewView: View {
     
     var body: some View {
         VStack {
-            HStack{
-                Spacer()
-                ReviewStarsSelector(stars: $stars).padding()
-                Spacer()
-            }.padding()
-            HStack {
-                TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...)
-            }.padding()
-            VStack {
-                HStack {
-                    PhotosPicker(
-                        selection: $selectedItem,
-                        matching: .images,
-                        photoLibrary: .shared()) {
-                            VStack {
-                                Text("Add Another Photo").foregroundColor(self.fullReview.pics.count >= 3 ? .secondary : .green)
-                            }
-                        }.onChange(of: selectedItem) { newItem in
+            TabView(selection: self.$tabSelection) {
+                VStack {
+                    HStack{
+                        Spacer()
+                        ReviewStarsSelector(stars: $stars).padding()
+                        Spacer()
+                    }.padding()
+                    HStack {
+                        TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...)
+                    }.padding()
+                    HStack {
+                        PrimaryButton(title: "Save Caption/Rating", action: {
                             Task {
-                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                                    if let uiImage = UIImage(data: data) {
-                                        let resizedImage = resizeImage(image: uiImage)
-                                        
-                                        if let data = resizedImage.jpegData(compressionQuality: 0.9) {
+                                await self.saveReview()
+                                self.path.removeLast()
+                            }
+                        })
+                    }
+                    Spacer()
+                    VStack {
+                        if self.fullReview.pics.count < 3 {
+                            PrimaryButton(title: "Add Photo", action: {
+                                self.tabSelection = 1
+                            })
+                        } else {
+                            DisabledPrimaryButton(title: "Add Photo")
+                        }
+                        if self.fullReview.pics.count > 1 {
+                            PrimaryButton(title: "Remove Photo", action: {
+                                self.tabSelection = 2
+                            })
+                        } else {
+                            DisabledPrimaryButton(title: "Remove Photo")
+                        }
+                    }
+                }.tag(0)
+                VStack {
+                    VStack {
+                        if self.selectedPhotosToUpload.count > 0 {
+                            PrimaryButton(title: "Upload Photo", action: {
+                                Task {
+                                    if let selectedImage = self.selectedPhotosToUpload.first {
+                                        if let data = selectedImage.image.jpegData(compressionQuality: 0.9) {
                                             await self.addPic(data: data)
                                         }
                                     }
                                 }
-                            }
-                        }.foregroundColor(.primary).disabled(self.fullReview.pics.count >= 3)
-                    Spacer()
-                    Button("Remove Photo", role: .destructive) {
-                        Task {
-                            await self.removePic()
+                            })
+                        } else {
+                            DisabledPrimaryButton(title: "Upload Photo")
                         }
-                    }.padding().disabled(self.fullReview.pics.count <= 1)
-                }
-                TabView(selection: $selectedPhoto) {
-                    ForEach(self.fullReview.pics) { pic in
-                        ReviewPicLoader(path: self.$path, pic: pic).tag(pic.hashValue)
                     }
-                }
+                    ImageSelector(selectedImages: self.$selectedPhotosToUpload, maxImages: 1)
+                }.tag(1)
+                VStack {
+                    RemovePhotoView(path: self.$path, refreshFullReview: self.refreshFullReview, fullReview: self.fullReview)
+                }.tag(2)
             }
-            .tabViewStyle(PageTabViewStyle())
-            .frame(height: 250)
-            Spacer()
         }.onAppear {
             self.text = self.fullReview.review.text
             self.stars = self.fullReview.review.stars
             self.setPicTabView()
-        }.navigationTitle("Edit Review").toolbar {
-            Button(action: {
-                Task {
-                    await self.saveReview()
-                    self.path.removeLast()
-                }
-            }) {
-                Text("Save")
-            }
-        }
+        }.navigationTitle("Edit")
     }
     
     func resizeImage(image: UIImage) -> UIImage {
