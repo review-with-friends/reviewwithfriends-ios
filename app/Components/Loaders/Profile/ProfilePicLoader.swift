@@ -35,10 +35,18 @@ struct ProfilePicLoader: View {
         }
     }
     
+    func getUrl(user: User) -> URL? {
+        if let picUrl = user.picUrl {
+            return URL(string: picUrl)
+        } else {
+            return URL(string: "https://bout.sfo3.cdn.digitaloceanspaces.com/" + user.picId)
+        }
+    }
+    
     var image: some View {
         VStack {
             if let user = self.user {
-                WebImage(url: URL(string: "https://bout.sfo3.cdn.digitaloceanspaces.com/" + user.picId))
+                WebImage(url: self.getUrl(user: user))
                     .placeholder {
                         ProfilePicSkeleton(loading: true, profilePicSize: self.profilePicSize)
                     }

@@ -20,7 +20,7 @@ struct ReviewPicLoader: View {
         if self.reloadHard {
             ReviewPicSkeleton(loading: true, width: pic.width, height: pic.height)
         } else {
-            WebImage(url: URL(string: "https://bout.sfo3.cdn.digitaloceanspaces.com/" + pic.id))
+            WebImage(url: URL(string: pic.url))
                 .placeholder {
                     ReviewPicSkeleton(loading: true, width: pic.width, height: pic.height)
                 }

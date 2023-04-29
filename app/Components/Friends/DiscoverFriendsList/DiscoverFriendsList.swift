@@ -17,6 +17,8 @@ struct DiscoverFriendsList: View {
     @State var results: [User] = []
     @State var numbers: [String] = []
     
+    
+    @State var successfulLoad = false
     @State var pending = false
     @State var failed = false
     
@@ -67,13 +69,16 @@ struct DiscoverFriendsList: View {
     }
     
     func discoverFriends() async {
+        self.successfulLoad = false
         self.failed = false
         self.pending = true
+        
         let result = await app.discoverFriendsWithNumbers(token: auth.token, numbers: self.numbers)
         
         switch result {
         case .success(let users):
             self.results = users
+            self.successfulLoad = true
         case .failure(_):
             self.failed = true
         }
@@ -89,7 +94,34 @@ struct DiscoverFriendsList: View {
                     Spacer()
                 }
             } else {
-                if self.results.count == 0 {
+                if self.results.count == 0 && self.successfulLoad {
+                    VStack {
+                        Spacer()
+                        Image("discover")
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(50).overlay {
+                                VStack {
+                                    Spacer()
+                                    VStack {
+                                        HStack {
+                                            HStack {
+                                                Text("Looks like we can't find any of your contacts already on here.").font(.title2.bold()).padding()
+                                            }.background(.black).cornerRadius(25)
+                                            Spacer()
+                                        }.padding(.horizontal)
+                                        HStack {
+                                            Spacer()
+                                            HStack {
+                                                Text("You should send us to your friends!").font(.title2.bold()).padding()
+                                            }.background(.gray).cornerRadius(25)
+                                        }.padding()
+                                    }
+                                }.shadow(radius: 5)
+                            }.unsplashToolTip(URL(string: "https://unsplash.com/@elevatebeer")!)
+                        Spacer()
+                    }
+                } else if self.results.count == 0 {
                     VStack {
                         Spacer()
                         ProgressView().onAppear {

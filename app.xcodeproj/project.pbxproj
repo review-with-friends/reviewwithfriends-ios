@@ -1562,7 +1562,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = app/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Review With Friends";
+				INFOPLIST_KEY_CFBundleDisplayName = ReviewWithFriends;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSContactsUsageDescription = "We'll use your contacts to find your friends!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
@@ -1607,7 +1607,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = app/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Review With Friends";
+				INFOPLIST_KEY_CFBundleDisplayName = ReviewWithFriends;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSContactsUsageDescription = "We'll use your contacts to find your friends!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;

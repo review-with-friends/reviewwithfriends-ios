@@ -194,7 +194,7 @@ struct MapScreenView: View {
                 
                 for review in reviews {
                     if self.userReviewCategory == "none" || self.userReviewCategory == review.category {
-                        self.mapView.mapDelegate.mapView.addAnnotation(ReviewAnnotation(coordinate: CLLocationCoordinate2D(latitude: review.latitude, longitude: review.longitude), title: review.locationName, picId: review.picId, category: review.category))
+                        self.mapView.mapDelegate.mapView.addAnnotation(ReviewAnnotation(coordinate: CLLocationCoordinate2D(latitude: review.latitude, longitude: review.longitude), title: review.locationName, picId: review.picId, picUrl: review.picUrl, category: review.category))
                     }
                 }
                 

@@ -22,7 +22,7 @@ struct GetStartedView: View {
     var body: some View {
         VStack {
             Spacer()
-            Image("powells")
+            Image("hood")
                 .resizable()
                 .scaledToFit()
                 .cornerRadius(50).overlay {
@@ -30,28 +30,21 @@ struct GetStartedView: View {
                         Spacer()
                         VStack {
                             HStack {
-                                HStack {
-                                    Text("Doubletap reviews to favorite.").font(.title2.bold()).padding()
-                                }.background(.green).cornerRadius(25)
                                 Spacer()
+                                HStack {
+                                    Text("You are logged in now!").font(.title2.bold()).padding()
+                                }.background(.black).cornerRadius(25)
                             }.padding()
                             HStack {
-                                Spacer()
                                 HStack {
-                                    Text("Find where you've been on the map.").font(.title2.bold()).padding().foregroundColor(.black)
-                                }.background(.yellow).cornerRadius(25)
-                            }.padding(.horizontal)
-                            HStack {
-                                HStack {
-                                    Text("Write some reviews for your friends.").font(.title2.bold()).padding()
-                                }.background(.blue).cornerRadius(25)
+                                    Text("Let's setup your profile.").font(.title2.bold()).padding()
+                                }.background(.gray).cornerRadius(25)
                                 Spacer()
-                            }.padding()
+                            }.padding(.horizontal.union(.bottom))
                         }
                     }.shadow(radius: 5)
-                }.unsplashToolTip(URL(string: "https://unsplash.com/@coleito")!)
+                }.unsplashToolTip(URL(string: "https://unsplash.com/@umit1010")!)
             Spacer()
-            Text("You are logged in. Let's setup your profile.")
             PrimaryButton(title: "Get Started", action: {
                 self.moveToNextScreen()
             })

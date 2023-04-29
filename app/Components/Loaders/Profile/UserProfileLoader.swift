@@ -31,7 +31,7 @@ struct UserProfileLoader: View {
     }
     
     func loadUser() async -> Void {
-        let userResult = await userCache.getUserById(token: auth.token, userId: self.userId)
+        let userResult = await userCache.getUserById(token: auth.token, userId: self.userId, ignoreCache: true)
         
         switch userResult {
         case .success(let user):

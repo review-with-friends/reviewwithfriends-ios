@@ -21,6 +21,8 @@ struct SetNamesView: View {
     @State var showError = false
     @State var errorText = ""
     
+    @State var showUnsetUsernameAlert = false
+    
     @EnvironmentObject var auth: Authentication
     
     func moveToNextScreen() {
@@ -86,9 +88,13 @@ struct SetNamesView: View {
                     }
                 }.padding()
                 PrimaryButton(title: "Continue", action: {
-                    Task {
-                        await setNames()
-                        let _ = await auth.getMe()
+                    if self.name.starts(with: "newuser") || self.displayName.starts(with: "newuser"){
+                        self.showUnsetUsernameAlert = true
+                    } else {
+                        Task {
+                            await setNames()
+                            let _ = await auth.getMe()
+                        }
                     }
                 })
             } else {
@@ -102,6 +108,22 @@ struct SetNamesView: View {
                 self.displayName = user.displayName
             }
         }.navigationTitle("Set Username")
+            .alert(
+                "Default Name Not Updated",
+                isPresented: self.$showUnsetUsernameAlert,
+                presenting: ()
+            ) { details in
+                Button(role: .destructive) {
+                    Task {
+                        await setNames()
+                        let _ = await auth.getMe()
+                    }
+                } label: {
+                    Text("Skip Setting Usernames")
+                }
+            } message: { details in
+                Text("One of your names still contains 'newuser', your not forced to change this; but you should!")
+            }
     }
     
     /// Attempts to set both names for the given user.

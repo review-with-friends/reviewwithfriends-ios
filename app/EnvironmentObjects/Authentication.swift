@@ -34,7 +34,7 @@ class Authentication: ObservableObject {
     static func initPreview() -> Authentication
     {
         let auth = Authentication()
-        auth.user = User(id: "123", name: "newuser123", displayName: "newuser123", created: Date.now, picId: "default", recovery: false)
+        auth.user = User(id: "123", name: "newuser123", displayName: "newuser123", created: Date.now, picId: "default", recovery: false, picUrl: "")
         auth.authenticated = true
         auth.token = "wow much token"
         return auth

@@ -12,6 +12,7 @@ struct Review : Codable, Identifiable, Equatable, Hashable {
     let userId: String
     let created: Date
     let picId: String?
+    let picUrl: String?
     let category: String
     let text: String
     let stars: Int

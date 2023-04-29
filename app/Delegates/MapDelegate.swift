@@ -138,7 +138,10 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
     /// Controls how we render the Annotation from the given ReviewAnnotation.
     private func setupReviewAnnotationView(for annotation: ReviewAnnotation, on mapView: MKMapView) -> MKAnnotationView {        
         let view = ReviewAnnotationView(annotation: annotation, reuseIdentifier: nil)
-        if let picId = annotation.picId {
+        
+        if let picUrl = annotation.picUrl {
+            view.photo = annotation.picUrl
+        } else if let picId = annotation.picId {
             view.photo = "https://bout.sfo3.cdn.digitaloceanspaces.com/" + picId
         }
         

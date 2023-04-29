@@ -11,8 +11,6 @@ import SwiftUI
 let PROFILEPIC_V1_ENDPOINT = "https://api.reviewwithfriends.com/api/v1/pic"
 let REVIEWPIC_V1_ENDPOINT = "https://api.reviewwithfriends.com/api/v1/review"
 
-let app_SPACES_ENDPOINT = "https://bout.sfo3.digitaloceanspaces.com/"
-
 func addProfilePic(token: String, data: Data) async -> Result<(), RequestError> {
     var url: URL
     if let url_temp = URL(string: PROFILEPIC_V1_ENDPOINT + "/profile_pic") {
@@ -31,31 +29,6 @@ func addProfilePic(token: String, data: Data) async -> Result<(), RequestError> 
     switch result {
     case .success(_):
         return .success(())
-    case .failure(let error):
-        return .failure(error)
-    }
-}
-
-func getReviewPic(picId: String) async -> Result<UIImage, RequestError> {
-    var url: URL
-    if let url_temp = URL(string: app_SPACES_ENDPOINT + picId) {
-        url = url_temp
-    } else {
-        return .failure(.NetworkingError(message: "failed to create url"))
-    }
-    
-    var request = URLRequest(url: url)
-    request.httpMethod = "GET"
-    
-    let result = await app.requestWithRetry(request: request)
-    
-    switch result {
-    case .success(let data):
-        if let image = UIImage(data: data) {
-            return .success(image)
-        } else {
-            return .failure(.DeserializationError(message: "pic data was not an image"))
-        }
     case .failure(let error):
         return .failure(error)
     }

@@ -13,4 +13,5 @@ struct Pic : Codable, Identifiable, Equatable, Hashable {
     let reviewId: String
     let width: Int
     let height: Int
+    let url: String
 }

@@ -41,13 +41,16 @@ class ReviewAnnotation: NSObject, MKAnnotation {
     
     var picId: String?
     
+    var picUrl: String?
+    
     var category: String?
     
-    init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil, picId: String?, category: String?) {
+    init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil, picId: String?, picUrl: String?, category: String?) {
         self.coordinate = coordinate
         self.title = title
         self.subtitle = subtitle
         self.picId = picId
+        self.picUrl = picUrl
         self.category = category
     }
 }
