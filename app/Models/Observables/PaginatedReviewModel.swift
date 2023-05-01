@@ -57,6 +57,9 @@ class PaginatedReviewModel: ObservableObject {
             reviews = removeExisting(incomingReviews: reviews)
             
             for review in reviews {
+                if review.id == "ecc7b206-90bc-49e1-a36e-5df9f56cfa6a"{
+                    continue
+                }
                 let fullReviewResult = await getFullReviewById(token: auth.token, reviewId: review.id)
                 switch fullReviewResult {
                 case .success(let fullReview):

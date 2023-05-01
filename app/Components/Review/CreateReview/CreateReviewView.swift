@@ -174,7 +174,10 @@ struct CreateReviewView: View {
                         let _ = await app.addReviewPic(token: auth.token, reviewId: review.id, data: data)
                     }
                 }
+                
                 self.path.removeLast()
+                
+                app.requestUserAppReview()
             case .failure(let err):
                 self.showError(error: err.description)
             }

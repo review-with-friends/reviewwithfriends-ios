@@ -196,6 +196,7 @@ struct CreateReviewFromImagesView: View {
                     }
                 }
                 self.path.removeLast()
+                app.requestUserAppReview()
             case .failure(let err):
                 self.showError(error: err.description)
             }
