@@ -106,6 +106,15 @@ struct MyProfileView: View {
                     }
                 }
                 Section {
+                    Link(destination: URL(string: "https://reviewwithfriends.com/PRIVACYPOLICY.pdf")!){
+                        HStack {
+                            Text("Privacy Policy")
+                            Spacer()
+                            Image(systemName: "chevron.right").foregroundColor(.secondary)
+                        }
+                    }
+                }
+                Section {
                     Button(action:{
                         auth.resetCachedOnboarding()
                     }){

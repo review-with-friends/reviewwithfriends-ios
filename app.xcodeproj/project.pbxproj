@@ -1559,7 +1559,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = app/belocal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"app/Preview Content\"";
 				DEVELOPMENT_TEAM = W3CBQB54QR;
@@ -1568,9 +1568,9 @@
 				INFOPLIST_FILE = app/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ReviewWithFriends;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSContactsUsageDescription = "We'll use your contacts to find your friends!";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Read location where photos were taken";
+				INFOPLIST_KEY_NSContactsUsageDescription = "We use your contacts to search for your friends already on the app! We don't store your contacts in any persistent manner on our servers, only temporarily to search.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sharing your location allows Review with Friends to default our maps to your current location. We do not store your location in any capacity.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We use your Photo Library to upload your photos to our app! We read metadata from your photos to understand where they were taken and tailor the review experience to that!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1605,7 +1605,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = app/belocal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"app/Preview Content\"";
 				DEVELOPMENT_TEAM = W3CBQB54QR;
 				ENABLE_PREVIEWS = YES;
@@ -1613,9 +1613,9 @@
 				INFOPLIST_FILE = app/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ReviewWithFriends;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSContactsUsageDescription = "We'll use your contacts to find your friends!";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = YES;
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Read location where photos were taken";
+				INFOPLIST_KEY_NSContactsUsageDescription = "We use your contacts to search for your friends already on the app! We don't store your contacts in any persistent manner on our servers, only temporarily to search.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sharing your location allows Review with Friends to default our maps to your current location. We do not store your location in any capacity.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We use your Photo Library to upload your photos to our app! We read metadata from your photos to understand where they were taken and tailor the review experience to that!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";

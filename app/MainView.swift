@@ -127,6 +127,7 @@ struct MainView: View {
                 if UIApplication.shared.alternateIconName != "AppIcon-New1" {
                     UIApplication.shared.setAlternateIconName("AppIcon-New1")
                 }
+                print(auth.token)
                 
                 app.requestNotifications()
                 
