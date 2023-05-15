@@ -1,20 +1,16 @@
 //
-//  MyProfileView.swift
+//  ManageFriends.swift
 //  app
 //
-//  Created by Colton Lathrop on 1/10/23.
+//  Created by Colton Lathrop on 5/12/23.
 //
 
 import Foundation
 import SwiftUI
 
-struct MyProfileView: View {
+struct ManageFriends: View {
     @Binding var path: NavigationPath
-    
-    var user: User
-    
-    @State var logoutConfirmationShowing = false
-    
+
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
     
@@ -32,27 +28,13 @@ struct MyProfileView: View {
     
     var body: some View {
         VStack {
-            if user.recovery == false {
-                SetupRecoveryEmail()
-            }
             List {
-                Section {
-                    Button(action:{
-                        self.path.append(LikedReviewsDestination())
-                    }){
-                        HStack {
-                            Text("View Likes")
-                            Spacer()
-                            Image(systemName: "chevron.right").foregroundColor(.secondary)
-                        }
-                    }
-                }
                 Section {
                     Button(action:{
                         self.path.append(FriendsListDestination(view: .Incoming))
                     }){
                         HStack {
-                            Text("Incoming Friend Requests").badge(self.getIncomingCount())
+                            Text("Incoming").badge(self.getIncomingCount())
                             Spacer()
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
                         }
@@ -61,7 +43,7 @@ struct MyProfileView: View {
                         self.path.append(FriendsListDestination(view: .Outgoing))
                     }){
                         HStack {
-                            Text("Outgoing Friend Requests").badge(self.getOutgoingCount())
+                            Text("Outgoing").badge(self.getOutgoingCount())
                             Spacer()
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
                         }
@@ -70,7 +52,7 @@ struct MyProfileView: View {
                         self.path.append(FriendsListDestination(view: .Ignored))
                     }){
                         HStack {
-                            Text("Ignored Friend Requests")
+                            Text("Ignored")
                             Spacer()
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
                         }
@@ -105,53 +87,20 @@ struct MyProfileView: View {
                         }
                     }
                 }
-                Section {
-                    Link(destination: URL(string: "https://reviewwithfriends.com/PRIVACYPOLICY.pdf")!){
-                        HStack {
-                            Text("Privacy Policy")
-                            Spacer()
-                            Image(systemName: "chevron.right").foregroundColor(.secondary)
-                        }
-                    }
-                }
-                Section {
-                    Button(action:{
-                        auth.resetCachedOnboarding()
-                    }){
-                        HStack {
-                            Text("Change Profile")
-                            Spacer()
-                            Image(systemName: "chevron.right").foregroundColor(.secondary)
-                        }
-                    }
-                    Button("Logout", role: .cancel){
-                        logoutConfirmationShowing = true
-                    }
-                    Button("Delete Account", role: .destructive){
-                        path.append(DeleteAccountDestination())
-                    }
-                }
             }
         }.accentColor(.primary).onAppear {
             Task {
                 await self.friendsCache.refreshFriendsCache(token: self.auth.token)
             }
-        }.navigationTitle("Settings").confirmationDialog("Are you sure you want to logout?", isPresented: $logoutConfirmationShowing){
-            Button("Yes", role: .destructive) {
-                self.auth.logout()
-            }
-        } message: {
-            Text("Are you sure you want to logout?")
-        }
+        }.navigationBarTitle("Manage Friends", displayMode: .large)
     }
 }
 
-struct MyProfileView_Preview: PreviewProvider {
+struct ManageFriends_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            MyProfileView(path: .constant(NavigationPath()), user: generateUserPreviewData())
+            ManageFriends(path: .constant(NavigationPath()))
                 .preferredColorScheme(.dark)
-                .environmentObject(Authentication.initPreview())
                 .environmentObject(UserCache())
                 .environmentObject(FriendsCache.generateDummyData())
         }

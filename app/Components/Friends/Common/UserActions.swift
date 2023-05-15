@@ -78,7 +78,6 @@ struct UserActions: View {
     var body: some View {
         VStack {
             if self.isMe() {
-                Text("You!").foregroundColor(.secondary)
             }
             else if self.isUserFriend() {
                 Text("Friends").foregroundColor(.secondary)

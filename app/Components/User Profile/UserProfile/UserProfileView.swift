@@ -51,6 +51,19 @@ struct UserProfileView: View {
                     } else {
                         HStack {
                             Spacer()
+                            IconButton(icon: "person.2.fill", action: {
+                                self.path.append(ManageFriendsDestination())
+                            }).padding(8).overlay {
+                                VStack {
+                                    if self.friendsCache.fullFriends.incomingRequests.count > 0 {
+                                        VStack {
+                                            Circle().foregroundColor(.red).frame(width: 16).overlay {
+                                                Text(self.friendsCache.getIncomingFriendRequestCountString()).font(.caption)
+                                            }.offset(x: 16, y: -10)
+                                        }
+                                    }
+                                }
+                            }
                             IconButton(icon: "gearshape.fill", action: {
                                 self.path.append(SettingsDestination())
                             }).padding(8)
@@ -132,6 +145,8 @@ struct UserProfileView: View {
                 if self.showGrid {
                     await self.model.onItemAppear(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
                 }
+                // ignore errors here, its fine and best effort
+                let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
             }
         }.sheet(isPresented: self.$showReportSheet) {
             ReportUser(showReportSheet: self.$showReportSheet, userId: self.user.id)

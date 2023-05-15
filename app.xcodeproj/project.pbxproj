@@ -49,7 +49,7 @@
 		9C27DFD3298AEAD20094AEDD /* MKExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C27DFD2298AEAD20094AEDD /* MKExtensions.swift */; };
 		9C28C99129919868002296A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C99029919868002296A1 /* AppDelegate.swift */; };
 		9C28C9932991A0E9002296A1 /* ParseCustomSchemeUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9922991A0E9002296A1 /* ParseCustomSchemeUrl.swift */; };
-		9C28C9B229957A9F002296A1 /* SearchNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9B129957A9F002296A1 /* SearchNavButton.swift */; };
+		9C28C9B229957A9F002296A1 /* CreateReviewNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9B129957A9F002296A1 /* CreateReviewNavButton.swift */; };
 		9C28C9B429957AF4002296A1 /* SearchDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9B329957AF4002296A1 /* SearchDestination.swift */; };
 		9C40AA8C2935D298009134EA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40AA8B2935D298009134EA /* MainView.swift */; };
 		9C40AA8E2935D2AB009134EA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40AA8D2935D2AB009134EA /* OnboardingView.swift */; };
@@ -69,6 +69,10 @@
 		9C68CC2E29522334007FC567 /* ReviewPicOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C68CC2D29522334007FC567 /* ReviewPicOverlay.swift */; };
 		9C68CC3429522AEF007FC567 /* ReviewPicLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C68CC3329522AEF007FC567 /* ReviewPicLoader.swift */; };
 		9C6F44D729E71F3400E20515 /* ReviewLikedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F44D629E71F3400E20515 /* ReviewLikedBy.swift */; };
+		9C7265062A0DDC98005368ED /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265052A0DDC98005368ED /* TabBarButton.swift */; };
+		9C7265092A0EB75C005368ED /* ManageFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265082A0EB75C005368ED /* ManageFriends.swift */; };
+		9C72650B2A0EB7EC005368ED /* ManageFriendsDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C72650A2A0EB7EC005368ED /* ManageFriendsDestination.swift */; };
+		9C72650D2A0EE4FA005368ED /* FeedReloadCallbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C72650C2A0EE4FA005368ED /* FeedReloadCallbackManager.swift */; };
 		9C82179429368ECC0011B7E0 /* GetCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179329368ECC0011B7E0 /* GetCodeView.swift */; };
 		9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179529368F300011B7E0 /* PhoneInput.swift */; };
 		9C82179929369C800011B7E0 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179829369C800011B7E0 /* ErrorDisplay.swift */; };
@@ -132,7 +136,6 @@
 		9C871D1C2967921C007B72F7 /* LatestReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D1B2967921C007B72F7 /* LatestReviewsView.swift */; };
 		9C871D1E2967B2F9007B72F7 /* ReviewListItemSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D1D2967B2F9007B72F7 /* ReviewListItemSkeleton.swift */; };
 		9C871D222968EB6A007B72F7 /* UserProfileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D212968EB6A007B72F7 /* UserProfileLoader.swift */; };
-		9C871D242968ED70007B72F7 /* MyProfileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D232968ED70007B72F7 /* MyProfileLoader.swift */; };
 		9C871D262968EDF0007B72F7 /* FriendsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D252968EDF0007B72F7 /* FriendsCache.swift */; };
 		9C871D282968F04F007B72F7 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D272968F04F007B72F7 /* FriendRequest.swift */; };
 		9C871D2A2968F0F3007B72F7 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C871D292968F0F3007B72F7 /* Friend.swift */; };
@@ -172,7 +175,7 @@
 		9CAEB3BB2989DDD2009A18A3 /* NotificationNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3BA2989DDD2009A18A3 /* NotificationNavButton.swift */; };
 		9CB0D10029BD121B002706F8 /* SmolProgressLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB0D0FF29BD121B002706F8 /* SmolProgressLoader.swift */; };
 		9CCCEB5D29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCCEB5C29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift */; };
-		9CD42D81296DE5F100C2FBE9 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */; };
+		9CD42D81296DE5F100C2FBE9 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D80296DE5F100C2FBE9 /* UserSettings.swift */; };
 		9CD42D83296DF54E00C2FBE9 /* ProfilePicSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D82296DF54E00C2FBE9 /* ProfilePicSkeleton.swift */; };
 		9CD42D8B296E067800C2FBE9 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */; };
 		9CD42D8D296E08D600C2FBE9 /* FullFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD42D8C296E08D600C2FBE9 /* FullFriends.swift */; };
@@ -256,7 +259,7 @@
 		9C286DA229A042F500D7EE12 /* belocal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = belocal.entitlements; sourceTree = "<group>"; };
 		9C28C99029919868002296A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C28C9922991A0E9002296A1 /* ParseCustomSchemeUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseCustomSchemeUrl.swift; sourceTree = "<group>"; };
-		9C28C9B129957A9F002296A1 /* SearchNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavButton.swift; sourceTree = "<group>"; };
+		9C28C9B129957A9F002296A1 /* CreateReviewNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewNavButton.swift; sourceTree = "<group>"; };
 		9C28C9B329957AF4002296A1 /* SearchDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDestination.swift; sourceTree = "<group>"; };
 		9C40AA8B2935D298009134EA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9C40AA8D2935D2AB009134EA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -273,6 +276,10 @@
 		9C68CC2D29522334007FC567 /* ReviewPicOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPicOverlay.swift; sourceTree = "<group>"; };
 		9C68CC3329522AEF007FC567 /* ReviewPicLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPicLoader.swift; sourceTree = "<group>"; };
 		9C6F44D629E71F3400E20515 /* ReviewLikedBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLikedBy.swift; sourceTree = "<group>"; };
+		9C7265052A0DDC98005368ED /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
+		9C7265082A0EB75C005368ED /* ManageFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFriends.swift; sourceTree = "<group>"; };
+		9C72650A2A0EB7EC005368ED /* ManageFriendsDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFriendsDestination.swift; sourceTree = "<group>"; };
+		9C72650C2A0EE4FA005368ED /* FeedReloadCallbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedReloadCallbackManager.swift; sourceTree = "<group>"; };
 		9C82179329368ECC0011B7E0 /* GetCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCodeView.swift; sourceTree = "<group>"; };
 		9C82179529368F300011B7E0 /* PhoneInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInput.swift; sourceTree = "<group>"; };
 		9C82179829369C800011B7E0 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
@@ -337,7 +344,6 @@
 		9C871D1B2967921C007B72F7 /* LatestReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestReviewsView.swift; sourceTree = "<group>"; };
 		9C871D1D2967B2F9007B72F7 /* ReviewListItemSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListItemSkeleton.swift; sourceTree = "<group>"; };
 		9C871D212968EB6A007B72F7 /* UserProfileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileLoader.swift; sourceTree = "<group>"; };
-		9C871D232968ED70007B72F7 /* MyProfileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileLoader.swift; sourceTree = "<group>"; };
 		9C871D252968EDF0007B72F7 /* FriendsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCache.swift; sourceTree = "<group>"; };
 		9C871D272968F04F007B72F7 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		9C871D292968F0F3007B72F7 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -376,7 +382,7 @@
 		9CAEB3BA2989DDD2009A18A3 /* NotificationNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNavButton.swift; sourceTree = "<group>"; };
 		9CB0D0FF29BD121B002706F8 /* SmolProgressLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmolProgressLoader.swift; sourceTree = "<group>"; };
 		9CCCEB5C29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchZoomReviewPicLoader.swift; sourceTree = "<group>"; };
-		9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		9CD42D80296DE5F100C2FBE9 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		9CD42D82296DF54E00C2FBE9 /* ProfilePicSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicSkeleton.swift; sourceTree = "<group>"; };
 		9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		9CD42D8C296E08D600C2FBE9 /* FullFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullFriends.swift; sourceTree = "<group>"; };
@@ -491,7 +497,6 @@
 				9C86881429B96A97005511E8 /* IconButton.swift */,
 				9C936AFA29C0FC6B00AA1F41 /* PrimaryButtonRed.swift */,
 				9C936AFC29C0FEA300AA1F41 /* PrimaryButtonGreen.swift */,
-				9C0BC9DB29C26E630086E59D /* NavigationTabBar.swift */,
 				9CF2E16B29EDDC4E0024228B /* DangerousIconButton.swift */,
 			);
 			path = Buttons;
@@ -594,7 +599,6 @@
 		9C28C9B029957A91002296A1 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				9C28C9B129957A9F002296A1 /* SearchNavButton.swift */,
 				9C26318F29957C5E00A65CC3 /* SearchReviewsView.swift */,
 			);
 			path = Search;
@@ -647,6 +651,7 @@
 		9C68CC3029522968007FC567 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9C7265042A0DDC7E005368ED /* NavBar */,
 				9C8217C3293FEC670011B7E0 /* ErrorViews */,
 				9C8217A32939580E0011B7E0 /* Login */,
 				9C82179229368E9A0011B7E0 /* Onboarding */,
@@ -687,6 +692,24 @@
 				9C82179529368F300011B7E0 /* PhoneInput.swift */,
 			);
 			path = Inputs;
+			sourceTree = "<group>";
+		};
+		9C7265042A0DDC7E005368ED /* NavBar */ = {
+			isa = PBXGroup;
+			children = (
+				9C28C9B129957A9F002296A1 /* CreateReviewNavButton.swift */,
+				9C0BC9DB29C26E630086E59D /* NavigationTabBar.swift */,
+				9C7265052A0DDC98005368ED /* TabBarButton.swift */,
+			);
+			path = NavBar;
+			sourceTree = "<group>";
+		};
+		9C7265072A0EB750005368ED /* ManageFriends */ = {
+			isa = PBXGroup;
+			children = (
+				9C7265082A0EB75C005368ED /* ManageFriends.swift */,
+			);
+			path = ManageFriends;
 			sourceTree = "<group>";
 		};
 		9C82179229368E9A0011B7E0 /* Onboarding */ = {
@@ -770,6 +793,7 @@
 				9C871D252968EDF0007B72F7 /* FriendsCache.swift */,
 				9CAEB3AA2989915C009A18A3 /* NotificationsManager.swift */,
 				9C033AAA29D3691000EDDF14 /* FeedForceRefreshManager.swift */,
+				9C72650C2A0EE4FA005368ED /* FeedReloadCallbackManager.swift */,
 			);
 			path = EnvironmentObjects;
 			sourceTree = "<group>";
@@ -777,8 +801,9 @@
 		9C871CDF295BCFC1007B72F7 /* User Profile */ = {
 			isa = PBXGroup;
 			children = (
+				9C7265072A0EB750005368ED /* ManageFriends */,
 				9CD42DB3297086EF00C2FBE9 /* UserProfile */,
-				9CD42D88296E057500C2FBE9 /* MyProfile */,
+				9CD42D88296E057500C2FBE9 /* UserSettings */,
 			);
 			path = "User Profile";
 			sourceTree = "<group>";
@@ -799,7 +824,6 @@
 				9C871CDD295BCE4C007B72F7 /* UniqueUser.swift */,
 				9C871CF02963594D007B72F7 /* UniqueLocationCreateReview.swift */,
 				9CD42D91296E2D7600C2FBE9 /* FriendsListDestination.swift */,
-				9CAEB3B52989CE1F009A18A3 /* ReviewDestination.swift */,
 				9CAEB3B72989D0F1009A18A3 /* NotificationDestination.swift */,
 				9C28C9B329957AF4002296A1 /* SearchDestination.swift */,
 				9C2276BF299DAAB5005566A0 /* DeleteAccountDestination.swift */,
@@ -808,7 +832,9 @@
 				9C1D8F7E29B00C5A00B40B32 /* DiscoverFriendsDestination.swift */,
 				9C0BC9E529C38F230086E59D /* CreateReviewFromImageDestination.swift */,
 				9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */,
+				9CAEB3B52989CE1F009A18A3 /* ReviewDestination.swift */,
 				9CF2E17729F59AA60024228B /* SettingsDestination.swift */,
+				9C72650A2A0EB7EC005368ED /* ManageFriendsDestination.swift */,
 			);
 			path = NavigationDestinations;
 			sourceTree = "<group>";
@@ -904,7 +930,6 @@
 			children = (
 				9C8217B6293C36440011B7E0 /* ProfilePicLoader.swift */,
 				9C871D212968EB6A007B72F7 /* UserProfileLoader.swift */,
-				9C871D232968ED70007B72F7 /* MyProfileLoader.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1013,13 +1038,13 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
-		9CD42D88296E057500C2FBE9 /* MyProfile */ = {
+		9CD42D88296E057500C2FBE9 /* UserSettings */ = {
 			isa = PBXGroup;
 			children = (
 				9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */,
-				9CD42D80296DE5F100C2FBE9 /* MyProfileView.swift */,
+				9CD42D80296DE5F100C2FBE9 /* UserSettings.swift */,
 			);
-			path = MyProfile;
+			path = UserSettings;
 			sourceTree = "<group>";
 		};
 		9CD42D8E296E2C9200C2FBE9 /* Friends */ = {
@@ -1305,7 +1330,6 @@
 				9CAEB3B42989C081009A18A3 /* NotificationListItem.swift in Sources */,
 				9CD42DA1296E394F00C2FBE9 /* FriendRequests.swift in Sources */,
 				9C8217E72949293D0011B7E0 /* Review.swift in Sources */,
-				9C871D242968ED70007B72F7 /* MyProfileLoader.swift in Sources */,
 				9CAEB3AD298991BE009A18A3 /* UserNotification.swift in Sources */,
 				9C871D042964FBC8007B72F7 /* ReviewListItem.swift in Sources */,
 				9C2631952995AEE700A65CC3 /* PaginatedReviewModel.swift in Sources */,
@@ -1324,8 +1348,9 @@
 				9C0BC9EC29C40DE40086E59D /* ImageSelector.swift in Sources */,
 				9C871CF12963594D007B72F7 /* UniqueLocationCreateReview.swift in Sources */,
 				9C871CD92958B07C007B72F7 /* NavigationManager.swift in Sources */,
+				9C7265092A0EB75C005368ED /* ManageFriends.swift in Sources */,
 				9C871D1E2967B2F9007B72F7 /* ReviewListItemSkeleton.swift in Sources */,
-				9C28C9B229957A9F002296A1 /* SearchNavButton.swift in Sources */,
+				9C28C9B229957A9F002296A1 /* CreateReviewNavButton.swift in Sources */,
 				9CF2E17029EDE6F90024228B /* ReportRequests.swift in Sources */,
 				9CF2E16A29EDAD9D0024228B /* UserFriendsListDestination.swift in Sources */,
 				9CD42DB62970A55300C2FBE9 /* MapBoundaryManager.swift in Sources */,
@@ -1341,10 +1366,11 @@
 				9CAEB3922971D456009A18A3 /* MapKitExtensions.swift in Sources */,
 				9C1D8F9029B6843400B40B32 /* LocationReviewHeader.swift in Sources */,
 				9C40AA9029365B31009134EA /* IntializerView.swift in Sources */,
-				9CD42D81296DE5F100C2FBE9 /* MyProfileView.swift in Sources */,
+				9CD42D81296DE5F100C2FBE9 /* UserSettings.swift in Sources */,
 				9CD42D92296E2D7600C2FBE9 /* FriendsListDestination.swift in Sources */,
 				9C1D8F8D29B66AB100B40B32 /* DisabledPrimaryButton.swift in Sources */,
 				9C0BC9E829C391190086E59D /* ReviewImageLookup.swift in Sources */,
+				9C72650B2A0EB7EC005368ED /* ManageFriendsDestination.swift in Sources */,
 				9C8217AD293BCC990011B7E0 /* NameValidationError.swift in Sources */,
 				9C8217A5293958740011B7E0 /* LoginView.swift in Sources */,
 				9C936AFF29C135AB00AA1F41 /* DeeplinkNavigationQueue.swift in Sources */,
@@ -1379,6 +1405,7 @@
 				9C68CC2529513090007FC567 /* ReviewPreviewData.swift in Sources */,
 				9C8217C9294022D30011B7E0 /* WelcomeView.swift in Sources */,
 				9CAEB3B82989D0F1009A18A3 /* NotificationDestination.swift in Sources */,
+				9C7265062A0DDC98005368ED /* TabBarButton.swift in Sources */,
 				9C1D8F7F29B00C5A00B40B32 /* DiscoverFriendsDestination.swift in Sources */,
 				9C8217B2293C327D0011B7E0 /* SetProfilePicView.swift in Sources */,
 				9CAEB3A529885454009A18A3 /* LikesListItem.swift in Sources */,
@@ -1411,6 +1438,7 @@
 				9C8217DC2947C5DF0011B7E0 /* LocateButton.swift in Sources */,
 				9C871CFF2963E611007B72F7 /* ChildViewReloadCallback.swift in Sources */,
 				9C28C9932991A0E9002296A1 /* ParseCustomSchemeUrl.swift in Sources */,
+				9C72650D2A0EE4FA005368ED /* FeedReloadCallbackManager.swift in Sources */,
 				9C839CB329D63EEA0025A20A /* ZeroNotifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

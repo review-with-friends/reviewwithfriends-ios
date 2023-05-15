@@ -19,6 +19,7 @@ struct MainView: View {
     @State var path = NavigationPath()
     
     @StateObject var feedRefreshManager = FeedRefreshManager()
+    @StateObject var feedReloadCallbackManager =  FeedReloadCallbackManager(callback: nil)
     
     func processDeepLinkQueue() {
         if self.appDelegate.deeplinkQueue.count > 0 {
@@ -68,9 +69,12 @@ struct MainView: View {
             }
             .navigationDestination(for: SettingsDestination.self) { _ in
                 if let user = auth.user {
-                    MyProfileView(path: self.$path, user: user)
+                    UserSettings(path: self.$path, user: user)
                         .tag(2).toolbarBackground(.hidden, for: .tabBar)
                 }
+            }
+            .navigationDestination(for: ManageFriendsDestination.self) { _ in
+                ManageFriends(path: self.$path)
             }
             .navigationDestination(for: ReviewDestination.self) { review in
                 ReviewLoader(path: self.$path, review: review, showListItem: false)
@@ -111,6 +115,7 @@ struct MainView: View {
                 }
             }
         }.environmentObject(ChildViewReloadCallback(callback: nil))
+            .environmentObject(self.feedReloadCallbackManager)
             .environmentObject(self.feedRefreshManager)
             .accentColor(.primary)
             .onFirstAppear {
@@ -127,7 +132,6 @@ struct MainView: View {
                 if UIApplication.shared.alternateIconName != "AppIcon-New1" {
                     UIApplication.shared.setAlternateIconName("AppIcon-New1")
                 }
-                print(auth.token)
                 
                 app.requestNotifications()
                 

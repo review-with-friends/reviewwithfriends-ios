@@ -47,6 +47,6 @@ struct LikedReviewsList: View {
             Task {
                 await self.model.loadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
             }
-        }.scrollIndicators(.hidden).navigationTitle("Favorites")
+        }.scrollIndicators(.hidden).navigationTitle("Likes")
     }
 }

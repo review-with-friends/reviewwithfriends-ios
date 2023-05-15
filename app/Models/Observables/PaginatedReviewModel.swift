@@ -10,7 +10,7 @@ import Foundation
 /// Observable model to fetch reviews for rendering.
 @MainActor
 class PaginatedReviewModel: ObservableObject {
-    @Published var loading = true
+    @Published var loading = false
     @Published var failed = false
     @Published var error = ""
     @Published var reviews: [Review] = []
@@ -27,10 +27,6 @@ class PaginatedReviewModel: ObservableObject {
         if noMorePages {
             return
         }
-        
-        if self.loading {
-            return
-        }
 
         await loadReviews(auth: auth, userCache: userCache, action: action)
     }
@@ -44,7 +40,12 @@ class PaginatedReviewModel: ObservableObject {
     }
     
     func loadReviews(auth: Authentication, userCache: UserCache, action: (_: Int) async -> Result<[Review], RequestError>) async {
+        if self.loading {
+            return
+        }
+        
         self.loading = true
+        
         self.resetError()
         
         let reviews_res = await action(self.nextPage)
