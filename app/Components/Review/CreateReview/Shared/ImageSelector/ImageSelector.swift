@@ -322,6 +322,18 @@ struct ImageSelectorGridItem: View {
         self.selectImageCallback(self.identifiableAsset)
     }
     
+    func getPosition() -> Int {
+        let index = selectedImages.firstIndex { selection in
+            return selection.id == identifiableAsset.id
+        }
+        
+        if let foundIndex = index {
+            return foundIndex + 1
+        } else {
+            return 1
+        }
+    }
+    
     var body: some View {
         VStack {
             if let thumbnail = self.thumbnail {
@@ -343,8 +355,8 @@ struct ImageSelectorGridItem: View {
                                 HStack {
                                     Spacer()
                                     ZStack {
-                                        Circle().foregroundColor(.white).frame(width: 16)
-                                        Image(systemName: "checkmark.circle.fill").foregroundColor(.blue).padding(2)
+                                        Image(systemName: "circle.fill").foregroundColor(.blue).padding(2)
+                                        Text("\(self.getPosition())").foregroundColor(.white).font(.caption).bold()
                                     }
                                 }
                                 Spacer()
