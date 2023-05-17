@@ -74,6 +74,9 @@
 		9C72650B2A0EB7EC005368ED /* ManageFriendsDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C72650A2A0EB7EC005368ED /* ManageFriendsDestination.swift */; };
 		9C72650D2A0EE4FA005368ED /* FeedReloadCallbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C72650C2A0EE4FA005368ED /* FeedReloadCallbackManager.swift */; };
 		9C72650F2A1306ED005368ED /* AddImagesUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C72650E2A1306ED005368ED /* AddImagesUploader.swift */; };
+		9C7265112A154895005368ED /* PrivacyInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265102A154895005368ED /* PrivacyInfoSheet.swift */; };
+		9C7265142A156072005368ED /* RecentUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265132A156072005368ED /* RecentUpdateView.swift */; };
+		9C7265162A156093005368ED /* ShowRecentUpdateDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265152A156093005368ED /* ShowRecentUpdateDrawer.swift */; };
 		9C82179429368ECC0011B7E0 /* GetCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179329368ECC0011B7E0 /* GetCodeView.swift */; };
 		9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179529368F300011B7E0 /* PhoneInput.swift */; };
 		9C82179929369C800011B7E0 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179829369C800011B7E0 /* ErrorDisplay.swift */; };
@@ -282,6 +285,9 @@
 		9C72650A2A0EB7EC005368ED /* ManageFriendsDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFriendsDestination.swift; sourceTree = "<group>"; };
 		9C72650C2A0EE4FA005368ED /* FeedReloadCallbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedReloadCallbackManager.swift; sourceTree = "<group>"; };
 		9C72650E2A1306ED005368ED /* AddImagesUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImagesUploader.swift; sourceTree = "<group>"; };
+		9C7265102A154895005368ED /* PrivacyInfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyInfoSheet.swift; sourceTree = "<group>"; };
+		9C7265132A156072005368ED /* RecentUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentUpdateView.swift; sourceTree = "<group>"; };
+		9C7265152A156093005368ED /* ShowRecentUpdateDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRecentUpdateDrawer.swift; sourceTree = "<group>"; };
 		9C82179329368ECC0011B7E0 /* GetCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCodeView.swift; sourceTree = "<group>"; };
 		9C82179529368F300011B7E0 /* PhoneInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInput.swift; sourceTree = "<group>"; };
 		9C82179829369C800011B7E0 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
@@ -468,6 +474,7 @@
 				9C0BC9F229C7D8A30086E59D /* PHFetchResultManager.swift */,
 				9C86B08629C8E20100A00769 /* ImageSelectorPhotoDisplay.swift */,
 				9C033AA829D2464200EDDF14 /* ImageAlbumSelector.swift */,
+				9C7265102A154895005368ED /* PrivacyInfoSheet.swift */,
 			);
 			path = ImageSelector;
 			sourceTree = "<group>";
@@ -586,6 +593,7 @@
 				9C28C9922991A0E9002296A1 /* ParseCustomSchemeUrl.swift */,
 				9C1D8F7C29B005A400B40B32 /* ContactLookups.swift */,
 				9C04904129FF1BE90063F5D5 /* RequestAppReview.swift */,
+				9C7265152A156093005368ED /* ShowRecentUpdateDrawer.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -654,6 +662,7 @@
 		9C68CC3029522968007FC567 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9C7265122A156064005368ED /* RecentUpdates */,
 				9C7265042A0DDC7E005368ED /* NavBar */,
 				9C8217C3293FEC670011B7E0 /* ErrorViews */,
 				9C8217A32939580E0011B7E0 /* Login */,
@@ -713,6 +722,22 @@
 				9C7265082A0EB75C005368ED /* ManageFriends.swift */,
 			);
 			path = ManageFriends;
+			sourceTree = "<group>";
+		};
+		9C7265122A156064005368ED /* RecentUpdates */ = {
+			isa = PBXGroup;
+			children = (
+				9C7265172A1561B2005368ED /* RecentUpdateArchive */,
+				9C7265132A156072005368ED /* RecentUpdateView.swift */,
+			);
+			path = RecentUpdates;
+			sourceTree = "<group>";
+		};
+		9C7265172A1561B2005368ED /* RecentUpdateArchive */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RecentUpdateArchive;
 			sourceTree = "<group>";
 		};
 		9C82179229368E9A0011B7E0 /* Onboarding */ = {
@@ -1364,6 +1389,7 @@
 				9C68CC2929521CAE007FC567 /* ReviewHeader.swift in Sources */,
 				9C1D8F7429AEA30600B40B32 /* GetStartedView.swift in Sources */,
 				9C871CD72958AF40007B72F7 /* UniqueLocation.swift in Sources */,
+				9C7265162A156093005368ED /* ShowRecentUpdateDrawer.swift in Sources */,
 				9C871D13296604F0007B72F7 /* ReviewText.swift in Sources */,
 				9C0BC9DC29C26E630086E59D /* NavigationTabBar.swift in Sources */,
 				9C8217A229393F0C0011B7E0 /* RequestError.swift in Sources */,
@@ -1378,6 +1404,7 @@
 				9C8217AD293BCC990011B7E0 /* NameValidationError.swift in Sources */,
 				9C8217A5293958740011B7E0 /* LoginView.swift in Sources */,
 				9C936AFF29C135AB00AA1F41 /* DeeplinkNavigationQueue.swift in Sources */,
+				9C7265142A156072005368ED /* RecentUpdateView.swift in Sources */,
 				9C871D222968EB6A007B72F7 /* UserProfileLoader.swift in Sources */,
 				9C68CC2729516588007FC567 /* UserPreviewData.swift in Sources */,
 				9C871D282968F04F007B72F7 /* FriendRequest.swift in Sources */,
@@ -1419,6 +1446,7 @@
 				9C871CC42954F422007B72F7 /* Like.swift in Sources */,
 				9C8D86D02999892D007E714F /* ReviewPicCarousel.swift in Sources */,
 				9C26319029957C5E00A65CC3 /* SearchReviewsView.swift in Sources */,
+				9C7265112A154895005368ED /* PrivacyInfoSheet.swift in Sources */,
 				9C2276B8299B5A79005566A0 /* Colors.swift in Sources */,
 				9CCCEB5D29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift in Sources */,
 				9C86881729BD0E2F005511E8 /* ProgressLoader.swift in Sources */,

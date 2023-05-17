@@ -18,6 +18,8 @@ struct MainView: View {
     @State var tab = 0
     @State var path = NavigationPath()
     
+    @State var showRecentUpdateDrawer = false
+    
     @StateObject var feedRefreshManager = FeedRefreshManager()
     @StateObject var feedReloadCallbackManager =  FeedReloadCallbackManager(callback: nil)
     
@@ -33,6 +35,10 @@ struct MainView: View {
                 self.appDelegate.deeplinkQueue = []
             }
         }
+    }
+    
+    func showRecentUpdateDrawerIfNeeded() {
+        self.showRecentUpdateDrawer = shouldShowRecentUpdateDrawer()
     }
     
     var body: some View {
@@ -118,7 +124,11 @@ struct MainView: View {
             .environmentObject(self.feedReloadCallbackManager)
             .environmentObject(self.feedRefreshManager)
             .accentColor(.primary)
+            .sheet(isPresented: self.$showRecentUpdateDrawer) {
+                RecentUpdateView()
+            }
             .onFirstAppear {
+                self.showRecentUpdateDrawerIfNeeded()
                 await self.notificatonManager.updateDeviceToken(authToken: self.auth.token, deviceToken: self.appDelegate.deviceToken)
             }
             .onChange(of: self.appDelegate.deeplinkQueue) { _ in

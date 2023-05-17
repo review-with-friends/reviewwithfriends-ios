@@ -23,6 +23,9 @@ struct ImageSelector: View {
     @State private var authStatus: PHAuthorizationStatus
     @State private var changeObserver = ImageSelectorPhotoLibraryChangeObserver()
     
+    /// This controlls a privacy sheet that give the user some insight into what access they are giving
+    @State private var isShowingPrivacySheet = false
+    
     @State private var selectedAssetCollection: IdentifiablePHAssetCollection?
     
     @StateObject var fetchResults: PHFetchResultManager = PHFetchResultManager()
@@ -191,12 +194,24 @@ struct ImageSelector: View {
                 }
             case .authorized:
                 HStack {
-                    Text("Full Photo Access").foregroundColor(.green)
+                    Text("Full Photo Access").foregroundColor(.yellow)
+                    Button(action: {
+                        withAnimation {
+                            self.isShowingPrivacySheet = true
+                        }
+                    }) {
+                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.yellow).padding(0)
+                    }.padding(0)
                     Spacer()
+                }.sheet(isPresented: $isShowingPrivacySheet,
+                        onDismiss: {
+                    self.isShowingPrivacySheet = false
+                }) {
+                    PrivacyInfoSheet()
                 }
             case .limited:
                 HStack {
-                    Text("Limited Photo Access").foregroundColor(.yellow)
+                    Text("Limited Photo Access").foregroundColor(.green)
                     Spacer()
                     self.selectLimitedPhotos
                 }
