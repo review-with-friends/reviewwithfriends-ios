@@ -47,6 +47,10 @@ struct RecentUpdateView: View {
                         Text("- Added how many miles you are away from a location from the location view 🏃‍♀️")
                         Spacer()
                     }.padding(8)
+                    HStack {
+                        Text("- Added search to the map where you find where you went 🔎")
+                        Spacer()
+                    }.padding(8)
                 }.padding()
             }.presentationDragIndicator(.visible)
     }

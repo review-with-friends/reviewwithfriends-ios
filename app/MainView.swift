@@ -56,7 +56,7 @@ struct MainView: View {
                 VStack {
                     Spacer()
                     NavigationTabBar(path: self.$path, tab: self.$tab)
-                }
+                }.ignoresSafeArea(.keyboard)
             }
             .navigationDestination(for: UniqueLocation.self) { uniqueLocation in
                 LocationReviewsView(path: self.$path, uniqueLocation: uniqueLocation)

@@ -84,7 +84,7 @@ struct CreateReviewFromImagesView: View {
                     }
                 }.tag(0).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
                 VStack {
-                    ReviewImageLookup(selectedImages: self.$selectedImages, selectedLocation: self.$selectedLocation).frame(height: 400)
+                    ReviewImageLookup(selectedImages: self.$selectedImages, selectedLocation: self.$selectedLocation)
                     Spacer()
                     VStack {
                         if self.selectedLocation == nil {
@@ -94,7 +94,7 @@ struct CreateReviewFromImagesView: View {
                             PrimaryButton(title: "Continue", action: {self.tabSelection = 2})
                         }
                     }
-                }.tag(1).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
+                }.tag(1).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar).ignoresSafeArea(.keyboard)
                 VStack {
                     VStack {
                         if let reviewLocation = self.selectedLocation {
