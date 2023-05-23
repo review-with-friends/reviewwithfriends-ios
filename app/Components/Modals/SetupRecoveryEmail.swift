@@ -91,7 +91,7 @@ struct SetupRecoveryEmailSheet: View {
             }.padding(.vertical, 4)
             HStack {
                 Image(systemName: "at.circle.fill")
-                TextField("support@spacedoglabs.com", text: $email)
+                TextField("support@reviewwithfriends.com", text: $email)
                     .font(.title3)
                     .padding(.trailing)
                     .disableAutocorrection(true)
@@ -105,11 +105,11 @@ struct SetupRecoveryEmailSheet: View {
             if self.showError {
                 Text(self.errorText).foregroundColor(.red)
             }
-            PrimaryButton(title: "Set Email", action: {
+            PrimaryButton(title: "Update Recovery Email", action: {
                 Task {
                     await self.submitEmail()
                 }
-            })
+            }).padding()
             Spacer()
         }.padding()
     }

@@ -32,3 +32,39 @@ func reportUserById(token: String, userId: String) async -> Result<(), RequestEr
         return .failure(error)
     }
 }
+
+struct BugRequest: Codable {
+    var title: String
+    var description: String
+}
+
+func reportBug(token: String, title: String, description: String) async -> Result<(), RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REPORT_V1_ENDPOINT + "/bug") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed to create url"))
+    }
+    
+    let requestBody = BugRequest(title: title, description: description)
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    do {
+        request.httpBody = try JSONEncoder().encode(requestBody)
+    } catch {
+        return .failure(.URLMalformedError(message: "failed to serialize body"))
+    }
+    
+    let result = await app.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(_):
+        return .success(())
+    case .failure(let error):
+        return .failure(error)
+    }
+}

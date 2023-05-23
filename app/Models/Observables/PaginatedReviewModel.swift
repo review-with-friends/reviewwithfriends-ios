@@ -18,6 +18,7 @@ class PaginatedReviewModel: ObservableObject {
     
     var nextPage = 0
     var noMorePages = false
+    var pendingTask: Task<(), Never>?
     
     func onItemAppear(auth: Authentication, userCache: UserCache, action: (_: Int) async -> Result<[Review], RequestError>) async {
         if reviews.count == 0 {
@@ -47,20 +48,21 @@ class PaginatedReviewModel: ObservableObject {
         self.loading = true
         
         self.resetError()
+        print(self.nextPage)
         
         let reviews_res = await action(self.nextPage)
         
         switch reviews_res {
         case .success(var reviews):
+            self.nextPage += 1
+            
             if reviews.count == 0 {
                 self.noMorePages = true
             }
+            
             reviews = removeExisting(incomingReviews: reviews)
             
             for review in reviews {
-                if review.id == "ecc7b206-90bc-49e1-a36e-5df9f56cfa6a"{
-                    continue
-                }
                 let fullReviewResult = await getFullReviewById(token: auth.token, reviewId: review.id)
                 switch fullReviewResult {
                 case .success(let fullReview):
@@ -76,9 +78,8 @@ class PaginatedReviewModel: ObservableObject {
                     print("failure loading full review")
                 }
             }
+            
             self.reviews.append(contentsOf: reviews)
-
-            self.nextPage += 1
         case .failure(let error):
             self.setError(error: error.description)
         }
@@ -86,13 +87,19 @@ class PaginatedReviewModel: ObservableObject {
         self.loading = false
     }
     
-    func hardLoadReviews(auth: Authentication, userCache: UserCache, action: (_: Int) async -> Result<[Review], RequestError>) async {
+    func hardLoadReviews(auth: Authentication, userCache: UserCache, action: @escaping (_: Int) async -> Result<[Review], RequestError>) async {
+        if let task = self.pendingTask {
+            task.cancel()
+            self.loading = false
+        }
+        
         self.nextPage = 0
         self.reviews = []
         self.reviewsToRender = []
         self.noMorePages = false
-        
+
         await self.loadReviews(auth: auth, userCache: userCache, action: action)
+        
     }
     
     func resetError() {

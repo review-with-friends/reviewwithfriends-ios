@@ -14,15 +14,14 @@ struct UserSettings: View {
     var user: User
     
     @State var logoutConfirmationShowing = false
+    @State var reportBugShowing = false
+    @State var recoveryEmailShowing = false
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
     
     var body: some View {
         VStack {
-            if user.recovery == false {
-                SetupRecoveryEmail()
-            }
             List {
                 Section {
                     Button(action:{
@@ -43,6 +42,15 @@ struct UserSettings: View {
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
                         }
                     }
+                    Button(action:{
+                        self.reportBugShowing = true
+                    }){
+                        HStack {
+                            Text("Report Bug")
+                            Spacer()
+                            Image(systemName: "chevron.right").foregroundColor(.secondary)
+                        }
+                    }
                 }
                 Section {
                     Button(action:{
@@ -52,6 +60,11 @@ struct UserSettings: View {
                             Text("Change Profile")
                             Spacer()
                             Image(systemName: "chevron.right").foregroundColor(.secondary)
+                        }
+                    }
+                    if user.recovery == false {
+                        Button("Set Recovery Email", role: .destructive){
+                            self.recoveryEmailShowing = true
                         }
                     }
                     Button("Logout", role: .cancel){
@@ -70,6 +83,11 @@ struct UserSettings: View {
             }
         } message: {
             Text("Are you sure you want to logout?")
+        }.sheet(isPresented: self.$reportBugShowing ){
+            ReportBug()
+        }
+        .sheet(isPresented: self.$recoveryEmailShowing ){
+            SetupRecoveryEmailSheet(isShowing: self.$recoveryEmailShowing)
         }
     }
 }

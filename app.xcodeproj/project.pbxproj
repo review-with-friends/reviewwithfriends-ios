@@ -77,6 +77,7 @@
 		9C7265112A154895005368ED /* PrivacyInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265102A154895005368ED /* PrivacyInfoSheet.swift */; };
 		9C7265142A156072005368ED /* RecentUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265132A156072005368ED /* RecentUpdateView.swift */; };
 		9C7265162A156093005368ED /* ShowRecentUpdateDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265152A156093005368ED /* ShowRecentUpdateDrawer.swift */; };
+		9C7265192A17E3D6005368ED /* ReportBug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7265182A17E3D6005368ED /* ReportBug.swift */; };
 		9C82179429368ECC0011B7E0 /* GetCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179329368ECC0011B7E0 /* GetCodeView.swift */; };
 		9C82179629368F300011B7E0 /* PhoneInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179529368F300011B7E0 /* PhoneInput.swift */; };
 		9C82179929369C800011B7E0 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C82179829369C800011B7E0 /* ErrorDisplay.swift */; };
@@ -288,6 +289,7 @@
 		9C7265102A154895005368ED /* PrivacyInfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyInfoSheet.swift; sourceTree = "<group>"; };
 		9C7265132A156072005368ED /* RecentUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentUpdateView.swift; sourceTree = "<group>"; };
 		9C7265152A156093005368ED /* ShowRecentUpdateDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRecentUpdateDrawer.swift; sourceTree = "<group>"; };
+		9C7265182A17E3D6005368ED /* ReportBug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportBug.swift; sourceTree = "<group>"; };
 		9C82179329368ECC0011B7E0 /* GetCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCodeView.swift; sourceTree = "<group>"; };
 		9C82179529368F300011B7E0 /* PhoneInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInput.swift; sourceTree = "<group>"; };
 		9C82179829369C800011B7E0 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
@@ -1071,6 +1073,7 @@
 			children = (
 				9CD42D8A296E067800C2FBE9 /* DeleteAccountView.swift */,
 				9CD42D80296DE5F100C2FBE9 /* UserSettings.swift */,
+				9C7265182A17E3D6005368ED /* ReportBug.swift */,
 			);
 			path = UserSettings;
 			sourceTree = "<group>";
@@ -1399,6 +1402,7 @@
 				9CD42D81296DE5F100C2FBE9 /* UserSettings.swift in Sources */,
 				9CD42D92296E2D7600C2FBE9 /* FriendsListDestination.swift in Sources */,
 				9C1D8F8D29B66AB100B40B32 /* DisabledPrimaryButton.swift in Sources */,
+				9C7265192A17E3D6005368ED /* ReportBug.swift in Sources */,
 				9C0BC9E829C391190086E59D /* ReviewImageLookup.swift in Sources */,
 				9C72650B2A0EB7EC005368ED /* ManageFriendsDestination.swift in Sources */,
 				9C8217AD293BCC990011B7E0 /* NameValidationError.swift in Sources */,

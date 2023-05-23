@@ -163,6 +163,11 @@ struct MainView: View {
                     else { return }
                     
                     self.path.append(uniqueLocation)
+                case "user":
+                    guard let uniqueUser = app.getUserIdFromURL(url: url)
+                    else { return }
+                    
+                    self.path.append(uniqueUser)
                 case "review":
                     guard let reviewDestination = app.getReviewDestinationFromUrl(url: url)
                     else { return }

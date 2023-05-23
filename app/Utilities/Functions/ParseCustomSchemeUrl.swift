@@ -27,6 +27,13 @@ func getUniqueLocationFromURL(url: URLComponents) -> UniqueLocation? {
     return UniqueLocation(locationName: locationName, category: category, latitude: latitude, longitude: longitude)
 }
 
+func getUserIdFromURL(url: URLComponents) -> UniqueUser? {
+    guard let userId = url.queryItems?.first(where: { $0.name == "userId" })?.value
+        else { return nil }
+    
+    return UniqueUser(userId: userId)
+}
+
 func getReviewDestinationFromUrl(url: URLComponents) -> ReviewDestination? {
     guard let id = url.queryItems?.first(where: { $0.name == "id" })?.value
         else { return nil }
