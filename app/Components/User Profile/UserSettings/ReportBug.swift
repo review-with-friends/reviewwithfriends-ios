@@ -28,8 +28,7 @@ struct ReportBug: View {
             Task {
                 
             }
-        case .failure(let error):
-            print(error)
+        case .failure(_):
             self.error = true
         }
     }

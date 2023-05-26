@@ -152,7 +152,6 @@ struct ImageSelector: View {
                 } else {
                 }
             } else {
-                print("no data")
             }
         }
     }

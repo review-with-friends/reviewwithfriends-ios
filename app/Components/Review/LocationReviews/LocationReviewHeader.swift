@@ -116,6 +116,22 @@ struct LocationReviewHeader: View {
                 } else {
                     locationManager.startUpdatingLocation()
                 }
+            }.toolbar {
+                Button(action: {
+                    let urlResult = app.generateUniqueLocationURL(uniqueLocation: UniqueLocation(locationName: self.locationName, category: self.category, latitude: self.latitude, longitude: self.longitude))
+                    
+                    switch urlResult {
+                    case .success(let url):
+                        let AV = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                        let scenes = UIApplication.shared.connectedScenes
+                        let windowScene = scenes.first as? UIWindowScene
+                        windowScene?.keyWindow?.rootViewController?.present(AV, animated: true, completion: nil)
+                    case .failure(_):
+                        return
+                    }
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                }.accentColor(.primary)
             }
     }
     
@@ -150,7 +166,6 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("123")
         if let location = locations.first {
             self.callback(location)
         }

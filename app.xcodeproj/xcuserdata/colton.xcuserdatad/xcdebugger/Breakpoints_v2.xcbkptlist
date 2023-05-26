@@ -34,22 +34,101 @@
             endingLineNumber = "167"
             landmarkName = "body"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "B88FDE63-B511-48DE-B78C-339CD6FAFBFF - 32ab7c334481a7a9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #7 (Foundation.URL) -&gt; () in app.MainView.body.getter : some"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "1584">
+               </Location>
+               <Location
+                  uuid = "B88FDE63-B511-48DE-B78C-339CD6FAFBFF - 32ab7c334481a7a9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #7 (Foundation.URL) -&gt; () in app.MainView.body.getter : some"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "1456">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "68DBCBD2-9B2D-41EC-BC46-5097A058D475"
-            shouldBeEnabled = "Yes"
+            uuid = "385A0ECA-2192-45BC-8032-6B629012BEEB"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "app/EnvironmentObjects/Authentication.swift"
+            filePath = "app/Components/Friends/IgnoredFriendsList/IgnoredFriendsListItem.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "init()"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "acceptFriend()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "385A0ECA-2192-45BC-8032-6B629012BEEB - a9ba435fbf677d67"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for app.IgnoredFriendsListItem.acceptFriend() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Friends/IgnoredFriendsList/IgnoredFriendsListItem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "272">
+               </Location>
+               <Location
+                  uuid = "385A0ECA-2192-45BC-8032-6B629012BEEB - 19dda580d3075290"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for app.IgnoredFriendsListItem.acceptFriend() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Friends/IgnoredFriendsList/IgnoredFriendsListItem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "385A0ECA-2192-45BC-8032-6B629012BEEB - ba68ced531643761"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for app.IgnoredFriendsListItem.acceptFriend() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Friends/IgnoredFriendsList/IgnoredFriendsListItem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

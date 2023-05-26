@@ -10,27 +10,28 @@ import SwiftUI
 
 struct RecentUpdateView: View {
     var body: some View {
-            ScrollView {
+        ScrollView {
+            VStack {
+                HStack {
+                    Text("🎉 Update to 1.0.1 🎉").font(.title).bold()
+                }.padding()
+                HStack {
+                    Text("Major Changes:").font(.title2).bold()
+                    Spacer()
+                }.padding()
+                HStack {
+                    Text("- Review photos limit increased to 7 😍")
+                    Spacer()
+                }.padding(8)
+                HStack {
+                    Text("- Friends is now its own button on your profile 👯‍♀️")
+                    Spacer()
+                }.padding(8)
+                HStack {
+                    Text("Minor Changes:").font(.title3).bold()
+                    Spacer()
+                }.padding()
                 VStack {
-                    HStack {
-                        Text("🎉 Update to 1.0.1 🎉").font(.title).bold()
-                    }.padding()
-                    HStack {
-                        Text("Major Changes:").font(.title2).bold()
-                        Spacer()
-                    }.padding()
-                    HStack {
-                        Text("- Review photos limit increased to 7 😍")
-                        Spacer()
-                    }.padding(8)
-                    HStack {
-                        Text("- Friends is now its own button on your profile 👯‍♀️")
-                        Spacer()
-                    }.padding(8)
-                    HStack {
-                        Text("Minor Changes:").font(.title3).bold()
-                        Spacer()
-                    }.padding()
                     HStack {
                         Text("- TabBar got a minor facelift 📸")
                         Spacer()
@@ -51,8 +52,23 @@ struct RecentUpdateView: View {
                         Text("- Added search to the map where you find where you went 🔎")
                         Spacer()
                     }.padding(8)
+                    HStack {
+                        Text("- Share buttons on your profile and on a location 🗣️")
+                        Spacer()
+                    }.padding(8)
+                }
+                HStack {
+                    Text("Bug Fixes:").font(.title3).bold()
+                    Spacer()
                 }.padding()
-            }.presentationDragIndicator(.visible)
+                VStack {
+                    HStack {
+                        Text("- Map friends review annotations didnt pass through the category")
+                        Spacer()
+                    }.padding(8)
+                }
+            }.padding()
+        }.presentationDragIndicator(.visible)
     }
 }
 

@@ -198,5 +198,11 @@ func extractCategoryFromAnnotation(annotation: MKAnnotation) -> String {
         }
     }
     
+    if let annotation = annotation as? ReviewAnnotation {
+        if let category = annotation.category {
+            return category
+        }
+    }
+    
     return ""
 }

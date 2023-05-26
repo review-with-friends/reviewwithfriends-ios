@@ -80,7 +80,7 @@ struct UserActions: View {
             if self.isMe() {
             }
             else if self.isUserFriend() {
-                Text("Friends").foregroundColor(.secondary)
+                // we don't need to show anything, merely showing the users posts implies friendship
             } else if self.isFriendRequestSent() {
                 Button(action: {
                     self.path.append(FriendsListDestination(view: .Outgoing))

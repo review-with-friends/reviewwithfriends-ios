@@ -51,6 +51,19 @@ struct UserProfileView: View {
                     } else {
                         HStack {
                             Spacer()
+                            IconButton(icon: "square.and.arrow.up.fill", action: {
+                                let urlResult = app.generateUniqueUserURL(userId: self.user.id)
+                                
+                                switch urlResult {
+                                case .success(let url):
+                                    let AV = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                                    let scenes = UIApplication.shared.connectedScenes
+                                    let windowScene = scenes.first as? UIWindowScene
+                                    windowScene?.keyWindow?.rootViewController?.present(AV, animated: true, completion: nil)
+                                case .failure(_):
+                                    return
+                                }
+                            }).padding(8)
                             IconButton(icon: "person.2.fill", action: {
                                 self.path.append(ManageFriendsDestination())
                             }).padding(8).overlay {
