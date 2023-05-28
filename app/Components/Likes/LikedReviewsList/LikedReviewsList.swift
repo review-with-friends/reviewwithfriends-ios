@@ -16,8 +16,8 @@ struct LikedReviewsList: View {
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var userCache: UserCache
     
-    func createActionCallback(page: Int) async -> Result<[Review], RequestError> {
-        return await app.getLikedReviews(token: self.auth.token, page: page)
+    func createActionCallback(page: Int) async -> Result<[FullReview], RequestError> {
+        return await app.getLikedFullReviews(token: self.auth.token, page: page)
     }
     
     var body: some View {

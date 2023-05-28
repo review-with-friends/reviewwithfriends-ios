@@ -24,8 +24,8 @@ struct UserProfileView: View {
     @EnvironmentObject var userCache: UserCache
     @EnvironmentObject var friendsCache: FriendsCache
     
-    func createActionCallback(page: Int) async -> Result<[Review], RequestError> {
-        return await app.getReviewsForUser(token: self.auth.token, userId: self.user.id, page: page)
+    func createActionCallback(page: Int) async -> Result<[FullReview], RequestError> {
+        return await app.getFullReviewsForUser(token: self.auth.token, userId: self.user.id, page: page)
     }
     
     static func getCachedGridPreference() -> Bool {

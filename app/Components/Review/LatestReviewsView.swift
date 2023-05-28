@@ -23,8 +23,8 @@ struct LatestReviewsView: View {
     
     @Environment(\.scenePhase) var scenePhase
     
-    func createActionCallback(page: Int) async -> Result<[Review], RequestError> {
-        return await app.getLatestReviews(token: auth.token, page: page)
+    func createActionCallback(page: Int) async -> Result<[FullReview], RequestError> {
+        return await app.getLatestFullReviews(token: auth.token, page: page)
     }
     
     func reloadCallback() {
