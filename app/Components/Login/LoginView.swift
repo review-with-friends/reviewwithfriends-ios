@@ -17,7 +17,7 @@ struct LoginView: View {
     
     var body: some View {
         NavigationStack(path: self.$path) {
-            VStack{
+            VStack {
                 WelcomeView(path: self.$path)
             }
             .navigationDestination(for: GetCode.self) { _ in

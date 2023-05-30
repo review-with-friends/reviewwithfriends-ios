@@ -35,8 +35,12 @@ struct ReviewPicOverlay: View {
                     .opacity(0.00001)
                     .cornerRadius(8.0)
                     .onTapGesture(count: 2) {
+                        if self.isPending {
+                            return
+                        }
                         self.isPending = true
                         self.failed = false
+                        
                         Task {
                             var result: Result<(), RequestError>
                             if alreadyLiked {
@@ -54,7 +58,7 @@ struct ReviewPicOverlay: View {
                                     generator.impactOccurred()
                                     
                                     do {
-                                        try await Task.sleep(for: Duration.milliseconds(250))
+                                        try await Task.sleep(for: Duration.milliseconds(300))
                                         withAnimation {
                                             showHeart = false
                                         }

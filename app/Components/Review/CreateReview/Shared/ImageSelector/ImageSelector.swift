@@ -23,6 +23,9 @@ struct ImageSelector: View {
     @State private var authStatus: PHAuthorizationStatus
     @State private var changeObserver = ImageSelectorPhotoLibraryChangeObserver()
     
+    /// This controlls a privacy sheet that give the user some insight into what access they are giving
+    @State private var isShowingPrivacySheet = false
+    
     @State private var selectedAssetCollection: IdentifiablePHAssetCollection?
     
     @StateObject var fetchResults: PHFetchResultManager = PHFetchResultManager()
@@ -149,7 +152,6 @@ struct ImageSelector: View {
                 } else {
                 }
             } else {
-                print("no data")
             }
         }
     }
@@ -191,12 +193,24 @@ struct ImageSelector: View {
                 }
             case .authorized:
                 HStack {
-                    Text("Full Photo Access").foregroundColor(.green)
+                    Text("Full Photo Access").foregroundColor(.yellow)
+                    Button(action: {
+                        withAnimation {
+                            self.isShowingPrivacySheet = true
+                        }
+                    }) {
+                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.yellow).padding(0)
+                    }.padding(0)
                     Spacer()
+                }.sheet(isPresented: $isShowingPrivacySheet,
+                        onDismiss: {
+                    self.isShowingPrivacySheet = false
+                }) {
+                    PrivacyInfoSheet()
                 }
             case .limited:
                 HStack {
-                    Text("Limited Photo Access").foregroundColor(.yellow)
+                    Text("Limited Photo Access").foregroundColor(.green)
                     Spacer()
                     self.selectLimitedPhotos
                 }
@@ -322,6 +336,18 @@ struct ImageSelectorGridItem: View {
         self.selectImageCallback(self.identifiableAsset)
     }
     
+    func getPosition() -> Int {
+        let index = selectedImages.firstIndex { selection in
+            return selection.id == identifiableAsset.id
+        }
+        
+        if let foundIndex = index {
+            return foundIndex + 1
+        } else {
+            return 1
+        }
+    }
+    
     var body: some View {
         VStack {
             if let thumbnail = self.thumbnail {
@@ -343,8 +369,8 @@ struct ImageSelectorGridItem: View {
                                 HStack {
                                     Spacer()
                                     ZStack {
-                                        Circle().foregroundColor(.white).frame(width: 16)
-                                        Image(systemName: "checkmark.circle.fill").foregroundColor(.blue).padding(2)
+                                        Image(systemName: "circle.fill").foregroundColor(.blue).padding(2)
+                                        Text("\(self.getPosition())").foregroundColor(.white).font(.caption).bold()
                                     }
                                 }
                                 Spacer()

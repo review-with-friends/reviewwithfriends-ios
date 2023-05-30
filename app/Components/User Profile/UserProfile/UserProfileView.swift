@@ -24,8 +24,8 @@ struct UserProfileView: View {
     @EnvironmentObject var userCache: UserCache
     @EnvironmentObject var friendsCache: FriendsCache
     
-    func createActionCallback(page: Int) async -> Result<[Review], RequestError> {
-        return await app.getReviewsForUser(token: self.auth.token, userId: self.user.id, page: page)
+    func createActionCallback(page: Int) async -> Result<[FullReview], RequestError> {
+        return await app.getFullReviewsForUser(token: self.auth.token, userId: self.user.id, page: page)
     }
     
     static func getCachedGridPreference() -> Bool {
@@ -51,6 +51,32 @@ struct UserProfileView: View {
                     } else {
                         HStack {
                             Spacer()
+                            IconButton(icon: "square.and.arrow.up.fill", action: {
+                                let urlResult = app.generateUniqueUserURL(userId: self.user.id)
+                                
+                                switch urlResult {
+                                case .success(let url):
+                                    let AV = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                                    let scenes = UIApplication.shared.connectedScenes
+                                    let windowScene = scenes.first as? UIWindowScene
+                                    windowScene?.keyWindow?.rootViewController?.present(AV, animated: true, completion: nil)
+                                case .failure(_):
+                                    return
+                                }
+                            }).padding(8)
+                            IconButton(icon: "person.2.fill", action: {
+                                self.path.append(ManageFriendsDestination())
+                            }).padding(8).overlay {
+                                VStack {
+                                    if self.friendsCache.fullFriends.incomingRequests.count > 0 {
+                                        VStack {
+                                            Circle().foregroundColor(.red).frame(width: 16).overlay {
+                                                Text(self.friendsCache.getIncomingFriendRequestCountString()).font(.caption)
+                                            }.offset(x: 16, y: -10)
+                                        }
+                                    }
+                                }
+                            }
                             IconButton(icon: "gearshape.fill", action: {
                                 self.path.append(SettingsDestination())
                             }).padding(8)
@@ -132,6 +158,8 @@ struct UserProfileView: View {
                 if self.showGrid {
                     await self.model.onItemAppear(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
                 }
+                // ignore errors here, its fine and best effort
+                let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
             }
         }.sheet(isPresented: self.$showReportSheet) {
             ReportUser(showReportSheet: self.$showReportSheet, userId: self.user.id)

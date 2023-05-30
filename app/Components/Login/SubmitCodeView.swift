@@ -60,6 +60,10 @@ struct SubmitCodeView: View {
     var body: some View {
         VStack {
             Spacer()
+            HStack {
+                Text("We just sent you a message.").font(.title.bold())
+                Spacer()
+            }.padding()
             VStack {
                 HStack {
                     Image(systemName: "number.square")

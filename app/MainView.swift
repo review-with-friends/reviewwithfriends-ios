@@ -18,7 +18,10 @@ struct MainView: View {
     @State var tab = 0
     @State var path = NavigationPath()
     
+    @State var showRecentUpdateDrawer = false
+    
     @StateObject var feedRefreshManager = FeedRefreshManager()
+    @StateObject var feedReloadCallbackManager =  FeedReloadCallbackManager(callback: nil)
     
     func processDeepLinkQueue() {
         if self.appDelegate.deeplinkQueue.count > 0 {
@@ -32,6 +35,10 @@ struct MainView: View {
                 self.appDelegate.deeplinkQueue = []
             }
         }
+    }
+    
+    func showRecentUpdateDrawerIfNeeded() {
+        self.showRecentUpdateDrawer = shouldShowRecentUpdateDrawer()
     }
     
     var body: some View {
@@ -49,7 +56,7 @@ struct MainView: View {
                 VStack {
                     Spacer()
                     NavigationTabBar(path: self.$path, tab: self.$tab)
-                }
+                }.ignoresSafeArea(.keyboard)
             }
             .navigationDestination(for: UniqueLocation.self) { uniqueLocation in
                 LocationReviewsView(path: self.$path, uniqueLocation: uniqueLocation)
@@ -68,9 +75,12 @@ struct MainView: View {
             }
             .navigationDestination(for: SettingsDestination.self) { _ in
                 if let user = auth.user {
-                    MyProfileView(path: self.$path, user: user)
+                    UserSettings(path: self.$path, user: user)
                         .tag(2).toolbarBackground(.hidden, for: .tabBar)
                 }
+            }
+            .navigationDestination(for: ManageFriendsDestination.self) { _ in
+                ManageFriends(path: self.$path)
             }
             .navigationDestination(for: ReviewDestination.self) { review in
                 ReviewLoader(path: self.$path, review: review, showListItem: false)
@@ -111,9 +121,14 @@ struct MainView: View {
                 }
             }
         }.environmentObject(ChildViewReloadCallback(callback: nil))
+            .environmentObject(self.feedReloadCallbackManager)
             .environmentObject(self.feedRefreshManager)
             .accentColor(.primary)
+            .sheet(isPresented: self.$showRecentUpdateDrawer) {
+                RecentUpdateView()
+            }
             .onFirstAppear {
+                self.showRecentUpdateDrawerIfNeeded()
                 await self.notificatonManager.updateDeviceToken(authToken: self.auth.token, deviceToken: self.appDelegate.deviceToken)
             }
             .onChange(of: self.appDelegate.deeplinkQueue) { _ in
@@ -127,7 +142,6 @@ struct MainView: View {
                 if UIApplication.shared.alternateIconName != "AppIcon-New1" {
                     UIApplication.shared.setAlternateIconName("AppIcon-New1")
                 }
-                print(auth.token)
                 
                 app.requestNotifications()
                 
@@ -149,6 +163,11 @@ struct MainView: View {
                     else { return }
                     
                     self.path.append(uniqueLocation)
+                case "user":
+                    guard let uniqueUser = app.getUserIdFromURL(url: url)
+                    else { return }
+                    
+                    self.path.append(uniqueUser)
                 case "review":
                     guard let reviewDestination = app.getReviewDestinationFromUrl(url: url)
                     else { return }

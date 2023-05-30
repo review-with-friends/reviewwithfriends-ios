@@ -11,30 +11,29 @@ import SwiftUI
 struct ZeroNotifications: View {
     var body: some View {
         VStack {
-            ZStack {
-                Image("tables")
-                    .resizable()
-                    .scaledToFit()
-                    .overlay {
+            Image("tables")
+                .resizable()
+                .scaledToFit()
+                .overlay {
+                    VStack {
+                        Spacer()
                         VStack {
-                            Spacer()
-                            VStack {
+                            HStack {
+                                Spacer()
                                 HStack {
-                                    Spacer()
-                                    HStack {
-                                        Text("No notifications yet.").font(.title3.bold()).padding()
-                                    }.background(.white).cornerRadius(25).foregroundColor(.black)
-                                }.padding(.bottom.union(.horizontal))
+                                    Text("No notifications yet.").font(.title3.bold()).padding()
+                                }.background(.white).cornerRadius(25).foregroundColor(.black)
+                            }.padding(.bottom.union(.horizontal))
+                            HStack {
                                 HStack {
-                                    HStack {
-                                        Text("You should post some reviews.").font(.title3.bold()).padding()
-                                    }.background(.black).cornerRadius(25).foregroundColor(.white)
-                                    Spacer()
-                                }.padding(.bottom.union(.horizontal))
-                            }
-                        }.shadow(radius: 5)
-                    }.unsplashToolTip(URL(string: "https://unsplash.com/@kcurtis113")!).cornerRadius(16)
-            }
+                                    Text("You should post some reviews.").font(.title3.bold()).padding()
+                                }.background(.black).cornerRadius(25).foregroundColor(.white)
+                                Spacer()
+                            }.padding(.bottom.union(.horizontal))
+                        }
+                    }.shadow(radius: 5)
+                }.unsplashToolTip(URL(string: "https://unsplash.com/@kcurtis113")!).cornerRadius(16)
+            Spacer()
         }
     }
 }

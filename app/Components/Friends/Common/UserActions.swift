@@ -78,10 +78,9 @@ struct UserActions: View {
     var body: some View {
         VStack {
             if self.isMe() {
-                Text("You!").foregroundColor(.secondary)
             }
             else if self.isUserFriend() {
-                Text("Friends").foregroundColor(.secondary)
+                // we don't need to show anything, merely showing the users posts implies friendship
             } else if self.isFriendRequestSent() {
                 Button(action: {
                     self.path.append(FriendsListDestination(view: .Outgoing))

@@ -54,6 +54,14 @@ class FriendsCache: ObservableObject {
         }
     }
     
+    func getIncomingFriendRequestCountString() -> String {
+        if self.fullFriends.incomingRequests.count <= 9 {
+            return "\(self.fullFriends.incomingRequests.count)"
+        } else {
+            return ""
+        }
+    }
+    
     static func generateDummyData() -> FriendsCache {
         let friendsCache = FriendsCache()
         

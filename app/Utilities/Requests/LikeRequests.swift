@@ -88,3 +88,35 @@ func getLikedReviews(token: String, page: Int) async -> Result<[Review], Request
         return .failure(error)
     }
 }
+
+func getLikedFullReviews(token: String, page: Int) async -> Result<[FullReview], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: LIKE_V1_ENDPOINT + "/current_full") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await app.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode([FullReview].self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}

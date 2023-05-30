@@ -31,9 +31,6 @@ struct ReportUser: View {
         switch reportResult {
         case .success(_):
             self.complete = true
-            Task {
-                
-            }
         case .failure(_):
             self.error = true
         }

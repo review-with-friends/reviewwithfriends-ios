@@ -160,7 +160,7 @@ struct ReplyingToRow: View {
         case .success(let user):
             self.user = user
         case .failure(_):
-            print("failed")
+            return
         }
     }
     

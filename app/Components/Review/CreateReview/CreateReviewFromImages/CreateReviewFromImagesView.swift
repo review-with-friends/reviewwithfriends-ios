@@ -20,8 +20,11 @@ struct CreateReviewFromImagesView: View {
     
     /// Image Data that will be uploaded.
     @State var dataToUpload: Data?
+    
     /// Tracks if the uploading has started to prevent double input.
     @State var pending: Bool = false
+    
+    @State var uploadPhotos: Bool = false
     
     @StateObject var model = CreateReviewModel()
     
@@ -70,7 +73,7 @@ struct CreateReviewFromImagesView: View {
         VStack {
             TabView(selection: self.$tabSelection) {
                 VStack {
-                    ImageSelector(selectedImages: self.$selectedImages, maxImages: 3)
+                    ImageSelector(selectedImages: self.$selectedImages, maxImages: 7)
                     VStack {
                         if selectedImages.count == 0 {
                             DisabledPrimaryButton(title: "Continue")
@@ -81,7 +84,7 @@ struct CreateReviewFromImagesView: View {
                     }
                 }.tag(0).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
                 VStack {
-                    ReviewImageLookup(selectedImages: self.$selectedImages, selectedLocation: self.$selectedLocation).frame(height: 400)
+                    ReviewImageLookup(selectedImages: self.$selectedImages, selectedLocation: self.$selectedLocation)
                     Spacer()
                     VStack {
                         if self.selectedLocation == nil {
@@ -91,7 +94,7 @@ struct CreateReviewFromImagesView: View {
                             PrimaryButton(title: "Continue", action: {self.tabSelection = 2})
                         }
                     }
-                }.tag(1).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
+                }.tag(1).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar).ignoresSafeArea(.keyboard)
                 VStack {
                     VStack {
                         if let reviewLocation = self.selectedLocation {
@@ -111,16 +114,12 @@ struct CreateReviewFromImagesView: View {
                 }.tag(2).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
             }.toolbar(.hidden, for: .tabBar)
         }.accentColor(.primary).overlay {
-            if self.pending {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
+            VStack {
+                if self.uploadPhotos {
+                    if let createdReview = self.review {
+                        AddImagesUploader(finishUploadCallback: self.finishPost, uploadPhoto: self.uploadPhoto, reviewId: createdReview.id, imagesToUpload: self.selectedImages)
                     }
-                    Spacer()
-                }.background(APP_BACKGROUND.opacity(0.5))
+                }
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -190,13 +189,8 @@ struct CreateReviewFromImagesView: View {
             
             switch reviewResult {
             case .success(let review):
-                for selectedImage in self.selectedImages {
-                    if let data = selectedImage.image.jpegData(compressionQuality: 0.9) {
-                        let _ = await app.addReviewPic(token: auth.token, reviewId: review.id, data: data)
-                    }
-                }
-                self.path.removeLast()
-                app.requestUserAppReview()
+                self.review = review
+                self.uploadPhotos = true
             case .failure(let err):
                 self.showError(error: err.description)
             }
@@ -205,6 +199,15 @@ struct CreateReviewFromImagesView: View {
         await self.reloadCallback.callIfExists()
         
         self.pending = false
+    }
+    
+    func uploadPhoto(token: String, reviewId: String, data: Data) async -> Result<(), RequestError> {
+        return await app.addReviewPic(token: token, reviewId: reviewId, data: data)
+    }
+    
+    func finishPost() {
+        self.path.removeLast()
+        app.requestUserAppReview()
     }
 }
 

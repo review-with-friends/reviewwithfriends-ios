@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import MapKit
+import CoreLocation
 
 struct LocationReviewHeader: View {
     @Binding var path: NavigationPath
@@ -17,8 +18,11 @@ struct LocationReviewHeader: View {
     var longitude: Double
     var category: String
     
-    @State var placemark: CLPlacemark?
+    var locationManager = CLLocationManager()
+    @State var locationDelegate: LocationDelegate?
+    @State var distance: Double?
     
+    @State var placemark: CLPlacemark?
     @State var showingMapsConfirmation: Bool = false
     @State var installedMapsApps: [(String, URL)] = []
     
@@ -41,6 +45,10 @@ struct LocationReviewHeader: View {
         
     }
     
+    func updateDistance(location: CLLocation) {
+        self.distance = location.distance(from: CLLocation(latitude: self.latitude, longitude: self.longitude)) * 0.000621371
+    }
+    
     var body: some View {
         VStack {
             VStack {
@@ -60,6 +68,12 @@ struct LocationReviewHeader: View {
                         }
                     }
                     Spacer()
+                }
+                if let distanceFrom = self.distance {
+                    HStack {
+                        Text(String(format: "%.2f miles away", distanceFrom)).font(.caption)
+                        Spacer()
+                    }
                 }
                 HStack {
                     Spacer()
@@ -89,6 +103,35 @@ struct LocationReviewHeader: View {
                 }
             }.onAppear {
                 self.lookupAddress()
+                
+                let delegate = LocationDelegate(latitude: self.latitude, longitude: self.longitude, callback: self.updateDistance)
+                
+                self.locationDelegate = delegate
+                
+                locationManager.delegate = delegate
+                locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                
+                if self.locationManager.authorizationStatus == .notDetermined {
+                    self.locationManager.requestWhenInUseAuthorization()
+                } else {
+                    locationManager.startUpdatingLocation()
+                }
+            }.toolbar {
+                Button(action: {
+                    let urlResult = app.generateUniqueLocationURL(uniqueLocation: UniqueLocation(locationName: self.locationName, category: self.category, latitude: self.latitude, longitude: self.longitude))
+                    
+                    switch urlResult {
+                    case .success(let url):
+                        let AV = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                        let scenes = UIApplication.shared.connectedScenes
+                        let windowScene = scenes.first as? UIWindowScene
+                        windowScene?.keyWindow?.rootViewController?.present(AV, animated: true, completion: nil)
+                    case .failure(_):
+                        return
+                    }
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                }.accentColor(.primary)
             }
     }
     
@@ -107,6 +150,24 @@ struct LocationReviewHeader: View {
         
         if UIApplication.shared.canOpenURL(googleItem.1) {
             self.installedMapsApps.append(googleItem)
+        }
+    }
+}
+
+class LocationDelegate: NSObject, CLLocationManagerDelegate {
+    private var latitude: Double
+    private var longitude: Double
+    private var callback: (CLLocation) -> Void
+    
+    init(latitude: Double, longitude: Double, callback: @escaping (CLLocation) -> Void) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.callback = callback
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            self.callback(location)
         }
     }
 }

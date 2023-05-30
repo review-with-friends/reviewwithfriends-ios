@@ -24,17 +24,25 @@ class ReviewAnnotationView: MKAnnotationView {
 
     let imageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        
         imageView.layer.cornerRadius = 25.0
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        
         return imageView
     }()
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
 
-        frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        addSubview(imageView)
+        self.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+        
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowRadius = 6
+        
+        self.addSubview(imageView)
     }
 
     required init?(coder aDecoder: NSCoder) {

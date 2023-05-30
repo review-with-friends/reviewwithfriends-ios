@@ -76,6 +76,39 @@ func getReviewsForUser(token: String, userId: String, page: Int) async -> Result
     }
 }
 
+func getFullReviewsForUser(token: String, userId: String, page: Int) async -> Result<[FullReview], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/full_reviews_from_user") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "user_id", value: userId)])
+    url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await app.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode([FullReview].self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
 func getLatestReviews(token: String, page: Int) async -> Result<[Review], RequestError> {
     var url: URL
     if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/latest") {
@@ -99,6 +132,38 @@ func getLatestReviews(token: String, page: Int) async -> Result<[Review], Reques
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             decoder.dateDecodingStrategy = .millisecondsSince1970
             let reviews = try decoder.decode([Review].self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
+func getLatestFullReviews(token: String, page: Int) async -> Result<[FullReview], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/latest_full") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await app.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode([FullReview].self, from: data)
             return .success(reviews)
         } catch (let error) {
             return .failure(.DeserializationError(message: error.localizedDescription))

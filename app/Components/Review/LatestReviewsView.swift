@@ -19,11 +19,18 @@ struct LatestReviewsView: View {
     @EnvironmentObject var userCache: UserCache
     @EnvironmentObject var notificationManager: NotificationManager
     @EnvironmentObject var feedRefreshManager: FeedRefreshManager
+    @EnvironmentObject var feedReloadCallbackManager: FeedReloadCallbackManager
     
     @Environment(\.scenePhase) var scenePhase
     
-    func createActionCallback(page: Int) async -> Result<[Review], RequestError> {
-        return await app.getLatestReviews(token: auth.token, page: page)
+    func createActionCallback(page: Int) async -> Result<[FullReview], RequestError> {
+        return await app.getLatestFullReviews(token: auth.token, page: page)
+    }
+    
+    func reloadCallback() {
+        Task {
+            await self.model.hardLoadReviews(auth: self.auth, userCache: self.userCache, action: self.createActionCallback)
+        }
     }
     
     var body: some View {
@@ -65,6 +72,9 @@ struct LatestReviewsView: View {
                 await self.notificationManager.getNotifications(token: self.auth.token)
             }
         }.onAppear {
+            // set the callback whenever - this is cheap right?
+            self.feedReloadCallbackManager.callback = reloadCallback
+            
             if self.feedRefreshManager.popHardReload() {
                 Task {
                     await self.model.hardLoadReviews(auth:self.auth, userCache: self.userCache, action: self.createActionCallback)

@@ -30,7 +30,7 @@
 			<string>com.spacedoglabs.app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>spotster</string>
+				<string>reviewwithfriends</string>
 			</array>
 		</dict>
 	</array>

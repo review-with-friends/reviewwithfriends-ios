@@ -171,8 +171,8 @@ struct MapScreenView: View {
                             LocateButton(mapDelegate: mapView.mapDelegate)
                         }.foregroundColor(.secondary).padding(10)
                     }.background(APP_BACKGROUND).cornerRadius(8).shadow(radius: 4)
-                }.padding(.trailing).padding(.bottom, 70)
-            }
+                }.padding(.trailing).padding(.bottom, 30)
+            }.ignoresSafeArea(.keyboard)
         }.onAppear {
             self.isVisible = true
             self.startBackgroundTask()

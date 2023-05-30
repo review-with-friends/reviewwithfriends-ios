@@ -96,7 +96,7 @@ struct EditReviewView: View {
                     }
                     Spacer()
                     VStack {
-                        if self.fullReview.pics.count < 3 {
+                        if self.fullReview.pics.count < 7 {
                             PrimaryButton(title: "Add Photo", action: {
                                 self.tabSelection = 1
                             })
