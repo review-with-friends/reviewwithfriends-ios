@@ -64,7 +64,7 @@ struct ReviewHeader: View {
                                         showDeleteConfirmation = true
                                     }
                                 } label: {
-                                    Image(systemName: "ellipsis").font(.title)
+                                    Image(systemName: "ellipsis").font(.title).padding(4)
                                 }
                             }
                         }
@@ -157,12 +157,10 @@ struct ReviewHeader_Preview: PreviewProvider {
     }
     
     static var previews: some View {
-        VStack{
             ReviewHeader(path: .constant(NavigationPath()), user: generateUserPreviewData(), fullReview: generateFullReviewPreviewData(), reviewReloadCallback: dummyCallback)
                 .preferredColorScheme(.dark)
                 .environmentObject(Authentication.initPreview())
                 .environmentObject(UserCache())
                 .environmentObject(ChildViewReloadCallback(callback: dummyCallback))
-        }
     }
 }

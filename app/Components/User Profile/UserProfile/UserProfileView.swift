@@ -52,7 +52,7 @@ struct UserProfileView: View {
                                 })
                             }
                             UserProfileCommandBar(path: self.$path, showReportSheet: self.$showReportSheet, userId: self.user.id)
-                        }.padding(.bottom.union(.trailing))
+                        }.padding()
                     } else {
                         HStack {
                             Spacer()
@@ -90,7 +90,7 @@ struct UserProfileView: View {
                             IconButton(icon: "gearshape.fill", action: {
                                 self.path.append(SettingsDestination())
                             }).padding(8)
-                        }
+                        }.padding()
                     }
                 }
                 HStack {
@@ -108,22 +108,27 @@ struct UserProfileView: View {
                     }
                     Spacer()
                 }
+                HStack {
+                    Text("Recommended:").font(.title2).bold().padding(.leading)
+                    Spacer()
+                }
                 if self.friendsCache.areFriends(userId: self.user.id) {
-                    if self.showGrid {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 125))]) {
-                            ForEach(self.model.reviewsToRender) { review in
-                                ReviewGridItem(path: self.$path, fullReview: review.fullReview)
-                            }
-                        }
-                    }
-                    else {
-                        ForEach(self.model.reviewsToRender) { review in
-                            ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
-                        }
+                    ForEach(self.model.reviewsToRender) { review in
+                        ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
                     }
                     VStack {
-                        if self.model.noMorePages {
-                            Text("Thats it!").foregroundColor(.secondary).padding(50).font(.caption)
+                        if self.model.noMorePages && self.model.reviewsToRender.count == 0 {
+                            VStack {
+                                Text("\(self.user.displayName) has no recommended places yet.").foregroundColor(.secondary)
+                                HStack {
+                                    SmallPrimaryButton(title: "See All Reviews", action: {
+                                        self.path.append(UserReviewDestination(userId: self.user.id))
+                                    })
+                                }
+                            }.padding()
+                        }
+                        else if self.model.noMorePages {
+                            ThatsIt().padding(50)
                         }
                         else {
                             ProgressView().padding()

@@ -65,7 +65,7 @@ struct UserReviewView: View {
                     }
                     VStack {
                         if self.model.noMorePages {
-                            Text("Thats it!").foregroundColor(.secondary).padding(50).font(.caption)
+                            ThatsIt().padding(50)
                         }
                         else {
                             ProgressView().padding()

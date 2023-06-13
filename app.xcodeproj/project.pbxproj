@@ -167,6 +167,7 @@
 		9CA5A8592A323915008FA095 /* RecommendedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA5A8582A323915008FA095 /* RecommendedTag.swift */; };
 		9CA5A85C2A37F126008FA095 /* UserReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA5A85B2A37F126008FA095 /* UserReviews.swift */; };
 		9CA5A85E2A37F2D0008FA095 /* UserReviewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA5A85D2A37F2D0008FA095 /* UserReviewDestination.swift */; };
+		9CA5A8602A38DE32008FA095 /* ThatsIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA5A85F2A38DE32008FA095 /* ThatsIt.swift */; };
 		9CAEB3902970AC77009A18A3 /* mapBoundaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB38F2970AC77009A18A3 /* mapBoundaryTests.swift */; };
 		9CAEB3922971D456009A18A3 /* MapKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3912971D456009A18A3 /* MapKitExtensions.swift */; };
 		9CAEB3942971DF47009A18A3 /* MapBoundaryQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3932971DF47009A18A3 /* MapBoundaryQueue.swift */; };
@@ -389,6 +390,7 @@
 		9CA5A8582A323915008FA095 /* RecommendedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedTag.swift; sourceTree = "<group>"; };
 		9CA5A85B2A37F126008FA095 /* UserReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviews.swift; sourceTree = "<group>"; };
 		9CA5A85D2A37F2D0008FA095 /* UserReviewDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewDestination.swift; sourceTree = "<group>"; };
+		9CA5A85F2A38DE32008FA095 /* ThatsIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThatsIt.swift; sourceTree = "<group>"; };
 		9CAEB38F2970AC77009A18A3 /* mapBoundaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapBoundaryTests.swift; sourceTree = "<group>"; };
 		9CAEB3912971D456009A18A3 /* MapKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitExtensions.swift; sourceTree = "<group>"; };
 		9CAEB3932971DF47009A18A3 /* MapBoundaryQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoundaryQueue.swift; sourceTree = "<group>"; };
@@ -1214,6 +1216,7 @@
 				9C871CE2295BD5BD007B72F7 /* ViewExtensions.swift */,
 				9C871CED295E2F33007B72F7 /* CreatedBy.swift */,
 				9C871CD42957755B007B72F7 /* SlimDate.swift */,
+				9CA5A85F2A38DE32008FA095 /* ThatsIt.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1438,6 +1441,7 @@
 				9C28C9B229957A9F002296A1 /* CreateReviewNavButton.swift in Sources */,
 				9CF2E17029EDE6F90024228B /* ReportRequests.swift in Sources */,
 				9CF2E16A29EDAD9D0024228B /* UserFriendsListDestination.swift in Sources */,
+				9CA5A8602A38DE32008FA095 /* ThatsIt.swift in Sources */,
 				9CD42DB62970A55300C2FBE9 /* MapBoundaryManager.swift in Sources */,
 				9CF2E16E29EDE6140024228B /* ReportUser.swift in Sources */,
 				9CAEB3A929886F57009A18A3 /* UserProfileView.swift in Sources */,
