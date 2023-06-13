@@ -13,4 +13,5 @@ class CreateReviewModel: ObservableObject {
     @Published var date = Date()
     @Published var showError = false
     @Published var errorText = ""
+    @Published var delivered = false
 }

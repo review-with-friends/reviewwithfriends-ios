@@ -25,7 +25,7 @@ struct UserProfileView: View {
     @EnvironmentObject var friendsCache: FriendsCache
     
     func createActionCallback(page: Int) async -> Result<[FullReview], RequestError> {
-        return await app.getFullReviewsForUser(token: self.auth.token, userId: self.user.id, page: page)
+        return await app.getRecommendedReviewsForUser(token: self.auth.token, userId: self.user.id, page: page)
     }
     
     static func getCachedGridPreference() -> Bool {
@@ -46,11 +46,21 @@ struct UserProfileView: View {
                     if loggedInUser.id != self.user.id {
                         HStack {
                             Spacer()
+                            HStack {
+                                SmallPrimaryButton(title: "All Reviews", action: {
+                                    self.path.append(UserReviewDestination(userId: self.user.id))
+                                })
+                            }
                             UserProfileCommandBar(path: self.$path, showReportSheet: self.$showReportSheet, userId: self.user.id)
                         }.padding(.bottom.union(.trailing))
                     } else {
                         HStack {
                             Spacer()
+                            HStack {
+                                SmallPrimaryButton(title: "All Reviews", action: {
+                                    self.path.append(UserReviewDestination(userId: self.user.id))
+                                })
+                            }
                             IconButton(icon: "square.and.arrow.up.fill", action: {
                                 let urlResult = app.generateUniqueUserURL(userId: self.user.id)
                                 
@@ -99,18 +109,6 @@ struct UserProfileView: View {
                     Spacer()
                 }
                 if self.friendsCache.areFriends(userId: self.user.id) {
-                    HStack {
-                        Spacer()
-                        Picker("", selection: $showGrid) {
-                            Image(systemName: "photo.stack").tag(false)
-                            Image(systemName: "rectangle.grid.3x2.fill").tag(true)
-                        }.onChange(of: showGrid) { g in
-                            self.setCachedGridPreference()
-                        }
-                        .pickerStyle(.segmented)
-                        Spacer()
-                    }
-                    
                     if self.showGrid {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 125))]) {
                             ForEach(self.model.reviewsToRender) { review in
@@ -165,6 +163,6 @@ struct UserProfileView: View {
             ReportUser(showReportSheet: self.$showReportSheet, userId: self.user.id)
                 .presentationDetents([.fraction(0.33)])
                 .presentationDragIndicator(.visible)
-        }
+        }.navigationBarTitle("", displayMode: .inline)
     }
 }

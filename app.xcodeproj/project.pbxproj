@@ -51,6 +51,10 @@
 		9C28C9932991A0E9002296A1 /* ParseCustomSchemeUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9922991A0E9002296A1 /* ParseCustomSchemeUrl.swift */; };
 		9C28C9B229957A9F002296A1 /* CreateReviewNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9B129957A9F002296A1 /* CreateReviewNavButton.swift */; };
 		9C28C9B429957AF4002296A1 /* SearchDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C28C9B329957AF4002296A1 /* SearchDestination.swift */; };
+		9C3071902A2FA8F50045D8F3 /* DeliveredTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C30718F2A2FA8F50045D8F3 /* DeliveredTag.swift */; };
+		9C3071922A2FC3E90045D8F3 /* DeliveredToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3071912A2FC3E90045D8F3 /* DeliveredToggle.swift */; };
+		9C3071962A3003120045D8F3 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3071952A3003120045D8F3 /* LikeButton.swift */; };
+		9C3071982A3005120045D8F3 /* LikeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3071972A3005120045D8F3 /* LikeSelector.swift */; };
 		9C40AA8C2935D298009134EA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40AA8B2935D298009134EA /* MainView.swift */; };
 		9C40AA8E2935D2AB009134EA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40AA8D2935D2AB009134EA /* OnboardingView.swift */; };
 		9C40AA9029365B31009134EA /* IntializerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40AA8F29365B31009134EA /* IntializerView.swift */; };
@@ -159,6 +163,10 @@
 		9C96946229357CB800AAEC25 /* appMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C96946129357CB800AAEC25 /* appMain.swift */; };
 		9C96946629357CB900AAEC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946529357CB900AAEC25 /* Assets.xcassets */; };
 		9C96946929357CB900AAEC25 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C96946829357CB900AAEC25 /* Preview Assets.xcassets */; };
+		9CA5A8572A3236E4008FA095 /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 9CA5A8562A3236E4008FA095 /* SwiftUITooltip */; };
+		9CA5A8592A323915008FA095 /* RecommendedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA5A8582A323915008FA095 /* RecommendedTag.swift */; };
+		9CA5A85C2A37F126008FA095 /* UserReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA5A85B2A37F126008FA095 /* UserReviews.swift */; };
+		9CA5A85E2A37F2D0008FA095 /* UserReviewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA5A85D2A37F2D0008FA095 /* UserReviewDestination.swift */; };
 		9CAEB3902970AC77009A18A3 /* mapBoundaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB38F2970AC77009A18A3 /* mapBoundaryTests.swift */; };
 		9CAEB3922971D456009A18A3 /* MapKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3912971D456009A18A3 /* MapKitExtensions.swift */; };
 		9CAEB3942971DF47009A18A3 /* MapBoundaryQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAEB3932971DF47009A18A3 /* MapBoundaryQueue.swift */; };
@@ -266,6 +274,10 @@
 		9C28C9922991A0E9002296A1 /* ParseCustomSchemeUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseCustomSchemeUrl.swift; sourceTree = "<group>"; };
 		9C28C9B129957A9F002296A1 /* CreateReviewNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewNavButton.swift; sourceTree = "<group>"; };
 		9C28C9B329957AF4002296A1 /* SearchDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDestination.swift; sourceTree = "<group>"; };
+		9C30718F2A2FA8F50045D8F3 /* DeliveredTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveredTag.swift; sourceTree = "<group>"; };
+		9C3071912A2FC3E90045D8F3 /* DeliveredToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveredToggle.swift; sourceTree = "<group>"; };
+		9C3071952A3003120045D8F3 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
+		9C3071972A3005120045D8F3 /* LikeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeSelector.swift; sourceTree = "<group>"; };
 		9C40AA8B2935D298009134EA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9C40AA8D2935D2AB009134EA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		9C40AA8F29365B31009134EA /* IntializerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntializerView.swift; sourceTree = "<group>"; };
@@ -374,6 +386,9 @@
 		9C96946529357CB900AAEC25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C96946829357CB900AAEC25 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9C96946E29357CB900AAEC25 /* appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = appTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CA5A8582A323915008FA095 /* RecommendedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedTag.swift; sourceTree = "<group>"; };
+		9CA5A85B2A37F126008FA095 /* UserReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviews.swift; sourceTree = "<group>"; };
+		9CA5A85D2A37F2D0008FA095 /* UserReviewDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewDestination.swift; sourceTree = "<group>"; };
 		9CAEB38F2970AC77009A18A3 /* mapBoundaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapBoundaryTests.swift; sourceTree = "<group>"; };
 		9CAEB3912971D456009A18A3 /* MapKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitExtensions.swift; sourceTree = "<group>"; };
 		9CAEB3932971DF47009A18A3 /* MapBoundaryQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoundaryQueue.swift; sourceTree = "<group>"; };
@@ -427,6 +442,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CA5A8572A3236E4008FA095 /* SwiftUITooltip in Frameworks */,
 				9CAEB39C29771F00009A18A3 /* SDWebImageSwiftUI in Frameworks */,
 				9CAEB3992973A75C009A18A3 /* SDWebImageMapKit in Frameworks */,
 				9CAEB3972973A75C009A18A3 /* SDWebImage in Frameworks */,
@@ -617,6 +633,26 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		9C30718E2A2FA8D10045D8F3 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9C3071942A3003080045D8F3 /* Like */,
+				9C30718F2A2FA8F50045D8F3 /* DeliveredTag.swift */,
+				9C3071912A2FC3E90045D8F3 /* DeliveredToggle.swift */,
+				9CA5A8582A323915008FA095 /* RecommendedTag.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		9C3071942A3003080045D8F3 /* Like */ = {
+			isa = PBXGroup;
+			children = (
+				9C3071952A3003120045D8F3 /* LikeButton.swift */,
+				9C3071972A3005120045D8F3 /* LikeSelector.swift */,
+			);
+			path = Like;
+			sourceTree = "<group>";
+		};
 		9C40AA9229366063009134EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -647,6 +683,7 @@
 		9C68CC2A29521DA7007FC567 /* Review */ = {
 			isa = PBXGroup;
 			children = (
+				9C30718E2A2FA8D10045D8F3 /* Shared */,
 				9C1D8F8E29B6842400B40B32 /* LocationReviews */,
 				9C2276C8299EC936005566A0 /* EditReviewView */,
 				9C2276B9299C24CC005566A0 /* ReviewGridItem */,
@@ -831,6 +868,7 @@
 		9C871CDF295BCFC1007B72F7 /* User Profile */ = {
 			isa = PBXGroup;
 			children = (
+				9CA5A85A2A37F111008FA095 /* UserReviews */,
 				9C7265072A0EB750005368ED /* ManageFriends */,
 				9CD42DB3297086EF00C2FBE9 /* UserProfile */,
 				9CD42D88296E057500C2FBE9 /* UserSettings */,
@@ -865,6 +903,7 @@
 				9CAEB3B52989CE1F009A18A3 /* ReviewDestination.swift */,
 				9CF2E17729F59AA60024228B /* SettingsDestination.swift */,
 				9C72650A2A0EB7EC005368ED /* ManageFriendsDestination.swift */,
+				9CA5A85D2A37F2D0008FA095 /* UserReviewDestination.swift */,
 			);
 			path = NavigationDestinations;
 			sourceTree = "<group>";
@@ -1047,6 +1086,14 @@
 			path = appTests;
 			sourceTree = "<group>";
 		};
+		9CA5A85A2A37F111008FA095 /* UserReviews */ = {
+			isa = PBXGroup;
+			children = (
+				9CA5A85B2A37F126008FA095 /* UserReviews.swift */,
+			);
+			path = UserReviews;
+			sourceTree = "<group>";
+		};
 		9CAEB3A12988543D009A18A3 /* Likes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1191,6 +1238,7 @@
 				9CAEB3962973A75C009A18A3 /* SDWebImage */,
 				9CAEB3982973A75C009A18A3 /* SDWebImageMapKit */,
 				9CAEB39B29771F00009A18A3 /* SDWebImageSwiftUI */,
+				9CA5A8562A3236E4008FA095 /* SwiftUITooltip */,
 			);
 			productName = bout;
 			productReference = 9C96945E29357CB800AAEC25 /* app.app */;
@@ -1250,6 +1298,7 @@
 			packageReferences = (
 				9CAEB3952973A75C009A18A3 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				9CAEB39A29771F00009A18A3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				9CA5A8552A3236E4008FA095 /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */,
 			);
 			productRefGroup = 9C96945F29357CB800AAEC25 /* Products */;
 			projectDirPath = "";
@@ -1297,6 +1346,7 @@
 				9C72650F2A1306ED005368ED /* AddImagesUploader.swift in Sources */,
 				9C8217AB293BC6D90011B7E0 /* UserRequests.swift in Sources */,
 				9C871CC22953EA75007B72F7 /* ReviewPicSkeleton.swift in Sources */,
+				9CA5A8592A323915008FA095 /* RecommendedTag.swift in Sources */,
 				9CD42DA3296F452200C2FBE9 /* FriendsListItemLoader.swift in Sources */,
 				9C68CC2C2952220F007FC567 /* ReviewStars.swift in Sources */,
 				9C0BC9DF29C388570086E59D /* CreateReviewFromImagesView.swift in Sources */,
@@ -1324,18 +1374,21 @@
 				9C8217BD293FB6E30011B7E0 /* ConfirmProfileView.swift in Sources */,
 				9C8217C6293FEC8B0011B7E0 /* GetMeErrorView.swift in Sources */,
 				9C2631972995B1BC00A65CC3 /* ReviewViewData.swift in Sources */,
+				9C3071922A2FC3E90045D8F3 /* DeliveredToggle.swift in Sources */,
 				9C839CAF29D4FFFE0025A20A /* FeedEndOfReviews.swift in Sources */,
 				9CAEB3BB2989DDD2009A18A3 /* NotificationNavButton.swift in Sources */,
 				9C2631992995B79000A65CC3 /* ReviewLoaderA.swift in Sources */,
 				9C936AF229BFE49A00AA1F41 /* RecoveryGetPhoneCodeView.swift in Sources */,
 				9C82179929369C800011B7E0 /* ErrorDisplay.swift in Sources */,
 				9C1D8F7D29B005A400B40B32 /* ContactLookups.swift in Sources */,
+				9C3071902A2FA8F50045D8F3 /* DeliveredTag.swift in Sources */,
 				9C2276C5299EBE97005566A0 /* LikedReviewsListItem.swift in Sources */,
 				9CD42D90296E2C9E00C2FBE9 /* FriendsList.swift in Sources */,
 				9C0BC9E429C38A120086E59D /* CreateReviewModel.swift in Sources */,
 				9C8217E329490BFA0011B7E0 /* LocationReviewsView.swift in Sources */,
 				9C936AF729BFEFCF00AA1F41 /* SetupRecoveryEmail.swift in Sources */,
 				9C8217B0293BDEDE0011B7E0 /* Retryable.swift in Sources */,
+				9CA5A85E2A37F2D0008FA095 /* UserReviewDestination.swift in Sources */,
 				9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */,
 				9CF2E16C29EDDC4E0024228B /* DangerousIconButton.swift in Sources */,
 				9C871CC62954FDBA007B72F7 /* FullReview.swift in Sources */,
@@ -1413,6 +1466,7 @@
 				9C68CC2729516588007FC567 /* UserPreviewData.swift in Sources */,
 				9C871D282968F04F007B72F7 /* FriendRequest.swift in Sources */,
 				9CD42D98296E2F4F00C2FBE9 /* IgnoredFriendsList.swift in Sources */,
+				9C3071962A3003120045D8F3 /* LikeButton.swift in Sources */,
 				9C2276CC299EC9BB005566A0 /* EditReviewDestination.swift in Sources */,
 				9C8217B4293C35420011B7E0 /* PicRequests.swift in Sources */,
 				9CF2E17829F59AA60024228B /* SettingsDestination.swift in Sources */,
@@ -1434,6 +1488,7 @@
 				9C40AA8E2935D2AB009134EA /* OnboardingView.swift in Sources */,
 				9C0BC9E629C38F230086E59D /* CreateReviewFromImageDestination.swift in Sources */,
 				9CAEB3A32988544B009A18A3 /* LikesList.swift in Sources */,
+				9C3071982A3005120045D8F3 /* LikeSelector.swift in Sources */,
 				9C28C99129919868002296A1 /* AppDelegate.swift in Sources */,
 				9C68CC2229512B8A007FC567 /* ReviewLoader.swift in Sources */,
 				9C033AA929D2464200EDDF14 /* ImageAlbumSelector.swift in Sources */,
@@ -1461,6 +1516,7 @@
 				9C421CAC29FB02A50076A5A0 /* RemovePhotoView.swift in Sources */,
 				9C871CDE295BCE4C007B72F7 /* UniqueUser.swift in Sources */,
 				9C871D0729650383007B72F7 /* ReviewHeaderSkeleton.swift in Sources */,
+				9CA5A85C2A37F126008FA095 /* UserReviews.swift in Sources */,
 				9CAEB3AF298998C9009A18A3 /* NotificationRequests.swift in Sources */,
 				9C8217B7293C36440011B7E0 /* ProfilePicLoader.swift in Sources */,
 				9C0BC9F329C7D8A30086E59D /* PHFetchResultManager.swift in Sources */,
@@ -1779,6 +1835,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9CA5A8552A3236E4008FA095 /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/quassum/SwiftUI-Tooltip.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		9CAEB3952973A75C009A18A3 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
@@ -1812,6 +1876,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9CAEB39A29771F00009A18A3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		9CA5A8562A3236E4008FA095 /* SwiftUITooltip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9CA5A8552A3236E4008FA095 /* XCRemoteSwiftPackageReference "SwiftUI-Tooltip" */;
+			productName = SwiftUITooltip;
 		};
 		9CAEB3962973A75C009A18A3 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;

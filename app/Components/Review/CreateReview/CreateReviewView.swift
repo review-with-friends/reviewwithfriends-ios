@@ -163,7 +163,8 @@ struct CreateReviewView: View {
                                               longitude: self.reviewLocation.longitude,
                                               is_custom: false,
                                               pic: dataToBeUploaded.base64EncodedString(),
-                                              post_date: Int64((self.model.date.timeIntervalSince1970 * 1000.0).rounded()))
+                                              post_date: Int64((self.model.date.timeIntervalSince1970 * 1000.0).rounded()),
+                                              delivered: self.model.delivered)
             
             let reviewResult = await app.createReview(token: auth.token, reviewRequest: request)
             

@@ -20,4 +20,6 @@ struct Review : Codable, Identifiable, Equatable, Hashable {
     let latitude: Double
     let longitude: Double
     let isCustom: Bool
+    let delivered: Bool
+    let recommended: Bool
 }

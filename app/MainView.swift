@@ -94,6 +94,9 @@ struct MainView: View {
             .navigationDestination(for: SearchDestination.self) { _ in
                 SearchReviewsView(path: self.$path)
             }
+            .navigationDestination(for: UserReviewDestination.self) { dest in
+                UserReviewView(path: self.$path, userId: dest.userId)
+            }
             .navigationDestination(for: EditReviewDestination.self) { dest in
                 EditReviewView(path: self.$path, fullReview: dest.fullReview)
             }

@@ -16,7 +16,7 @@ struct ReviewView: View {
     var fullReview: FullReview
     var showLocation = true
     
-    @State var lastLoad = Date()
+    @State var reloadedAfterInit = false
     @State var showOverlay = false
     
     @State var isReplyingToReply = false;
@@ -38,7 +38,7 @@ struct ReviewView: View {
         ScrollViewReader { proxy in
             ScrollView {
                 VStack {
-                    ReviewHeader(path: self.$path, user: user, fullReview: fullReview)
+                    ReviewHeader(path: self.$path, user: user, fullReview: fullReview, reviewReloadCallback: self.reloadCallback).padding(.top)
                     ReviewPicCarousel(path: self.$path, fullReview: fullReview, reloadCallback: reloadCallback)
                     VStack {
                         ReviewText(path: self.$path, fullReview: self.fullReview, reloadCallback: self.reloadCallback)
@@ -52,7 +52,7 @@ struct ReviewView: View {
                             })
                         }
                         ReviewReplies(path: self.$path, showReplyOverlay:self.$showOverlay, setReplyingTo: self.setIsReplyingTo, reloadCallback: self.reloadCallback, fullReview: self.fullReview)
-                    }.padding(.horizontal)
+                    }
                 }
             }.scrollDismissesKeyboard(.immediately)
                 .refreshable {
@@ -61,8 +61,11 @@ struct ReviewView: View {
                     }
                 }.navigationBarTitleDisplayMode(.inline)
         }.onAppear {
-            if self.lastLoad.addingTimeInterval(TimeInterval(5)) < Date() {
-                self.lastLoad = Date()
+            // we have not reloaded, this first appear shouldn't reload.
+            if self.reloadedAfterInit == false {
+                // set it to true so next on appear forces a query for new data in the background
+                self.reloadedAfterInit = true
+            } else {
                 Task {
                     await self.reloadCallback()
                 }

@@ -62,12 +62,22 @@ struct ReviewText: View {
                         Image(systemName: "heart").foregroundColor(.primary).font(.system(size: 28))
                     }
                 }
-            }.padding(.bottom, 12)
-            HStack {
-                Text(self.fullReview.review.text)
-                Spacer()
+            }.padding(.bottom, 12).padding(.horizontal)
+            ScrollView(.horizontal) {
+                HStack {
+                    if self.fullReview.review.delivered {
+                        DeliveredTag()
+                    }
+                    if self.fullReview.review.recommended {
+                        RecommendedTag()
+                    }
+                }
             }
-        }.padding(8)
+            HStack {
+                Text(self.fullReview.review.text).lineLimit(3...)
+                Spacer()
+            }.padding(16).background(APP_BACKGROUND).cornerRadius(16.0)
+        }.padding(.vertical, 8)
     }
 }
 

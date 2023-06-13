@@ -14,10 +14,14 @@ struct ReviewHeader: View {
     var user: User
     var fullReview: FullReview
     var showLocation = true
+    var reviewReloadCallback: () async -> Void
     
     @State var showDeleteConfirmation = false
     @State var showDeleteError = false
-    @State var deleteErrorMessage = ""
+    @State var showRecommendError = false
+    @State var errorMessage = ""
+    
+    @State var pending = false
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var reloadCallback: ChildViewReloadCallback
@@ -47,6 +51,11 @@ struct ReviewHeader: View {
                         if let loggedInUser = auth.user {
                             if self.fullReview.review.userId == loggedInUser.id {
                                 Menu {
+                                    Button(self.fullReview.review.recommended ? "Unrecommend" : "Recommend", action: {
+                                        Task {
+                                            await self.recommendReview()
+                                        }
+                                    })
                                     Button("Edit", action: {
                                         self.path.append(EditReviewDestination(fullReview: self.fullReview))
                                     })
@@ -74,10 +83,10 @@ struct ReviewHeader: View {
                     }.alert(
                         "Delete Failed. Do you want to retry?",
                         isPresented: $showDeleteError,
-                        presenting: self.deleteErrorMessage
+                        presenting: self.errorMessage
                     ) { message in
                         Button("Cancel", role: nil){
-                            self.deleteErrorMessage = ""
+                            self.errorMessage = ""
                         }
                         Button("Retry", role: nil) {
                             Task {
@@ -86,10 +95,46 @@ struct ReviewHeader: View {
                         }
                     } message: { message in
                         Text(message)
+                    }.alert(
+                        "Recommend Failed. Do you want to retry?",
+                        isPresented: $showRecommendError,
+                        presenting: self.errorMessage
+                    ) { message in
+                        Button("Cancel", role: nil){
+                            self.errorMessage = ""
+                        }
+                        Button("Retry", role: nil) {
+                            Task {
+                                await self.recommendReview()
+                            }
+                        }
+                    } message: { message in
+                        Text(message)
                     }
                 }
             }.padding(.leading, 4.0)
         }.padding(.bottom, 4.0).accentColor(.primary)
+    }
+    
+    func recommendReview() async {
+        if self.pending {
+            return
+        }
+        
+        self.pending = true
+        
+        let result = await app.setRecommendReview(token: self.auth.token, reviewId: self.fullReview.review.id, recommended: !self.fullReview.review.recommended)
+        
+        switch result {
+        case .success(_):
+            self.pending = false
+            await self.reviewReloadCallback()
+            self.feedRefreshManager.push(review_id: self.fullReview.review.id)
+        case .failure(let error):
+            self.pending = false
+            self.errorMessage = error.description
+            self.showRecommendError = true
+        }
     }
     
     func deleteReview() async {
@@ -101,7 +146,7 @@ struct ReviewHeader: View {
             await self.reloadCallback.callIfExists()
             self.path.removeLast()
         case .failure(let error):
-            self.deleteErrorMessage = error.description
+            self.errorMessage = error.description
             self.showDeleteError = true
         }
     }
@@ -113,7 +158,7 @@ struct ReviewHeader_Preview: PreviewProvider {
     
     static var previews: some View {
         VStack{
-            ReviewHeader(path: .constant(NavigationPath()), user: generateUserPreviewData(), fullReview: generateFullReviewPreviewData())
+            ReviewHeader(path: .constant(NavigationPath()), user: generateUserPreviewData(), fullReview: generateFullReviewPreviewData(), reviewReloadCallback: dummyCallback)
                 .preferredColorScheme(.dark)
                 .environmentObject(Authentication.initPreview())
                 .environmentObject(UserCache())
