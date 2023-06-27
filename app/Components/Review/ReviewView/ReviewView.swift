@@ -39,7 +39,9 @@ struct ReviewView: View {
             ScrollView {
                 VStack {
                     ReviewHeader(path: self.$path, user: user, fullReview: fullReview, reviewReloadCallback: self.reloadCallback).padding(.top)
-                    ReviewPicCarousel(path: self.$path, fullReview: fullReview, reloadCallback: reloadCallback)
+                    ReviewPicCarousel(path: self.$path, fullReview: fullReview, reloadCallback: reloadCallback).overlay {
+                        ReviewPicOverlay(path: self.$path, likes: fullReview.likes, reviewId: fullReview.review.id, reloadCallback: self.reloadCallback)
+                    }
                     VStack {
                         ReviewText(path: self.$path, fullReview: self.fullReview, reloadCallback: self.reloadCallback)
                         HStack {

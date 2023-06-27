@@ -14,6 +14,7 @@ struct MainView: View {
     @EnvironmentObject var friendsCache: FriendsCache
     @EnvironmentObject var notificatonManager: NotificationManager
     @EnvironmentObject var appDelegate: AppDelegate
+    @EnvironmentObject var bookmarkCache: BookmarkCache
     
     @State var tab = 0
     @State var path = NavigationPath()
@@ -97,6 +98,9 @@ struct MainView: View {
             .navigationDestination(for: UserReviewDestination.self) { dest in
                 UserReviewView(path: self.$path, userId: dest.userId)
             }
+            .navigationDestination(for: UserBookmarksDestination.self) { dest in
+                UserBookmarkView(path: self.$path, userId: dest.userId)
+            }
             .navigationDestination(for: EditReviewDestination.self) { dest in
                 EditReviewView(path: self.$path, fullReview: dest.fullReview)
             }
@@ -153,6 +157,9 @@ struct MainView: View {
                 Task {
                     let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
                     await self.notificatonManager.getNotifications(token: self.auth.token)
+                    if let user = self.auth.user {
+                        await self.bookmarkCache.setAndRefreshCache(token: self.auth.token, userId: user.id)
+                    }
                 }
             }.onOpenURL { url in
                 guard let url = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }

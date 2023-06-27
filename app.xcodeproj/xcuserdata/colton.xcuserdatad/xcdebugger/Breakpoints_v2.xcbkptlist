@@ -83,5 +83,113 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C8344983-1654-4CDF-BF53-56C97B9020BE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "app/Components/Review/ReviewView/ReviewText.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "toggleBookmarked()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C8344983-1654-4CDF-BF53-56C97B9020BE - c9c695901ad9ee75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for app.ReviewText.toggleBookmarked() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Review/ReviewView/ReviewText.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "584">
+               </Location>
+               <Location
+                  uuid = "C8344983-1654-4CDF-BF53-56C97B9020BE - 5a6923fdae07307b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for app.ReviewText.toggleBookmarked() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Review/ReviewView/ReviewText.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "600">
+               </Location>
+               <Location
+                  uuid = "C8344983-1654-4CDF-BF53-56C97B9020BE - c9c695901ad9ee5a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for app.ReviewText.toggleBookmarked() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Review/ReviewView/ReviewText.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "780">
+               </Location>
+               <Location
+                  uuid = "C8344983-1654-4CDF-BF53-56C97B9020BE - 5a6923fdae073054"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for app.ReviewText.toggleBookmarked() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Review/ReviewView/ReviewText.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "796">
+               </Location>
+               <Location
+                  uuid = "C8344983-1654-4CDF-BF53-56C97B9020BE - c9c695901ad9ee3b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for app.ReviewText.toggleBookmarked() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Review/ReviewView/ReviewText.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "796">
+               </Location>
+               <Location
+                  uuid = "C8344983-1654-4CDF-BF53-56C97B9020BE - 5a6923fdae073035"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for app.ReviewText.toggleBookmarked() async -&gt; ()"
+                  moduleName = "app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/colton/Developer/reviewwithfriends-ios/app/Components/Review/ReviewView/ReviewText.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "812">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

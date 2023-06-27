@@ -16,9 +16,35 @@ struct ReviewText: View {
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var feedRefreshManager: FeedRefreshManager
+    @EnvironmentObject var bookmarkCache: BookmarkCache
     
     func isAlreadyFavorited() -> Bool {
         return self.fullReview.likes.filter({$0.userId == auth.user?.id ?? ""}).count >= 1
+    }
+    
+    func toggleBookmarked() async {
+        var result: Result<(), RequestError>
+        if self.fullReview.bookmarked {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+            
+            result = await app.removeBookmark(token: auth.token, cache: self.bookmarkCache, locationName: self.fullReview.review.locationName, latitude: self.fullReview.review.latitude, longitude: self.fullReview.review.longitude)
+        } else {
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
+            
+            result = await app.addBookmark(token: auth.token, cache: self.bookmarkCache, locationName: self.fullReview.review.locationName, category: self.fullReview.review.category, latitude: self.fullReview.review.latitude, longitude: self.fullReview.review.longitude)
+        }
+        
+        switch result {
+        case .success():
+            feedRefreshManager.push(review_id: self.fullReview.review.id)
+            await reloadCallback()
+            break
+        case .failure(let error):
+            print(error)
+            break
+        }
     }
     
     func toggleFavorite() async {
@@ -32,7 +58,7 @@ struct ReviewText: View {
             let generator = UIImpactFeedbackGenerator(style: .light)
             generator.impactOccurred()
             
-            result = await app.likeReview(token: auth.token, reviewId: self.fullReview.review.id)
+            result = await app.likeReview(token: auth.token, reviewId: self.fullReview.review.id, likeType: 0)
         }
         
         switch result {
@@ -50,6 +76,17 @@ struct ReviewText: View {
             HStack {
                 ReviewLikedBy(path: self.$path, fullReview: self.fullReview)
                 Spacer()
+                Button(action: {
+                    Task {
+                        await self.toggleBookmarked()
+                    }
+                }){
+                    if self.fullReview.bookmarked {
+                        Image(systemName: "bookmark.fill").foregroundColor(.yellow).font(.system(size: 28))
+                    } else {
+                        Image(systemName: "bookmark").foregroundColor(.primary).font(.system(size: 28))
+                    }
+                }
                 let alreadyFavorited = self.isAlreadyFavorited()
                 Button(action: {
                     Task {

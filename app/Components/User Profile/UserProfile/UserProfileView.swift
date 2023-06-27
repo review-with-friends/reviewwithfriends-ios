@@ -46,21 +46,11 @@ struct UserProfileView: View {
                     if loggedInUser.id != self.user.id {
                         HStack {
                             Spacer()
-                            HStack {
-                                SmallPrimaryButton(title: "All Reviews", action: {
-                                    self.path.append(UserReviewDestination(userId: self.user.id))
-                                })
-                            }
                             UserProfileCommandBar(path: self.$path, showReportSheet: self.$showReportSheet, userId: self.user.id)
                         }.padding()
                     } else {
                         HStack {
                             Spacer()
-                            HStack {
-                                SmallPrimaryButton(title: "All Reviews", action: {
-                                    self.path.append(UserReviewDestination(userId: self.user.id))
-                                })
-                            }
                             IconButton(icon: "square.and.arrow.up.fill", action: {
                                 let urlResult = app.generateUniqueUserURL(userId: self.user.id)
                                 
@@ -107,6 +97,14 @@ struct UserProfileView: View {
                         }
                     }
                     Spacer()
+                }
+                HStack {
+                    SmallPrimaryButton(title: "All Reviews", action: {
+                        self.path.append(UserReviewDestination(userId: self.user.id))
+                    })
+                    SmallPrimaryButton(title: "Bookmarks", action: {
+                        self.path.append(UserBookmarksDestination(userId: self.user.id))
+                    })
                 }
                 HStack {
                     Text("Recommended:").font(.title2).bold().padding(.leading)

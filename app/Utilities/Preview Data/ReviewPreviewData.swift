@@ -28,9 +28,10 @@ func generateFullReviewPreviewData() -> FullReview {
     let review = generateReviewPreviewData()
     return FullReview(
         review: review,
-        likes: [Like(id: "123", created: Date(), userId: "1234", reviewId: review.id),
-                Like(id: "12345", created: Date(), userId: "123", reviewId: review.id),
-                Like(id: "123456", created: Date(), userId: "123", reviewId: review.id)],
+        bookmarked: true,
+        likes: [Like(id: "123", created: Date(), userId: "1234", reviewId: review.id, likeType: 0),
+                Like(id: "12345", created: Date(), userId: "123", reviewId: review.id, likeType: 1),
+                Like(id: "123456", created: Date(), userId: "123", reviewId: review.id, likeType: 0)],
         replies: [Reply(id: "1", created: Date(), userId: "1234", reviewId: review.id, text: "This is a sample reply! Something something Something something Something something Something something Something something  vSomething something Something somethingSomething somethingSomething somethingv Something something dfgdf", replyToId: nil),
                   Reply(id: "2", created: Date().addingTimeInterval(-1000), userId: "12345", reviewId: review.id, text: "This is a sample reply! -1000", replyToId: nil),
                   Reply(id: "3", created: Date(), userId: "123456", reviewId: review.id, text: "This is a sample reply! Something something Something something Something something Something something Something something  vSomething something Something somethingSomething somethingSomething somethingv Something something dfgdf", replyToId: nil),

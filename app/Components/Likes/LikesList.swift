@@ -17,7 +17,7 @@ struct LikesList: View {
         ScrollView {
             VStack {
                 ForEach(self.likes) { like in
-                    LikesListItem(path: self.$path, userId: like.userId, date: like.created)
+                    LikesListItem(path: self.$path, like: like)
                 }
             }.padding(.horizontal)
         }.navigationTitle("Likes").padding(.top)

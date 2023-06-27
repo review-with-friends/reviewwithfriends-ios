@@ -24,7 +24,15 @@ struct ReviewLikedBy: View {
                             ForEach(self.fullReview.likes.sorted(by: { a, b in
                                 a.created < b.created
                             }).prefix(8)) { like in
-                                ProfilePicLoader(path: self.$path, userId: like.userId, profilePicSize: .smallMedium, navigatable: false, ignoreCache: false).padding(.horizontal, -10)
+                                ProfilePicLoader(path: self.$path, userId: like.userId, profilePicSize: .smallMedium, navigatable: false, ignoreCache: false).overlay {
+                                    VStack {
+                                        HStack {
+                                            Text(app.getEmojiFromNumber(number: like.likeType).emoji).font(.caption2).padding(.horizontal, -4)
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                    }
+                                }.padding(.horizontal, -10)
                             }
                         }.onTapGesture {
                             self.path.append(self.fullReview.likes)
