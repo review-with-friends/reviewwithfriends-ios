@@ -12,6 +12,34 @@ import SwiftUI
 class UserCache: ObservableObject {
     private let cache = URLCache(memoryCapacity: 36384, diskCapacity: 268435456, diskPath: nil)
     
+    func getUserFromCache(userId: String) -> User? {
+        var url: URL
+        if let url_temp = URL(string: USER_V1_ENDPOINT + "/by_id") {
+            url = url_temp
+        } else {
+            return nil
+        }
+        
+        url.append(queryItems:  [URLQueryItem(name: "id", value: userId)])
+        
+        if let response = cache.cachedResponse(for: URLRequest(url: url)) {
+            do {
+                let decoder =  JSONDecoder()
+                
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                decoder.dateDecodingStrategy = .millisecondsSince1970
+                
+                let user = try decoder.decode(User.self, from: response.data)
+                
+                return user
+            } catch (_) {
+                return nil
+            }
+        }
+        
+        return nil
+    }
+    
     func getUserById(token: String, userId: String, ignoreCache: Bool = false) async -> Result<User, RequestError> {
         var url: URL
         if let url_temp = URL(string: USER_V1_ENDPOINT + "/by_id") {

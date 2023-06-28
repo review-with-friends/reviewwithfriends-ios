@@ -77,7 +77,7 @@ struct LocationReviewsView: View {
                 }
             } else {
                 VStack {
-                    LocationReviewHeader(path: self.$path, locationName: self.uniqueLocation.locationName, latitude: self.uniqueLocation.latitude, longitude: self.uniqueLocation.longitude, category: self.uniqueLocation.category).toolbar {
+                    LocationReviewHeader(path: self.$path, locationName: self.uniqueLocation.locationName, latitude: self.uniqueLocation.latitude, longitude: self.uniqueLocation.longitude, category: self.uniqueLocation.category, linkToReviewsPage: false).toolbar {
                         Button(action: {
                             let urlResult = app.generateUniqueLocationURL(uniqueLocation: self.uniqueLocation)
                             

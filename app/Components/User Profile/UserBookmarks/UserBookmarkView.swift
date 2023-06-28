@@ -55,7 +55,7 @@ struct UserBookmarkView: View {
                     ForEach(self.bookmarks.filter({ bookmark in
                         bookmark.locationName.lowercased().contains(self.searchText.lowercased()) || self.searchText == ""
                     })) { bookmark in
-                        LocationReviewHeader(path: self.$path, locationName: bookmark.locationName, latitude: bookmark.latitude, longitude: bookmark.longitude, category: bookmark.category)
+                        LocationReviewHeader(path: self.$path, locationName: bookmark.locationName, latitude: bookmark.latitude, longitude: bookmark.longitude, category: bookmark.category, linkToReviewsPage: true)
                     }
                     if self.failed {
                         Button(action: {
@@ -68,6 +68,11 @@ struct UserBookmarkView: View {
                                 Text("Tap to retry").font(.system(size: 28)).foregroundColor(.secondary)
                             }
                         }
+                    } else if self.bookmarks.count == 0 {
+                        VStack {
+                            Image(systemName: "bookmark").font(.system(size: 72.0)).padding()
+                            Text("No bookmarks yet.").bold()
+                        }.padding().foregroundColor(.gray)
                     } else {
                         VStack {
                             ThatsIt().padding(50)

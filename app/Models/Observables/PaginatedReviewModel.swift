@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 /// Observable model to fetch reviews for rendering.
 @MainActor

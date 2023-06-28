@@ -17,6 +17,7 @@ struct LocationReviewHeader: View {
     var latitude: Double
     var longitude: Double
     var category: String
+    var linkToReviewsPage: Bool
     
     var locationManager = CLLocationManager()
     @State var locationDelegate: LocationDelegate?
@@ -88,7 +89,15 @@ struct LocationReviewHeader: View {
         VStack {
             VStack {
                 HStack {
-                    Text(self.locationName).font(.title3.bold())
+                    if self.linkToReviewsPage {
+                        Button(action: {
+                            self.path.append(UniqueLocation(locationName: self.locationName, category: self.category, latitude: self.latitude, longitude: self.longitude))
+                        }){
+                            Text(self.locationName).font(.title3.bold())
+                        }.accentColor(.primary)
+                    } else {
+                        Text(self.locationName).font(.title3.bold())
+                    }
                     Spacer()
                     if let mkCategory = MKPointOfInterestCategory.getCategory(category: self.category){
                         if let image = mkCategory.getSystemImageString() {
@@ -211,7 +220,7 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
 struct LocationReviewHeader_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            LocationReviewHeader(path: .constant(NavigationPath()), locationName: "Mcdonalds this is a really long", latitude: 20.0, longitude: 44.0, category: "restaurant").preferredColorScheme(.dark)
+            LocationReviewHeader(path: .constant(NavigationPath()), locationName: "Mcdonalds this is a really long", latitude: 20.0, longitude: 44.0, category: "restaurant", linkToReviewsPage: false).preferredColorScheme(.dark)
         }
     }
 }

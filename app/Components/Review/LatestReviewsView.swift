@@ -38,15 +38,16 @@ struct LatestReviewsView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(self.model.reviewsToRender) { review in
-                        ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
+                        VStack {
+                            ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
+                        }
                     }
                     VStack {
                         if self.model.noMorePages && self.model.reviews.isEmpty {
                             FeedZeroReviews(path: self.$path)
                         } else if self.model.noMorePages {
                             FeedEndOfReviews()
-                        }
-                        else {
+                        } else if self.model.reviewsToRender.count > 0 {
                             ProgressView().padding()
                         }
                     }.onAppear {

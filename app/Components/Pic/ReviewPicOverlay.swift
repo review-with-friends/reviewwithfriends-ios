@@ -18,6 +18,8 @@ struct ReviewPicOverlay: View {
     var reloadCallback: () async -> Void
     
     @State var showHeart = false
+    @State var emoji = "❤️"
+    
     @State var tooltipOpen = false
     @State var isPending = false
     @State var failed = false
@@ -47,6 +49,7 @@ struct ReviewPicOverlay: View {
             result = await app.unlikeReview(token: auth.token, reviewId: reviewId)
         } else {
             Task {
+                self.emoji = emoji.emoji
                 withAnimation {
                     showHeart = true
                 }
@@ -117,7 +120,7 @@ struct ReviewPicOverlay: View {
                         }
                     }
                 if self.showHeart {
-                    Image(systemName: "heart.fill")
+                    Text("\(self.emoji)")
                         .font(.system(size: 128))
                         .foregroundColor(.primary)
                         .transition(.asymmetric(insertion: .scale, removal: .opacity))

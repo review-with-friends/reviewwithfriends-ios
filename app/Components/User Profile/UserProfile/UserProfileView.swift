@@ -105,9 +105,10 @@ struct UserProfileView: View {
                     SmallPrimaryButton(title: "Bookmarks", action: {
                         self.path.append(UserBookmarksDestination(userId: self.user.id))
                     })
+                    Spacer()
                 }
                 HStack {
-                    Text("Recommended:").font(.title2).bold().padding(.leading)
+                    Text("Recommended:").font(.title2).bold().padding()
                     Spacer()
                 }
                 if self.friendsCache.areFriends(userId: self.user.id) {

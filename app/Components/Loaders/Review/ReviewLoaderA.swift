@@ -16,6 +16,8 @@ struct ReviewLoaderA: View {
     var showListItem: Bool
     var showLocation = true
     
+    
+    @State var opacity = 0.0
     @State var fullReview: FullReview
     
     @EnvironmentObject var auth: Authentication
@@ -44,15 +46,22 @@ struct ReviewLoaderA: View {
     var body: some View {
         HStack {
             if showListItem {
-                ReviewListItem(path: self.$path, reloadCallback: self.loadFullReview, user: self.review.user, fullReview: self.fullReview, showLocation: showLocation)
+                ReviewListItem(path: self.$path, reloadCallback: self.loadFullReview, user: self.review.user, fullReview: self.fullReview, showLocation: showLocation).opacity(opacity)
             } else {
-                ReviewView(path: self.$path, reloadCallback: self.loadFullReview, user: self.review.user, fullReview: self.fullReview)
+                ReviewView(path: self.$path, reloadCallback: self.loadFullReview, user: self.review.user, fullReview: self.fullReview).opacity(opacity)
             }
         }.onAppear {
+            withAnimation {
+                opacity = 1.0
+            }
             if self.feedRefreshManager.pop(review_id: extractReviewIdFromRenderId(renderId: self.review.id)) {
                 Task {
                     await self.loadFullReview()
                 }
+            }
+        }.onDisappear {
+            withAnimation {
+                opacity = 0.0
             }
         }
     }
