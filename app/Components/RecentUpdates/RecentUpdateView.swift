@@ -9,74 +9,125 @@ import Foundation
 import SwiftUI
 
 struct RecentUpdateView: View {
+    @Binding var show: Bool
+    
+    @State var selection = 1
+    
+    @State private var task: Task<Void, Error>?
+    
+    func moveNext() {
+        withAnimation {
+            self.selection += 1
+            if self.selection > 3 {
+                self.selection = 1
+            }
+        }
+    }
+    
     var body: some View {
-        ScrollView {
+        VStack {
+            VStack {
+                switch self.selection {
+                case 1:
+                    Image("react").resizable().scaledToFit().cornerRadius(28).overlay {
+                        VStack {
+                            VStack {
+                                HStack {
+                                    Text("NEW STUFF").fontWeight(.heavy).foregroundColor(.gray).shadow(radius: 4)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text("Reactions").fontWeight(.heavy).font(.title).shadow(radius: 4)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text("Hold press on photos to for reaction menu").fontWeight(.heavy).font(.caption).shadow(radius: 4)
+                                    Spacer()
+                                }
+                            }.padding()
+                            Spacer()
+                        }
+                    }
+                case 2:
+                    Image("bookmark").resizable().scaledToFit().cornerRadius(28).overlay {
+                        VStack {
+                            VStack {
+                                HStack {
+                                    Text("NEW STUFF").fontWeight(.heavy).foregroundColor(.gray).shadow(radius: 4)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text("Bookmarks").fontWeight(.heavy).font(.title).shadow(radius: 4)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text("Use the bookmark button to save places").fontWeight(.heavy).font(.caption).shadow(radius: 4)
+                                    Spacer()
+                                }
+                            }.padding()
+                            Spacer()
+                        }
+                    }
+                case 3:
+                    Image("recommend").resizable().scaledToFit().cornerRadius(28).overlay {
+                        VStack {
+                            VStack {
+                                HStack {
+                                    Text("NEW STUFF").fontWeight(.heavy).foregroundColor(.gray).shadow(radius: 4)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text("Recommends").fontWeight(.heavy).font(.title).shadow(radius: 4)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text("Reviewers can tag reviews as recommended").fontWeight(.heavy).font(.caption).shadow(radius: 4)
+                                    Spacer()
+                                }
+                            }.padding()
+                            Spacer()
+                        }
+                    }
+                default:
+                    VStack {}
+                }
+            }.padding(0).onTapGesture {
+                self.moveNext()
+            }
+        }.overlay {
             VStack {
                 HStack {
-                    Text("🎉 Update to 1.0.1 🎉").font(.title).bold()
-                }.padding()
-                HStack {
-                    Text("Major Changes:").font(.title2).bold()
                     Spacer()
-                }.padding()
-                HStack {
-                    Text("- Review photos limit increased to 7 😍")
-                    Spacer()
-                }.padding(8)
-                HStack {
-                    Text("- Friends is now its own button on your profile 👯‍♀️")
-                    Spacer()
-                }.padding(8)
-                HStack {
-                    Text("Minor Changes:").font(.title3).bold()
-                    Spacer()
-                }.padding()
-                VStack {
-                    HStack {
-                        Text("- TabBar got a minor facelift 📸")
-                        Spacer()
-                    }.padding(8)
-                    HStack {
-                        Text("- Pressing the Home button while already on it refreshes the feed 🫠")
-                        Spacer()
-                    }.padding(8)
-                    HStack {
-                        Text("- Added warning button when Full Access to Photos Library is given 🕵️‍♀️")
-                        Spacer()
-                    }.padding(8)
-                    HStack {
-                        Text("- Added how many miles you are away from a location from the location view 🏃‍♀️")
-                        Spacer()
-                    }.padding(8)
-                    HStack {
-                        Text("- Added search to the map where you find where you went 🔎")
-                        Spacer()
-                    }.padding(8)
-                    HStack {
-                        Text("- Share buttons on your profile and on a location 🗣️")
-                        Spacer()
-                    }.padding(8)
+                    VStack {
+                        Button(action: {
+                            withAnimation {
+                                hideRecentUpdateDrawer()
+                                show = false
+                            }
+                        }) {
+                            Text("CLOSE").fontWeight(.heavy).font(.caption2)
+                        }.padding(8).background().accentColor(.primary).cornerRadius(50).shadow(radius: 4)
+                    }.padding()
                 }
-                HStack {
-                    Text("Bug Fixes:").font(.title3).bold()
-                    Spacer()
-                }.padding()
-                VStack {
-                    HStack {
-                        Text("- Map friends review annotations didnt pass through the category")
-                        Spacer()
-                    }.padding(8)
+                Spacer()
+            }
+        }.onAppear {
+            self.task = Task {
+                while true {
+                    try await Task.sleep(for: Duration.seconds(4))
+                    self.moveNext()
                 }
-            }.padding()
-        }.presentationDragIndicator(.visible)
+            }
+        }.onDisappear {
+            task?.cancel()
+        }
     }
 }
 
 struct RecentUpdateView_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-        }.sheet(isPresented: .constant(true)) {
-            RecentUpdateView().preferredColorScheme(.dark)
+            RecentUpdateView(show: .constant(true))
         }.preferredColorScheme(.dark)
     }
 }

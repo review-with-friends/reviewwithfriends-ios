@@ -25,7 +25,7 @@ struct LikeSelector: View {
                             await self.callback(emoji)
                         }
                     }) {
-                        Text(emoji).font(.title).padding(.horizontal)
+                        Text(emoji).font(.title).padding(.horizontal, 12)
                     }
                 }
             }.padding().background(.black).cornerRadius(16.0).shadow(radius: 6.0)

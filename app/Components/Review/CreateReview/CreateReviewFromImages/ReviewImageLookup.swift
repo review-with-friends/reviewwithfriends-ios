@@ -54,7 +54,14 @@ struct ReviewImageLookup: View {
             }
         }
         
-        if let coordinate = potentialCoordinate {
+        if let location = self.selectedLocation {
+            self.region = MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: location.latitude,
+                                               longitude: location.longitude),
+                latitudinalMeters: 200,
+                longitudinalMeters: 200
+            )
+        } else if let coordinate = potentialCoordinate {
             self.region = MKCoordinateRegion(
                 center: CLLocationCoordinate2D(latitude: coordinate.latitude,
                                                longitude: coordinate.longitude),

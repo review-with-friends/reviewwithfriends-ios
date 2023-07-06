@@ -16,6 +16,7 @@ struct UserSettings: View {
     @State var logoutConfirmationShowing = false
     @State var reportBugShowing = false
     @State var recoveryEmailShowing = false
+    @State var showRecentUpdateToggle = false
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var friendsCache: FriendsCache
@@ -67,6 +68,14 @@ struct UserSettings: View {
                             self.recoveryEmailShowing = true
                         }
                     }
+                    if !self.showRecentUpdateToggle {
+                        Button("Show New Stuff on Homepage"){
+                            withAnimation {
+                                self.showRecentUpdateToggle = true
+                                showRecentUpdateDrawer()
+                            }
+                        }
+                    }
                     Button("Logout", role: .cancel){
                         logoutConfirmationShowing = true
                     }
@@ -88,6 +97,8 @@ struct UserSettings: View {
         }
         .sheet(isPresented: self.$recoveryEmailShowing ){
             SetupRecoveryEmailSheet(isShowing: self.$recoveryEmailShowing)
+        }.onAppear {
+            self.showRecentUpdateToggle = shouldShowRecentUpdateDrawer()
         }
     }
 }
