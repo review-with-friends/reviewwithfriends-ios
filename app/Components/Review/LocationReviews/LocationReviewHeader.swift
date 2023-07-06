@@ -17,6 +17,7 @@ struct LocationReviewHeader: View {
     var latitude: Double
     var longitude: Double
     var category: String
+    var linkToReviewsPage: Bool
     
     var locationManager = CLLocationManager()
     @State var locationDelegate: LocationDelegate?
@@ -25,6 +26,9 @@ struct LocationReviewHeader: View {
     @State var placemark: CLPlacemark?
     @State var showingMapsConfirmation: Bool = false
     @State var installedMapsApps: [(String, URL)] = []
+    
+    @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var bookmarkCache: BookmarkCache
     
     func lookupAddress() {
         let geocoder = CLGeocoder()
@@ -42,18 +46,58 @@ struct LocationReviewHeader: View {
                 }
             }
         }
-        
     }
     
     func updateDistance(location: CLLocation) {
         self.distance = location.distance(from: CLLocation(latitude: self.latitude, longitude: self.longitude)) * 0.000621371
     }
     
+    func isBookmarked() -> Bool {
+        bookmarkCache.bookmarks.contains(where: { bookmark in
+            bookmark.locationName == self.locationName &&
+            bookmark.latitude <= self.latitude + 0.001 &&
+            bookmark.latitude >= self.latitude - 0.001 &&
+            bookmark.longitude <= self.longitude + 0.001 &&
+            bookmark.longitude >= self.longitude - 0.001
+        })
+    }
+    
+    func toggleBookmarked() async {
+        var result: Result<(), RequestError>
+        if self.isBookmarked() {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+            
+            result = await app.removeBookmark(token: auth.token, cache: self.bookmarkCache, locationName: self.locationName, latitude: self.latitude, longitude: self.longitude)
+        } else {
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
+            
+            result = await app.addBookmark(token: auth.token, cache: self.bookmarkCache, locationName: self.locationName, category: self.category, latitude: self.latitude, longitude: self.longitude)
+        }
+        
+        switch result {
+        case .success():
+            break
+        case .failure(let error):
+            print(error)
+            break
+        }
+    }
+    
     var body: some View {
         VStack {
             VStack {
                 HStack {
-                    Text(self.locationName).font(.title3.bold())
+                    if self.linkToReviewsPage {
+                        Button(action: {
+                            self.path.append(UniqueLocation(locationName: self.locationName, category: self.category, latitude: self.latitude, longitude: self.longitude))
+                        }){
+                            Text(self.locationName).font(.title3.bold())
+                        }.accentColor(.primary)
+                    } else {
+                        Text(self.locationName).font(.title3.bold())
+                    }
                     Spacer()
                     if let mkCategory = MKPointOfInterestCategory.getCategory(category: self.category){
                         if let image = mkCategory.getSystemImageString() {
@@ -77,10 +121,27 @@ struct LocationReviewHeader: View {
                 }
                 HStack {
                     Spacer()
-                    SmallPrimaryButton(title: "Review", icon: "square.and.pencil", action: {
+                    Button(action: {
                         self.path.append(UniqueLocationCreateReview(locationName: self.locationName, category: self.category, latitude: self.latitude, longitude: self.longitude))
-                    })
-                    SmallPrimaryButton(title: "Directions", icon: "map.fill", action: {self.showingMapsConfirmation = true})
+                    }) {
+                            Image(systemName: "square.and.pencil").foregroundColor(.primary).font(.system(size: 28))
+                    }
+                    Button(action: {
+                        self.showingMapsConfirmation = true
+                    }) {
+                        Image(systemName: "map.fill").foregroundColor(.primary).font(.system(size: 28))
+                    }.padding(.horizontal)
+                    Button(action: {
+                        Task {
+                            await self.toggleBookmarked()
+                        }
+                    }) {
+                        if self.isBookmarked() {
+                            Image(systemName: "bookmark.fill").foregroundColor(.yellow).font(.system(size: 28))
+                        } else {
+                            Image(systemName: "bookmark").foregroundColor(.primary).font(.system(size: 28))
+                        }
+                    }
                 }
             }.padding()
         }.background(APP_BACKGROUND).listRowSeparator(.hidden).cornerRadius(8)
@@ -116,22 +177,6 @@ struct LocationReviewHeader: View {
                 } else {
                     locationManager.startUpdatingLocation()
                 }
-            }.toolbar {
-                Button(action: {
-                    let urlResult = app.generateUniqueLocationURL(uniqueLocation: UniqueLocation(locationName: self.locationName, category: self.category, latitude: self.latitude, longitude: self.longitude))
-                    
-                    switch urlResult {
-                    case .success(let url):
-                        let AV = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        windowScene?.keyWindow?.rootViewController?.present(AV, animated: true, completion: nil)
-                    case .failure(_):
-                        return
-                    }
-                }) {
-                    Image(systemName: "square.and.arrow.up")
-                }.accentColor(.primary)
             }
     }
     
@@ -175,7 +220,7 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
 struct LocationReviewHeader_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            LocationReviewHeader(path: .constant(NavigationPath()), locationName: "Mcdonalds this is a really long", latitude: 20.0, longitude: 44.0, category: "restaurant").preferredColorScheme(.dark)
+            LocationReviewHeader(path: .constant(NavigationPath()), locationName: "Mcdonalds this is a really long", latitude: 20.0, longitude: 44.0, category: "restaurant", linkToReviewsPage: false).preferredColorScheme(.dark)
         }
     }
 }

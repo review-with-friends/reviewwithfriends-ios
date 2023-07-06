@@ -11,8 +11,6 @@ import SwiftUI
 struct RemovePhotoView: View {
     @Binding var path: NavigationPath
     
-    var refreshFullReview: () async -> Void
-    
     @State var fullReview: FullReview
     @State var selectedPhoto: Int = 0
     
@@ -23,7 +21,6 @@ struct RemovePhotoView: View {
             let result = await app.removeReviewPic(token: auth.token, picId: pic.id, reviewId: self.fullReview.review.id)
             switch result {
             case .success():
-                await refreshFullReview()
                 self.path.removeLast()
             case .failure(_):
                 return

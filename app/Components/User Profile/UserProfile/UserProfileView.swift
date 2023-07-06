@@ -25,7 +25,7 @@ struct UserProfileView: View {
     @EnvironmentObject var friendsCache: FriendsCache
     
     func createActionCallback(page: Int) async -> Result<[FullReview], RequestError> {
-        return await app.getFullReviewsForUser(token: self.auth.token, userId: self.user.id, page: page)
+        return await app.getRecommendedReviewsForUser(token: self.auth.token, userId: self.user.id, page: page)
     }
     
     static func getCachedGridPreference() -> Bool {
@@ -47,7 +47,7 @@ struct UserProfileView: View {
                         HStack {
                             Spacer()
                             UserProfileCommandBar(path: self.$path, showReportSheet: self.$showReportSheet, userId: self.user.id)
-                        }.padding(.bottom.union(.trailing))
+                        }.padding()
                     } else {
                         HStack {
                             Spacer()
@@ -80,7 +80,7 @@ struct UserProfileView: View {
                             IconButton(icon: "gearshape.fill", action: {
                                 self.path.append(SettingsDestination())
                             }).padding(8)
-                        }
+                        }.padding()
                     }
                 }
                 HStack {
@@ -98,34 +98,36 @@ struct UserProfileView: View {
                     }
                     Spacer()
                 }
+                HStack {
+                    SmallPrimaryButton(title: "All Reviews", action: {
+                        self.path.append(UserReviewDestination(userId: self.user.id))
+                    })
+                    SmallPrimaryButton(title: "Bookmarks", action: {
+                        self.path.append(UserBookmarksDestination(userId: self.user.id))
+                    })
+                    Spacer()
+                }
+                HStack {
+                    Text("Recommended:").font(.title2).bold().padding()
+                    Spacer()
+                }
                 if self.friendsCache.areFriends(userId: self.user.id) {
-                    HStack {
-                        Spacer()
-                        Picker("", selection: $showGrid) {
-                            Image(systemName: "photo.stack").tag(false)
-                            Image(systemName: "rectangle.grid.3x2.fill").tag(true)
-                        }.onChange(of: showGrid) { g in
-                            self.setCachedGridPreference()
-                        }
-                        .pickerStyle(.segmented)
-                        Spacer()
-                    }
-                    
-                    if self.showGrid {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 125))]) {
-                            ForEach(self.model.reviewsToRender) { review in
-                                ReviewGridItem(path: self.$path, fullReview: review.fullReview)
-                            }
-                        }
-                    }
-                    else {
-                        ForEach(self.model.reviewsToRender) { review in
-                            ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
-                        }
+                    ForEach(self.model.reviewsToRender) { review in
+                        ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
                     }
                     VStack {
-                        if self.model.noMorePages {
-                            Text("Thats it!").foregroundColor(.secondary).padding(50).font(.caption)
+                        if self.model.noMorePages && self.model.reviewsToRender.count == 0 {
+                            VStack {
+                                Text("\(self.user.displayName) has no recommended places yet.").foregroundColor(.secondary)
+                                HStack {
+                                    SmallPrimaryButton(title: "See All Reviews", action: {
+                                        self.path.append(UserReviewDestination(userId: self.user.id))
+                                    })
+                                }
+                            }.padding()
+                        }
+                        else if self.model.noMorePages {
+                            ThatsIt().padding(50)
                         }
                         else {
                             ProgressView().padding()
@@ -165,6 +167,6 @@ struct UserProfileView: View {
             ReportUser(showReportSheet: self.$showReportSheet, userId: self.user.id)
                 .presentationDetents([.fraction(0.33)])
                 .presentationDragIndicator(.visible)
-        }
+        }.navigationBarTitle("", displayMode: .inline)
     }
 }

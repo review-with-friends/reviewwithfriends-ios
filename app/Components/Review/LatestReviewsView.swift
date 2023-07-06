@@ -14,6 +14,7 @@ struct LatestReviewsView: View {
     @StateObject var model = PaginatedReviewModel()
     
     @State var lastLoad = Date()
+    @State var showRecentUpdateDrawer = false
     
     @EnvironmentObject var auth: Authentication
     @EnvironmentObject var userCache: UserCache
@@ -33,20 +34,28 @@ struct LatestReviewsView: View {
         }
     }
     
+    func showRecentUpdateDrawerIfNeeded() {
+        self.showRecentUpdateDrawer = shouldShowRecentUpdateDrawer()
+    }
+    
     var body: some View {
         VStack {
             ScrollView {
                 LazyVStack {
+                    if showRecentUpdateDrawer && !self.model.loading {
+                        RecentUpdateView(show: self.$showRecentUpdateDrawer)
+                    }
                     ForEach(self.model.reviewsToRender) { review in
-                        ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
+                        VStack {
+                            ReviewLoaderA(path: self.$path, review: review, showListItem: true, showLocation: true)
+                        }
                     }
                     VStack {
                         if self.model.noMorePages && self.model.reviews.isEmpty {
                             FeedZeroReviews(path: self.$path)
                         } else if self.model.noMorePages {
                             FeedEndOfReviews()
-                        }
-                        else {
+                        } else if self.model.reviewsToRender.count > 0 {
                             ProgressView().padding()
                         }
                     }.onAppear {
@@ -74,6 +83,7 @@ struct LatestReviewsView: View {
         }.onAppear {
             // set the callback whenever - this is cheap right?
             self.feedReloadCallbackManager.callback = reloadCallback
+            self.showRecentUpdateDrawerIfNeeded()
             
             if self.feedRefreshManager.popHardReload() {
                 Task {

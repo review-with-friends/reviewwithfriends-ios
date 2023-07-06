@@ -261,6 +261,7 @@ struct EditReviewRequest: Codable {
     let review_id: String
     let text: String
     let stars: Int
+    let delivered: Bool
 }
 
 func createReview(token: String, reviewRequest: CreateReviewRequest) async -> Result<Review, RequestError> {
@@ -310,6 +311,7 @@ struct CreateReviewRequest: Codable {
     let is_custom: Bool
     let pic: String
     let post_date: Int64
+    let delivered: Bool
 }
 
 func getReviewFromBoundary(token: String, boundary: MapBoundary, page: Int) async -> Result<[Review], RequestError> {
@@ -415,6 +417,64 @@ func searchLatestReviews(token: String, searchTerm: String, page: Int) async -> 
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             decoder.dateDecodingStrategy = .millisecondsSince1970
             let reviews = try decoder.decode([Review].self, from: data)
+            return .success(reviews)
+        } catch (let error) {
+            return .failure(.DeserializationError(message: error.localizedDescription))
+        }
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
+func setRecommendReview(token: String, reviewId: String, recommended: Bool) async -> Result<(), RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/update_recommended") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "review_id", value: reviewId)])
+    url.append(queryItems:  [URLQueryItem(name: "recommended", value: String(recommended))])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await app.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(_):
+        return .success(())
+    case .failure(let error):
+        return .failure(error)
+    }
+}
+
+func getRecommendedReviewsForUser(token: String, userId: String, page: Int) async -> Result<[FullReview], RequestError> {
+    var url: URL
+    if let url_temp = URL(string: REVIEW_V1_ENDPOINT + "/recommended_reviews_from_user") {
+        url = url_temp
+    } else {
+        return .failure(.NetworkingError(message: "failed created url"))
+    }
+    
+    url.append(queryItems:  [URLQueryItem(name: "user_id", value: userId)])
+    url.append(queryItems:  [URLQueryItem(name: "page", value: "\(page)")])
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    request.setValue(token, forHTTPHeaderField: "Authorization")
+    
+    let result = await app.requestWithRetry(request: request)
+    
+    switch result {
+    case .success(let data):
+        do {
+            let decoder =  JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            let reviews = try decoder.decode([FullReview].self, from: data)
             return .success(reviews)
         } catch (let error) {
             return .failure(.DeserializationError(message: error.localizedDescription))

@@ -36,6 +36,12 @@ struct ReviewListItemHeader: View {
                             Image(systemName: image)
                         }
                     }
+                    if self.review.delivered {
+                        Image(systemName: "takeoutbag.and.cup.and.straw.fill")
+                    }
+                    if self.review.recommended {
+                        Image(systemName: "star.fill").foregroundColor(.yellow)
+                    }
                 }
                 if showLocation {
                     HStack {

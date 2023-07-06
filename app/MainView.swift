@@ -14,11 +14,10 @@ struct MainView: View {
     @EnvironmentObject var friendsCache: FriendsCache
     @EnvironmentObject var notificatonManager: NotificationManager
     @EnvironmentObject var appDelegate: AppDelegate
+    @EnvironmentObject var bookmarkCache: BookmarkCache
     
     @State var tab = 0
     @State var path = NavigationPath()
-    
-    @State var showRecentUpdateDrawer = false
     
     @StateObject var feedRefreshManager = FeedRefreshManager()
     @StateObject var feedReloadCallbackManager =  FeedReloadCallbackManager(callback: nil)
@@ -35,10 +34,6 @@ struct MainView: View {
                 self.appDelegate.deeplinkQueue = []
             }
         }
-    }
-    
-    func showRecentUpdateDrawerIfNeeded() {
-        self.showRecentUpdateDrawer = shouldShowRecentUpdateDrawer()
     }
     
     var body: some View {
@@ -61,8 +56,8 @@ struct MainView: View {
             .navigationDestination(for: UniqueLocation.self) { uniqueLocation in
                 LocationReviewsView(path: self.$path, uniqueLocation: uniqueLocation)
             }
-            .navigationDestination(for: UniqueLocationCreateReview.self) { uniqueLocationReview in
-                CreateReviewView(path: self.$path, reviewLocation: uniqueLocationReview)
+            .navigationDestination(for: UniqueLocationCreateReview.self) { u in
+                CreateReviewFromImagesView(path: self.$path, selectedLocation: UniqueLocation(locationName: u.locationName, category: u.category, latitude: u.latitude, longitude: u.longitude))
             }
             .navigationDestination(for: CreateReviewFromImageDestination.self) { _ in
                 CreateReviewFromImagesView(path: self.$path)
@@ -94,6 +89,12 @@ struct MainView: View {
             .navigationDestination(for: SearchDestination.self) { _ in
                 SearchReviewsView(path: self.$path)
             }
+            .navigationDestination(for: UserReviewDestination.self) { dest in
+                UserReviewView(path: self.$path, userId: dest.userId)
+            }
+            .navigationDestination(for: UserBookmarksDestination.self) { dest in
+                UserBookmarkView(path: self.$path, userId: dest.userId)
+            }
             .navigationDestination(for: EditReviewDestination.self) { dest in
                 EditReviewView(path: self.$path, fullReview: dest.fullReview)
             }
@@ -124,11 +125,7 @@ struct MainView: View {
             .environmentObject(self.feedReloadCallbackManager)
             .environmentObject(self.feedRefreshManager)
             .accentColor(.primary)
-            .sheet(isPresented: self.$showRecentUpdateDrawer) {
-                RecentUpdateView()
-            }
             .onFirstAppear {
-                self.showRecentUpdateDrawerIfNeeded()
                 await self.notificatonManager.updateDeviceToken(authToken: self.auth.token, deviceToken: self.appDelegate.deviceToken)
             }
             .onChange(of: self.appDelegate.deeplinkQueue) { _ in
@@ -150,6 +147,9 @@ struct MainView: View {
                 Task {
                     let _ = await self.friendsCache.refreshFriendsCache(token: self.auth.token)
                     await self.notificatonManager.getNotifications(token: self.auth.token)
+                    if let user = self.auth.user {
+                        await self.bookmarkCache.setAndRefreshCache(token: self.auth.token, userId: user.id)
+                    }
                 }
             }.onOpenURL { url in
                 guard let url = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }

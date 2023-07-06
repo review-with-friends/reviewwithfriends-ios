@@ -140,7 +140,7 @@ class MapDelegate: NSObject, MKMapViewDelegate, CLLocationManagerDelegate, Obser
         let view = ReviewAnnotationView(annotation: annotation, reuseIdentifier: nil)
         
         if let picUrl = annotation.picUrl {
-            view.photo = annotation.picUrl
+            view.photo = picUrl
         } else if let picId = annotation.picId {
             view.photo = "https://bout.sfo3.cdn.digitaloceanspaces.com/" + picId
         }

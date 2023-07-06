@@ -9,7 +9,7 @@ import Foundation
 
 let LIKE_V1_ENDPOINT = "https://api.reviewwithfriends.com/api/v1/like"
 
-func likeReview(token: String, reviewId: String) async -> Result<(), RequestError> {
+func likeReview(token: String, reviewId: String, likeType: Int) async -> Result<(), RequestError> {
     var url: URL
     if let url_temp = URL(string: LIKE_V1_ENDPOINT) {
         url = url_temp
@@ -18,6 +18,7 @@ func likeReview(token: String, reviewId: String) async -> Result<(), RequestErro
     }
     
     url.append(queryItems:  [URLQueryItem(name: "review_id", value: reviewId)])
+    url.append(queryItems:  [URLQueryItem(name: "like_type", value: String(likeType))])
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"

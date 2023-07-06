@@ -77,7 +77,23 @@ struct LocationReviewsView: View {
                 }
             } else {
                 VStack {
-                    LocationReviewHeader(path: self.$path, locationName: self.uniqueLocation.locationName, latitude: self.uniqueLocation.latitude, longitude: self.uniqueLocation.longitude, category: self.uniqueLocation.category)
+                    LocationReviewHeader(path: self.$path, locationName: self.uniqueLocation.locationName, latitude: self.uniqueLocation.latitude, longitude: self.uniqueLocation.longitude, category: self.uniqueLocation.category, linkToReviewsPage: false).toolbar {
+                        Button(action: {
+                            let urlResult = app.generateUniqueLocationURL(uniqueLocation: self.uniqueLocation)
+                            
+                            switch urlResult {
+                            case .success(let url):
+                                let AV = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                                let scenes = UIApplication.shared.connectedScenes
+                                let windowScene = scenes.first as? UIWindowScene
+                                windowScene?.keyWindow?.rootViewController?.present(AV, animated: true, completion: nil)
+                            case .failure(_):
+                                return
+                            }
+                        }) {
+                            Image(systemName: "square.and.arrow.up")
+                        }.accentColor(.primary)
+                    }
                     if reviews.count >= 1 {
                         List {
                             ForEach(reviews) { review in
@@ -103,7 +119,7 @@ struct LocationReviewsView: View {
             Task {
                 await loadReviews()
             }
-        }.environmentObject(ChildViewReloadCallback(callback: loadReviews))
+        }.environmentObject(ChildViewReloadCallback(callback: loadReviews)).navigationBarTitle("", displayMode: .inline)
     }
 }
 

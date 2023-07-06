@@ -33,6 +33,12 @@ struct ReviewReplies: View {
                     }.padding(.leading, 24).padding(.top, -6)
                 }
             }
+            if self.fullReview.replies.count == 0 {
+                VStack {
+                    Image(systemName: "text.bubble").font(.system(size: 72.0)).padding()
+                    Text("No comments yet.").bold()
+                }.padding().foregroundColor(.gray)
+            }
         }.padding(.top)
     }
 }

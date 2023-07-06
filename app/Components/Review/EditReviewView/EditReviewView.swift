@@ -11,11 +11,11 @@ import PhotosUI
 
 struct EditReviewView: View {
     @Binding var path: NavigationPath
-    
-    @State var fullReview: FullReview
+    var fullReview: FullReview
     
     @State var text: String = ""
     @State var stars: Int = 0
+    @State var delivered: Bool = false
     
     @State var selectedPhoto: Int = 0
     @State var selectedItem: PhotosPickerItem?
@@ -28,11 +28,11 @@ struct EditReviewView: View {
     @EnvironmentObject var auth: Authentication
     
     func saveReview() async {
-        let result = await app.editReview(token: auth.token, editRequest: EditReviewRequest(review_id: self.fullReview.review.id, text: self.text, stars: self.stars))
+        let result = await app.editReview(token: auth.token, editRequest: EditReviewRequest(review_id: self.fullReview.review.id, text: self.text, stars: self.stars, delivered: self.delivered))
         
         switch result {
         case .success():
-            await refreshFullReview()
+            self.path.removeLast()
         case .failure(_):
             return
         }
@@ -48,22 +48,9 @@ struct EditReviewView: View {
         switch result {
         case .success():
             self.uploading = false
-            await refreshFullReview()
             self.path.removeLast()
         case .failure(_):
             self.uploading = false
-            return
-        }
-    }
-    
-    func refreshFullReview() async {
-        let result = await getFullReviewById(token: auth.token, reviewId: self.fullReview.review.id)
-        
-        switch result {
-        case .success(let fullReview):
-            self.fullReview = fullReview
-            self.setPicTabView()
-        case .failure(_):
             return
         }
     }
@@ -83,14 +70,18 @@ struct EditReviewView: View {
                         ReviewStarsSelector(stars: $stars).padding()
                         Spacer()
                     }.padding()
-                    HStack {
-                        TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...)
+                    VStack {
+                        DeliveredToggle(delivered: self.$delivered)
                     }.padding()
+                    VStack {
+                        HStack {
+                            TextField("Write a caption", text: $text, axis: .vertical).lineLimit(3...)
+                        }.padding()
+                    }.background(APP_BACKGROUND).cornerRadius(16.0)
                     HStack {
-                        PrimaryButton(title: "Save Caption/Rating", action: {
+                        PrimaryButton(title: "Save", action: {
                             Task {
                                 await self.saveReview()
-                                self.path.removeLast()
                             }
                         })
                     }
@@ -111,9 +102,12 @@ struct EditReviewView: View {
                             DisabledPrimaryButton(title: "Remove Photo")
                         }
                     }
-                }.tag(0)
+                }.tag(0).toolbar(.hidden, for: .tabBar)
                 VStack {
                     VStack {
+                        PrimaryButton(title: "Back to Edit", action: {
+                            self.tabSelection = 0
+                        })
                         if self.selectedPhotosToUpload.count > 0 {
                             PrimaryButton(title: "Upload Photo", action: {
                                 Task {
@@ -129,14 +123,18 @@ struct EditReviewView: View {
                         }
                     }
                     ImageSelector(selectedImages: self.$selectedPhotosToUpload, maxImages: 1)
-                }.tag(1)
+                }.tag(1).toolbar(.hidden, for: .tabBar)
                 VStack {
-                    RemovePhotoView(path: self.$path, refreshFullReview: self.refreshFullReview, fullReview: self.fullReview)
-                }.tag(2)
+                    PrimaryButton(title: "Back to Edit", action: {
+                        self.tabSelection = 0
+                    })
+                    RemovePhotoView(path: self.$path, fullReview: self.fullReview)
+                }.tag(2).toolbar(.hidden, for: .tabBar)
             }
         }.onAppear {
             self.text = self.fullReview.review.text
             self.stars = self.fullReview.review.stars
+            self.delivered = self.fullReview.review.delivered
             self.setPicTabView()
         }.navigationTitle("Edit")
     }

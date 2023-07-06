@@ -9,6 +9,7 @@ import Foundation
 
 struct FullReview: Codable, Hashable, Equatable {
     var review: Review
+    var bookmarked: Bool
     var likes: [Like]
     var replies: [Reply]
     var pics: [Pic]

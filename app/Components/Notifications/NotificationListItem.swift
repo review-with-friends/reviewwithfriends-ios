@@ -28,7 +28,7 @@ struct NotificationListItem: View {
                 VStack {
                     HStack {
                         if notification.actionType == 1 {
-                            Text("liked your review at \(notification.reviewLocation)").font(.caption)
+                            Text("reacted to your review at \(notification.reviewLocation)").font(.caption)
                         } else if notification.actionType == 2 {
                             Text("replied to your review at \(notification.reviewLocation)").font(.caption)
                         } else if notification.actionType == 3 {

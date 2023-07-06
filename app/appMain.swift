@@ -15,6 +15,7 @@ struct appMain: App {
     @StateObject var userCache = UserCache()
     @StateObject var friendsCache = FriendsCache()
     @StateObject var notificationManager = NotificationManager()
+    @StateObject var bookmarkCache = BookmarkCache()
     
     var body: some Scene {
         WindowGroup {
@@ -23,6 +24,7 @@ struct appMain: App {
                 .environmentObject(userCache)
                 .environmentObject(friendsCache)
                 .environmentObject(notificationManager)
+                .environmentObject(bookmarkCache)
                 .preferredColorScheme(.dark)
         }
     }

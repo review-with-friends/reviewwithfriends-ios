@@ -39,6 +39,9 @@ struct ReviewDataEditor: View {
                         }
                     }.padding().background(.quaternary).cornerRadius(8)
                 }
+                HStack {
+                    DeliveredToggle(delivered: self.$model.delivered)
+                }.padding()
             }
             Spacer()
             PrimaryButton(title: "Post", action: self.postAction)

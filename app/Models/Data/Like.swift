@@ -12,4 +12,5 @@ struct Like : Codable, Identifiable, Equatable, Hashable {
     let created: Date
     let userId: String
     let reviewId: String
+    let likeType: Int
 }

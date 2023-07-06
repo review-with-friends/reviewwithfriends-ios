@@ -77,8 +77,12 @@ struct ProfilePicLoader: View {
                 }
             }
         }.onFirstAppear {
-            Task {
-                await self.loadUser(ignoreCachee: self.ignoreCache)
+            if let cachedUser = self.userCache.getUserFromCache(userId: self.userId) {
+                user = cachedUser
+            } else {
+                Task {
+                    await self.loadUser(ignoreCachee: self.ignoreCache)
+                }
             }
         }
     }

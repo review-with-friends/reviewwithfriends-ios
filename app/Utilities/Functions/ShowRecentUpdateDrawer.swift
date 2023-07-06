@@ -8,15 +8,21 @@
 import Foundation
 import SwiftUI
 
-let RECENT_UPDATE_KEY = "1_0_1"
+let RECENT_UPDATE_KEY = "1_0_2"
 
 func shouldShowRecentUpdateDrawer() -> Bool {
-    var value = AppStorage.init(wrappedValue: false, RECENT_UPDATE_KEY)
-    if value.wrappedValue == false {
-        value.wrappedValue = true
-        value.update()
-        return true
-    } else {
-        return false
-    }
+    let value = AppStorage.init(wrappedValue: true, RECENT_UPDATE_KEY)
+    return value.wrappedValue
+}
+
+func hideRecentUpdateDrawer() {
+    var value = AppStorage.init(wrappedValue: true, RECENT_UPDATE_KEY)
+    value.wrappedValue = false
+    value.update()
+}
+
+func showRecentUpdateDrawer() {
+    var value = AppStorage.init(wrappedValue: true, RECENT_UPDATE_KEY)
+    value.wrappedValue = true
+    value.update()
 }
