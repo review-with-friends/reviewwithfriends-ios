@@ -17,8 +17,7 @@ struct SetProfilePicView: View {
     @State var selectedItem: PhotosPickerItem?
     /// Image data from the selected image.
     @State var selectedItemData: Data?
-    /// Image Data that will be uploaded.
-    @State var dataToUpload: Data?
+
     /// Tracks if the uploading has started to prevent double input.
     @State var pending: Bool = false
     
@@ -70,8 +69,7 @@ struct SetProfilePicView: View {
                         if let data = try? await newItem?.loadTransferable(type: Data.self) {
                             if let uiImage = UIImage(data: data) {
                                 let resizedImage = resizeImage(image: uiImage)
-                                self.selectedItemData = resizedImage.jpegData(compressionQuality: 0.9)
-                                await uploadImage()
+                                await uploadImage(image: resizedImage)
                             }
                         }
                     }
@@ -83,7 +81,7 @@ struct SetProfilePicView: View {
     }
     
     /// Uploads/Saves the newly selected image from what is currently selected.
-    func uploadImage() async {
+    func uploadImage(image: UIImage) async {
         self.hideError()
         
         if self.pending {
@@ -92,11 +90,12 @@ struct SetProfilePicView: View {
             self.pending = true
         }
         
-        if let data = self.dataToUpload {
+        if let data = image.jpegData(compressionQuality: 0.9) {
             let result = await app.addProfilePic(token: self.auth.token, data: data)
             
             switch result {
             case .success():
+                self.selectedItemData = image.jpegData(compressionQuality: 0.9)
                 self.moveToNextScreen()
                 break
             case.failure(let error):
@@ -117,7 +116,7 @@ struct SetProfilePicView: View {
         
         var newSize = getSizeFromRatio(size: size, scale: scale)
         
-        while newSize.height > 512 || newSize.width > 512 {
+        while newSize.height > 1024 || newSize.width > 1024 {
             scale += 1
             newSize = getSizeFromRatio(size: size, scale: scale)
         }
@@ -130,8 +129,6 @@ struct SetProfilePicView: View {
         
         if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
             UIGraphicsEndImageContext()
-            
-            self.dataToUpload = newImage.jpegData(compressionQuality: 0.9)
             
             return newImage
         }

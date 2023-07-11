@@ -18,11 +18,16 @@ struct DiscoverFriendsView: View {
     }
     
     var body: some View {
-        VStack {
-            DiscoverFriendsList(path: self.$path, navigatable: false)
-            PrimaryButton(title: "Continue", action: {
-                self.moveToNextScreen()
-            })
+        ZStack {
+            VStack {
+                DiscoverFriendsList(path: self.$path, navigatable: false)
+            }
+            VStack {
+                Spacer()
+                PrimaryButton(title: "Continue", action: {
+                    self.moveToNextScreen()
+                })
+            }
         }
     }
 }

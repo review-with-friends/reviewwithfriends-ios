@@ -13,11 +13,16 @@ struct FriendsList: View {
     
     @EnvironmentObject var friendsCache: FriendsCache
     
+    @State var searchText = ""
+    
     var body: some View {
         ScrollView {
+            HStack {
+                TextField("@", text: $searchText).padding(8)
+            }.background(.quaternary).cornerRadius(8).padding()
             VStack {
                 ForEach(self.friendsCache.fullFriends.friends) { friend in
-                    FriendsListItemLoader(path: self.$path, userId: friend.friendId, requestId: friend.id, itemType: .FriendItem)
+                    FriendsListItemLoader(path: self.$path, userId: friend.friendId, requestId: friend.id, itemType: .FriendItem, atFilter: searchText)
                 }
             }.padding(.horizontal)
         }.navigationTitle("Friends").padding(.top)

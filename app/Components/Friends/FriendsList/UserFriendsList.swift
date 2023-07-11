@@ -51,7 +51,7 @@ struct UserFriendsList: View {
                 ScrollView {
                     VStack {
                         ForEach(self.friends) { friend in
-                            FriendsListItemLoader(path: self.$path, userId: friend.friendId, requestId: friend.id, itemType: .SearchItem)
+                            FriendsListItemLoader(path: self.$path, userId: friend.friendId, requestId: friend.id, itemType: .SearchItem, atFilter: nil)
                         }
                     }.padding(.horizontal)
                 }.padding(.top)

@@ -21,11 +21,14 @@ struct GetStartedView: View {
     
     var body: some View {
         VStack {
-            Spacer()
-            Image("hood")
-                .resizable()
-                .scaledToFit()
-                .cornerRadius(50).overlay {
+            ZStack {
+                VStack {
+                    Spacer()
+                }.overlay {
+                    Image("hood").resizable().scaledToFill().ignoresSafeArea(.all)
+                }
+                VStack {
+                    Spacer()
                     VStack {
                         Spacer()
                         VStack {
@@ -43,11 +46,13 @@ struct GetStartedView: View {
                             }.padding(.horizontal.union(.bottom))
                         }
                     }.shadow(radius: 5)
+                    PrimaryButton(title: "Get Started", action: {
+                        withAnimation {
+                            self.moveToNextScreen()
+                        }
+                    }).shadow(radius: 5)
                 }.unsplashToolTip(URL(string: "https://unsplash.com/@umit1010")!)
-            Spacer()
-            PrimaryButton(title: "Get Started", action: {
-                self.moveToNextScreen()
-            })
+            }
         }
     }
 }

@@ -64,7 +64,7 @@ struct SearchForFriendsList: View {
             ScrollView {
                 VStack {
                     ForEach(self.results) { user in
-                        FriendsListItemLoader(path: self.$path, userId: user.id, requestId: "", itemType: .SearchItem)
+                        FriendsListItemLoader(path: self.$path, userId: user.id, requestId: "", itemType: .SearchItem, atFilter: nil)
                     }
                 }.padding(.horizontal)
             }.scrollDismissesKeyboard(.immediately)

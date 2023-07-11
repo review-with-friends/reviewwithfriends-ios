@@ -17,7 +17,7 @@ struct IncomingFriendsList: View {
         ScrollView {
             VStack {
                 ForEach(self.friendsCache.fullFriends.incomingRequests) { friend in
-                    FriendsListItemLoader(path: self.$path, userId: friend.userId, requestId: friend.id, itemType: .IncomingItem)
+                    FriendsListItemLoader(path: self.$path, userId: friend.userId, requestId: friend.id, itemType: .IncomingItem, atFilter: nil)
                 }
             }.padding(.horizontal)
         }.navigationTitle("Incoming Requests").padding(.top)

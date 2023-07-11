@@ -45,7 +45,7 @@ struct ReportBug: View {
             if !self.complete {
                 VStack {
                     VStack {
-                        TextField("Issue Subject", text: self.$title, axis: .vertical).lineLimit(1)
+                        TextField("Issue Subject", text: self.$title).lineLimit(1)
                         if self.title.count > 64 {
                             Text("too long").foregroundColor(.red)
                         }
@@ -68,7 +68,6 @@ struct ReportBug: View {
             } else {
                 Text("Thank you for submitting a report! 🎉").font(.title).bold()
             }
-            Spacer()
         }
     }
 }
