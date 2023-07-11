@@ -86,7 +86,13 @@ struct UserProfileView: View {
                 HStack {
                     Spacer()
                     VStack {
-                        ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true)
+                        ProfilePicLoader(path: self.$path, userId: user.id, profilePicSize: .large, navigatable: false, ignoreCache: true).overlay {
+                            if let loggedInUser = self.auth.user {
+                                if loggedInUser.id == self.user.id {
+                                    QRCodeOverlay(userId: self.user.id)
+                                }
+                            }
+                        }
                         HStack {
                             VStack {
                                 Text(user.displayName).padding(4)

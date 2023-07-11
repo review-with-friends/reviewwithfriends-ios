@@ -17,7 +17,7 @@ struct IgnoredFriendsList: View {
         ScrollView {
             VStack {
                 ForEach(self.friendsCache.fullFriends.ignoredRequests) { friend in
-                    FriendsListItemLoader(path: self.$path, userId: friend.userId, requestId: friend.id, itemType: .IgnoredItem)
+                    FriendsListItemLoader(path: self.$path, userId: friend.userId, requestId: friend.id, itemType: .IgnoredItem, atFilter: nil)
                 }
             }.padding(.horizontal)
         }.navigationTitle("Ignored Requests").padding(.top)

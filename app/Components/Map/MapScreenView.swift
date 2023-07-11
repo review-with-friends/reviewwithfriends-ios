@@ -144,7 +144,7 @@ struct MapScreenView: View {
                                 }){
                                     Text("Clear").foregroundColor(.secondary)
                                 }
-                            }.padding(8).background(APP_BACKGROUND).cornerRadius(8).shadow(radius: 3)
+                            }.padding(8).background(.red).cornerRadius(8).shadow(radius: 3)
                         }
                         if self.showUserReviewsOnly {
                             HStack {

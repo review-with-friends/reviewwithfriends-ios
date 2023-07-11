@@ -213,6 +213,7 @@
 		9CD4F85A2A4B690F006DBD5E /* UserBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F8592A4B690F006DBD5E /* UserBookmarkView.swift */; };
 		9CD4F85E2A4B6CC9006DBD5E /* UserBookmarksDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F85D2A4B6CC9006DBD5E /* UserBookmarksDestination.swift */; };
 		9CD4F8602A4B7635006DBD5E /* BookmarkCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F85F2A4B7635006DBD5E /* BookmarkCache.swift */; };
+		9CD4F8622A5C6F4A006DBD5E /* QRCodeOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F8612A5C6F4A006DBD5E /* QRCodeOverlay.swift */; };
 		9CF2E16329ECE2BA0024228B /* UserProfileCommandBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16229ECE2BA0024228B /* UserProfileCommandBar.swift */; };
 		9CF2E16629EDA8D70024228B /* UserFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16529EDA8D70024228B /* UserFriendsList.swift */; };
 		9CF2E16A29EDAD9D0024228B /* UserFriendsListDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */; };
@@ -438,6 +439,7 @@
 		9CD4F8592A4B690F006DBD5E /* UserBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookmarkView.swift; sourceTree = "<group>"; };
 		9CD4F85D2A4B6CC9006DBD5E /* UserBookmarksDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookmarksDestination.swift; sourceTree = "<group>"; };
 		9CD4F85F2A4B7635006DBD5E /* BookmarkCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCache.swift; sourceTree = "<group>"; };
+		9CD4F8612A5C6F4A006DBD5E /* QRCodeOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeOverlay.swift; sourceTree = "<group>"; };
 		9CF2E16229ECE2BA0024228B /* UserProfileCommandBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCommandBar.swift; sourceTree = "<group>"; };
 		9CF2E16529EDA8D70024228B /* UserFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsList.swift; sourceTree = "<group>"; };
 		9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsListDestination.swift; sourceTree = "<group>"; };
@@ -1209,6 +1211,7 @@
 				9CAEB3A829886F57009A18A3 /* UserProfileView.swift */,
 				9CF2E16229ECE2BA0024228B /* UserProfileCommandBar.swift */,
 				9CF2E16D29EDE6140024228B /* ReportUser.swift */,
+				9CD4F8612A5C6F4A006DBD5E /* QRCodeOverlay.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -1507,6 +1510,7 @@
 				9CAEB3A0297780C6009A18A3 /* UIColorExtensions.swift in Sources */,
 				9C936AFB29C0FC6B00AA1F41 /* PrimaryButtonRed.swift in Sources */,
 				9CD4F85A2A4B690F006DBD5E /* UserBookmarkView.swift in Sources */,
+				9CD4F8622A5C6F4A006DBD5E /* QRCodeOverlay.swift in Sources */,
 				9C871D1A29674FD3007B72F7 /* ReviewAddReply.swift in Sources */,
 				9C82179429368ECC0011B7E0 /* GetCodeView.swift in Sources */,
 				9C82179D2936BE110011B7E0 /* SubmitCodeView.swift in Sources */,
@@ -1735,7 +1739,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1780,7 +1784,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				OTHER_SWIFT_FLAGS = "-enforce-exclusivity=none";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacedoglabs.spotster;
 				PRODUCT_NAME = "$(TARGET_NAME)";

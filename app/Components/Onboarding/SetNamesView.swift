@@ -43,8 +43,6 @@ struct SetNamesView: View {
         VStack {
             if let user = auth.user {
                 VStack {
-                    Text("Choose your usernames.").padding()
-                    Text("You can change them whenever you want.").font(.caption).foregroundColor(.secondary)
                     Form {
                         HStack {
                             Text("Username")
@@ -86,6 +84,7 @@ struct SetNamesView: View {
                             Text(self.errorText).foregroundColor(.red)
                         }
                     }
+                    Text("You can change these whenever you want.").font(.caption).foregroundColor(.secondary)
                 }.padding()
                 PrimaryButton(title: "Continue", action: {
                     if self.name.starts(with: "newuser") || self.displayName.starts(with: "newuser"){

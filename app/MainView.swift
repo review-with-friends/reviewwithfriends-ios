@@ -152,30 +152,39 @@ struct MainView: View {
                     }
                 }
             }.onOpenURL { url in
-                guard let url = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
-                
-                guard let navigationType = url.queryItems?.first(where: { $0.name == "navType" })?.value
-                else { return }
-                
-                switch navigationType {
-                case "location":
-                    guard let uniqueLocation = app.getUniqueLocationFromURL(url: url)
-                    else { return }
-                    
-                    self.path.append(uniqueLocation)
-                case "user":
-                    guard let uniqueUser = app.getUserIdFromURL(url: url)
-                    else { return }
-                    
-                    self.path.append(uniqueUser)
-                case "review":
-                    guard let reviewDestination = app.getReviewDestinationFromUrl(url: url)
-                    else { return }
-                    
-                    self.path.append(reviewDestination)
-                default:
-                    return
-                }
+                self.handleUrl(url: url)
+            }.onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
+                    guard let url = userActivity.webpageURL else {
+                            return
+                    }
+                    self.handleUrl(url: url)
             }
+    }
+    
+    func handleUrl(url: URL) {
+        guard let url = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
+        
+        guard let navigationType = url.queryItems?.first(where: { $0.name == "navType" })?.value
+        else { return }
+        
+        switch navigationType {
+        case "location":
+            guard let uniqueLocation = app.getUniqueLocationFromURL(url: url)
+            else { return }
+            
+            self.path.append(uniqueLocation)
+        case "user":
+            guard let uniqueUser = app.getUserIdFromURL(url: url)
+            else { return }
+            
+            self.path.append(uniqueUser)
+        case "review":
+            guard let reviewDestination = app.getReviewDestinationFromUrl(url: url)
+            else { return }
+            
+            self.path.append(reviewDestination)
+        default:
+            return
+        }
     }
 }
