@@ -214,6 +214,10 @@
 		9CD4F85E2A4B6CC9006DBD5E /* UserBookmarksDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F85D2A4B6CC9006DBD5E /* UserBookmarksDestination.swift */; };
 		9CD4F8602A4B7635006DBD5E /* BookmarkCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F85F2A4B7635006DBD5E /* BookmarkCache.swift */; };
 		9CD4F8622A5C6F4A006DBD5E /* QRCodeOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F8612A5C6F4A006DBD5E /* QRCodeOverlay.swift */; };
+		9CD4F8642A61C575006DBD5E /* TaggedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F8632A61C575006DBD5E /* TaggedImage.swift */; };
+		9CD4F8672A61CDB8006DBD5E /* TagOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F8662A61CDB8006DBD5E /* TagOverlay.swift */; };
+		9CD4F8692A61CE21006DBD5E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F8682A61CE21006DBD5E /* Tag.swift */; };
+		9CD4F86B2A61FF88006DBD5E /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD4F86A2A61FF88006DBD5E /* TagView.swift */; };
 		9CF2E16329ECE2BA0024228B /* UserProfileCommandBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16229ECE2BA0024228B /* UserProfileCommandBar.swift */; };
 		9CF2E16629EDA8D70024228B /* UserFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16529EDA8D70024228B /* UserFriendsList.swift */; };
 		9CF2E16A29EDAD9D0024228B /* UserFriendsListDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */; };
@@ -440,6 +444,10 @@
 		9CD4F85D2A4B6CC9006DBD5E /* UserBookmarksDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookmarksDestination.swift; sourceTree = "<group>"; };
 		9CD4F85F2A4B7635006DBD5E /* BookmarkCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCache.swift; sourceTree = "<group>"; };
 		9CD4F8612A5C6F4A006DBD5E /* QRCodeOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeOverlay.swift; sourceTree = "<group>"; };
+		9CD4F8632A61C575006DBD5E /* TaggedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaggedImage.swift; sourceTree = "<group>"; };
+		9CD4F8662A61CDB8006DBD5E /* TagOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOverlay.swift; sourceTree = "<group>"; };
+		9CD4F8682A61CE21006DBD5E /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		9CD4F86A2A61FF88006DBD5E /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		9CF2E16229ECE2BA0024228B /* UserProfileCommandBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCommandBar.swift; sourceTree = "<group>"; };
 		9CF2E16529EDA8D70024228B /* UserFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsList.swift; sourceTree = "<group>"; };
 		9CF2E16929EDAD9D0024228B /* UserFriendsListDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsListDestination.swift; sourceTree = "<group>"; };
@@ -596,6 +604,7 @@
 				9CAEB3AC298991BE009A18A3 /* UserNotification.swift */,
 				9C2631962995B1BC00A65CC3 /* ReviewViewData.swift */,
 				9CD4F8562A4B5500006DBD5E /* Bookmark.swift */,
+				9CD4F8682A61CE21006DBD5E /* Tag.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -717,6 +726,7 @@
 		9C68CC3029522968007FC567 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9CD4F8652A61CDAB006DBD5E /* Tags */,
 				9C7265122A156064005368ED /* RecentUpdates */,
 				9C7265042A0DDC7E005368ED /* NavBar */,
 				9C8217C3293FEC670011B7E0 /* ErrorViews */,
@@ -1001,6 +1011,7 @@
 				9C68CC2129512B8A007FC567 /* ReviewLoader.swift */,
 				9C2631982995B79000A65CC3 /* ReviewLoaderA.swift */,
 				9CCCEB5C29B91AA7005A2696 /* PinchZoomReviewPicLoader.swift */,
+				9CD4F8632A61C575006DBD5E /* TaggedImage.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -1235,6 +1246,15 @@
 			path = UserBookmarks;
 			sourceTree = "<group>";
 		};
+		9CD4F8652A61CDAB006DBD5E /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				9CD4F8662A61CDB8006DBD5E /* TagOverlay.swift */,
+				9CD4F86A2A61FF88006DBD5E /* TagView.swift */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
 		9CEE0F73296CDE8700312635 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1424,9 +1444,11 @@
 				9C8D86D429998FE5007E714F /* PhotoPreviewData.swift in Sources */,
 				9CF2E16C29EDDC4E0024228B /* DangerousIconButton.swift in Sources */,
 				9C871CC62954FDBA007B72F7 /* FullReview.swift in Sources */,
+				9CD4F8692A61CE21006DBD5E /* Tag.swift in Sources */,
 				9C936AF929C0F10900AA1F41 /* SetupRecoveryView.swift in Sources */,
 				9C871CEE295E2F33007B72F7 /* CreatedBy.swift in Sources */,
 				9C1D8F8429B10D3700B40B32 /* FriendsListItemProfileView.swift in Sources */,
+				9CD4F86B2A61FF88006DBD5E /* TagView.swift in Sources */,
 				9C8217E52949258E0011B7E0 /* ReviewRequests.swift in Sources */,
 				9C871CE9295E1FB9007B72F7 /* UnsplashCredit.swift in Sources */,
 				9C40AA8C2935D298009134EA /* MainView.swift in Sources */,
@@ -1481,6 +1503,7 @@
 				9C871CD72958AF40007B72F7 /* UniqueLocation.swift in Sources */,
 				9C7265162A156093005368ED /* ShowRecentUpdateDrawer.swift in Sources */,
 				9C871D13296604F0007B72F7 /* ReviewText.swift in Sources */,
+				9CD4F8672A61CDB8006DBD5E /* TagOverlay.swift in Sources */,
 				9C0BC9DC29C26E630086E59D /* NavigationTabBar.swift in Sources */,
 				9C8217A229393F0C0011B7E0 /* RequestError.swift in Sources */,
 				9CAEB3922971D456009A18A3 /* MapKitExtensions.swift in Sources */,
@@ -1551,6 +1574,7 @@
 				9C421CAC29FB02A50076A5A0 /* RemovePhotoView.swift in Sources */,
 				9C871CDE295BCE4C007B72F7 /* UniqueUser.swift in Sources */,
 				9C871D0729650383007B72F7 /* ReviewHeaderSkeleton.swift in Sources */,
+				9CD4F8642A61C575006DBD5E /* TaggedImage.swift in Sources */,
 				9CA5A85C2A37F126008FA095 /* UserReviews.swift in Sources */,
 				9CAEB3AF298998C9009A18A3 /* NotificationRequests.swift in Sources */,
 				9C8217B7293C36440011B7E0 /* ProfilePicLoader.swift in Sources */,
