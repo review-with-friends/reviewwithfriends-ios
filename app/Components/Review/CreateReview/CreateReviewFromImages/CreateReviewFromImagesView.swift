@@ -96,24 +96,26 @@ struct CreateReviewFromImagesView: View {
                     }
                 }.tag(1).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar).ignoresSafeArea(.keyboard)
                 VStack {
-                    VStack {
-                        if let reviewLocation = self.selectedLocation {
-                            Text(reviewLocation.locationName).font(.title.bold())
+                    ScrollView {
+                        VStack {
+                            if let reviewLocation = self.selectedLocation {
+                                Text(reviewLocation.locationName).font(.title.bold())
+                            }
+                        }.padding(.top)
+                        VStack {
+                            PrimaryButton(title: "Change Location", action: {
+                                self.tabSelection = 1
+                            })
+                            PrimaryButton(title: "Change Photos", action: {
+                                self.tabSelection = 0
+                            })
                         }
-                    }.padding(.top)
-                    VStack {
-                        PrimaryButton(title: "Change Location", action: {
-                            self.tabSelection = 1
-                        })
-                        PrimaryButton(title: "Change Photos", action: {
-                            self.tabSelection = 0
-                        })
-                    }
-                    VStack {
-                        ReviewDataEditor(model: self.model, postAction: {Task {
-                            await self.postReview()
-                        }})
-                    }
+                        VStack {
+                            ReviewDataEditor(model: self.model, postAction: {Task {
+                                await self.postReview()
+                            }})
+                        }
+                    }.scrollDismissesKeyboard(.immediately)
                 }.tag(2).scrollIndicators(.hidden).toolbar(.hidden, for: .tabBar)
             }.toolbar(.hidden, for: .tabBar)
         }.accentColor(.primary).overlay {
